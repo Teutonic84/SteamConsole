@@ -1,0 +1,66 @@
+# Example Windows Configuration
+# [bsnes]
+# location=
+# command=
+
+# Example Mac Configuration
+# [Mednafen]
+# location=/Emulators/mednafen/mednafen
+# command=%l %r
+
+# Example GNU/Linux Configuration
+# [SNES9X-GTK]
+# location=/usr/bin/snes9x-gtk
+# command=%l %r
+
+[retroarch_nds]
+location=DS
+command=%r
+
+[retroarch_gba]
+location=GBA
+command=%r
+
+[retroarch_n64]
+location=N64
+command=%r
+
+[retroarch_nes]
+location=NES
+command=%r
+
+[retroarch_snes]
+location=SNES
+command=%r
+
+[retroarch_psp]
+location=PSP
+command=%r
+
+[retroarch_sega]
+location=Genesis
+command=%r
+
+[retroarch_sms]
+location=SMS
+command=%r
+
+[Apps]
+location=Apps
+command=%r
+
+[Gamecube]
+location=Gamecube
+command=%r
+
+[Wii]
+location=Wii
+command=%r
+
+[PS1]
+location=PS1
+command=%r
+
+[PS2]
+location=PS2
+command=%r

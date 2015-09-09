@@ -1,0 +1,12 @@
+// license: GNU-GPL
+
+uniform vec4 OGL2Param;
+uniform vec4 OGL2Size;
+varying vec2 TCoord;
+
+void main()
+{
+gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
+gl_Position.xy*=vec2(1.0,-1.0);
+gl_TexCoord[0] = gl_MultiTexCoord1;
+}

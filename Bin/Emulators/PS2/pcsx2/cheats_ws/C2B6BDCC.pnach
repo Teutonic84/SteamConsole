@@ -1,0 +1,6 @@
+gametitle=Dragonball Z 2 (K) (SLKA-25062)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+//cdcc4c3f efee6e3f 
+patch=1,EE,203F6CF0,extended,3F19999A // 3f4ccccd

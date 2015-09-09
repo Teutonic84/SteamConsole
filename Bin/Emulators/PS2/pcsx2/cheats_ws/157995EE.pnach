@@ -1,0 +1,12 @@
+gametitle=Charlie and the Chocolate Factory (NTSC-U)(SLUS-21246)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//003f023c 00088244 340080c4 020b0046 (ELF Hack)
+patch=1,EE,0029c134,word,3c023f2b //3c023f00 zoom
+
+//000080bf 00000000 00000000 00000000 00000000 ccd30ddb (Memory Hack)
+patch=1,EE,20B6FC68,extended,bfaaaaab //bf800000 fov
+
+//Address "20B6FC64" is a X-fov.. but need a render fix

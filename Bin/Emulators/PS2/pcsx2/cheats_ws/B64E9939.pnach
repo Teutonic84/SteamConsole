@@ -1,0 +1,5 @@
+gametitle=Dragon Quest V - Bride of the Sky (J) (SLPM_65555)
+comment=Widescreen hack (NTSC-J by Arapapa)
+
+//Widescreen hack 16:9
+patch=1,EE,2081B5E0,extended,3F400000

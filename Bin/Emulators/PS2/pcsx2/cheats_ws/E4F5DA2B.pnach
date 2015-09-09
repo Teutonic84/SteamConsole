@@ -1,0 +1,8 @@
+gametitle=Tales of Legendia (NTSC-K)(SCKA-20050)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+//ae47613f 00000045 00000045
+patch=1,EE,203D9D20,extended,3f266666 //3f6147ae
+
+//abaaaa3e 8988083e da0d5d3d
+patch=1,EE,203BE830,extended,40133333 //3eaaaaab

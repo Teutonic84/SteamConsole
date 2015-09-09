@@ -1,0 +1,192 @@
+There's been lots of fixes to ePSXe. So here's the basic overview of what you can change.
+
+
+
+PAD config
+1- Run ePSXe_shark_padconfig
+2- Choose input plugins
+3- Run ePSXe and start game
+
+
+
+inis\\ePSXE_shark.ini
+
+delay_injection
+- This is the amount of time before the DLL hack starts. Set this to a higher
+  value if running ePSXe_shark.exe doesn't start ePSXe.exe
+
+
+
+timer_precise
+- Sets the Win32 timer to use 1ms granularity (recommended)
+
+
+
+fast_start
+- When you start a game, uses fast-forward to speed up the in-game boot time
+
+
+
+autorun
+- Lets you quick-start the last game played
+
+1 = Ask to start CDROM
+2 = AUto-start CDROM
+
+3 = Lets you select ISO game every time
+4 = Ask to start last ISO
+5 = Auto-start last ISO
+
+
+
+throttle_fps_off
+- Pressing F4 will let you limit the speed (ex. 180 if you want a certain speed limit)
+
+
+
+max_fps_key
+- Press this key to turn off all framelimiting (if F4 doesn't work)
+
+see inis\\vk_list.txt for replacement keys
+
+
+
+shark_cheater
+- A built-in PEC-style cheater replacement
+
+see shark_codelist_archive for examples
+
+
+
+autostart_controllers
+- When using ePSXe controllers, lets you auto-select the device
+
+1 = auto-select mouse, negcon, guncon devices
+2 = auto-start dualshock / dualanalog controller
+
+
+ex. mouse / digital ==> mouse is on by default
+ex. dualshock ==> sets analog mode by default
+
+
+
+dvd5_mode
+- Lets you use special shalma's disc combining kits (@ ngemu)
+
+ex. FF 8/9, Fear Effect 1/2
+
+
+
+disable_memcards
+- Lets you disable all memcards
+
+1 = disable both ports
+
+ex. Lifeforce Tenka boot
+
+
+NOTE:
+If you set the memcard file to 'none', it will keep the memcard ejected
+(ex. Lifeforce Tenka boot)
+
+
+
+mouse_sensitive
+- Lets you set the sensitivity of the ePSXe mouse
+
+
+
+guncon_sensitive
+- Lets you set the sensitivity of the ePSXe guncon
+
+
+
+show_cursor
+- Hide the win32 cursor (Set to 0)
+
+
+
+apu_cycles
+- Expert feature to be used with DSound 1.10 apu_cycle feature
+
+ex.
+1 0 ~ 2 apu
+2 1 ~ 5 apu
+4 2 ~ 11 apu
+8 3 ~ 22 apu
+16 4 ~ 44 apu
+32 5 ~ 89 apu (default)
+64 6 ~ 179 apu (faster speed)
+
+1 0 = run spu every 2 apu cycles (set this value in DSound expert ini)
+
+
+
+dualshock_mouse
+- Special emulation that lets you simulate a dualshock controller using a
+  keyboard + mouse
+
+
+
+dualshock_mouse_ini
+- Currently only Ape Escape config is supported
+
+
+
+negcon_ini
+- Lets you customize the deadzone of Negcon device (partly working)
+
+
+
+opcode_tracer
+- When you run in interpreter mode, lets you create a trace log
+
+1 = Press F11 to start
+2 = Auto-start at tracing address
+3 = Freeze r3000 at address (press F11 to start)
+
+
+ex.
+2 80010000 ==> start tracing @ $80010000
+
+
+
+cdrom_tracer
+- Turns on cdrom debugging logs (dynarec or interpreter) (Press F11)
+
+
+
+analog_deadzone_left
+- Lets you specify ePSXe dualshock deadzones for P1 analog-left
+
+
+
+analog_deadzone_right
+- Lets you specify ePSXe dualshock deadzones for P1 analog-right
+
+
+
+konami_justifier1
+konami_justifier2
+- Unsupported
+
+
+
+mousewheel_converter
+- Hack that lets the ePSXe mouse behave as a USB mouse (3-button + wheel)
+(only works with games that are hacked to use this mode)
+
+
+
+
+inis\\ePSXe_shark.ini
+
+tomb_raider_1_cdda
+- Turns on a hackfix for ambient music loops, secret chime track resumes
+(only do this if you're playing Tomb 1)
+
+
+
+rebel_assault_2_usa
+- Turns on a hackfix for black screens
+(usa build only)

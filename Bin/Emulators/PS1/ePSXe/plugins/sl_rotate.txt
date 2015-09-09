@@ -1,0 +1,21 @@
+Pete's OpenGL2 GLslang shader effect: "Rotate"
+==============================================
+
+Description:
+------------
+A shader for rotating the screen in 90° steps. Can be useful in certain psx games which allow screen rotation as well (like "Raiden Project").
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.slv" and "gpuPeteOGL2.slf" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "5 - GLSlang files". The "Shader effect level" option is controlling the angle:
+
+Level 1: 0°
+Level 2: 90°
+Level 3: 180°
+Level 4: 270°
+
+To get a better aspect ratio in 90°/270°, the "Keep psx aspect ratio" option of the plugin should be activated as well.
+
+License:
+--------
+None - freeware

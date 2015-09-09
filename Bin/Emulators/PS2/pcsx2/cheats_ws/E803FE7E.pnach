@@ -1,0 +1,7 @@
+gametitle=The Operative: No One Lives Forever (NTSC-U)
+comment=Widescreen Hack modified, same as PC version
+
+//Widescreen hack 16:9
+
+patch=1,EE,2070CEA8,extended,3FECCCCC // 3FC90FDA X axis
+patch=1,EE,2070CEAC,extended,3FAF5C29 // 3F8CBE4C Y axis

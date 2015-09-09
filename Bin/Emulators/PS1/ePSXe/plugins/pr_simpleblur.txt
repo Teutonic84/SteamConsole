@@ -1,0 +1,16 @@
+Pete's OpenGL2 ARB program shader effect: "Simpleblur"
+======================================================
+
+Description:
+------------
+Simple ARB shader blurring the display, depending on the configured "Shader effect level".
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.vp" and "gpuPeteOGL2.fp" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "3 - ARB program files". The "Shader effect level" option will control how much blurring will be done.
+
+
+License:
+--------
+None - freeware

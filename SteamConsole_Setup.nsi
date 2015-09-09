@@ -9,6 +9,7 @@
 !include "MUI_EXTRAPAGES.nsh"
 !include "nsProcess.nsh"
 !include "Sections.nsh"
+!include "zipdll.nsh"
 
 Insttype "/CUSTOMSTRING=Custom"
 Insttype "Standard Installation"
@@ -43,13 +44,15 @@ Section "Core Files (Required)"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	#KillProcDLL::KillProc "Custom Hotkeys.exe"
 	SetOutPath $INSTDIR
-	File /r "SteamConsole.zip"
+	#File /r "SteamConsole.7z"
 	File /r "Changelog.rtf"
 	File /r "License.rtf"
 	#File /r "SteamConsole.ico"
 	#File /r "ROM_Importer.ico"
-	ZipDLL::extractall "SteamConsole.zip" $INSTDIR #File # Extract all files from zip file to install directory based off of user's selection
-	Delete "$INSTDIR\SteamConsole.zip"
+	File "SteamConsole.7z"
+	Nsis7z::ExtractWithDetails "SteamConsole.7z"
+	#ZipDLL::extractall "SteamConsole.zip" $INSTDIR #File # Extract all files from zip file to install directory based off of user's selection
+	Delete "$INSTDIR\SteamConsole.7z"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	#ExecDos::exec /NOUNLOAD /TOSTACK '"$INSTDIR\Scripts\services.bat" $INSTDIR' "" ""

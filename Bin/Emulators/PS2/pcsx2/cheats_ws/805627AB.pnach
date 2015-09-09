@@ -1,0 +1,6 @@
+gametitle=Get Ride! AM Driver - The Truth of Xiangke (J)(SLPM-65949)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+patch=1,EE,001dca44,word,3c023fab //3c023f80

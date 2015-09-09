@@ -1,0 +1,19 @@
+!!ARBvp1.0
+
+OPTION ARB_position_invariant;
+
+# program.env[1].x/y will give the plugin's "effect level" offset
+PARAM	filterOffset = program.env[1];
+
+ATTRIB	sample = vertex.texcoord[ 0 ];
+
+ADD result.texcoord[ 0 ].x, sample.x, -filterOffset.x;
+ADD result.texcoord[ 0 ].y, sample.y, -filterOffset.y;
+ADD result.texcoord[ 1 ].x, sample.x, filterOffset.x;
+ADD result.texcoord[ 1 ].y, sample.y, -filterOffset.y;
+ADD result.texcoord[ 2 ].x, sample.x, -filterOffset.x;
+ADD result.texcoord[ 2 ].y, sample.y, filterOffset.y;
+ADD result.texcoord[ 3 ].x, sample.x, filterOffset.x;
+ADD result.texcoord[ 3 ].y, sample.y, filterOffset.y;
+
+END

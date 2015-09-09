@@ -1,0 +1,126 @@
+D:\SteamConsole\Emulators\ROMS\NES\Rush n' Attack.zip
+D:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\SNES\Aladdin.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\Dragon Quest I & II.zip
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\Breath of Fire II.zip
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\Chrono Trigger.sfc
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\American Gladiators.sfc
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\Aladdin.zip
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\NES\Mega Man 3.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+D:\SteamConsole\Emulators\ROMS\SNES\Super Metroid.zip
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+D:\SteamConsole\Emulators\ROMS\SNES\Super Smash T.V..zip
+D:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\SNES\Teenage Mutant Ninja Turtles IV - Turtles in Time.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\NES\Super Mario Bros..zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Super Mario Bros. 3.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Paperboy.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Teenage Mutant Ninja Turtles II - The Arcade Game.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Contra.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Ninja Gaiden.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Chip 'n Dale Rescue Rangers.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\SNES\Tales of Phantasia.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\NES\Legend of Zelda, The.nes
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Star Wars - The Empire Strikes Back.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\SNES\Super Star Wars - Return of the Jedi.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\SNES\Super Star Wars - The Empire Strikes Back.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\SNES\Super Star Wars.zip
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\PSP\Crisis Core - Final Fantasy VII.iso
+C:\SteamConsole\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\SteamConsole\Emulators\ROMS\PSP\Final Fantasy III.iso
+C:\SteamConsole\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\SteamConsole\Emulators\ROMS\SNES\Chrono Trigger.sfc
+C:\SteamConsole\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\SteamConsole\Emulators\ROMS\PSP\Final Fantasy IV - Complete Collection.iso
+C:\SteamConsole\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\SteamConsole\Emulators\ROMS\NES\Shinobi.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+D:\SteamConsole\Emulators\ROMS\NES\Battletoads.zip
+D:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+D:\SteamConsole\Emulators\ROMS\PSP\Final Fantasy III.iso
+D:\SteamConsole\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+D:\SteamConsole\Emulators\ROMS\NES\Ninja Gaiden.zip
+D:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\SteamConsole\Emulators\ROMS\NES\Battletoads.zip
+C:\SteamConsole\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\PSP\Final Fantasy III (PSP).iso
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\Users\Dan-H_000\Google Drive\Emulators\RetroArch\ROMS\NES\Ninja Gaiden (NES).zip
+C:\Users\Dan-H_000\Google Drive\Emulators\RetroArch\cores\nestopia_libretro.dll
+Nestopia
+D:\Google Drive\Emulators\RetroArch\ROMS\SNES\Aladdin (SNES).zip
+D:\Google Drive\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\SNES\Aladdin (SNES).zip
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\PSP\Crisis Core - Final Fantasy VII (PSP).iso
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\PSP\Final Fantasy I (PSP).iso
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\PSP\Final Fantasy II (PSP).iso
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\PSP\Final Fantasy IV - Complete Collection (PSP).iso
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP
+C:\?
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\ppsspp_libretro.dll
+PPSSPP

@@ -1,0 +1,12 @@
+gametitle=The Bard's Tale [PAL] (SLES_531.54)
+comment=Widescreen pnach by El_Patas
+
+//Gameplay 16:9
+patch=1,EE,0011C0D4,word,3C023F40 //3C023F80 (hor fov+)
+patch=1,EE,0012E6EC,word,3C033F40 //3C033F80
+patch=1,EE,001440F8,word,3C053F40 //3C053F80
+patch=1,EE,00144174,word,3C033F40 //3C033F80
+patch=1,EE,001441C4,word,3C023F40 //3C023F80
+
+//Render fix
+patch=1,EE,0013D9D0,word,3C023F2B //3C023F00

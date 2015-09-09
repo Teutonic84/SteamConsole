@@ -1,0 +1,7 @@
+gametitle=James Bond 007 - Agent Under Fire (NTSC-J)(SLPM-67505)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+
+//0000803F 0000803F 00000000 00000000 00002044 0000E043
+patch=1,EE,207F728C,extended,3FAAAAAB //3F800000

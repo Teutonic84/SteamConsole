@@ -1,0 +1,5 @@
+gametitle=Gitaroo Man (NTSC-U)
+comment=Widescreen Hack
+
+//hor fov (note: HUD is left)
+patch=1,EE,2026FC70,extended,3F400000

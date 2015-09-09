@@ -1,0 +1,9 @@
+gametitle=Bionicle Heroes (J)(SLPM-66645)
+comment=Widescreen Hack by Arapapa
+comment=Turn off widescreen's option in the game
+
+//Widescreen hack 16:9
+
+//X-Fov 
+//403f013c 00008144 00000000 (4th)
+patch=1,EE,00388f58,word,3c013f10 //3c013f40

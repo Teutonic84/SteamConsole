@@ -1,0 +1,22 @@
+// SaL shader ver. 3.0
+// by guest(r) (guest.r@gmail.com)
+// License: GNU-GPL
+
+uniform vec4 OGL2Param;
+uniform vec4 OGL2Size;
+uniform sampler2D OGL2Texture;
+
+void main()
+{
+vec3 c10 = texture2D(OGL2Texture, gl_TexCoord[1].xy).xyz; 
+vec3 c01 = texture2D(OGL2Texture, gl_TexCoord[4].xy).xyz; 
+vec3 c11 = texture2D(OGL2Texture, gl_TexCoord[0].xy).xyz; 
+vec3 c21 = texture2D(OGL2Texture, gl_TexCoord[5].xy).xyz; 
+vec3 c12 = texture2D(OGL2Texture, gl_TexCoord[2].xy).xyz; 
+
+vec3 dt = vec3(1.0,1.0,1.0);
+float k1=dot(abs(c01-c21),dt);
+float k2=dot(abs(c10-c12),dt);
+
+gl_FragColor.xyz = (k1*(c10+c12)+k2*(c01+c21)+0.001*c11)/(2.0*(k1+k2)+0.001);
+}

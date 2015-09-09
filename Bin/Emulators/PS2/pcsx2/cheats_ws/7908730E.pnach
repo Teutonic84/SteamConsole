@@ -1,0 +1,12 @@
+gametitle=Winback - Covert Operations (NTSC-K)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//zoom (ELF hack)
+//003f013c 00008144 0000b0ff 2000b4e7
+patch=1,EE,0024711c,word,3c013f2a //3c013f00
+
+//fov (Memory hack)
+//efee6f3f 00401cc6 00401cc6 9a99193f 0ad7a33c
+patch=1,EE,20459EE4,extended,3F9F49CF //3f6eeeef

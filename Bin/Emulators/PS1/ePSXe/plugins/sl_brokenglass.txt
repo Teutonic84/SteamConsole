@@ -1,0 +1,18 @@
+Pete's OpenGL2 GLslang shader effect: "broken glass"
+====================================================
+
+Description:
+------------
+A shader which displays some glass cracks all over the screen. It's a very simple fake effect, the main purpose of this shader is to show how own textures can be used in custom shaders.
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.slv", "gpuPeteOGL2.slf", "gpuPeteOGL2_t1l.tga" and "gpuPeteOGL2_t2l.tga" files into a emu sub-directory called "shaders" (or make a new folder whereever you like). Configure the plugin's "Shader effects" option to "5 - GLSlang files". If you are using a special folder, don't forget to set it in the plugin config a well (by using the "..." button).
+
+The "Shader effect level" option (1-4) is controlling how strong the crack effect is done.
+
+
+License:
+--------
+None - freeware

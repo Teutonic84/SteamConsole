@@ -1,0 +1,29 @@
+// Cartoon shader III (class C)
+// by guest(r)
+// license: GNU-GPL
+
+uniform sampler2D OGL2Texture;
+
+const float contrast   = 1.25;  // color contrast
+const float saturation = 1.50;  // color saturation
+
+void main()
+{
+ vec3 uy = texture2D(OGL2Texture, gl_TexCoord[1].xy).xyz; 
+ vec3 lx = texture2D(OGL2Texture, gl_TexCoord[4].xy).xyz; 
+ vec3 ct = texture2D(OGL2Texture, gl_TexCoord[0].xy).xyz; 
+ vec3 rx = texture2D(OGL2Texture, gl_TexCoord[5].xy).xyz; 
+ vec3 dy = texture2D(OGL2Texture, gl_TexCoord[2].xy).xyz; 
+
+ vec3 dt = vec3(1.0,1.0,1.0);
+
+ float lc = length(ct);
+ float d = (dot(abs(rx-lx),dt) + dot(abs(uy-dy),dt))/(lc*lc+0.15);
+ lc = clamp(0.866 + contrast*(lc-0.866),0.025, 1.73);
+ 
+ ct.r = pow(ct.r+0.05,saturation);
+ ct.g = pow(ct.g+0.05,saturation);
+ ct.b = pow(ct.b+0.05,saturation);
+
+ gl_FragColor.xyz = (1.1-pow(d,1.5))*normalize(ct)*lc;
+}
