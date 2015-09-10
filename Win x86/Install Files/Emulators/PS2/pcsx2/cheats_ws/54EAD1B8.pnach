@@ -1,0 +1,11 @@
+﻿gametitle=Hagane no Renkinjutsushi 3 - Kami o Tsugu Shoujo [NTSC-J] (SLPM-66073)
+comment=Widescreen hack by This is Lonely
+
+//16:9
+patch=1,EE,001498e4,word,4618a043
+patch=1,EE,001498e8,word,3c03c000
+patch=1,EE,001498ec,word,3c043f80
+patch=1,EE,001498f0,word,c6000008
+patch=1,EE,001498f4,word,4616b901
+patch=1,EE,001498f8,word,460b0000
+patch=1,EE,00149900,word,46000803

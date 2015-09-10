@@ -1,0 +1,20 @@
+Pete's OpenGL2 GLslang shader effect: "Brightness"
+==================================================
+
+Description:
+------------
+A shader for increasing the screen brightness, depending on the configured "Shader effect level".
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.slv" and "gpuPeteOGL2.slf" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "5 - GLSlang files". The "Shader effect level" option is controlling the brightness:
+
+Level 1: original colors
+Level 2: somewhat brighter
+Level 3: even more brighter
+Level 4: brightest
+
+
+License:
+--------
+None - freeware

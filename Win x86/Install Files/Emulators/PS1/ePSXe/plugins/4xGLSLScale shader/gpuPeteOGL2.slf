@@ -1,0 +1,38 @@
+// 4xGLSLScale shader
+// by guest(r) (guest.r@gmail.com)
+// License: GNU-GPL
+
+uniform sampler2D OGL2Texture;
+
+void main()
+{
+vec3 c  = texture2D(OGL2Texture, gl_TexCoord[0].xy).xyz;
+vec3 i1 = texture2D(OGL2Texture, gl_TexCoord[1].xy).xyz; 
+vec3 i2 = texture2D(OGL2Texture, gl_TexCoord[2].xy).xyz; 
+vec3 i3 = texture2D(OGL2Texture, gl_TexCoord[3].xy).xyz; 
+vec3 i4 = texture2D(OGL2Texture, gl_TexCoord[4].xy).xyz; 
+vec3 o1 = texture2D(OGL2Texture, gl_TexCoord[5].xy).xyz; 
+vec3 o3 = texture2D(OGL2Texture, gl_TexCoord[6].xy).xyz; 
+vec3 o2 = texture2D(OGL2Texture, gl_TexCoord[5].zw).xyz;
+vec3 o4 = texture2D(OGL2Texture, gl_TexCoord[6].zw).xyz; 
+
+vec3 dt = vec3(1.0,1.0,1.0);
+
+float ko1=dot(abs(o1-c),dt);
+float ko2=dot(abs(o2-c),dt);
+float ko3=dot(abs(o3-c),dt);
+float ko4=dot(abs(o4-c),dt);
+
+float k1=dot(abs(i1-i3),dt)*dot(abs(o1-o3),dt);
+float k2=dot(abs(i2-i4),dt)*dot(abs(o2-o4),dt);
+
+float w1 = k2; if(ko3<ko1) w1 = 0.0;
+float w2 = k1; if(ko4<ko2) w2 = 0.0;
+float w3 = k2; if(ko1<ko3) w3 = 0.0;
+float w4 = k1; if(ko2<ko4) w4 = 0.0;
+
+gl_FragColor.xyz = (w1*o1+w2*o2+w3*o3+w4*o4+0.001*c)/(w1+w2+w3+w4+0.001);
+}
+
+
+

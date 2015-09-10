@@ -1,0 +1,33 @@
+// 2xGLSL shader
+// by guest(r)
+// License: GNU-GPL
+
+uniform sampler2D OGL2Texture;
+
+void main()
+{
+vec3 c11 = texture2D(OGL2Texture, gl_TexCoord[0].xy).xyz; 
+vec3 c00 = texture2D(OGL2Texture, gl_TexCoord[1].xy).xyz; 
+vec3 c20 = texture2D(OGL2Texture, gl_TexCoord[2].xy).xyz; 
+vec3 c02 = texture2D(OGL2Texture, gl_TexCoord[4].xy).xyz; 
+vec3 c22 = texture2D(OGL2Texture, gl_TexCoord[3].xy).xyz; 
+
+vec3 dt = vec3(1.0,1.0,1.0);
+
+float k00=dot(abs(c00-c11),dt);
+float k20=dot(abs(c20-c11),dt);
+float k02=dot(abs(c02-c11),dt);
+float k22=dot(abs(c22-c11),dt);
+
+float md1=dot(abs(c00-c22),dt);
+float md2=dot(abs(c02-c20),dt);
+
+float w1 = md2*k22; float w2 = md1*k02;
+float w3 = md2*k00; float w4 = md1*k20;
+
+float t1 = w1+w3; float t2 = w2+w4;
+
+float ww = max(t1,t2)+0.001;
+
+gl_FragColor.xyz = (w1*c00+w2*c20+w3*c22+w4*c02+ww*c11)/(t1+t2+ww);
+}

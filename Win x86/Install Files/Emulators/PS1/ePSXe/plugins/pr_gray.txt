@@ -1,0 +1,16 @@
+Pete's OpenGL2 ARB program shader effect: "Gray"
+================================================
+
+Description:
+------------
+Simple ARB shader turning the display into a black&white screen
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.vp" and "gpuPeteOGL2.fp" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "3 - ARB program files". The "Shader effect level" option will do nothing with this shader.
+
+
+License:
+--------
+None - freeware

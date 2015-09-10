@@ -1,0 +1,18 @@
+// The (best) use of this shader is to observe at which native resolutions
+// the PSX games are running.
+// The distance between green lines is 100 pixels of PSX resolution
+// when using internal High-X and High-Y resolution.
+
+uniform vec4 OGL2Size;
+uniform sampler2D OGL2Texture;
+
+void main()
+{
+vec2 pos = vec2(OGL2Size.xy*gl_TexCoord[0].xy);
+float x = fract(pos.x/200.0);
+float y = fract(pos.y/200.0);
+
+if ((x < 0.01) || (y < 0.01)) gl_FragColor = vec4 (0.0, 1.0, 0.0,1.0);
+else
+gl_FragColor = texture2D(OGL2Texture, gl_TexCoord[0].xy); 
+}

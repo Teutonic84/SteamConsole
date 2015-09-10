@@ -1,0 +1,41 @@
+gametitle=Project Zero 2: Crimson Butterfly (SLES-52384)
+
+patch=1,EE,0018F090,word,3c013f40 //aspect
+patch=1,EE,00340DDC,word,3f400000 //aspect
+
+patch=1,EE,001e947c,word,10400003
+patch=1,EE,001e9484,word,10000002
+patch=1,EE,001e948c,word,8f84c00c
+patch=1,EE,001e9490,word,3c013f40 // width (1.0f = 640)
+patch=1,EE,001e9498,word,4481f000
+
+patch=1,EE,001e9308,word,e49e0030
+
+patch=1,EE,001e930c,word,0200202d
+patch=1,EE,001e9310,word,ffa20068
+patch=1,EE,001e9314,word,ffa30070
+patch=1,EE,001e9318,word,0c05e542
+patch=1,EE,001e931c,word,ffa50090
+patch=1,EE,001e9320,word,0220102d
+patch=1,EE,001e9324,word,dfb000b0
+patch=1,EE,001e9328,word,dfb100b8
+patch=1,EE,001e932c,word,dfbf00c0
+patch=1,EE,001e9330,word,03e00008
+patch=1,EE,001e9334,word,27bd00d0
+
+patch=1,EE,00344bd8,word,0000006a //x-pos = (640-640*width)/(2*width) int
+
+//Lens Flare's fix
+patch=1,EE,0015076c,word,3c013f40
+patch=1,EE,001507dc,word,44810800
+patch=1,EE,001507e0,word,46016302
+patch=1,EE,0013b1dc,word,0c0541db
+patch=1,EE,0013b264,word,0c0541db
+patch=1,EE,0013b2cc,word,0c0541db
+patch=1,EE,0013b344,word,0c0541db
+
+//Dither Effect Off
+patch=1,EE,001a1904,word,10000012
+
+//Focus Effect Off
+patch=1,EE,00210dc4,word,00000000

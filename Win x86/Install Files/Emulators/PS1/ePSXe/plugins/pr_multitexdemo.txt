@@ -1,0 +1,18 @@
+Pete's OpenGL2 ARB program shader effect: "Multi tex demo"
+==========================================================
+
+Description:
+------------
+Simple ARB shader for demonstrating how to use multiple texture units in an ARB program shader. It will just mix a PITECH-sign with the current psx display.
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.vp", "gpuPeteOGL2.fp" and "gpuPeteOGL2_t1n.tga" files into a emu sub-directory called "shaders" (or make a new folder whereever you like it). Configure the plugin's "Shader effects" option to "3 - ARB program files". If you are using a special folder, don't forget to set it in the plugin config a well (by using the "..." button).
+
+The "Shader effect level" option will do nothing with this shader.
+
+
+License:
+--------
+None - freeware

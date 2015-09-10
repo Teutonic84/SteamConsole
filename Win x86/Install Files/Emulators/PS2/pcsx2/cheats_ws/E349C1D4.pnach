@@ -1,0 +1,4 @@
+gametitle=RTX: Red Rock (NTSC-U)
+comment=Widescreen hack
+
+patch=1,EE,205F1840,extended,3F400000 // 3F800000 - X-axis

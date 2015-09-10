@@ -1,0 +1,34 @@
+Plugin: Pete's DX6 D3D Driver 1.1.77
+Author: Pete Bernert
+GFX card: ATI Radeon HD 4600 Series
+
+Resolution/Color:
+- 1920x1080 Fullscreen - [32 Bit]
+
+Textures:
+- R8G8A8A8
+- Filtering: 0
+- Hi-Res textures: 0
+- Palettized tex windows: off
+- VRam size: 0 MBytes - 193 textures usable
+
+Framerate:
+- FPS limit: off
+- Frame skipping: off
+- FPS limit: Auto
+
+Compatibility:
+- Offscreen drawing: 3
+- Framebuffer texture: 2
+- Framebuffer access: 0
+- Alpha multipass: on 
+- Mask bit: on 
+- Advanced blending: hardware
+
+Misc:
+- Scanlines: off [0]
+- Unfiltered FB: off
+- Dithering: off
+- Screen smoothing: off
+- Full vram: off
+- Game fixes: off [00000001]

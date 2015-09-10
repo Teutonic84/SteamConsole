@@ -1,0 +1,5 @@
+gametitle=Gitaroo Man [PAL-M3] (SLES_506.53)
+comment=Widescreen Hack by El_Patas (Note: causes the HUD is moved to the left)
+
+//Gameplay 16:9
+patch=1,EE,2027FFA0,extended,3F400000 //3F800000 (Increases hor. axis)

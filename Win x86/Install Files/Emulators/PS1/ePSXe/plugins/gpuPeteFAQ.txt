@@ -1,0 +1,158 @@
+Q001: Battle menus in FF7/8/9 are not visible/flickering 
+A001: in the hw/accel plugins use a different Offscreen Drawing mode, and disable Frame Skipping in the soft plugin 
+
+Q002: Hi-Res 2xSaI textures are slow on my card/glitchy in my game
+A002: If your system can't handle it, or the game doesn't work fine with it, turn the option off. Or try to follow the tips in the plugin readmes.
+
+Q003: OpenGL is slower as D3D on my nVidia card
+A003: Turn off vsync in the nVidia OpenGL display properties
+
+Q004: Fullscreen OpenGL is flickering on my nVidia card
+A004: Use the "Block transfer" page flipping mode in the nVidia OpenGL display properties (I've added some additional code to avoid flickering in 1.62, but sure is sure)
+
+Q005: My Kyro card is crashing after a short time in D3D
+A005: Since I don't have a Kyro card, I can't say much about it. There are several Kyro users which have reported everything is working fine, though... maybe someone without problems could give me his exact plugin/driver settings :)
+Addendum: one Kyro user reported that his issues were solved when he 
+did _not_ install VIA 4-in-1 drivers (expecially the AGP ones).
+
+Q006: My ATI card shows only a screwed display
+A006: Use the ATI "fake subtr. blending" special game fix in OpenGL (fixed with the Cat 3.5 or higher)
+
+Q007: My ATI shows still a screwed display
+A007: Try a different ATI driver (see also Q006).
+
+Q008: In D3D/OGL there are some missing splash screens. The soft plugins works fine.
+A008: Some screens are harder to emulate with the hw/accel plugins. You can try your luck with a different "Offscreen Drawing" mode, and with the various "Framebuffer Access" options. If it doesn't work, you are out of luck (well, with a powerful gfx card, you can give my OGL2 plugin a try).
+
+Q009: When using FSAA the game (or a special part of the game) is slow.
+A009: Turn off FSAA :) Well, you can also try to disable the "Framebuffer Access" options, and setting the "Framebuffer textures" to "black". Of course you will miss some gfx effects that way.
+
+Q010: FF9 crashs
+A010: Only use the "G4 polygon cache" special game fix with FF9, no other game fixes, and absolutely _no_ "read"/"move" Framebuffer Access settings
+
+Q011: There is funny looking garbage on the screen sometimes/some parts of the screen are not displayed at all
+A011: Try a different Offscreen Drawing setting
+
+Q012: Music/game play is much too fast/too slow
+A012: You will need a steady 50 (PAL) or 59.94 (NTSC) framerate. Use the gpu's "Framerate limitation" option
+
+Q013: While playing mdecs (movies) the sound is having disturbing noises
+A013: See above. Also some cd drives are having a hard time reading psx game cds, so you should try to run the game as an ISO
+
+Q014: I want a BIOS file
+A014: Buy a PSX and dump it yourself, kthanx
+
+Q015: I want an ISO of a special game
+A015: Buy the game, get yourself a freeware ripping tool (or buy a software like CloneCD), and create it yourself
+
+Q016: Some games don't start at all/crash while playing
+A016: could be an emu/plugin bug, or maybe the game is copy protected. Therefore, try different emus/plugins, try to get a PPF patch or try the subchannel reading options in certain emus/cdr plugins.
+
+Q017: I get "Segmentation faults" in Linux when starting a game
+A017: Prolly it's because of a buggy library loader with certain distros (ReadHat/Mandrake - pthread/nVidia driver issue). Get another distro, or try to use a NULL spu plugin, or try a different pthread library (see the Mesa plugin readme for details).
+
+Q018: Texture filtering produces glitches/blocky looking 2D gfx
+A018: Try another filtering mode, or try the screen smoothing option instead, or try a scanline mode instead, or try 2xSaI textures instead, or try FSAA instead. Or try a PC game instead ;)
+
+Q019: The game XYZ is having big problems in your ABC plugin
+A019: Try other plugins first. If they all have the same problems it's most likely a main emu bug, and I can't do much. 
+
+Q020: The game XYZ is only having problems in your ABC plugin, other plugins are working fine.
+A020: Interesting. Most likely I don't have XYZ, so I would need a save state file to look what is going wrong. See also Q042.
+
+Q021: Battle swirls/motion blur effects don't work in your hw/accel plugins
+A021: First try to set the "Framebuffer texture" option to "Gfx card" or "Gfx card + software". If that doesn't help, enable "read" and/or "move" "Framebuffer access" settings. Alternatively you can also try to set "Framebuffer texture" option to "emulated vram" and enable "Full vram primitives" FB Access.
+
+Q022: Every "Framebuffer..." option/the "Screen smoothing" option is slow on my system
+A022: That stuff will need a powerful gfx card... and usually all of these options are much slower in combination with FSAA. Try a lower screen resolution and turn off FSAA.
+
+Q023: FF7 battle swirl is missing/the battle hand cursor is surrounded by garbage
+A023: Activate the FF7 special game fix
+
+Q024: Lunar is giving me black screens
+A024: Activate the Lunar special game fix
+
+Q025: Digimon/Speed Freakes/Killer Loop is looking weird in D3D/OGL
+A025: Activate the "change front<>backbuffer detection" game fix
+
+Q026: I can't see anything in ChronoCross Fort Dragonia
+A026: Activate the "ChronoCross Fort Dragonia" game fix (not needed in 1.67 or higher)
+
+Q027: Legend of Dragoon is showing blue lines in some screens
+A027: Activate the LoD special game fix, don't use any filtering
+
+Q028: Legend of Dragoon is showing red/green lines in some screens
+A028: If you can't stand it, use the soft plugin, or my OGL2 plugin
+
+Q029: Even with framerate limitation and a steady framerate my game is too fast/slow
+A029: Prolly a screwed main emu vsync emulation. Turn on the "PC fps calculation" special game fix
+
+Q030: Mdecs/movies are running at a wrong speed
+A030: Turn off the "PC fps calculation" special game fix
+
+Q031: If I use FSAA on my nVidia card, black rects are getting displayed
+A031: Use a different Detonator driver or enable my "FSAA" special game fix
+
+Q032: I can't see any plugin DLLs in your plugin zip archives
+A032: Prolly you can't see _any_ DLL files with your MS Explorer. You have to enable that in the Explorer options.
+
+Q033: The main emu/ePSXeCutor doesn't show any plugins
+A033: You have to copy the plugin DLLs into the main emu's plugin directory. Also some plugins need a certain DX version or other installed files as well.
+
+Q034: I get "Thunk connection" errors when I try to configure plugins
+A034: Most likely caused by a not supported/wrongly installed MSCDEX plugin. Remove the MSCDEX cdr plugin from your plugin directory.
+
+Q035: In certain capcom games the screen is not fully shown on the right border
+A035: Yup, that's like it is on the real PSX. Anyway you can try to enable the "Expand screen width" special game fix.
+
+Q036: The plugin crashes when I stop/continue the game emulation
+A036: Gfx card drivers are kinda picky when it comes to that... you can try the Window mode instead of a fullscreen mode, or you can try a different OS (Win XP can handle that better than W98, for example).
+
+Q037: The plugin crashes when I toggle between window/fullscreen mode 
+A037: See above. Also notice that most drivers can only do the toggling when your desktop color depth is the same as your configured fullscreen mode.
+
+Q038: I have a 128 MByte card, will it get fully supported?
+A038: Currently my plugins will not use more than 64 MB with normal textures, so selecting more would make no differences. Still more vram can help you running games in an insane high resolution or a big FSAA mode or especially when you want to use the "Hi-Res 2xSaI textures". Of course the best choice for 128MB cards is most likely my OGL2 plugin.
+
+Q039: Where is your game-playing PS2 emu?
+A039: Right next to my XBox and Gamecube emu... on the CD labeled "trojans..."
+
+Q040: Where is your soft gpu plugin?
+A040: It's now an Open Source plugin maintained by the P.E.Op.S. team (a link to it is on my homepage). The same applies to my spu and my cdr plugin.
+
+Q041: What are the best plugins/settings for my system?
+A041: Depends on your system and the game you want to play. I can't answer such questions at all, you should try your luck in emu forums (like the ones from www.ngemu.com or www.emufanatics.com), maybe somebody there with equal system specs can help you. But the golden rule is (and prolly ever will be):  try all plugins and read the included plugin documentations.
+
+Q042: Can I send you a save state/pictures showing glitches?
+A042: Yes, but not to my official mail address. Every mail with big attachments will be deleted automatically, I will not even see such mails. So, please first send me a mail with a good bug description, but without attachments, and if I want/need to take a closer look I will contact you.
+
+Q043: Can I be your beta tester?
+A043: Every plugin user already is a beta tester, everybody can report problems to me. But if "beta tester" means: "can I get plugins before they are released?", the answer is "No". The latest stable versions of my plugins can always be found on my homepage.
+
+Q044: Can I translate your plugin into (enter language here)
+A044: No, thanx. For all kind of reasons. For example I don't want to get mails like "if I enable 'DJdaweewk csdasdjf sdfl', everything is screwed.". And since I update my plugins quite often, I don't want to wait for a release until all translations are finished. Of course you
+can use a resource tool and change the language directly in the released DLLs, as long as the credits are still visible, I have no problem with that. And of course I am glad when somebody does send me translated plugin docs, I can host them on my site, if you agree.
+
+Q045: I have keyboard/joystick problems in the emu
+A045: I can't help you with that, since I never made a pad plugin.
+
+Q046: I want to make a plugin myself
+A046: Great :) You can find plugin specifications on my homepage, and there are Open Source plugins as well (for example the P.E.Op.S. ones). But I don't have time for private coder lessons, sorry.
+
+Q047: When will your next plugin release will happen?
+A047: When it's ready, when I'm happy, when the sun shines bright and steady...
+
+Q048: What about Truform? What about anisotropic texture filtering? What about real T&L support?
+A048: Not possible, since the PSX games are calculating the needed depth (Z) values internally, and the psx gpu doesn't receive that informations.
+
+Q049: Your DX7 plugin is not inside the gpu archive
+A049: It is. Hint: the filename is not "gpuPeteDX6D3D.dll" and also not "gpuPeteOpenGL.dll".
+
+Q050: Madden 2002 is showing weird textures sometimes
+A050: Enable the "Disable coord check" special game fix (not necessary in version 1.67 or higher)
+
+Q051: ChronoCross is locking up in the status screen.
+A051: That will be fixed with the next epsxe version (>1.5.2). Meanwhile you can enable the "Odd/even bit hack" special game fix. Update: epsxe 1.6.0 has a bad timing with CC, so I recommend still epsxe 1.5.2 and the "o/e hack" to play it.
+
+Q052: Whenever I am using the OGL2 plugin, a "missing shader extensions" messagebox pops up.
+A052: As stated in the OGL2 readmes, only Pixelshader 2.0 capable cards (ATI 9500 or better, nVidia Geforce FX) can be used with the "shader effects" and "psx tex win shader" options. If you don't have such a card, turn the options off.

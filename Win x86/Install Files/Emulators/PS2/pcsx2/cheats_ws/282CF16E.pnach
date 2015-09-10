@@ -1,0 +1,8 @@
+﻿gametitle=Zatch Bell! Mamodo Battles [NTSC-U] (SLUS-21254)
+comment=Widescreen Hack by Little Giant
+
+//16:9
+patch=1,EE,0011bd4c,word,3c013fab // 00000000
+patch=1,EE,0011bd74,word,4481F000 // 00000000
+patch=1,EE,0011be54,word,461EA502 // 00000000
+patch=1,EE,002f81a0,word,4602f003 // 46010043

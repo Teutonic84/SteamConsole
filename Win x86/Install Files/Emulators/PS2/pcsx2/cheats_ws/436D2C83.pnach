@@ -1,0 +1,12 @@
+gametitle=Kung Fu Panda (NTSC-U)(SLUS-21757)
+comment=Widescreen hack by Arapapa 
+comment=Needs render fix of Event Scene
+
+//Widescreen hack 16:9
+
+//Y-Fov - Memory Hack
+//0000803f 00000000 00000000 00000000  00000000 0000803f
+patch=1,EE,206de544,extended,3FAAAAAB /3f800000
+
+//Zoom - ELF Hack
+patch=1,EE,0058da88,word,3c03409d //3c034096

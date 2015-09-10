@@ -1,0 +1,20 @@
+Pete's OpenGL2 ARB program shader effect: "Simpleblur" - Coded by Luigi
+=======================================================================
+
+Description:
+------------
+An ARB shader blur-AA filter with color cut-off made by Luigi.
+
+You can find other variations of this shader in Luigi's thread on my messageboard:
+
+http://www.foren.de/system/thread-aawithvertexpixelshaderprogram-pete_bernert-41709-550424.html
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.vp" and "gpuPeteOGL2.fp" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "3 - ARB program files". The "Shader effect level" option will control how much blurring will be done.
+
+
+License:
+--------
+None - freeware

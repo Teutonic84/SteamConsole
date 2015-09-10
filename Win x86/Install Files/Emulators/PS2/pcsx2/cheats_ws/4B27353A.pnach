@@ -1,0 +1,10 @@
+gametitle=Dragonball Z 3 (K) (SLKA-25205)
+comment=Widescreen hack (NTSC-K by Arapapa)
+
+//Widescreen hack 16:9
+
+//Scenario mode
+patch=1,EE,20429834,extended,3f23d706 // 3F5A740E
+
+//VS mode
+patch=1,EE,2044F0C0,extended,3f23d706 // 3F5A740E

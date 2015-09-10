@@ -1,0 +1,7 @@
+gametitle=G.I. Joe - The Rise of Cobra (NTSC-U)(SLUS-21886)
+comment=Widescreen hack  by Arapapa
+
+//Widescreen hack 16:9
+
+//0000803f 0000803f 5555953f 
+patch=1,EE,2049C990,extended,3F400000

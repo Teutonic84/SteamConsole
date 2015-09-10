@@ -1,0 +1,796 @@
+-------------------------------------------------------------------------- 
+
+May, 2008    Version 2.09
+
+- This release is basically an "ePSXe birthday" version: after a long
+  time the ePSXe team wanted to make an update to their main emu, and 
+  to improve the compatibility with some games. One of the compatibility
+  fixes had to be done in the gpu plugins, so, well, I had to fire up 
+  my compilers as well... I don't wanted to let 'em down, eh? :)
+  Since my free time is somewhat limited, I have not made many other 
+  changes, though (at least in the last weeks... I cannot remember what
+  I've done the last years in the gpu plugins, so I basically hope that 
+  I didn't mess something up, ehehe).
+
+- First, the mentioned game fix. This will prevent lock ups in certain
+  games (for example "Dukes of Hazzard" or "Hot wheels turbo racing").
+  The main emu can enable this fix by a new gpu interface function 
+  automatically, for other emus you can enable the "special game fix"
+  manually in the gpu config window (the fix is called "Fake 'gpu busy'
+  states").
+
+- The main emu can use a new gpu interface function, to enable the
+  gpu's "FPS limitation" automatically. Why? Because most new psx emu
+  users seem to have problems with the "FPS" concept, and are unable to
+  activate the correct settings (just as a reminder: "higher FPS" is not
+  equal to "smoother display" in psx emulation).
+
+- Nagisa from SSSPSX added new frame limit timings to the Peops soft gpu
+  plugin. I have put this timings into my hw/accel plugins as well,
+  let's see what will happen :)
+  The differences are small, though: in non-interlaced modes the automatic
+  FPS timings are now set to 49.76 FPS (PAL) or 59.82 FPS (NTSC).
+
+- calb of the ePSXe team suggested to add a "visual rumble" feature to
+  the gpu plugins: whenever the pad vibration kicks in, the display should 
+  also start to shake. Ok, done... just remember, you have to enable this
+  feature in the main emu (pad configuration window), not in the gpu config.
+  And, of course, in some games the visual rumble can get very annoying... :)
+
+- Last but not least a "most wanted" feature for widescreen users:
+  PSX games have usually a 4:3 width/height ratio. Therefore a 16:10 
+  fullscreen mode (example: 1680x1050)  will stretch the display in 
+  an ugly way. If your monitor or your gfx card driver has no option to 
+  display 4:3 modes correctly, you can now set a proper 4:3 "window
+  size" (in our example: 1400x1050) and activate the new "Use window size 
+  in fullscreen mode" option in the plugin. 
+  That will produce a proper display, of course with black borders on the
+  left and right sides of your monitor, but hey :)
+
+- Ah, and another note for ATI users: please update to Catalyst 8.5 to
+  avoid glitches!
+
+
+
+"scarlet crimson rosy red - I must be dead - or stoned out of my head
+ orange yellow tangerine - the acid queen - in a psychedelic scene
+ ochre chestnut chocolate brown - I'm upside down - on a cosmic eiderdown
+ ivory milky chalky white - the stars ignite - I vanish in the light
+ that burns so bright"
+- "Across The Rainbow Bridge" by Ayreon
+
+
+-------------------------------------------------------------------------- 
+
+29. December, 2005    Version 2.08
+
+- trickyfree suggested on my messageboard to have some different types 
+  of the display stretching. Ok, done: beside the old "full screen 
+  stretching" and "keep psx aspect ratio" modes, I've added two more 
+  ways to stretch the psx display to your screen.
+
+- ShadX and guest(r) are still doing amazing full screen shaders for
+  the OGL2 plugin. Therefore you can find many shaders in the 
+  messageboard section of my site (http://www.pbernert.com). To make
+  the shaders somewhat faster, they suggested to get additional pre-
+  calculated values from the plugin. Done. Now the "OGL2InvSize" 
+  uniform is available for new GLslang shaders... let' em coming :)
+
+- Well, I have got a Geforce 6800 Ultra card over half a year ago, and 
+  while trying to make this baby sweat, I've added an "Ultra high" 
+  internal Y resolution mode. If you want to activate this, you will need
+  a card with 4096x4096 texture size support (newer NV cards or ATI's 
+  1XXXX ones), and 256 MB vram is also recommended. By the way: 
+  the rendering speed will still be very high with this new setting, 
+  but psx framebuffer effects can now last a couple of seconds (!!!).
+  Therefore this "ultra" resolution is not really usable with psx games 
+  which are doing much FB effects. You are warned :)
+
+- In july 2003 I've started this PSX OGL2 plugin. Basic idea: don't map
+  the psx drawing commands on-the-fly to the PC's gfx card's backbuffer 
+  (like my Standard OGL and D3D plugins are doing it), but to create a 
+  offscreen buffer in the same size as the real PSX GPU vram (or a 
+  multiple of it), and draw into that buffer. Well, by this time the 
+  only way to do this was to use "P-buffers" in OpenGL, and yeah, I got 
+  it to work nicely. 
+  Much later (spring 2005) a nicer way to handle offscreen buffers were 
+  added to the OpenGL specifications, called "framebuffer objects".
+  FBOs promise a better speed, and are easier to handle than the clumsy
+  P-buffers, so I finally decided to add them in my plugin as well.
+  You can change the render mode in the plugin config, if you are looking
+  for some more speed, but to be honest: on my system every PSX game 
+  runs like mad (without frame limitation), so I cannot tell if FBOs
+  are really faster. You have to try it yourself...
+  
+
+
+"The leading horse is white,
+ the second horse is red,
+ the third one is a black,
+ the last one is a green."
+- "The Four Horsemen" by Aphrodite's Child 
+
+
+-------------------------------------------------------------------------- 
+
+12. June, 2005    Version 2.07
+
+- Some users wanted the possibility to enter a floating point value as
+  framerate limitation. Ok, done (doesn't make much sense, imho, but 
+  it will not hurt as well... my personal advice: use the "auto-detect
+  limitation value" option whenever it is possible).
+
+- softm reported on my messageboard, that one of the PSX blending modes
+  looked different in my plugins, compared to the real PSX. You will 
+  notice the difference only in a few games (softm found Diablo, Legend 
+  of Mana and Castlevania), but nevertheless I've fixed this glitch.
+
+- In some games the "Flicker-Fix border" option (needed in combination
+  with the fullscreen shader option) actually didn't fix flickering
+  borders. That's fixed :)
+
+- Many users requested a "fast forward" key, which deactivates the 
+  frame limitation while pressed (to skip boring parts of a game).
+  I've added this feature, you have to configure it in the "GPU
+  key configuration" (hint: look for a small "..." button in the
+  main config window).
+
+- smf of MAMEdev found a new psx gpu feature: y sprite mirroring. 
+  With his help (thanx for the small psx demo!) I could add this 
+  psx gpu capability to my plugins.
+  Don't ask me if a console psx game will use such a mirroring (I've
+  never noticed it), but who knows... there are many psx games
+  out there :)
+
+- ShadX and guest(r) created all kind of interesting and nice looking
+  OGL2 fullscreen shaders, which can be found in the shader forum on my
+  messageboard. With version 2.07, even better shaders can be made:
+  I've added the possibility to access own textures (stored as tga
+  files), which can be used as look-up-tables, for example.
+  If you want to know how to use this multi-texture option, I've put
+  two small shader demos on my web site as well. Happy shading :)
+
+
+
+"There was no grand design
+ To get to this point
+ No absolutes, no given truths
+ We were not carved in stone"
+
+- "Cities Carved In Stone" by Primordial
+
+
+-------------------------------------------------------------------------- 
+
+22. July, 2004    Version 2.06
+
+- This release took some time, as you may have noticed ;) Well, I was kinda
+  busy, and I hoped that certain announced OpenGL extensions, which I could 
+  use in this plugin, would finally show up (of course that did not happen).
+  Anyway, this week I had some free time, and I've decided that there were
+  enough plugin changes in the last months to finalize the 2.06 release :)
+
+- I've fixed the internal "GLslang smoothing" shader effect. This effect 
+  worked fine with earlier ATI drivers, but after ATI repaired some GLslang 
+  issues, the shader was screwed (my fault, not ATI's, by the way).
+
+- Related to the custom shader effect files (ARB program as well as GLslang):
+  it's now possible to select the directory where the files are located.
+  In combination with a frontend like ePSXeCutor or Delta you can now
+  create different game configs, each using a different custom shader
+  (by placing the shader files you want to use into separate directories).
+
+- Also related to shader effects (and the basic fullscreen filter): depending
+  on the shader effect, the internal rendering resolution and the selected
+  window/fullscreen size, it was possible that irritating flickering pixels
+  were visible at the display borders. It's not easy to fix that cleanly, so
+  I've decided to add a workaround, which will always work: there is a new
+  option in the gpu config, for adding a black border around the display. 
+  Simply select a proper "flicker fix border" size (1 or more pixels) until
+  the flickering vanishes :)
+
+- Booty made a nice suggestion in my messageboards regarding the gpu in-game
+  menu: in days of old I had mostly "on"/"off" settings, so I displayed the
+  setting state in the menu by filled/empty boxes. Later I used certain patterns 
+  for settings with multiple config levels. But of course much better is 
+  displaying a number, even more since I already have numbered the different
+  settings in the gpu config window (like "Texture filtering: 0-6").
+  Funny that I haven't thought of that earlier myself... thanks, Booty :)
+
+- My new OGL/D3D ZiNc renderers have a "pause" feature, so you can stop/continue
+  a game without actually quitting the emu. Comes handy when you have to
+  run to the toilet while trying to break the high score ;)
+  Well, most psx emus can already be stopped/continued, but sometimes the gfx
+  card driver doesn't like that (crash boom bang). So I thought that this
+  pause feature would be nice to have in this plugin as well (simply configure
+  a "pause" key in the MSWindows gpu config window... the Linux key is, as usual,
+  hard-coded).
+ 
+- Talking about ZiNc: version 2.06 is fully ZiNc compatible, meaning you
+  can use the plugin DLL with the ZiNc arcade emu. Simply rename it to
+  "renderer.znc" and copy it to the ZiNc main directory, and it will work.
+  Still you will need (at least once) a psx emu like ePSXe, PCSX, FPSE, 
+  AdriPSX or PSXeven to go to the config window to configure the plugin,
+  since ZiNc is a console application without a GUI. Maybe a ZiNc frontend
+  coder will add configuration support as well, we will see :)
+  In Linux (XGL2 plugin port) you can use the usual .cfg file to change the
+  settings.
+  Ah, and a final note: since ZiNc games have a bigger vram, you cannot 
+  set the "internal X/Y resolutions" as high as with standard psx games: 
+  on ATI cards the biggest X/Y values you can use are "X=high" and "Y=high" 
+  (since ATI - even the new X800 cards - only support up to 2048x2048
+  texture sizes), with nVidia cards (support up to 4096x4096 sizes) you can
+  select "very high" for both resolutions, but I would only try that with 
+  256 MB vram (or better) cards :)
+  
+
+"I know it's way too late
+ When this dance has begun
+ So put on the heat
+ And let the fire run
+
+ Take me away, my black flame" 
+
+-"Black Flame" by Xandria
+
+
+-------------------------------------------------------------------------- 
+
+04. January, 2004    Version 2.05
+
+- New year, new release :) Well, the 2.05 release is prolly more important
+  for (nVidia) Linux users (the XGL2 plugin comes with nVidia support, a 
+  configuration window, and a 'fullscreen-refresh-fix' from Stefan Sperling), 
+  but there's some interesting stuff for Windows users as well (like the 
+  new custom shaders), so let's take a look:
+
+- Since the nVidia Linux drivers don't support the "render-to-texture" 
+  extension, I've made a new option, simply called "No render-to-texture" :)
+
+  I've added the option in the Windows plugin as well, maybe it will help
+  older/uncommon (aka "non-ATI/nVidia") gfx cards to run the OGL2 plugin,
+  who knows. 
+  On modern cards it will make no difference if the option is enabled, at
+  least the speed was the same on my Radeon 9700 Pro and Geforce 4200 cards...
+  but hey, it will not hurt you to try it yourself :)
+
+- Shaders, shaders, everywhere... ;)
+
+  Bruno did send me a mail, pointing out that at there was an interesting
+  contribution from Ryan Nunn at the Beyond3D Shader Contest: Ryan was able
+  to port the 2xSaI and Scale2x algorithm to DX9 pixel shaders. Why not add
+  them to the OGL2 plugin as well? Ok, I did take a look, and while the
+  2xSaI shader needs several passes (and additional textures to store results),
+  I was able to port the Scale2x shader to GLslang (well, it was more like
+  a complete rewrite, damn the ATI 'texture indirection' limitations in
+  fragment shaders).
+
+  Therefore, if you have an ATI Radeon 9700 (or better) card, feel free to
+  enhance the display (Andrea Mazzoleni's Scale2x algorithm is a nice effect 
+  for most 2D games). What a shame that nVidia cards still don't have GLslang
+  support...
+
+  Oh, and I've made another GLslang shader as well, for rotating the screen in
+  steps of 90°. That can be useful for certain games (like Raiden Project), 
+  which allow to rotate the display as well, to get a bigger screen size.
+
+  But where are the shader files? I've removed all of them from the plugin
+  archive, you can get them seperately from my homepage
+  (http://www.pbernert.com).
+  Simple reason: I can update them (or even add new ones) without the need to
+  create a new plugin release. Ah, and there is now a readme file in each shader 
+  package, explaining how to install and use the shader effect (some may need
+  a special plugin configuration). 
+
+
+"Wasn't there a dream last night
+ Like a spring never ending
+ Still the water runs clear
+ Through my mind"
+- "Fiddler On The Green" by Demons & Wizards 
+
+
+-------------------------------------------------------------------------- 
+
+23. December, 2003    Version 2.04
+
+- Some users missed a "Mdec filtering" option in my OGL2 plugin, to make
+  movies looking less pixelated. I've simply forgotten to add it in the
+  previous versions, I have to admit, and I didn't notice, since most times 
+  I have some kind of fullscreen filter active (which smoothes the movies
+  as well). Ok, the option is available, please keep in mind that if your
+  card doesn't support texture edge clamping, a small vertical line may 
+  appear in the right movie area if the new option is activated (though all 
+  modern cards should be fine).
+
+- I've fixed a small bug which could cause overbright displays after toggling
+  between window/fullscreen mode. 
+  
+- I've stated in the version 2.01 notes that I wanted to do the fullscreen 
+  pixel shader effects with GLSlang (a C alike shading language), but by that
+  time no (ATI/nVidia) driver supported this language, so I used the ASM alike
+  ARB shader program extensions instead.
+
+  Well, ATI's Catalyst 3.10 driver offers GLSlang support, so of course I 
+  started to experiment with it. Funny enough I found myself cursing alot...
+  it's easy to reach the shader capability limits of nowadays gfx cards with
+  GLSlang, and even perfect looking (and compiling) GLSlang shader programs 
+  sometimes brought my R9700Pro card to a crawl. Re-arraging the code somewhat:
+  all was fast again. That doesn't mean that GLSlang is useless with nowadays
+  cards, but I think that the driver-internal compilers still have some way
+  to go.
+
+  Anyway, I've added another fullscreen blur effect, done in GLSlang, in the
+  plugin config, R9700 (or better) cards can run that fine. 'Smaller' ATI cards
+  (or nVidia ones, as long as the Forceware driver doesn't support GLSlang) 
+  cannot use the new effect, that's life (well, you don't miss much... the 
+  'GLSlang filter' is very similar to the older shader blurring effects... 
+  some more sampling points, and different weights, that's all).
+
+  Additionally I made it possible for interested coders to create their own
+  GLSlang shader programs. Simply place two files (one called "gpuPeteOGL2.slv",
+  for the vertex program, and one called "gpuPeteOGL2.slf" for the fragment
+  program) in the "shaders" subdirectory. I've added a simple example in this
+  plugin archive, a shader which adjusts the plugin's display brightness (the 
+  higher the configurable shader level, the brighter the display... this shader
+  should run without problems on smaller ATI cards as well, btw). 
+  
+- Nothing else... no compatibility fixes, no speed ups, etc. If you see other
+  improvements/failures (compared to verion 2.03), blame your imagination or
+  gfx card driver :)
+
+
+"Stetig steil bergauf, dorthin wo das Feuer lodert.
+ Zieht uns in ihren Bann, der Gottheit wilde Meute.
+ Nah an der Feuersglut, verschmelzen wir zu einem Koerper,
+ werden eins mit der Walpurgisnacht!
+ Runderherum ums helle Feuer,
+ runderherum im wilden Tanz,
+ kreisen Koerper, Geister, Blicke, beruehren sich im Fluge!"
+- "Walpurgisnacht" by Schandmaul
+
+
+-------------------------------------------------------------------------- 
+
+10. November, 2003    Version 2.03
+
+- Geforce4 cards with WinXP 4X.XX (or newer) drivers crashed this plugin
+  after a few frames. Since all other cards (may it ATI or nVidia GF2/3/FX
+  ones) were working fine, and even the same GF4 cards had no problems with
+  Win9X drivers, it was obvious that a driver bug caused that issue.
+
+  So I decided to wait until the offical 5X.XX XP drivers show up, hoping they
+  would fix the bug. Well, what to say? Yeah, they didn't help at all. 
+  Therefore... good old golden rule: if you want to have something done right,
+  do it yourself.
+  Since I don't have a GF4/WinXP system, I needed some help to find a workaround.
+  Luckily Phoenix Flame offered an helping hand, and he prooved to be a good 
+  and fast tester... big thanx to him :)
+
+  End of story: workaround found (disabling texturing in the render context
+  before the main context gets activated), and now there is a new config option 
+  in the "misc" config section, called "GF4/WinXP crash fix". Enable it and 
+  be happy :)
+
+  Oh, and since we are talking about GF4 cards: no, GF4 cards cannot do 
+  Pixelshader 2.0, and therefore the "shader effects" and "PSX texture
+  window shader" options will just give an error messagebox. The same applies
+  to ATI cards lower Radeon 9500, or the nVidia GF2/3 ones. No need to send me
+  emails about that.
+
+  And another note (but a good one this time): with the latest 5X.XX drivers,
+  nVidia GeforceFX users can activate the "very high internal X resolution" 
+  option... that means that textures up to (at least) a 4096x2048 size can 
+  now be done with FX cards, very nice :) Come on, ATI, show us you can do
+  the same, ehehe.
+  
+- A FF9 crashing bug has been fixed (somewhere on disc 3 with certain plugin 
+  settings). Thanx to hushypushy for reporting this issue and giving me a 
+  memcard save.
+
+- A few internal tweakings for the 0x0002 special game fix (used for FF7/FF8,
+  see also the version 2.02 notes). I only have the PAL versions of that games,
+  which are running fine, but some users reported glitches in the NTSC versions.
+  Dunno if that ones are now fixed, if not, please drop me an email.
+
+- Some users missed the OGL1 "keep aspect ratio" option in my OGL2 plugin.
+  Well, since the OGL2 plugin internally always has a perfect aspect ratio, the
+  option was not very important, imho, but finally I kicked my lazy ass to add
+  it again. If you like it, go on and use it :)
+
+- And a final note: there were some suggestions for a Linux port of the OGL2 
+  plugin. Well, the plugin source code is designed to compile without problems
+  on different compilers, including the Linux gcc one (I even have to admit that
+  during my plugin development I often use the Mingw/Dev-C++ enviroment from 
+  Bloodshed Software because of stupid crashing issues with the MS Visualstudio
+  in WinXP on my system... it's no fun to loose source code after a few hours of
+  coding because of a crash). 
+  Nevertheless a Linux port is not possible atm, since the needed render-to-texture 
+  extensions are not available (or very good hidden).
+  The latest official statements I have seen (from ATI as well as from nVidia)
+  are that both vendors will offer such functions in the upcoming OpenGL2 
+  libraries, but not in OpenGL1.X (though it seems that at least ATI is including
+  GLX pbuffer support in their latest Linux drivers... so there is still hope).
+  If somebody knows some links to Linux render-to-texture functionality 
+  (preferable with ATI cards), drop me an email.
+
+- Ah, and it shouldn't matter anymore if you have your custom "shaders" directory in
+  the main emu directory or in the plugins sub-directory (at least for ePSXe, dunno 
+  right now if all plugin supporting psx emus call their plugin directory "plugins").
+
+
+"It was summer, or maybe spring, I can't remember
+ It was summer or maybe spring, I can't recall
+ We'd try to always calm our elders
+ (But always we did seem to fall)
+ We'd never try to tame the burning embers
+ (It didn't seem to matter how we'd fare)
+ It seemed we couldn't ever escape December
+ But it was summer, summer, or maybe spring, or maybe spring, maybe spring"
+- "Hideaway" by Steve Harley 
+
+
+--------------------------------------------------------------------------
+
+12. September, 2003    Version 2.02
+
+- First, speed: I was hoping to improve my texture caching. Well, I've tried all 
+  kind of different approaches during the last weeks, but to be honest: all were 
+  slower than my old one. In the end I decided to change the existing caching only 
+  slightly, to get a better texture load balancing. Seems to work fine, but 
+  prolly you will only notice a speedup in certain extreme game situations.  
+
+- Second, compatibility: while generally the compatibility of this plugin is 
+  higher than my standard D3D/OGL ones, there were still all kind of glitches
+  (especially with certain framebuffer effects... you know, mostly used for 
+  motion blur, wave effects, swirl effects, etc).
+  Most glitches were already fixable by using the highest "framebuffer effects" 
+  option, but since that option is causing an overall slowdown (and it can
+  cause an unpleasable lowres/hires look), I've tried to improve the lower
+  FE modes as well. 
+  Ok, after changing a few lines of code (harhar), certain issues had been
+  fixed (like the "clock effect" in Crash Team Racing, or the motion blurring
+  in certain parts of MGS and Vagrant Stories). Not too bad. But then a personal
+  nightmare crept up: the battle transitions of FF8... and also the swirl in FF7
+  wasn't always visible. After long debug sessions I've decided to add a new
+  special game fix for those two games, to get the best results without breaking
+  anything else.
+  Here's a small guide how to setup the "compatibility" section of the plugin for 
+  good speed and still good gfx:
+  FF7 (PAL tested):  OD=1, FE=2, FU=2 + the new special game fix (0x0002) 
+  FF8 (PAL tested):  OD=1, FE=2, FU=2 + the new special game fix (0x0002)  
+  FF9 (NTSC tested): OD=0, FE=1, FU=1
+  Other games: OD=1, FE=2, FU=1 (everything set to "Standard").
+  If you don't care for speed, you can of course always use the highest options: 
+  OD=2, FE=3, FU=2, but only a few games (like for example Ghost in the Shell)
+  will need such to run without glitches... and sometimes this mode will create
+  a mixed lowres/hires display (example: look at the hitpoints in FF9)
+  General rule: the lower the options, the faster the game, but also the chances for 
+  glitches will grow. 
+  And another advice: it's possible that a game uploads some (non-gfx) data to the 
+  psx gpu's vram, and reads it back later (so it uses the vram as some kind of swap 
+  file). That's no problem with FE=0 or FE=3, but the other FE modes may try to 
+  read back that data from your real gfx cards framebuffer, well, and that could cause 
+  problems (even emu crashes are possible). I have seen such only with FF9, and 
+  I've added special checks to get around that, but if you are having emu crashes 
+  ("unknown opcode" messages, etc), you should try to set FE to 0, maybe it will 
+  help.
+
+- Finally: there is a special texturing mode in the PSX, called "texture window".
+  Basically it means that a part of a texture map can be used as a repeated texture
+  tile... for example a text box background image pattern, or a wall texture, or a 
+  street texture in racing games. That's one of the harder things to emulate in a
+  hw/accel plugin, since "repeated textures" have some kind of limitations on PC
+  gfx cards:
+
+  * you cannot repeat only a certain part of a texture (like the psx gpu can do), 
+    but you have to repeat the complete texture
+
+  * the complete repeated texture has to be of a "power-of-2" dimension (2,4,8,16,32, 
+    etc), also unlike the psx which can use different sizes. 
+    Yeah, Some pc gfx cards have support for non-power-of-2 sizes, but if you are 
+    using such, you cannot use the "repeat" mode of the 3D API.
+
+  Therefore my D3D/OGL plugins (and Lewpy's Glide as well) have to tread such psx
+  texture windows in a special way: get the texture data, scale it up to power-of-2
+  dimensions, and place it in a single texture which then can be drawn in the 
+  "repeat" mode. Works, but of course that workaround has some disadvantages:
+
+  1. scaling can produce a not 100% display
+  2. you need a special cache for such textures
+  3. (only affects my plugins) "hires" texturing ("2xSaI", etc) isn't possible 
+     (that's because I use "palettized textures" - if available - for "texture windows"
+     to get a good speed).
+
+  Needless to say that the disavantages were always a thorn in my side... especially
+  since ATI cards (and GFFX ones as well) cannot even do palletized textures for a
+  speedup.
+
+  After some thinking I came up with a solution in my OGL2 plugin: good ole pixel
+  shaders :) I've created a shader which is able to emulate texture windows perfectly
+  inside the gfx card. Runs nice and fast on my R9700Pro. And all of the above 
+  mentioned issues are fixed (no need for scaling, no need for a special caching, and
+  hires textures can be used without problems).
+  Anyway, it will need a DX9 card (only those support the "ARB_fragment_program" 
+  extension), so it's R9500+ and GFFX cards exclusive. Dunno about the speed on
+  GFFX cards, though, the latest statements about the GFFX pixel shader speed were
+  not very promising, so maybe it's better to turn the shaders off on FX cards.
+  
+  If the new option is activated, and supported on your card, a small chessboard
+  alike symbol will be displayed in the gpu in-game menu. 
+
+
+"Let me walk a while alone
+ Among the sacred rocks and stones
+ Let me look in vain belief
+ Upon the beauty of each leaf"
+- "The Park" by Uriah Heep
+
+
+--------------------------------------------------------------------------
+
+16. August, 2003    Version 2.01
+
+- First, thanks for all the mails I've got about the new OGL2 plugin. Most mails
+  were really kind and positive, but of course the new plugin also raised some
+  questions and showed problems on certain systems. Here is a small list:
+
+  * ATI R7500 cards seem to produce all kind of glitches. Well, that was no big 
+     surprise to me (I was more surprised that it worked at all), no way around 
+     that, as far as I can see.
+  * GeForce 2 cards are not fast enough to run that plugin at full speed. Also no
+     big surprise.
+  * GeForce 3 and GeForce 4 (non-MX) cards are usually fast enough to run the 
+     plugin at full speed.
+     To be more exact: they would be fast enough. Sadly the plugin crashes after a few
+     frames with such cards.... but only on Win2K/WinXP systems with 4X.XX 
+     detonator drivers. W9X systems are working fine. 3X.XX drivers also work
+     fine. There is a workaround for the WinXP 4X.XX drivers, though: enabling
+     "NV1X compatibility mode" with RivaTuner... but it seems that this will also
+     make the plugin slower, so it's not a perfect solution as well.
+     Well, the nature of this bug (running for a few seconds, then a crash somewhere
+     outside of the plugin) makes it impossible to track down the real reason.
+     Currently it really seems to be a WinXP GF3/4 detonator driver bug, since older 
+     drivers are working, and no other cards are showing the same issue.
+     Suggestion: report the crash to nVidia. Dunno if they will look at it, but that's
+     the only way to get a clean solution in one of the next driver updates, imho.
+     Funny enough, a few WinXP GF3/4 users had no crashing problems, even 
+     with 4X.XX drivers...
+  * GeForce FX5200 ... oh my... yes, the plugin works without crashes. And yes,
+     it's slow. Honestly: if you are thinking that you  have a fast card, just 
+     because it has a "FX" brand, you are pretty mis-informed (to put it mildly). 
+     FX 5200 cards are even slow compared to a GF4 (non-MX). Sad, but true 
+     (I really hated it to point that out to a few FX5200 users... one of them even 
+     thought he was cheated by Dell for selling him such a weak card...).
+     But of course: most times you get exactly the performance you have paid for...
+     and FX 5200 cards are relatively cheap, you know? Personally I wouldn't touch 
+     a FX5200 (or any nV card with a "MX" brand) with a stick... same is true for Ati 
+     Radeon 9200 cards, btw. 
+  * So who liked the new plugin? Well, ATI Radeon 9500+ and GeForce FX 5600+
+     users were pleased (and the GF4 users who got the plugin to work without
+     crashes). But beside the increased compatibility and the new full screen filtering,
+     there was also one flaw detected: FSAA will not work with the plugin (it will only
+     make it slower, ehehe). But that's not really in my hands... I cannot force a gfx 
+     card driver to do FSAA with offscreen buffers, sorry.
+     
+- Another issue with the previous release was that movies were kinda slow (well, 
+  I got over 120 FPS with movies on my Radeon 9700 Pro, so I didn't notice it, 
+  sorry). This version will have a nearly doubled speed with most mdecs, so relax :)
+
+- Skullmonkeys... ah, yeah... sorry to say: the game didn't work perfectly with
+  the last release (I was only able to check out one level... and of course other
+  levels were still screwed). Well, Parotaku gave me another save state, and I
+  think now everything is right... at least Parotaku was not able to find more 
+  issues, so blame him if still something is going wrong ;)
+ 
+- FrancoisC noticed a bad shading in the Breath Of Fire 4 camp fire on his R8500 
+  with my OGL plugins.  First I didn't believe that (I played BOF4 alot in the past),
+  but then I took a closer look... and he was right. After a few investigations I've 
+  found out that nVidia cards and ATI cards are doing a different rendering of
+  connected quad polygons. Seems like ATI cards are handling a single "quad_strip" 
+  polygon like a "standard quad" one, while nVidia cards are handling it like 
+  two connected triangles. Don't ask me what's the correct behaviour, and who is
+  to blame, ehehe.
+  Anyway, I've fixed that... now ATI and nVidia cards will work fine.
+
+- Ah, and related to the bad BOF4 shading: the car tires in "Driver" were also missing
+  on ATI cards, tsts. Of course that's also fixed.
+
+- Various small cleanups. Dunno if the speed will increase significantly (I doubt so),
+  but it will not hurt either.
+
+- I've started again to add good old 'special game fixes' ;) Well, as stated in the 2.0 readme,
+  the 'Legend of Dragoons' battle transitions were not perfect without the "Full" framebuffer 
+  effect setting. Since the "full" mode is not really needed in that game (beside that battle 
+  transition), I came up with a way to show the effects corretly even if a lower framebuffer 
+  effect setting  ("standard" or "minimum") is active. The same 'special fix' works also with 
+  the "RPG Maker" screen fading effects, btw.
+
+- This plugin was designed to use nowadays gfx card's capabilities to improve the 
+  pixelated psx graphics... and of course a modern buzz word here is "shaders" (or 
+  in OpenGLish: vertex and fragment programs).
+  My first steps with shaders were done on my old GF3, using some nV OGL extensions, 
+  but I didn't see much benefits for my standard OGL psx plugin.
+  Well, the OGL2 plugin architecture makes it much easier to add all kind of fullscreen 
+  effects using shaders, and in OGL1.5 a C-alike shader language (GLslang) will be 
+  introduced. So I planned to use GLslang as soon as possible to create some nice 
+  realtime fullscreen filters.
+  But then I played with the current ARB shader extensions a bit, and they were working 
+  great on my current R9700Pro, so I thought to myself: why waiting? Let's use them 
+  now, and maybe replace them later with GLslang.
+  A single thought... and it's done, ehehe. This version has some new options to select 
+  "shader effects", available are:
+
+  * fullscreen smoothing - similar to the "screen filtering" option 
+  * fullscreen smoothing (black/white) - emulates a B&W tv set
+  * custom... more about that later :)
+
+  The level of each effect can be controlled as well (minimum, more, medium, 
+  maximum), and each effect can be combined with the "fullscreen filtering" option.
+  The effect level can also be adjusted in the gpu in-game menu, btw.
+ 
+  Oh, and please note: the first two shader effects were created with my R9700Pro in
+  mind... they are using up to 8 texture units! That means that all cards with less units
+  will most likely show an error message.
+  
+  But what's that 'custom' mode? Well, I thought it would be nice if interested users
+  could create their own shaders. Therefore the 'custom' mode will load and use two 
+  external shader files (one for vertex and one for fragment programs). Simply 
+  create a main emu sub-directoy called 'shaders', and place a file named "gpuPeteOGL2.vp"
+  (vertex program) and a file named "gpuPeteOGL2.fp" (fragment program) in it.
+  For all users who don't have a clue how to code such ARB programs, I've included
+  already two sets of shader files in this archive... one for doing a "black & white" effect,
+  and one which is doing a very simple smoothing (using only 4 texture coord units, so
+  it will work with less powerful cards as well). 
+  Experienced gfx coders can of course change the files and try to create even more 
+  interesting effects (mmm... maybe I should do some shader contest? ehehe). 
+ 
+ 
+"Somebody bring me some water, can't you see it's out of control
+ Baby's got my heart, and my baby's got my mind
+ But tonight the sweet Devil's got my soul"
+- "Bring Me Some Water" by Melissa Etheridge
+
+--------------------------------------------------------------------------
+
+30. July, 2003    Version 2.00
+
+I often get mails like: "Game XYZ is having missing screens in your hw/accel 
+plugins", or "This swirl doesn't look right in D3D", or "Why is the OGL 
+compatibility lower than with the soft plugin?", etc.
+
+Well, the basic problem: it's kinda difficult for an hw/accel plugin to detect 
+which part of the psx gpu vram is used to display the current screen, and to 
+map this part to the PC's gfx card's backbuffer. 
+
+My OpenGL/D3D plugins are full of rules, guesses and tricks to handle this task. 
+And, of course, they still fail. Sometimes it's not very important (like missing 
+menu background gfx in Xenogears), but often annoying (like the screwed
+battle screens in Vandal Hearts 2).
+
+Of course I can try to tweak such detection rules, to improve one game, but to 
+be honest, it's like: "repair one, break two others".
+
+So, in 2000 I planned to change my complete inner plugin core, to get an higher 
+compatibility. And I've made an experimental gpu plugin, called "PeteSoftD3D".
+
+As the name is hinting, it used D3D, but the compatibility should be more like a 
+soft gpu plugin. At least in theorie :) Yeah, the plugin kinda worked ok (meaning:
+zillion of glitches in this stage, and speed not to bad) on my development system, 
+and a few lucky beta testers were also able to run it, but it seemed like it wasn't 
+the right time for this new approach, since I reached some gfx card/API limits 
+which made the further development pointless.
+
+So it was back to the 'traditional' hw/accel plugins, adding more and more tweaks 
+and stuff, but always knowing that there will be problems with certain games, 
+doesn't matter what I am trying to do.
+
+And time went by... gfx cards got better and better, with more and more vram (important
+for the things I wanted to do), and also the 3D APIs (OpenGL and D3D) improved. 
+I watched especially the upcoming OpenGL2 specifications, I liked their color 
+convertion and memory control features (and I was kinda sad about the still not 
+programmable blending stage), and I thought by myself that by the time when the 
+final OpenGL2 is out, I can try my approach from 2000 again.
+
+Well, but in spring 2003 I started another emu project, and soon I could see that I 
+would end up in the same compatibility mess as with my hw/accel psx gpu plugins. So
+I begun to do much tests with the currently available OpenGL extensions, to see if I 
+can use them for the basic things I had in mind with OGL2, and luckily it showed that
+the most important things were working as I hoped they would. 
+
+And therefore I've decided the time is right to do an hw/accel psx gpu plugin with 
+high compatibility... I call it "Pete's OpenGL2 plugin, version 2.0", since I will 
+port it to 'real' OpenGL2 as soon as it's possible. Right now it only uses 'standard' 
+OpenGL with all kind of extensions.
+
+Be warned: it's an hungry beast. I recommend a modern gfx card with 128 MB vram
+for best quality.  Most 64 MB cards will also work, but with 32 MB it will be hard (and/or
+ugly), and with 16 MB nearly impossible. I've coded some capability checks, but still 
+the plugin could crash on startup if your system doesn't meet the requirements.
+Also the cpu should run at 2 Ghz to get no big slowdowns in the best compatibility 
+mode, and 256 MB system ram would be nice as well :)
+
+Ok, let's take a general look at the plugin:
+
+* What's better compared to my 'standard' hw/accel plugins?
+
+- An higher compatibility: you may notice that all kind of "special game fixes"
+  are gone... because they are not needed anymore :) 
+  Bye bye, annoying Legend of Dragoons sprite border colors
+  Rest well, FF7 fix
+  And, and, and...
+  
+- Correct swirls, correct splash screens, correct special stuff like the "Vandal
+  Hearts 2" battles, or Tifa's Limit Break wheel (FF7) 
+  
+- A nice full screen filter. That one improves 2D games (and games with a 2D
+  background gfx) alot. And best of it: no speed hit at all, and you can toggle
+  it directly in the gpu menu :)
+
+
+* What's worse compared to my 'standard' hw/accel plugins?
+
+- Generally a little bit slower (well, no speed problems on my AMD 2000+ and 
+  Radeon 9700 Pro... anyway, I was able to reach the required 50/60 psx fps easily on 
+  nearly every game I've tried).
+
+- You will need much vram to get nice hi-res displays. Yeah, you can choose a
+  'low resolution' display (will be as low as the soft gpu plugins), but of course
+  the main reason for an hw/accel psx gpu plugin is to enhance the graphics...
+  and that will need a powerful card with this plugin.
+  And unfortunately the very best quality (options: "very high Y" and "very high X"
+  resolution) is not possible with nowadays gfx cards/drivers (no luck with the R9700 Pro 
+  and GF4200 I have tried). Therefore the best workable settings are "very high Y" and
+  "high X", but a 128 MB card is recommended for that modes. But hey, the standard
+  "high Y" and "high X" mode will be good as well... especially in combination with
+  the new fullscreen filtering.
+  
+- Some options like 'advanced blending', 'mask bit' and 'alpha multipass' have 
+  been removed (mmm... less options? Thinking about it, I should have put that point in 
+  the "better" list, since it causes less user confusion, ehe).
+  Some of them are gone because they wouldn't make any sense with the new 
+  plugin core, and some of them because I don't think that they are needed in a 
+  plugin which requires a modern card anyway.
+ 
+- No Linux port yet (but it's on my to-do list... dunno if the current ATI 
+  Linux drivers can handle all the needed extensions, though... we will see).
+
+
+* And what's the same?
+
+- I still offer some options to tweak the plugin for better speed and/or quality 
+  and/or compatibility. Since the new plugin works different than my standard 
+  plugins, you will need to experiment with the new options until you get a 
+  feeling for them, I think :)
+
+- Texture filtering/hires textures WILL STILL CAUSE glitches in some games. 
+  Complains about it are going directly into my personal NULL device. Use that 
+  texture options if you like them, disable them otherwise. It's that easy.
+
+- Even in the highest compatibility mode, there will be still a few display 
+  issues in certain games. Like the screwed main game menu of Star Ocean 2.
+  That's life :)
+
+
+But what about the old hw/accel plugins? Will they die? 
+
+No, not at all. 
+
+They have still enough reasons to exist... they are faster, and less demanding,
+so many people will still use them. Dunno how often updates will happen in the
+future, but if I find something to fix or improve, I will do it.
+
+Ok, last suggestion: Check out the included readme file. It will explain the
+OGL2 plugin's config options, and it offers some configuration and tweaking tips.
+
+And, as always, have fun :)
+
+
+
+"Ich lache, tanze, springe, sag neue Lieder auf.
+ Ich schlag die Welt zu Truemmern und bau sie wieder auf.
+ Du hast mit Blut geschrieben, du kennst die Regeln auch.
+ Ich hol mir deine Seele, das ist bei mir so Brauch."
+- "Mephisto" by Subway to Sally
+
+-------------------------------------------------------------------------- 

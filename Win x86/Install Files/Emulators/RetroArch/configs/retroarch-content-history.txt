@@ -1,0 +1,117 @@
+C:\SteamConsole\Emulators\ROMS\N64\Legend of Zelda, The - Ocarina of Time - Master Quest.v64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+D:\SteamConsole\Emulators\ROMS\N64\Legend of Zelda, The - Ocarina of Time - Master Quest.v64
+D:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+C:\SteamConsole\Emulators\ROMS\GBA\Legend of Zelda, The - The Minish Cap.gba
+C:\SteamConsole\Emulators\RetroArch\cores\vbam_libretro.dll
+VBA-M
+D:\Google Drive\SteamConsole\Emulators\ROMS\N64\Legend of Zelda, The - Ocarina of Time - Master Quest.v64
+D:\Google Drive\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64Plus
+C:\SteamConsole\Emulators\ROMS\N64\Legend of Zelda, The - Majora's Mask.z64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+C:\SteamConsole\Emulators\ROMS\N64\Star Fox 64.n64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64Plus
+C:\SteamConsole\Emulators\ROMS\N64\Legend of Zelda, The - Ocarina of Time.z64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+D:\SteamConsole\Emulators\ROMS\GBA\Legend of Zelda, The - The Minish Cap.gba
+D:\SteamConsole\Emulators\RetroArch\cores\vbam_libretro.dll
+VBA-M
+C:\SteamConsole\Emulators\ROMS\Genesis\Phantasy Star III - Generations of Doom.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Teenage Mutant Ninja Turtles - The Hyperstone Heist.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Sonic the Hedgehog 2.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Sonic the Hedgehog.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Sonic & Knuckles + Sonic the Hedgehog 3.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\N64\Gex 3 - Deep Cover Gecko.n64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+C:\SteamConsole\Emulators\ROMS\Genesis\Phantasy Star.sms
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\N64\Super Smash Bros.n64
+C:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+C:\SteamConsole\Emulators\ROMS\DS\Final Fantasy IV.nds
+C:\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+D:\SteamConsole\Emulators\ROMS\Genesis\Phantasy Star.sms
+D:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+D:\SteamConsole\Emulators\ROMS\Genesis\Cool Spot.md
+D:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+D:\SteamConsole\Emulators\ROMS\DS\Final Fantasy IV.nds
+D:\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+D:\SteamConsole\Emulators\ROMS\N64\Super Smash Bros.n64
+D:\SteamConsole\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+D:\SteamConsole\Emulators\ROMS\DS\Legend of Zelda - Spirit Tracks.nds
+D:\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\SteamConsole\Emulators\ROMS\Genesis\Cool Spot.md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Phantasy Star II (SEGA).md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Phantasy Star III - Generations of Doom (SEGA).md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Landstalker (SEGA).md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\Genesis\Cool Spot (SEGA).md
+C:\SteamConsole\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\SteamConsole\Emulators\ROMS\GBA\Legend of Zelda, The - The Minish Cap (GBA).gba
+C:\SteamConsole\Emulators\RetroArch\cores\vbam_libretro.dll
+VBA-M
+C:\SteamConsole\Emulators\ROMS\DS\Final Fantasy IV (NDS).nds
+C:\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\Test\SteamConsole\Emulators\ROMS\DS\Final Fantasy IV (NDS).nds
+C:\Test\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\SteamConsole\Emulators\ROMS\DS\Legend of Zelda - Spirit Tracks (NDS).nds
+C:\SteamConsole\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\N64\007 - GoldenEye (N64).n64
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\mupen64plus_libretro.dll
+Mupen64plus
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\Genesis\Cool Spot (SEGA).md
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\DS\Legend of Zelda - Spirit Tracks (NDS).nds
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\GBA\Legend of Zelda, The - The Minish Cap (GBA).gba
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\vbam_libretro.dll
+VBA-M
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\Genesis\Gauntlet IV (SEGA).md
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\DS\Final Fantasy IV (NDS).nds
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\desmume_libretro.dll
+DeSmuME
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\Genesis\Sonic & Knuckles + Sonic the Hedgehog 3 (SEGA).md
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\genesis_plus_gx_libretro.dll
+Genesis Plus GX
+C:\Users\user\Google Drive\Emulators\RetroArch\ROMS\SNES\Aladdin (SNES).zip
+C:\Users\user\Google Drive\Emulators\RetroArch\cores\snes9x_libretro.dll
+SNES9x

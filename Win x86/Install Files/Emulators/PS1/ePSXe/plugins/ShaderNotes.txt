@@ -1,0 +1,140 @@
+Shaders from this pack work with the OGL2 gpu plugin from Pete Bernert (www.pbernert.com).
+Make sure you've got a new OGL2 plugin version and a pixel shader 2.0 compatible gfx. adapter.
+Read the OGL2 plugin documentation for more info. 
+
+
+SHADER NOTES:
+
+
+***SaL shader***
+
+- replace standard fullscreen smoothing in some situations
+- very fast AA shader (try lesser effect levels for AA)
+- looks nice with 2xSaI textures (lvl.2) in higher resolutions
+- looks nice with standard filtering (lvl.2) in high resolutions
+- Prefered settings: 2xsai textures (no texture filtering), lvl.2 texture filtering, no fullscreen smoothing
+- Prefered games: can be used with most games
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***2xGLSL shader***
+
+- can be used with diferent internal resolutions
+- best suited for 2xresolutions of the PSX native mode. (like 640x480)
+- Prefered settings: normal textures, no texture filtering, no fullscreen smoothing, shader level 4
+- Perfered games: sprite games
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***2xGLSLHqFilter shader***
+
+- nice adaptable smoothing
+- quite slow, usually fast enough in 640x480
+- can be used with diferent internal resolutions
+- best suited for 2xresolutions of the PSX native mode. (like 640x480)
+- Prefered settings: normal textures, no texture filtering, no fullscreen smoothing, shader level 4
+- Perfered games: sprite games
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***4xGLSL shader***
+
+- best suited for 4xresolutions of the PSX native mode. (like 1280x960)
+- Prefered settings: normal textures, no texture filtering, no fullscreen smoothing, shader level 4
+- Perfered games: sprite games
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***4xGLSLScale shader***
+
+- best suited for 4xresolutions of the PSX native mode. (like 1280x960)
+- does not interpolate colors (at least not for human eyes :) )
+- Prefered settings: normal textures, no texture filtering, no fullscreen smoothing, shader level 4
+- Perfered games: sprite games
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***4xGLSLHqFilter shader***
+
+- does some nice looking adaptable smoothing
+- can be used with diferent internal resolutions
+- best suited for 4xresolutions of the PSX native mode. (like 1280x960)
+- Prefered settings: normal textures, no texture filtering, no fullscreen smoothing, shader level 4
+- Perfered games: sprite games (original), combined sprite/3D 320x240 native res. games (lite)
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+***OGL2Lookup shader***
+
+- observes the emulated OGL2 plugin render buffer first hand and real-time :)
+- best used to determine game resolutions
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***Color Shader***
+
+- can adjust rgb channel intensity, brightness, contrast (diverse contrast funcs.), saturation.
+- can/must change the values in the fragment file
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***AA-Color shader***
+
+- can/must change the values in the fragment file for color settings
+- Look nice with cards incapable of VeryHigh-X internal res. (shader level 2)
+- Prefered settings: filtered textures, shader level 2
+- Perfered games: 320x240 games with some 3D gfx.
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***(Colored)Storybook shaders***
+
+- Artistic shaders
+- the attached "gpuPeteOGL2_t1l.tga" file must be placed in the shaders folder
+- may look better with filtering or/and fullscreen smoothing
+- Prefered settings: shader lvl. 2-4, texture filterin 2, fullscreen smoothing
+- Prefered games: games with 3D gfx.
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+
+***CARTOON SHADERS***
+
+-the "Class C" shaders are quite fast and should work nice with most of the adapters.
+-the "Class B" shaders are a bit slower, but have better (smoother) edge detection.
+-advanced Cartoon shaders: customisable black borders + two types of colour reduction.
+
+Class B and C:
+
+Cartoon shaders I:
+- add dark outlines on detected edges
+
+Cartoon shaders II:
+- add dark outlines on detected edges
+- do some colour "reduction" for even better contrast
+
+Cartoon shaders III:
+- add dark outlines on detected edges
+- can adjust colour contrast and saturation
+
+- Prefered settings: shader lvl. 2-4, texture filtering 2, fullscreen smoothing
+- Prefered games:games with 3D gfx.

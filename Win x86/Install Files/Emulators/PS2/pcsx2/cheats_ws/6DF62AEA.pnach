@@ -1,0 +1,5 @@
+gametitle=Bleach - Blade Battlers (J)(SCPS-15116)
+comment=Widescreen Hack by Arapapa
+
+//Widescreen hack 16:9
+patch=1,EE,20291500,extended,3F9E859F // 3fd35cd4

@@ -1,0 +1,16 @@
+gametitle=Another Century's Episode 2 [Special Vocal Version] (J)(SLPS-25829)
+comment=Widescreen hack by Arapapa
+
+//Widescreen hack 16:9
+
+//Zoom
+//003f023c 00008244
+patch=1,EE,001f1c90,word,3c023f20 //3c023f00
+
+//Y-Fov
+//6e3f023c efee4334
+patch=1,EE,001f1b8c,word,3c023f9f //3c023f6e
+patch=1,EE,001f1b90,word,344349e9 //3443eeef
+
+//Render Fix
+patch=1,EE,001f1b00,word,3c033e20 //3c033df0

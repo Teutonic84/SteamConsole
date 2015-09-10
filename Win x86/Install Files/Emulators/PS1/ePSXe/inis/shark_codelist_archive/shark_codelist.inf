@@ -1,0 +1,6060 @@
+____LEGEND____
+
+[#] = can always leave code on
+[!~~] = careful use of code
+
+
+
+8-bit:
+40 = memory write
+4F = memory write (last offset + 1)
+50 = current value = code value
+51 = current value != code value
+52 = current value < code value
+53 = current value > code value
+
+
+16-bit:
+80 = memory write
+8F = memory write (last offset + 2)
+90 = current value = code value
+91 = current value != code value
+92 = current value < code value
+93 = current value > code value
+
+
+32-bit:
+C0 = memory write
+CF = memory write (last offset + 4)
+D0 = current value = code value
+D1 = current value != code value
+D2 = current value < code value
+D3 = current value > code value
+
+
+Misc:
+20 = slide
+3F = code block
+
+
+
+
+
+20 = slide
+
+20 xxxxxxxx yyyy
+x = offset bump, y = runs
+
+ex.
+; 2 enemies     =====>  D0080000 3040
+5E000010 0002   =====>  D0080002 9080
+                =====>  D3080005 0050
+; code check    =====>  80080005 0001
+D0080000 3040   =====>  
+D0080002 9080   =====>  D0080010 3040
+                =====>  D0080012 9080
+; HP write      =====>  D3080015 0050
+D3080005 0050   =====>  80080015 0001
+80080005 0001   =====>
+
+
+
+3F = code block
+
+3F xxxxxxxx yyyy
+y: 0000 = start code block
+y: 0001 = end code block
+
+
+ex.
+; field check
+D01F0080 0300     =====>  D01F0080 0300
+D01F0081 0301     =====>  D01F0080 0300
+                  =====>  801F0082 0333
+; random battles - off
+5F000000 0000     =====>  D01F0080 0300
+801F0082 0333     =====>  D01F0080 0300
+801F0083 CCCC     =====>  801F0083 CCCC
+5F000000 0001     =====>
+
+
+#Mega Man Legends 1
+
+"Infinite Zenny
+c0 800C1B2C ????
+
+$0000   no zenny
+$1000   > 4096 zenny
+$10000  > 65536 zenny
+$20000  > 131072 zenny
+$40000  > 262144 zenny
+$80000  > 524288 zenny
+$f423f  max zenny
+
+
+#Colony Wars
+
+"Infinite shields
+d2 800463B4 0003
+80 800463B4 00EE
+
+
+"Infinite missiles
+d2 80119CC0 0001
+80 80119CC0 0006
+
+
+"Infinite secondary
+d2 80119D28 0001
+80 80119D28 0005
+
+d2 80119D5C 0001
+80 80119D5C 0005
+
+d2 800FE472 0001
+80 800FE472 0005
+
+d2 80119CF4 0001
+80 80119CF4 0005
+
+
+"Weapons never overheat
+80 80119C4C 0000
+80 80119C80 0000
+80 80119CB4 0000
+80 80119CE8 0000
+80 80119D1C 0000
+
+
+#Valkyrie Profile
+
+"[#] Save anytime
+;40 801F6274 0011
+
+; white icon
+d0 8005d800 30a50001
+c0 8005d808 00002825
+
+; allow save
+d0 8005f56c 30420001
+c0 8005f570 00000000
+
+
+"[#__!~~] Battle - Unbreakable weapons
+@2
+ 
+d0 80066aa4 922206a7
+d0 8005b224 0c016d39
+c0 8005b228 00000000
+
+.Weapon shatters but you still keep it
+.
+.Must equip item again to regain effects
+
+
+"[#__!~~] Battle - Unbreakable weapons (v2)
+@2
+
+d0 80066aa4 922206a7
+c0 80066ab0 10000003
+
+.Weapon will never break
+
+
+"[#] Battle - Enemy HP
+d0 80065708 8c420370
+3f 00000000 0000
+
+20 000006bc 0004
+
+; check id tags
+d3 801d90fc 80000000
+d2 801d90fc 801fffff
+
+; check hp
+d3 801d9100 ????
+c0 801d9100 ????
+
+3f 00000000 0001
+
+
+$0001  > 1 HP
+$0100  > 256 HP
+$0800  > 2048 HP
+$1000  > 4096 HP
+$2000  > 8192 HP
+$4000  > 16384 HP
+$8000  > 32768 HP
+$ffff  > 65535 HP
+
+
+"Days left in chapter
+40 801E5C41 ????
+
+$00  None
+$01  > 1 day
+$02  > 2 days
+$03  > 3 days
+$04  > 4 days
+$05  > 5 days
+$06  > 6 days
+$07  > 7 days
+$08  > 8 days
+$20  > 32 days
+
+
+"[#] Character points - unlimited (on)
+@1
+
+d0 8005c70c 96a200d0
+d0 8005d5b8 86a200d0
+d0 8005e1f0 8663ffe4
+3f 00000000 0000
+
+; skills
+c0 8005d5c4 10000020
+c0 8005c71c a2a200d0
+
+; traits
+c0 8005e1fc 10000018
+c0 8003bea4 a0c200d0
+c0 8003be64 a0c200d0
+
+3f 00000000 0001
+
+
+"[#] Character points - unlimited (off)
+@1
+
+d0 8005d5b8 86a200d0
+d0 8005e1f0 8663ffe4
+3f 00000000 0000
+
+; skills
+c0 8005d5c4 10400020
+c0 8005c71c a6a200d0
+
+; traits
+c0 8005e1fc 10600018
+c0 8003bea4 a4c200d0
+c0 8003be64 a4c200d0
+
+3f 00000000 0001
+
+
+"Seal rating
+80 801e5c43 ????
+
+$00   None
+$10   > 16 seal
+$20   > 32 seal
+$40   > 64 seal
+$64   Max seal
+
+
+"Evaluation rating
+80 801F6264 ????
+
+$00   None
+$10   > 16 rank
+$20   > 32 rank
+$40   > 64 rank
+$64   Max rank
+
+
+"Materialize points
+C0 801F5F80 ????????
+
+$0000   None
+$0200   > 512 MP
+$0400   > 1024 MP
+$1000   > 4096 MP
+$2000   > 8192 MP
+$4000   > 16384 MP
+$8000   > 32768 MP
+$10000  > 65536 MP
+$40000  > 262144 MP
+$5f5e0ff  Max MP
+
+
+"EXP orb points
+c0 8004abc8 ????
+
+$0000    None
+$0200    > 512 EXP
+$0400    > 1024 EXP
+$1000    > 4096 EXP
+$2000    > 8192 EXP
+$4000    > 16384 EXP
+$8000    > 32768 EXP
+$10000   > 65536 EXP
+$40000   > 262144 EXP
+$ffffff  Max EXP
+
+
+"Infinite time - Brahm's castle
+D2 801E5C4C 0001
+80 801E5C4C 3B01
+
+
+"Have all items
+5000ff02 0001
+801f62a2 0001
+5000ff02 0001
+801f64a0 0100
+
+
+#Novastorm
+
+"[#] Infinite HP (on)
+d0 8012031c 96e201b0
+3f 00000000 0000
+
+; jmp - enemy fire
+c0 80120328 08042b93
+cf 00000000 00000000
+
+; code - enemy fire
+c0 8010ae4c 00431023
+cf 00000010 20420000
+cf 00000014 1c400002
+cf 00000018 20420000
+8f 0000001c ????
+8f 0000001e 3402
+cf 00000020 080480cc
+cf 00000024 a6e201b0
+
+
+; jmp - terrain
+c0 80127f58 08042b9a
+cf 00000000 00000000
+
+; code - terrain
+c0 8010ae68 00431023
+cf 0000000c 20420000
+cf 00000010 1c400002
+cf 00000014 20420000
+8f 00000018 ????
+8f 0000001a 3402
+cf 0000001c 08049fd8
+cf 00000020 a5220030
+
+3f 00000000 0001
+
+$80    >25% HP
+$100   >50% HP
+$180   >75% HP
+$200   >100% HP
+
+
+"[#] Infinite HP (off)
+d0 8012031c 96e201b0
+3f 00000000 0000
+
+; enemy fire
+c0 80120328 00431023
+cf 00000000 a6e201b0
+
+; terrain
+c0 80127f58 00431023
+cf 00000000 a5220030
+
+3f 00000000 0001
+
+
+"[#] Infinite lives (on)
+d0 8011936c 86e20130
+3f 00000000 0000
+
+; jmp
+c0 80119374 08042b8d
+cf 00000000 00000000
+
+; code
+c0 8010ae34 2042ffff
+cf 00000008 14400002
+cf 0000000c 20420001
+8f 00000010 ????
+8f 00000012 3402
+cf 00000014 080464df
+cf 00000018 a6e20130
+
+3f 00000000 0001
+
+$02  > 1 life
+$03  > 2 life
+$04  > 3 life
+$05  > 4 life
+$06  > 5 life
+
+
+"[#] Infinite lives (off)
+d0 8011936c 86e20130
+3f 00000000 0000
+
+; jmp
+c0 80119374 1840002d
+cf 00000000 00000000
+
+3f 00000000 0001
+
+
+#Judge Dredd
+
+"Infinite HP
+80 800da992 03e8
+
+"PCSX TESTING - on
+@100
+C0 80072854 1000ffff
+CF 00000000 00000000
+
+"PCSX TESTING - of
+@100
+C0 80072854 3c01801e
+CF 00000000 a020337d
+
+
+#Xenogears
+
+"[#] Game Improvements
+
+; Save anytime
+D0 801DA004 90429171
+3F 00000000 0000
+
+C0 801DA00C 10000005
+C0 801DA100 10000004
+
+3F 00000000 0001
+
+
+; Always run
+D0 80035c6c 24630001
+3F 00000000 0000
+
+; jmp
+C0 80035c70 080063ac
+CF 00000000 00000000
+
+; code
+C0 80018eb0 38840040
+CF 00000004 3c018006
+CF 00000008 0800d71e
+CF 0000000c 00220821
+
+3F 00000000 0001
+
+
+.List
+.- Save anytime
+.- Always run
+
+
+"[#] Recharge Fuel
+
+; Recharge more fuel
+d0 80082db0 3c03800d
+d0 80085000 1440fffa
+3f 00000000 0000
+
+; code
+c0 80082db4 94632c32
+cf 00000008 3c01800d
+8f 0000000c ????
+8f 0000000e 0003
+cf 00000010 00431021
+
+3f 00000000 0001
+
+
+$1900  >16x charge
+$1940  >32x charge
+$1980  >64x charge
+$1a00  >128x charge
+$1a40  >256x charge
+
+
+"[#] Fast Text
+D0 8007E288 AFB90040
+93 800B21D6 ????
+80 800B21D6 ????
+
+$01  Fastest
+$03  > Fast
+$05  > Normal
+$07  > Slow
+$09  Slowest
+
+
+"[#] Random Battles (off)
+@1
+
+; field
+D0 800793C8 94620000
+C0 800793D0 10400001
+
+; world
+D0 800717DC 8C42D80C
+C0 800717E4 1000001D
+
+
+"[#] Random Battles (on)
+@1
+
+; field
+D0 800793C8 94620000
+C0 800793D0 10400008
+
+; world
+D0 800717DC 8C42D80C
+C0 800717E4 1040001D
+
+
+"[#] Random Battles (always)
+@1
+
+; field
+D0 800793C8 94620000
+C0 800793D0 10000008
+
+; world
+D0 800717DC 8C42D80C
+C0 800717E4 10400001
+
+
+"[#] Enemy HP
+
+; human HP
+90 80094730 8c425f6c
+20 00000170 0006
+93 800cd184 ????
+80 800cd184 ????
+
+; gear HP
+90 80094730 8c425f6c
+20 00000170 0004
+93 800cd23c ????
+80 800cd23c ????
+
+
+$0001  > 1 HP
+$0100  > 256 HP
+$0800  > 2048 HP
+$1000  > 4096 HP
+$2000  > 8192 HP
+$4000  > 16384 HP
+$7FFF  > 32767 HP
+
+
+"Learn Deathblows
+
+"\\Bart
+c0 8006db1c ffffffff
+cf 00000020 ffffffff
+cf 00000024 ffffffff
+cf 00000028 ffffffff
+
+"\\Billy
+c0 8006dbc0 ffffffff
+cf 000000c4 ffffffff
+cf 000000c8 ffffffff
+cf 000000cc ffffffff
+
+"\\Chu Chu
+c0 8006ddac ffffffff
+cf 000000b0 ffffffff
+cf 000000b4 ffffffff
+cf 000000b8 ffffffff
+
+"\\Citan
+c0 8006da78 ffffffff
+cf 0000007c ffffffff
+cf 00000080 ffffffff
+cf 00000084 ffffffff
+
+"\\Citan (sword)
+c0 8006def4 ffffffff
+cf 000000f8 ffffffff
+cf 000000fc ffffffff
+cf 00000f00 ffffffff
+
+"\\Elly
+c0 8006d9d4 ffffffff
+cf 000000d8 ffffffff
+cf 000000dc ffffffff
+cf 000000e0 ffffffff
+
+"\\Emeralda
+c0 8006dd08 ffffffff
+cf 0000000c ffffffff
+cf 00000010 ffffffff
+cf 00000014 ffffffff
+
+"\\Emeralda (aged)
+c0 8006df98 ffffffff
+cf 0000009c ffffffff
+cf 000000a0 ffffffff
+cf 000000a4 ffffffff
+
+"\\Fei
+c0 8006d930 ffffffff
+cf 00000034 ffffffff
+cf 00000038 ffffffff
+cf 0000003c ffffffff
+
+"\\Maria
+c0 8006de50 ffffffff
+cf 00000054 ffffffff
+cf 00000058 ffffffff
+cf 0000005c ffffffff
+
+"\\Rico
+c0 8006dc64 ffffffff
+cf 00000068 ffffffff
+cf 0000006c ffffffff
+cf 00000070 ffffffff
+
+
+
+
+
+
+"Max Gold
+80 8006EF58 967F
+80 8006EF5A 0003
+;80 8006EF5A 0020
+
+
+#Final Fantasy 9
+
+"[#] Random battles (off)
+@1
+
+90 800A897C 1821
+80 800A899A 2400
+90 80038DD0 202A
+80 80038DD6 1000
+
+
+"[#] Random battles (on)
+@1
+
+90 800A897C 1821
+80 800A899A 1062
+90 80038DD0 202A
+80 80038DD6 1080
+
+
+"[#] Battle - 65535 EXP
+90 801F0C70 C320
+80 801F0C6C ????
+
+; ??????
+90 801F0C70 C320
+80 801F0C6E 3404
+
+$FFFF  > 65535 EXP
+
+
+"[#] Battle - 999 AP
+90 801F0C70 C320
+80 801F0C84 ????
+
+; ??????
+90 801F0C70 C320
+80 801F0C86 3403
+90 801F0C70 C320
+80 800FDF38 ????
+
+$03E7  > 999 AP
+
+
+"[#] Battle - Normal run
+@2
+
+90 800C1A40 3572
+80 800C1A52 2400
+90 800BAECC 11C2
+80 800BAED2 1000
+
+
+"[#] Battle - Always allow run
+@2
+
+90 800C1A40 3572
+80 800C1A2C 00C2
+90 800C1A40 3572
+80 800C1A2E 2402
+90 800C1A40 3572
+80 800C1A52 2400
+90 800BAECC 11C2
+80 800BAED2 1000
+
+
+"[#] Battle - Infinite ATS
+90 80098470 B7FA
+90 801044B8 0100
+3F 00000000 0000
+
+80 80108F28 2400
+80 80108FF8 2400
+80 801090C8 2400
+80 80109198 2400
+
+3F 00000000 0001
+
+
+"[#] Battle - Infinite HP
+90 80098470 B7FA
+90 801044B8 0100
+3F 00000000 0000
+
+80 80108F24 270F 
+80 80098668 270F 
+80 80108FF4 270F
+80 80098B10 270F  
+80 801090C4 270F
+80 80098FB8 270F 
+80 80109194 270F
+80 80099460 270F 
+
+3F 00000000 0001
+
+
+"[#] Battle - Infinite MP
+D0098470 B7FA
+D01044B8 0100
+80108F26 270F
+D0098470 B7FA
+D01044B8 0100
+8009866E 270F
+D0098470 B7FA
+D01044B8 0100
+80108FF6 270F
+D0098470 B7FA
+D01044B8 0100
+80098B16 270F  
+D0098470 B7FA
+D01044B8 0100
+801090C6 270F
+D0098470 B7FA
+D01044B8 0100
+80098FBE 270F  
+D0098470 B7FA
+D01044B8 0100
+80109196 270F
+D0098470 B7FA
+D01044B8 0100
+80099466 270F  
+"[#] Battle - Infinite Trance
+D0098470 B7FA
+D01044B8 0100
+80108F38 4000 
+D0098470 B7FA
+D01044B8 0100
+80108F74 21FF 
+D0098470 B7FA
+D01044B8 0100
+80109008 4000 
+D0098470 B7FA
+D01044B8 0100
+80109044 21FF 
+D0098470 B7FA
+D01044B8 0100
+801090D8 4000 
+D0098470 B7FA
+D01044B8 0100
+80109114 21FF 
+D0098470 B7FA
+D01044B8 0100
+801091A8 4000 
+D0098470 B7FA
+D01044B8 0100
+801091E4 21FF 
+"[#] Battle - 100% eat monster
+D00B698C 0028
+800B699A 1000
+"Money (00-99 * 65536)
+8008B7B0 0000
+8008B7B2 00??
+?00-63
+"Infinite Item Usage
+80027EB6 2400
+"Zidane - Infinite AP
+3008B2A3 0063
+"Garnet - Infinite AP
+3008B3C3 0063
+"Vivi - Infinite AP
+3008B333 0063
+"Steiner - Infinite AP
+3008B453 0063
+"Freya - Infinite AP
+3008B4E3 0063
+"Quina - Infinite AP
+3008B573 0063
+"Eiko - Infinite AP
+3008B603 0063
+"Amarant - Infinite AP
+3008B693 0063
+"Zidane - Thievery (times stolen)(0-4096)
+8008B7BA ????
+?0000-1000
+"Freya - Max dragon's crest (0-999)
+8008B7BC ????
+?0000-03E7
+"Chocobo beak (00-99)
+3007AF7B 00??
+?00-63
+"All chocographs
+3007AFAB 00FF
+8007AFAC FFFF
+"Frogs (01,04,08,14,22,32,44,98,999)
+8008B7B8 ????
+?0000-03E7
+"Have all items
+5000FF02 0001
+8008B7C4 6301 
+"All Key Items
+50000902 0000
+8008B9C4 FFFF
+"Have All Cards
+50006406 0001
+3008324E 0000
+"Hippaul Racing (00-99)
+3007B0DB 00??
+?00-63
+"Jump rope game: 1024 jumps (disc 1)
+D0073930 FCEF
+30077E8C 0004
+"Chocobo - Dead Peppers (replaces 1st item, 0-99)
+8008B7C4 ??FC
+?00-63
+"Chocobo - Points Earned (0-65535)
+8007AF60 ????
+?0000-FFFF
+"Chocobo - Unlimited Time
+80076F74 0001
+D007BBC4 0009
+80076F74 0000
+"Cards - Upgrade (select then cancel)
+801FF9F0 FF00
+801FF9F2 03FF
+801FF9F4 FFFF
+"Zidane Tribal - Level 99
+3008B297 00??
+?00-63
+"Zidane Tribal - Unlock All Abilities"
+3008B296 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Zidane Tribal - Infinite HP
+8008B29C 270F
+"Zidane Tribal - Infinite MP
+8008B29E 03E7
+"Garnet Til Alexandros 17th - Level 99
+3008B3B7 00??
+?00-63
+"Garnet Til Alexandros 17th - Unlock All Abilities"
+3008B3B6 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Garnet Til Alexandros 17th - Infinite HP
+8008B3BC 270F
+"Garnet Til Alexandros 17th - Infinite MP
+8008B3BE 03E7
+"Vivi Ornitier - Level 99
+3008B327 00??
+?00-63
+"Vivi Ornitier - Unlock All Abilities"
+3008B326 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Vivi Ornitier - Infinite HP
+8008B32C 270F
+"Vivi Ornitier - Infinite MP
+8008B336 03E7
+"Adelbert Steiner - Level 99
+3008B447 00??
+?00-63
+"Adelbert Steiner - Unlock All Abilities"
+3008B446 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Adelbert Steiner - Infinite HP
+8008B44C 270F
+"Adelbert Steiner - Infinite MP
+8008B44E 03E7
+"Freya Crescent - Level 99
+3008B4D7 0063
+"Freya Crescent - Unlock All Abilities"
+3008B4D6 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Freya Crescent - Infinite HP
+8008B4DC 270F
+"Freya Crescent - Infinite MP
+8008B4DE 03E7
+"Quina Quen - Level 99
+3008B567 00??
+?00-63
+"Quina Quen - Unlock All Abilities"
+3008B566 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Quina Quen - Infinite HP
+8008B56C 270F
+"Quina Quen - Infinite MP
+8008B56E 03E7
+"Eiko Carol - Level 99
+3008B5F7 00??
+?00-63
+"Eiko Carol - Unlock All Abilities"
+3008B5F6 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Eiko Carol - Infinite HP
+8008B5FC 270F
+"Eiko Carol - Infinite MP
+8008B5FE 03E7
+"Amarant Coral - Level 99
+3008B687 00??
+?00-63
+"Amarant Coral - Unlock All Abilities"
+3008B686 00FF
+D01FBF88 0001
+801FBF88 0101 
+D01FBF88 0000
+801FBF88 0101 
+"Amarant Coral - Infinite HP
+8008B68C 270F
+"Amarant Coral - Infinite MP
+8008B68E 03E7
+
+
+#G-Police 1
+
+"[#] Infinite Health (on)
+@1
+
+D0 800C9C40 8E2201F8
+3F 00000000 0000
+
+; disable cockpit change
+C0 800C84A4 14400001
+C0 800D3518 10000227
+
+; jmp
+C0 800C9C48 080046FD
+CF 00000000 00000000
+
+; code
+C0 80011BF4 04410002
+CF 00000008 3C030006
+CF 0000000C 34020900
+CF 00000010 08032716
+CF 00000014 AE2201F8
+
+3F 00000000 0001
+
+
+"[#] Infinite Health (off)
+@1
+
+D0 800C9C40 8E2201F8
+3F 00000000 0000
+
+; restore code
+C0 800C84A4 1440000C
+C0 800D3518 10400227
+C0 800C9C48 04410003
+CF 00000000 3C030006
+
+3F 00000000 0001
+
+
+"[#] Infinite Ammo
+D0 800D24C8 00021080
+3F 00000000 0000
+
+; jmp
+C0 800D24CC 080046F8
+CF 00000000 00000000
+
+; code
+C0 80011BE0 16600002
+CF 00000004 3C01800F
+CF 00000008 34130013
+CF 0000000C 08034935
+CF 00000010 00220821
+
+3F 00000000 0001
+
+
+"[#] Weapon Damage
+@2
+
+D0 800B69BC 8E420174
+3F 00000000 0000
+
+80 800B69C0 ????
+8F 00000002 001E
+
+3F 00000000 0001
+
+$F000  Normal damage
+$F040  > 2x damage
+$F080  > 4x damage
+$F0C0  > 8x damage
+$F100  > 16x damage
+$F1C0  Max damage
+
+
+"[#] Instant Kill
+@2
+
+D0 800B69BC 8E420174
+C0 800B69C0 241EFFFF
+
+
+#Bomberman World
+
+"[#] Infinite Time
+C0 80021284 920200DA
+92 80078BF8 0002
+80 80078BF8 1000
+
+
+"[#] Infinite Lives
+C0 80021284 920200DA
+92 8007F038 0001
+80 8007F038 0004
+
+C0 80021284 920200DA
+92 800CDB70 0001
+80 800CDB70 0004
+
+
+"[#__~~] Invincible (on)
+@1
+
+C0 80021284 920200DA
+80 800CDB32 0101
+
+.Only works at start of level
+
+
+"[#] Invincible (off)
+@1
+
+C0 80021284 920200DA
+80 800CDB32 0000
+
+
+"[#] Walking Speed
+C0 80021284 920200DA
+52 800CDB57 ????
+40 800CDB57 ????
+
+$0001  Default
+$0002  > 2 speed
+$0003  > 3 speed
+$0004  > 4 speed
+$0005  > 5 speed
+
+
+"[#] Bomb Limit
+C0 80021284 920200DA
+92 800CDB26 ????
+80 800CDB26 ????
+
+$0001  Default
+$0002  > 2 bombs
+$0003  > 3 bombs
+$0004  > 4 bombs
+$0005  > 5 bombs
+$0006  > 6 bombs
+$0007  > 7 bombs
+$0008  > 8 bombs
+
+
+"[#] Bomb Range
+C0 80021284 920200DA
+92 800CDB72 ????
+80 800CDB72 ????
+
+$0002  Default
+$0003  > 3 tiles
+$0004  > 4 tiles
+$0005  > 5 tiles
+$0006  > 6 tiles
+$0007  > 7 tiles
+$0008  > 8 tiles
+
+
+#Fade to Black
+
+"[#__~~] ==== Activate Cheats ====
+D0 8005C75C 8E030020
+3F 00000000 0000
+
+
+; jmp - player + enemy HP
+C0 8005C768 08004329
+CF 00000000 00000000
+
+; code - player + enemy HP
+C0 80010CA4 3C1F8001
+CF 00000008 8FFF0CA0
+CF 0000000C 00000000
+CF 00000010 17E30007
+CF 00000014 00000000
+CF 00000018 00461023
+8F 0000001C ????
+8F 0000001E 285F
+CF 00000020 13E00008
+CF 00000024 00000000
+CF 00000028 10000006
+CF 0000002C 340207D0
+8F 00000030 ????
+8F 00000032 285F
+CF 00000034 17E00002
+CF 00000038 00000000
+8F 0000003C ????
+8F 0000003E 3402
+CF 00000040 00461023
+CF 00000044 080171E1
+CF 00000048 00000000
+
+
+; jmp - player addr
+C0 8004667C 0800433B
+CF 00000000 00000000
+
+; code - player addr
+C0 80010CEC 00431023
+CF 00000010 AC820028
+CF 00000014 3C028001
+CF 00000018 080119A1
+CF 0000001C AC440CA0
+
+
+3F 00000000 0001
+
+.Use this to activate cheats
+
+
+"[#] Player HP
+@1
+
+D0 8005C75C 8E030020
+80 80010CBC ????
+
+$0001  > Infinite
+$8000  > Normal
+
+
+"[#] Player Dead
+@1
+
+D0 80046674 8C630028
+3F 00000000 0000
+
+C0 8004667C 34020000
+CF 00000000 AC820028
+
+3F 00000000 0001
+
+
+"[#] Enemy HP
+D0 8005C75C 8E030020
+3F 00000000 0000
+
+80 80010CD0 ????
+80 80010CDC ????
+
+3F 00000000 0001
+
+$0064  Instant Kill
+$00C8  > 2-hit
+$0190  > 4-hit
+$0258  > 6-hit
+$0320  > 8-hit
+$04B0  > 12-hit
+$0640  > 16-hit
+$7FFF  Normal
+
+
+"[#] Infinite Ammo
+D0 8005687C 14400055
+3F 00000000 0000
+
+; jmp
+C0 8005688C 08004340
+CF 00000000 00000000
+
+; code
+C0 80010D00 28520002
+CF 00000004 12400003
+CF 00000008 00000000
+CF 0000000C 34020036
+CF 00000010 AC620004
+CF 00000014 08015A75
+CF 00000018 00000000
+
+3F 00000000 0001
+
+
+#Wipeout
+
+"[#__~~] Qualify Ranking
+D0 800367D4 A6420022
+3F 00000000 0000
+
+80 800367D8 ????
+80 80036AE4 ????
+80 8003B8C4 ????
+80 80039244 ????
+80 8003B9BC ????
+80 8003BCD4 ????
+80 8003BABC ????
+80 8003BA14 ????
+
+3F 00000000 0001
+
+$00  Never
+$04  Top 3
+$07  Top 6
+$09  Always
+
+.Only works in Championship races
+
+
+"[#] Championship Win
+
+"\\John Dekka
+D0 800367D4 A6420022
+92 800E49AC 003C
+80 800E49AC 003C
+
+
+"\\Daniel Chang
+D0 800367D4 A6420022
+92 800E49CE 003C
+80 800E49CE 003C
+
+
+"\\Arial Tetsuo
+D0 800367D4 A6420022
+92 800E49F0 003C
+80 800E49F0 003C
+
+
+"\\Anastasia Cherovoski
+D0 800367D4 A6420022
+92 800E4A12 003C
+80 800E4A12 003C
+
+
+"\\Kel Solar
+D0 800367D4 A6420022
+92 800E4A34 003C
+80 800E4A34 003C
+
+
+"\\Arian Tetsuo
+D0 800367D4 A6420022
+92 800E4A56 003C
+80 800E4A56 003C
+
+
+"\\Sofia De La Rente
+D0 800367D4 A6420022
+92 800E4A78 003C
+80 800E4A78 003C
+
+
+"\\Paul Jackson
+D0 800367D4 A6420022
+92 800E4A9A 003C
+80 800E4A9A 003C
+
+
+#Shadow Madness
+
+"[#] Game Improvements
+
+; Default run
+D0 80103548 93A2006E
+3F 00000000 0000
+
+C0 801035DC 1440000D
+C0 8010361C 1040000B
+
+3F 00000000 0001
+
+
+; Save Anytime
+D0 8006F158 90420000
+C0 8006F160 10000006
+
+
+"[#] Random Battles (off)
+@1
+
+D0 80103AF4 93A20071
+C0 80103AFC 10400001
+
+
+"[#] Random Battles (on)
+@1
+
+D0 80103AF4 93A20071
+C0 80103AFC 1040000A
+
+
+"[#] Battle - Enemy HP
+D0 8003FE9C 84420014
+20 0000003E 0005
+
+93 800A6280 ????
+80 800A6280 ????
+
+$0000  Instant kill
+$0001  > 1 HP
+$0040  > 64 HP
+$0080  > 128 HP
+$0100  > 256 HP
+$0200  > 512 HP
+$7FFF  Max HP
+
+
+"[#] Battle - Infinite MP
+
+; Windleaf < 250 MP
+92 8010B4D0 00FA
+80 8010B4D0 03C0
+
+; Xero < 350 MP
+92 8010B54C 015E
+80 8010B54C 02C0
+
+; Jirina < 250 MP
+92 8010B50E 00FA
+80 8010B50E 02C0
+
+; Clemett < 150 MP
+92 8010B606 0096
+80 8010B606 02C0
+
+
+"[#] Battle - Infinite Weapons
+D0 8005B4C4 2622002E
+3F 00000000 0000
+
+; jmp
+C0 8005B4D4 08020F46
+CF 00000000 00000000
+
+; code
+80 80083D18 0002
+8F 0000000A 2C5F
+CF 0000000C 13E00002
+CF 00000010 2442FFFF
+8F 00000014 0034
+8F 00000016 3402
+CF 00000018 08016D37
+CF 0000001C A4620000
+
+3F 00000000 0001
+
+
+"[#] Battle - EP gain
+D0 8003EF50 87A20038
+3F 00000000 0000
+
+; jmp
+C0 8003EF58 08020F4C
+CF 00000000 00000000
+
+; code
+C0 80083D30 00621021
+8F 00000004 ????
+8F 00000006 2442
+CF 00000008 3401D6D9
+CF 0000000C 0041082B
+CF 00000010 14200002
+CF 00000014 00000000
+CF 00000018 3402D6D9
+CF 0000001C 0800FBD8
+CF 00000020 A7A2002A
+
+3F 00000000 0001
+
+$0000  > 0 EP
+$0040  > 64 EP
+$0080  > 128 EP
+$0100  > 256 EP
+$0200  > 512 EP
+$0400  > 1024 EP
+$0600  > 1536 EP
+$0800  > 2048 EP
+$0C00  > 3072 EP
+$1000  > 4096 EP
+$1800  > 6144 EP
+$2000  > 8192 EP
+$4000  > 16384 EP
+$7FFF  > 32767 EP
+
+
+"[#] Battle - Party Dead
+D0 8005B4C4 2622002E
+20 0000003E 0006
+80 8010B4CC 0000
+
+
+"Max Gold (0-65535)
+80 800AFB74 ????
+
+$0000  > 0 Gold
+$2000  > 8192 Gold
+$4000  > 16384 Gold
+$8000  > 32768 Gold
+$FFFF  > 65535 Gold
+
+
+"Max Hexite (0-65535)
+80 800AFB78 ????
+
+$0000  > 0 Hexite
+$2000  > 8192 Hexite
+$4000  > 16384 Hexite
+$8000  > 32768 Hexite
+$FFFF  > 65535 Hexite
+
+
+"[#] Submarine - Infinite Ammo
+D0 8001B494 AF8282AC
+3F 00000000 0000
+
+; Guns
+90 8009DB68 0001
+80 8009DB68 0036
+
+; Torpedos
+90 8009DB6E 0001
+80 8009DB6E 000E
+
+3F 00000000 0001
+
+
+"[#] Submarine - Infinite HP
+D0 8001B494 AF8282AC
+92 8009DB42 0010
+80 8009DB42 0300
+
+
+"[#] Submarine - Instant Death
+D0 8001B494 AF8282AC
+80 8009DB42 0000
+
+.Lets you skip the mini-game
+
+
+"[#] Gadget - Infinite Ammo
+3F 00000000 0000
+
+20 00000002 0004
+90 800A1AB2 0001
+80 800A1AB2 002B
+
+3F 00000000 0001
+
+
+"[#] Gadget - Infinite HP
+D0 80044480 86020022
+92 800A1A8E 0010
+80 800A1A8E 0074
+
+
+#Lemmings
+
+"[#] Game Improvements
+
+; Select skill when paused
+D0 8001D04C 8C426174
+80 8001D054 0001
+
+
+"[#] Infinite Time
+90 8008321C 0000
+90 80083220 0001
+80 80083220 003B
+
+
+"[#] Infinite Skills
+20 00000004 0008
+
+90 8005B1E0 0001
+80 8005B1E0 0028
+
+
+"[#] Lemmings Saved
+92 80047950 ????
+80 80047950 ????
+
+$0000  > 0 Lemmings
+$0050  > 80 Lemmings
+
+
+#Time Commando
+
+"[#] All Weapons
+80 80097890 0000
+80 8009789C 0001
+80 800978A8 0002
+80 800978B4 0003
+80 800978C0 0004
+
+
+"[#__~~] Infinite Ammo
+90 80097894 0001
+80 80097894 0064
+
+90 800978A0 0001
+80 800978A0 0064
+
+90 800978AC 0001
+80 800978AC 0064
+
+90 800978B8 0001
+80 800978B8 0064
+
+90 800978C4 0001
+80 800978C4 0064
+
+.Remember to SQUARE + DOWN to --reload-- guns, darts
+
+
+"[#] Infinite Lives
+90 800979A0 0001
+80 800979A0 0302
+
+
+"[#__~~] Battle - Enemy HP
+D0 8003429C 00431023
+3F 00000000 0000
+
+; jmp - melee
+C0 800342A0 0800A384
+CF 00000000 00000000
+
+; code - melee
+C0 80028E10 10800004
+8F 00000004 ????
+8F 00000000 2841
+CF 00000008 14200002
+CF 0000000C 00000000
+8F 00000000 ????
+8F 00000000 3402
+CF 00000004 3C018009
+CF 00000008 24217982
+CF 0000000C 0800D0AA
+CF 00000000 00000000
+
+; jmp - ranged
+C0 8004D7B4 0800A38D
+CF 00000000 00000000
+
+; melee - ranged
+C0 80028E34 10400004
+8F 00000008 ????
+8F 00000000 2861
+CF 0000000C 14200002
+CF 00000000 00000000
+8F 00000000 ????
+8F 00000004 3403
+CF 00000008 3C018009
+CF 0000000C 080135EF
+CF 00000000 24217982
+
+3F 00000000 0001
+
+$0000  > 1-hit
+$0003  > 3 HP
+$0008  > 8 HP
+$0010  > 16 HP
+$001E  > 30 HP
+$0028  > 40 HP
+$00FF  > Max HP
+
+.Works when enemy is actually struck
+
+
+#Star Wars - Rebel Assault 2
+
+"Hack - ePSXe 152,160,170
+80 8003BB94 0001
+80 8003BB9E 1000
+
+.Prevents game from timing out
+
+
+"[#] Infinite Shield
+D2 800C07CC ????
+80 800C07CC 1000
+
+$1000  > 100% HP
+$0800  > 50% HP
+$0400  > 25% HP
+$0200  > 12% HP
+$0100  > 6% HP
+$0080  > 3% HP
+
+
+"[#] Infinite Lives
+D2 800E5AF0 0001
+80 800E5AF0 0005
+
+
+"Instant game over
+80 800C07C8 0000
+80 800C07CC 0000
+53 800E5AF0 0001
+40 800E5AF0 0001
+
+
+"[#] Infinite Continues
+520E5A88 0001
+400E5A88 0004
+
+
+"Enable All Levels
+40 800C6C48 0010
+
+
+#Syphon Filter 3
+
+"[#] Infinite Ammo
+D0 80066B68 2462FFFF
+3F 00000000 0000
+
+; jmp
+C0 80066B70 08043AD4
+CF 00000074 00000000
+
+; code
+C0 8010EB50 96610000
+CF 00000054 00000000
+CF 00000058 14200002
+CF 0000005C 34010096
+CF 00000060 A6610000
+CF 00000064 3C018013
+CF 00000068 08019ADE
+CF 0000006C 00320821
+
+3F 00000000 0001
+
+
+#Fear Effect 2
+
+"[#] Infinite Ammo
+D0 80040998 00C8102A
+3F 00000000 0000
+
+; jmp
+C0 8004099C 080047B0
+CF 000000A0 00000000
+
+; code
+C0 80011EC0 10400003
+CF 000000C4 01281023
+CF 000000C8 00C04021
+CF 000000CC 01281023
+CF 000000D0 14400002
+CF 000000D4 00000000
+CF 000000D8 34020096
+CF 000000DC 0801026B
+CF 000000E0 00000000
+
+3F 00000000 0001
+
+
+"[#] Infinite HP
+D0 800495DC 8C4229A4
+3F 00000000 0000
+
+; jmp
+C0 800495E4 080047B9
+CF 00000000 00000000
+
+; code
+C0 80011EE4 8C420000
+8F 000000E8 ????
+8F 000000EA 2E1F
+CF 000000EC 13E00002
+CF 000000F0 00000000
+CF 000000F4 34100096
+CF 000000F8 0801257B
+CF 000000FC 00000000
+
+3F 00000000 0001
+
+$0000  > 0 HP
+$0004  > 4 HP
+$0008  > 8 HP
+$0010  > 16 HP
+$0020  > 32 HP
+$0030  > 48 HP
+$0040  > 64 HP
+$0080  > 128 HP
+
+
+#Thousand Arms
+
+"[#] Game Improvements
+
+; always fast text
+D0 8007FDDC 2C420002
+C0 8007FDE8 00000000
+
+; no running sounds
+D0 80078200 0C006ECD
+C0 8007820C 10000007
+
+; fast text - SQUARE
+D0 8007FDDC 2C420002
+C0 8007FDE4 32028000
+
+; end text - SQUARE (8000) / CROSS (4000)
+D0 8007FDDC 2C420002
+C0 8007FEDC 3202C000
+
+
+"[#] Random battles (off)
+@1
+
+; World
+D0 800A9390 8C62FCB8
+C0 800A939C 1000000F
+
+; Field
+D0 8007C760 00511023
+C0 8007C764 1000000A
+
+
+"[#] Random battles (on)
+@1
+
+; World
+D0 800A9390 8C62FCB8
+C0 800A939C 0441000F
+
+; Field
+D0 8007C760 00511023
+C0 8007C764 0441000A
+
+
+"[#] Random battles (always)
+@1
+
+; World
+D0 800A9390 8C62FCB8
+C0 800A939C 04410001
+
+; Field
+D0 8007C760 00511023
+C0 8007C764 04410001
+
+
+"[#] Battle - EXP Gained
+D0 8002A030 34A5423F
+3F 00000000 0000
+
+; jmp
+C0 8002A038 080052EC
+CF 00000000 00000000
+
+; code
+80 80014BB0 ????
+8F 00000000 3410
+CF 00000000 0C00A5BE
+CF 00000000 02028021
+CF 00000000 0800A810
+CF 00000000 00000000
+
+3F 000000C4 0001
+
+
+$0000  > 0 EXP
+$0040  > 64 EXP
+$0080  > 128 EXP
+$0100  > 256 EXP
+$0200  > 512 EXP
+$0400  > 1024 EXP
+$0600  > 1536 EXP
+$0800  > 2048 EXP
+$0C00  > 3072 EXP
+$1000  > 4096 EXP
+$1800  > 6144 EXP
+$2000  > 8192 EXP
+$4000  > 16384 EXP
+$8000  > 32768 EXP
+$FFFF  > 65535 EXP
+
+
+"[#] Battle - Infinite Specials
+D0 80090C84 90830086
+3F 00000000 0000
+
+; jmp
+C0 80090C90 080052F1
+CF 00000000 00000000
+
+; code
+C0 80014BC4 2C620001
+CF 00000000 10400002
+CF 00000000 34020001
+CF 00000000 34030063
+CF 00000000 08024327
+CF 00000000 A0830086
+
+3F 000000DC 0001
+
+
+"[#] Battle - Enemy HP
+D0 80090B08 8622008E
+20 000000F0 0003
+
+93 800BE556 ????
+80 800BE556 ????
+
+$0001  < 1 HP
+$0004  < 4 HP
+$0008  < 8 HP
+$0010  < 16 HP
+$0020  < 32 HP
+$0030  < 48 HP
+$0040  < 64 HP
+$0050  < 80 HP
+$0060  < 96 HP
+$0080  < 128 HP
+$00C0  < 192 HP
+$0100  < 256 HP
+$0200  < 512 HP
+$0400  < 1024 HP
+$0600  < 1536 HP
+$0800  < 2048 HP
+$0C00  < 3072 HP
+$1000  < 4096 HP
+$1800  < 6144 HP
+$2000  < 8192 HP
+$8000  < 32767 HP
+
+
+"[#] Battle - Infinite HP
+D0 80090B08 8622008E
+20 000000F0 0003
+
+92 800BE276 ????
+80 800BE276 0100
+
+$0010  > 16 HP
+$0020  > 32 HP
+$0030  > 48 HP
+$0040  > 64 HP
+$0100  > 256 HP
+$0200  > 512 HP
+$03E7  > 999 HP
+
+
+"[#] Battle - Infinite EP
+D0 80090B08 8622008E
+20 000000F0 0003
+
+92 800BE278 ????
+80 800BE278 03E7
+
+
+$0010  > 16 EP
+$0020  > 32 EP
+$0030  > 48 EP
+$0040  > 64 EP
+$0100  > 256 EP
+$0200  > 512 EP
+$03E7  > 999 EP
+
+
+"Max Intimacy
+
+"\\Reset All
+3E 00000001 0009
+40 8005F890 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Sodina Dawnfried
+40 8005F890 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Wyna Grapple
+40 8005F891 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Palma Esterte
+40 8005F894 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Mil Wind
+40 8005F898 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Kyleen Nelphe
+40 8005F892 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Kyoka
+40 8005F896 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Marion
+40 8005F895 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Nelsha Stylus
+40 8005F893 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"\\Metalia
+40 8005F897 ????
+
+$00  Lv. 1
+$0A  Lv. 2
+$14  Lv. 3
+$1E  Lv. 4
+$28  Lv. 5
+$32  Lv. 6
+$3C  Lv. 7
+$46  Lv. 8
+$50  Lv. 9
+$5A  Lv. 10
+$FF  Max
+
+
+"Max Mood
+
+"\\Sodina Dawnfried
+40 8005F89A ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Wyna Grapple
+40 8005F89B ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Palma Esterte
+40 8005F89E ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Mil Wind
+40 8005F8A2 ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Kyleen Nelphe
+40 8005F89C ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Kyoka
+40 8005F8A0 ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Marion
+40 8005F89F ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Nelsha Stylus
+40 8005F89D ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"\\Metalia
+40 8005F8A1 ????
+
+$00  None
+$05  Half
+$09  Full
+
+
+"Max Gold (0-65535)
+80 8005FA50 ????
+
+$0000  > 0 Gold
+$0040  > 64 Gold
+$0080  > 128 Gold
+$0100  > 256 Gold
+$0200  > 512 Gold
+$0400  > 1024 Gold
+$0800  > 2048 Gold
+$1000  > 4096 Gold
+$2000  > 8192 Gold
+$4000  > 16384 Gold
+$8000  > 32768 Gold
+$FFFF  > 65535 Gold
+
+
+"Max MP (0-65535)
+80 8005F8A8 ????
+
+$0000  > 0 MP
+$0040  > 64 MP
+$0080  > 128 MP
+$0100  > 256 MP
+$0200  > 512 MP
+$0400  > 1024 MP
+$0800  > 2048 MP
+$1000  > 4096 MP
+$2000  > 8192 MP
+$4000  > 16384 MP
+$8000  > 32768 MP
+$FFFF  > 65535 MP
+
+
+"Infinite Coins In Zozotto
+80 8005FA68 FFFF
+
+
+"[?] All Items
+;MAY NOT WORK
+;5000C614 0000
+;300510B6 0063
+
+
+#Oddworld - Abe's Exoddus
+
+"# rocks
+;92 801F368A 0001
+80 801F368A 0009
+
+
+"Invincible
+8007E452 0001
+
+
+"Immune to Fleeches, Gunfire
+801F3618 00B3
+
+
+"Invisible
+801F3604 00A0
+
+
+"Instant Possession
+D007E4B0 0005
+8007E3F8 FFFF
+
+
+"Mudokons Saved
+8007E43A 012C
+
+
+#Legend of Dragoon
+
+
+"[#] Game Improvements
+
+; Fast Text
+D002693C A39C
+D002693E 8C42
+
+80026948 0001
+
+
+; Map Cursor (None - Always)
+D00F321C 8008
+D00F321E 3C02
+
+5F000000 0000
+800F323C 000D
+800F323E 1000
+5F000000 0001
+
+
+"[#] Random Battles (off)
+@1
+
+; Field battles
+D00E4C6C 6AE8
+D00E4C6E AC82
+
+5F000000 0000
+800E4C74 001B
+8F000000 1000
+5F000000 0001
+
+
+; World battles
+D00E380C 1400
+D00E380E 2843
+
+5F000000 0000
+800E3810 00A0
+8F000000 1000
+5F000000 0001
+
+
+"[#] Random Battles (on)
+@1
+
+; Field battles
+D00E4C6C 6AE8
+D00E4C6E AC82
+
+5F000000 0000
+800E4C74 001B
+8F000000 1440
+5F000000 0001
+
+
+; World battles
+D00E380C 1400
+D00E380E 2843
+
+5F000000 0000
+800E3810 00A0
+8F000000 1460
+5F000000 0001
+
+
+"[#] Random Battles (always)
+@1
+
+; Field battles
+D00E4C6C 6AE8
+D00E4C6E AC82
+
+5F000000 0000
+800E4C74 0001
+8F000000 1440
+5F000000 0001
+
+
+; World battles
+D00E380C 1400
+D00E380E 2843
+
+5F000000 0000
+800E3810 0001
+8F000000 1460
+5F000000 0001
+
+
+"[#] Save Anywhere
+D00FCF20 DC88
+D00FCF22 9042
+
+5F000000 0000
+80101D48 0001
+800FcF28 0001
+5F000000 0001
+
+
+"Max Dragoon Level
+
+; Dart
+300BAF07 0005
+
+; Lavits
+300BAF33 0005
+
+; Shana
+300BAF5F 0005
+
+; Rose
+300BAF8B 0005
+
+; Haschel
+300BAFB7 0005
+
+; Albert
+300BAFE3 0005
+
+; Meru
+300BB00F 0005
+
+; Kongol
+300BB03B 0005
+
+; Miranda
+300BB067 0005
+
+
+"[!~~] Infinite SP
+D00F45D4 000A
+D00F45E4 000A
+
+
+5F000000 0000
+
+D20BAF00 0063
+800BAF00 0063
+
+D20BAF2C 0063
+800BAF2C 0063
+
+D20BAF58 0063
+800BAF58 0063
+
+D20BAF84 0063
+800BAF84 0063
+
+D20BAFDC 0063
+800BAFDC 0063
+
+D20BAFB0 0063
+800BAFB0 0063
+
+D20BB008 0063
+800BB008 0063
+
+D20BB034 0063
+800BB034 0063
+
+D20BB060 0063
+800BB060 0063
+
+5F000000 0001
+
+.Activate before battle starts
+
+
+"[!~~] Infinite MP
+D00F45D4 000A
+D00F45E4 000A
+
+5F000000 0000
+
+D20BAEFE 0063
+800BAEFE 0163
+
+D20BAFDA 0063
+800BAFDA 0163
+
+D20BAF2A 0063
+800BAF2A 0163
+
+D20BAF56 0063
+800BAF56 0163
+
+D20BB032 0063
+800BB032 0163
+
+D20BAFAE 0063
+800BAFAE 0163
+
+D20BAF82 0063
+800BAF82 0163
+
+D20BB006 0063
+800BB006 0163
+
+D20BB05E 0063
+800BB05E 0163
+
+5F000000 0001
+
+.Activate before battle starts
+
+
+"[#] Battle - Infinite MP
+D01076AC 102A
+D01076AE 0062
+
+5F000000 0000
+
+; jmp
+800F5480 4554
+8F000000 0800
+8F000000 0000
+8F000000 0000
+
+; code
+80011550 1023
+8F000000 0043
+8F000000 ????
+8F000000 3403
+8F000000 182B
+8F000000 0043
+8F000000 0002
+8F000000 1060
+8F000000 0000
+8F000000 0000
+8F000000 03F7
+8F000000 3402
+8F000000 D522
+8F000000 0803
+8F000000 000C
+8F000000 A622
+
+5F000000 0001
+
+
+$0000  >0
+$0050  >80
+$0064  >100
+$00C0  >200
+$01F7  >500
+
+
+"[#] Battle - Infinite SP
+D01076AC 102A
+D01076AE 0062
+
+5F000000 0000
+
+; jmp
+800F45D0 454C
+8F000000 0800
+8F000000 0000
+8F000000 0000
+
+; code
+80011530 1023
+8F000000 0043
+8F000000 ????
+8F000000 3403
+8F000000 182B
+8F000000 0043
+8F000000 0002
+8F000000 1060
+8F000000 0000
+8F000000 0000
+8F000000 03E7
+8F000000 3402
+8F000000 D176
+8F000000 0803
+8F000000 000A
+8F000000 A4A2
+
+5F000000 0001
+
+
+$0000  >0
+$0050  >80
+$0064  >100
+$00C8  >200
+$01F7  >500
+
+
+"[#] Battle - Always Critical Hit
+D01076AC 102A
+D01076AE 0062
+5F000000 0000
+
+; Normal attacks
+801076B0 0001
+
+; Dragoon attacks
+801084C4 0001
+
+5F000000 0001
+
+
+"[#] Battle - EXP Gained (0-65535)
+D00CCFC0 C95C
+D00CCFC2 8C83
+
+D20BC95C ????
+800BC95C ????
+
+$0000  > 0 EXP
+$0040  > 64 EXP
+$0080  > 128 EXP
+$0100  > 256 EXP
+$0200  > 512 EXP
+$0400  > 1024 EXP
+$0600  > 1536 EXP
+$0800  > 2048 EXP
+$0C00  > 3072 EXP
+$1000  > 4096 EXP
+$1800  > 6144 EXP
+$2000  > 8192 EXP
+$4000  > 16384 EXP
+$8000  > 32768 EXP
+$FFFF  > 65535 EXP
+
+
+"[#] Battle - EXP Gained (65536+)
+D00CCFC0 C95C
+D00CCFC2 8C83
+
+D20BC95E ????
+800BC95E ????
+
+$0001  > 65536 EXP
+$0002  > 131072 EXP
+$0003  > 196608 EXP
+$0004  > 262144 EXP
+
+
+"[#] Battle - Enemy HP
+D01076AC 102A
+D01076AE 0062
+
+5F000000 0000
+
+; jmp - enemy hp
+800ECB70 4544
+8F000000 0800
+8F000000 0000
+8F000000 0000
+
+; code - enemy hp
+80011510 0008
+8F000000 94E4
+8F000000 ????
+8F000000 3402
+8F000000 102B
+8F000000 0082
+8F000000 0002
+8F000000 1440
+8F000000 1042
+8F000000 0003
+8F000000 ????
+8F000000 3404
+8F000000 B2DE
+8F000000 0803
+8F000000 0008
+8F01152E A4E4
+
+5F000000 0001
+
+$0001  < 1 HP
+$0004  < 4 HP
+$0008  < 8 HP
+$0010  < 16 HP
+$0020  < 32 HP
+$0030  < 48 HP
+$0040  < 64 HP
+$0080  < 128 HP
+$0100  < 256 HP
+$0200  < 512 HP
+$0400  < 1024 HP
+$0600  < 1536 HP
+$0800  < 2048 HP
+$0C00  < 3072 HP
+$1000  < 4096 HP
+$1800  < 6144 HP
+$2000  < 8192 HP
+$8000  < 32767 HP
+
+
+"Max Gold (0-65535)
+D20BAC5C ????
+800BAC5C ????
+
+$0000  > 0 Gold
+$0040  > 64 Gold
+$0080  > 128 Gold
+$0100  > 256 Gold
+$0200  > 512 Gold
+$0400  > 1024 Gold
+$0800  > 2048 Gold
+$1000  > 4096 Gold
+$2000  > 8192 Gold
+$4000  > 16384 Gold
+$8000  > 32768 Gold
+$FFFF  > 65535 Gold
+
+
+"Max Gold (65536+)
+D20BAC5E ????
+800BAC5E ????
+
+$1   65536 Gald
+$2   131072 Gald
+$3   196608 Gald
+$4   262144 Gald
+$8   524288 Gald
+$10  1048576 Gald
+
+
+"Infinite Time In Obstacle Course (after Hero's Contest)
+801A2B90 0000
+
+
+#Koudelka
+
+"[#] Save Using Any Slot
+D00E6A66 0005
+D00E6A64 2E03
+
+800E6A6E 1000
+
+
+"Random Encounters (off)
+@1
+801D11D0 7FFF
+
+
+"Random Encounters (on)
+@1
+D31D11D0 7FF0
+801D11D0 0001
+
+
+"Random Encounters (always)
+@1
+801D11D0 0000
+
+
+
+
+"[#] Infinite Ammo
+D008AC54 0005
+D008AC56 1440
+
+8008AC68 0040
+
+.Pistol
+.Shotgun
+.Crossbow
+
+
+
+
+"[#] Battle - Always Allow Run
+
+D00CF854 28A8
+D00CF856 0C02
+
+800CF85C 0001
+
+
+"[#] Battle - EXP Gained
+
+D008AE38 046D
+D008AE3A 9082
+5F000000 0000
+
+; jmp - exp gain
+8008AE4C 60E9
+8F000000 0800
+8F000000 0000
+8F000000 0000
+
+; code - exp gain
+800183A4 0546
+8F000000 94A3
+8F000000 ????
+8F000000 3402
+8F000000 102B
+8F000000 0062
+8F000000 0002
+8F000000 1040
+8F000000 ????
+8F000000 3402
+8F000000 1821
+8F000000 0062
+8F000000 054C
+8F000000 8C82
+8F000000 2B96
+8F000000 0802
+8F000000 0000
+8F000000 0000
+;8F0183C8 xxxx
+
+5F000000 0001
+
+
+$0000  > 0 EXP
+$0040  > 64 EXP
+$0080  > 128 EXP
+$0100  > 256 EXP
+$0200  > 512 EXP
+$0400  > 1024 EXP
+$0800  > 2048 EXP
+$1000  > 4096 EXP
+$2000  > 8192 EXP
+$4000  > 16384 EXP
+$8000  > 32768 EXP
+$FFFF  > 65535 EXP
+
+
+
+"[#__!~~] Battle - Enemy HP Max
+
+D008609A 1462
+D0086098 0026
+5F000000 0000
+
+; jmp - enemy hp
+80086134 60E1
+8F000000 0800
+8F000000 0000
+8F000000 0000
+
+; code - enemy hp
+80018384 0410
+8F000000 8482
+8F000000 ????
+8F000000 341F
+8F000000 F82B
+8F000000 03E2
+8F000000 0002
+8F000000 13E0
+8F000000 0000
+8F000000 0000
+8F000000 ????
+8F000000 3402
+8F000000 184F
+8F000000 0802
+8F000000 0410
+8F000000 A482
+;8F0183A4 xxxx
+
+5F000000 0001
+
+
+$0000  < 0 HP
+$0040  < 64 HP
+$0080  < 128 HP
+$0100  < 256 HP
+$0200  < 512 HP
+$0400  < 1024 HP
+$0600  < 1536 HP
+$0800  < 2048 HP
+$0C00  < 3072 HP
+$1000  < 4096 HP
+$2000  < 8192 HP
+$8000  < 32767 HP
+
+.HP kicks in -after- you hit the enemy
+.So it may take 1 hit to drop to target HP
+
+
+"[#] Battle - Infinite HP
+
+; Koudelka
+D21D13C8 ????
+801D13C8 03E7
+
+; Edward
+D21CF9D0 ????
+801CF9D0 03E7
+
+; James
+D21CDFD8 ????
+801CDFD8 03E7
+
+
+$0020  > 32 HP
+$0064  > 100 HP
+$03E7  > 999 HP
+
+
+"[#] Battle - Infinite MP
+
+; Koudelka
+D21D13D8 ????
+801D13D8 0063
+
+; Edward
+D21CF9E0 ????
+801CF9E0 0063
+
+; James
+D21CDFE8 ????
+801CDFE8 0063
+
+$0010  > 16 MP
+$0020  > 32 MP
+$0064  > 100 MP
+$03E7  > 999 MP
+
+
+
+#Fear Effect 1
+"Infinite HP
+80077810 0002 
+
+#Galerians
+"____LEGEND____
+.[#] = can always leave code on
+.[!~~] = careful use of code
+.
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+
+"Maximum ability
+301AF994 0003
+
+"Maximum psychic level
+301C2FA6 00C8
+
+"Rion has unlimited HP
+801AF972 00C8
+801C2F9C 00C8
+
+"Rion has no AP
+801AF96C 0000
+
+"Rion has unlimited Nalcon
+D21AF978 ????
+801AF978 00C8
+$0C  6%
+$19  12%
+$32  25%
+$64  50%
+$C8  100%
+
+"Rion has unlimited Red
+D21AF97C ????
+801AF97C 00C8
+$0C  6%
+$19  12%
+$32  25%
+$64  50%
+$C8  100%
+
+"Rion has unlimited D-Felon
+D21AF980 ????
+801AF980 00C8
+$0C  6%
+$19  12%
+$32  25%
+$64  50%
+$C8  100%
+
+"All FMV movies
+801FD004 FFFF
+801FD006 00FF
+
+#Driver (1.1)
+"____LEGEND____
+.[#] = can always leave code on
+.[!~~] = careful use of code
+.
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"Infinite Felony
+D3097708 ????
+80097708 0000
+$0000  <0
+$0C00  <40%
+$2000  <60%
+$4000  <80%
+"Infinite HP
+D309B220 ????
+8009B220 0000
+$0000  <0
+$0C00  <40%
+$2000  <60%
+$4000  <80%
+.0F80 = 99% (tai)
+"Infinite time
+800C71A6 5F28
+800C71A4 D600
+"Unlock all
+800967E0 0004
+8008671C FFFE
+8008671E FFFF
+80086754 FFFE
+80086756 FFFF
+8008678C FFFE
+8008678E FFFF
+800867C4 FFFE
+800867C6 FFFF
+800867FC FFFE
+800867FE FFFF
+80086834 FFFE
+80086836 FFFF
+800868A4 FFFE
+800868A6 FFFF 
+"Car Park - Instant win
+50000901 0000
+301E35A0 003C
+#D
+"____LEGEND____
+.[#] = can always leave code on
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"Time left
+8010C484 0000
+8010C486 ????
+$0000  >3:00
+$0100  >5:00 (game over)
+#Tales of Eternia#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"TESTER
+8019B72C FFFF
+8019B72E 1000
+"[#] Random battles (off)
+@1
+D0055426 3062
+D005567E 8482
+80055686 1000
+D0055426 3062
+D005567E 8482
+80055684 0020
+D005550C 1023
+D0055512 A462
+8005551A 1000
+D005550C 1023
+D0055512 A462
+80055518 007B
+"[#] Random battles (on)
+@1
+D0055426 3062
+D005567E 8482
+80055686 0441
+D0055426 3062
+D005567E 8482
+80055684 0020
+D005550C 1023
+D0055512 A462
+8005551A 0441
+D005550C 1023
+D0055512 A462
+80055518 007B
+"[#] Random battles (always)
+@1
+D0055426 3062
+D005567E 8482
+80055686 0441
+D0055426 3062
+D005567E 8482
+80055684 0001
+D005550C 1023
+D0055512 A462
+8005551A 0441
+D005550C 1023
+D0055512 A462
+80055518 0001
+"[#] Battle - EXP (0-65535)
+D00FFFF2 000F
+D00FFFF0 FFEC
+D21035B4 ????
+801035B4 ????
+$00C8  200 EXP
+$02BC  700 EXP
+$07D0  2000 EXP
+$1388  5000 EXP
+$2EE0  12000 EXP
+$7D00  32000 EXP
+"[#] Battle - EXP (65536+)
+D00FFFF2 000F
+D00FFFF0 FFEC
+D21035B6 ????
+801035B6 ????
+$0001  65536 EXP
+$0002  131072 EXP
+$0003  196608 EXP
+$0004  262144 EXP
+"[#] Battle - Infinite HP
+D00FF0F2 000F
+D00FF0F0 F0EC
+D2100184 ????
+80100184 270F
+D00FF0F2 000F
+D00FF0F0 F0EC
+D2100384 ????
+80100384 270F
+D00FF0F2 000F
+D00FF0F0 F0EC
+D2100584 ????
+80100584 270F
+D00FF0F2 000F
+D00FF0F0 F0EC
+D2100784 ????
+80100784 270F
+$200   >512 HP
+$400   >1024 HP
+$800   >2048 HP
+$1000  >4096 HP
+$270F  >9999 HP
+"[#] Battle - Infinite TP
+D00FFFF2 000F
+D00FFFF0 FFEC
+D210018C ????
+8010018C 03E7
+D00FFFF2 000F
+D00FFFF0 FFEC
+D210038C ????
+8010038C 03E7
+D00FFFF2 000F
+D00FFFF0 FFEC
+D210058C ????
+8010058C 03E7
+D00FFFF2 000F
+D00FFFF0 FFEC
+D210078C ????
+8010078C 03E7
+$40   >64 TP
+$80   >128 TP
+$100  >256 TP
+$200  >512 TP
+$3E7  >999 TP
+"[#] Battle - Enemy HP (max)
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3100B84 ????
+80100B84 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80100B86 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3100D84 ????
+80100D84 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80100D86 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3100F84 ????
+80100F84 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80100F86 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3101184 ????
+80101184 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80101186 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3101384 ????
+80101384 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80101386 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3101584 ????
+80101584 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80101586 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3101784 ????
+80101784 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80101786 0000
+D00FFFF2 000F
+D00FFFF0 FFEC
+D3101984 ????
+80101984 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+80101986 0000
+$1     <1 HP
+$40    <64 HP
+$100   <256 HP
+$200   <512 HP
+$400   <1024 HP
+$800   <2048 HP
+$1388  <5000 HP
+$270F  <9999 HP
+"[#] Battle - Party HP (max)
+D00FF0F2 000F
+D00FF0F0 F0EC
+D3100184 ????
+80100184 ????
+D00FF0F2 000F
+D00FF0F0 F0EC
+D3100384 ????
+80100384 ????
+D00FF0F2 000F
+D00FF0F0 F0EC
+D3100584 ????
+80100584 ????
+D00FF0F2 000F
+D00FF0F0 F0EC
+D3100784 ????
+80100784 ????
+$1     <1 HP
+$40    <64 HP
+$100   <256 HP
+$200   <512 HP
+$400   <1024 HP
+$800   <2048 HP
+$270F  <9999 HP
+"[#] Battle - Infinite Craymel vitality
+D00FFFF2 000F
+D00FFFF0 FFEC
+E213525F ????
+3013525F ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E2135267 ????
+30135267 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E213526F ????
+3013526F ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E2135277 ????
+30135277 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E213527F ????
+3013527F ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E2135287 ????
+30135287 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E213528F ????
+3013528F ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E2135297 ????
+30135297 ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E213529F ????
+3013529F ????
+D00FFFF2 000F
+D00FFFF0 FFEC
+E21352A7 ????
+301352A7 ????
+$0030  >48 VP
+$0040  >64 VP
+$0060  >96 VP
+$0080  >128 VP
+$00A0  >160 VP
+"Infinite Gald (65536+)
+80134FD2 ????
+$1   65536 Gald
+$2   131072 Gald
+$3   196608 Gald
+$4   262144 Gald
+$8   524288 Gald
+$10  1048576 Gald
+"Infinite Jini (65536+)
+800FE66E ????
+$1   65536 Jini
+$2   131072 Jini
+$3   196608 Jini
+$4   262144 Jini
+$8   524288 Jini
+$10  1048576 Jini
+"[!~~] Infinite Undine HP
+800FE63C 2711
+.Use at Efreet Gorge
+"[!~~] All Monsters Examined
+50008102 0000
+8013539C 0303
+.Don't use on the World Map
+"All recipes
+8013549C FFFF
+8013549E FFFF 
+301354A0 000F
+"All items
+5000B302 0000
+80134FE0 0F0F
+"Easy stone game win
+D010D8DA FDDD
+801352A8 0001
+D010D8DA FDFF
+801352AC 0000
+D010D8DA FDFF
+801352AE 0000
+#Creature Shock#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"Infinite gun
+8009CA5C 0064
+#Star Ocean 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"TESTER
+; sw v0,0(r0)
+;8005438C 0000
+;8005438E AC02
+
+; sw v1,0(r0)
+;8003D100 0000
+;8003D102 AC03
+
+; infinite loop
+;80054390 FFFF
+;80054392 1000
+;80021C68 FFFF
+;80021C6A 1000
+80019884 0001
+"[#] Random battles (off)
+@1
+D004D88E 00A2
+D004D890 0D49
+8004D8A6 1000
+D004D88E 00A2
+D004D890 0D49
+8004D8A4 0D44
+"[#] Random battles (on)
+@1
+D004D88E 00A2
+D004D890 0D49
+8004D8A6 1440
+D004D88E 00A2
+D004D890 0D49
+8004D8A4 0D44
+"[#] Random battles (always)
+@1
+D004D88E 00A2
+D004D890 0D49
+8004D8A6 1440
+D004D88E 00A2
+D004D890 0D49
+8004D8A4 0001
+"[#] Save anytime
+D007FD2E 2407
+D007FD30 5774
+8007FD3C 0001
+D007FD2E 2407
+D007FD30 5774
+8007FE20 0001
+"[#] Battle - EXP (0-65535)
+D00864F4 1023
+D00864F6 0043
+8008650C ????
+D00864F4 1023
+D00864F6 0043
+8008650E 2442
+$00C8  200 EXP
+$02BC  700 EXP
+$07D0  2000 EXP
+$1388  5000 EXP
+$2EE0  12000 EXP
+$7D00  32000 EXP
+$9C40  40000 EXP
+$C350  50000 EXP
+"[#__!~~] Battle - Normal damage
+@2
+D0051E5A 0244
+D0051E5C 0043
+80051E88 1023
+D0051E5A 0244
+D0051E5C 0043
+80051E8A 0050
+.Select:
+.- Normal damage
+.- Enemy 1 HP
+.- Player 1 HP
+.- Infinite HP
+"[#__!~~] Battle - Enemy 1 HP
+@2
+D0051E5A 0244
+D0051E5C 0043
+80051E88 AFC1
+D0051E5A 0244
+D0051E5C 0043
+80051E8A 0800
+8002BF04 1023
+8002BF06 0050
+8002BF08 800F
+8002BF0A 3C05
+8002BF0C 282B
+8002BF0E 00B1
+8002BF10 0002
+8002BF12 10A0
+8002BF14 0000
+8002BF16 0000
+8002BF18 0000
+8002BF1A 3402
+8002BF1C 47A4
+8002BF1E 0801
+8002BF20 001C
+8002BF22 AE22
+.Select:
+.- Normal damage
+.- Enemy 1 HP
+.- Player 1 HP
+.- Infinite HP
+"[#__!~~] Battle - Player 1 HP
+@2
+D0051E5A 0244
+D0051E5C 0043
+80051E88 AFC1
+D0051E5A 0244
+D0051E5C 0043
+80051E8A 0800
+8002BF04 1023
+8002BF06 0050
+8002BF08 800F
+8002BF0A 3C05
+8002BF0C 282B
+8002BF0E 00B1
+8002BF10 0002
+8002BF12 14A0
+8002BF14 0000
+8002BF16 0000
+8002BF18 0000
+8002BF1A 3402
+8002BF1C 47A4
+8002BF1E 0801
+8002BF20 001C
+8002BF22 AE22
+.Select:
+.- Normal damage
+.- Enemy 1 HP
+.- Infinite HP
+.- Player 1 HP
+"[#__!~~] Battle - Infinite HP
+@2
+D0051E5A 0244
+D0051E5C 0043
+80051E88 ABCC
+D0051E5A 0244
+D0051E5C 0043
+80051E8A 0800
+8002AF30 1023
+8002AF32 0050
+8002AF34 800F
+8002AF36 3C05
+8002AF38 282B
+8002AF3A 00B1
+8002AF3C 0004
+8002AF3E 14A0
+8002AF40 0F00
+8002AF42 2C44
+8002AF44 0002
+8002AF46 1080
+8002AF48 0000
+8002AF4A 0000
+8002AF4C 270F
+8002AF4E 3402
+8002AF50 0018
+8002AF52 AE22
+8002AF54 47A4
+8002AF56 0801
+8002AF58 001C
+8002AF5A AE22
+.Select:
+.- Normal damage
+.- Enemy 1 HP
+.- Player 1 HP
+.- Infinite HP
+"[#] Battle - Infinite MP
+D003736A A200
+D003736E 9462
+80037374 AFC9
+D003736A A200
+D003736E 9462
+80037376 0800
+8002BF24 1023
+8002BF26 0044
+8002BF28 800F
+8002BF2A 3C04
+8002BF2C 202B
+8002BF2E 0083
+8002BF30 0004
+8002BF32 1480
+8002BF34 0080
+8002BF36 2C44
+8002BF38 0002
+8002BF3A 1080
+8002BF3C 0000
+8002BF3E 0000
+8002BF40 03E7
+8002BF42 3402
+8002BF44 0022
+8002BF46 A462
+8002BF48 DCDF
+8002BF4A 0800
+8002BF4C 0024
+8002BF4E A462
+D0062D32 0C01
+D0062D34 000E
+80062D60 ABC0
+D0062D32 0C01
+D0062D34 000E
+80062D62 0800
+8002AF00 800F
+8002AF02 3C03
+8002AF04 182B
+8002AF06 0066
+8002AF08 0004
+8002AF0A 1460
+8002AF0C 0080
+8002AF0E 2C43
+8002AF10 0002
+8002AF12 1060
+8002AF14 0000
+8002AF16 0000
+8002AF18 03E7
+8002AF1A 3402
+8002AF1C 0022
+8002AF1E A4C2
+8002AF20 FFFF
+8002AF22 2623
+8002AF24 8B5A
+8002AF26 0801
+8002AF28 0024
+8002AF2A A4C2
+"[!~~] Infinite money (65536+)
+8009BFB0 ????
+$0001  65536 Fol
+$0002  131072 Fol
+$0003  196608 Fol
+$0004  262144 Fol
+$0005  327680 Fol
+$0010  1048576 Fol
+.Only use during party menu, cities/shops
+"[!~~] Infinite SP
+8007EA96 2400
+.Only use during party menu
+"[!~~] All voices
+50004F02 0000
+8009C138 FFFF
+.Only use during voice library
+#Dragon Warrior 7#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"[#] Random battles (off)
+@1
+90 8011B6A4 64C2
+90 8011B6A6 0C04
+80 8011B6AC 0005
+90 8011B6A4 64C2
+90 8011B6A6 0C04
+80 8011B6AE 1000
+"[#] Random battles (on)
+@1
+90 8011B6A4 64C2
+90 8011B6A6 0C04
+80 8011B6AC 0005
+90 8011B6A4 64C2
+90 8011B6A6 0C04
+80 8011B6AE 1040
+"[#] Random battles (always)
+@1
+90 8011B6A4 64C2
+90 8011B6A6 0C04
+80 8011B6AC 0001
+90 80113970 F1B0
+90 80113974 2454
+80 80113980 0001
+"[#] Battle - Always allow run
+90 80113A00 8827
+90 80113A02 0011
+80 80113A12 1000
+"[#] Battle - EXP (0-65535)
+92 800E2064 ????
+80 800E2064 ????
+$00C8  200 EXP
+$02BC  700 EXP
+$07D0  2000 EXP
+$1388  5000 EXP
+$2EE0  12000 EXP
+$88B8  35000 EXP
+$EA60  60000 EXP
+"[#] Battle - Enemy 1 HP
+91 800E07DC 0000
+93 800E084A 0001
+80 800E084A 0001
+91 800E0888 0000
+93 800E08F6 0001
+80 800E08F6 0001
+93 800E09A2 0001
+80 800E09A2 0001
+93 800E0A4E 0001
+80 800E0A4E 0001
+93 800E0AF4 0001
+80 800E0AF4 0001
+"[#] Battle - Infinite HP
+D20E0646 0080
+800E0646 00FF
+D20E06F2 0080
+800E06F2 00FF
+D20E079E 0080
+800E079E 00FF
+D00E07DC 0000
+D20E084A 0080
+800E084A 00FF
+D00E0888 0000
+D20E08F6 0080
+800E08F6 00FF
+"[#] Battle - Infinite MP
+D20E0648 0080
+800E0648 00FF
+D20E06F4 0080
+800E06F4 00FF
+D20E07A0 0080
+800E07A0 00FF
+D00E07DC 0000
+D20E084C 0080
+800E084C 00FF
+D00E0888 0000
+D20E08F8 0080
+800E08F8 00FF
+"Infinite Gold (0-65535)
+80 80011368 ????
+$2000  8192 gold
+$8000  32767 gold
+$FFFF  65535 gold
+#Lunar 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"[#] Field - Battles (off)
+8008B288 01FF
+"[#] Field - Battles (on)
+D308B288 00F0
+8008B288 0000
+"[#] Field - Longer dash time
+8001A70C 01FF
+"[#] Battle - Always allow run
+80050778 0001
+"[#] Battle - EXP (0-65535)
+D208B8DC ????
+8008B8DC ????
+$00C8  200 EXP
+$02BC  700 EXP
+$07D0  2000 EXP
+$1388  5000 EXP
+$2710  10000 EXP
+$88B8  30000 EXP
+$EA60  60000 EXP
+"[#] Battle - EXP (65536+)
+D208B8DE ????
+8008B8DE ????
+$0001  65536 EXP
+$0002  131072 EXP
+$0003  196608 EXP
+$0004  262144 EXP
+"[#] Battle - Enemy 1 HP
+D01569D8 0000
+D01569DA 0000
+D3156A08 0001
+80156A08 0001
+D01569D8 0000
+D01569DA 0000
+D3156C04 0001
+80156C04 0001
+D01569D8 0000
+D01569DA 0000
+D3156E00 0001
+80156E00 0001
+D01569D8 0000
+D01569DA 0000
+D3156EFC 0001
+80156EFC 0001
+D01569D8 0000
+D01569DA 0000
+D3156FF8 0001
+80156FF8 0001
+D01569D8 0000
+D01569DA 0000
+D31571F4 0001
+801571F4 0001
+"[#] Battle - Infinite HP
+D01569D8 0000
+D01569DA 0000
+D215601C 0100
+8015601C 03E7
+D01569D8 0000
+D01569DA 0000
+D2156218 0100
+80156218 03E7
+D01569D8 0000
+D01569DA 0000
+D2156414 0100
+80156414 03E7
+D01569D8 0000
+D01569DA 0000
+D2156610 0100
+80156610 03E7
+D01569D8 0000
+D01569DA 0000
+D215680C 0100
+8015680C 03E7
+"[#] Battle - Infinite MP
+D01569D8 0000
+D01569DA 0000
+D2156024 0100
+80156024 03E7
+D01569D8 0000
+D01569DA 0000
+D2156220 0100
+80156220 03E7
+D01569D8 0000
+D01569DA 0000
+D215641C 0100
+8015641C 03E7
+D01569D8 0000
+D01569DA 0000
+D2156618 0100
+80156618 03E7
+D01569D8 0000
+D01569DA 0000
+D2156814 0100
+80156814 03E7
+"[#] Battle - Party 1 HP
+D01569D8 0000
+D01569DA 0000
+D315601C 0001
+8015601C 0001
+D01569D8 0000
+D01569DA 0000
+D3156218 0001
+80156218 0001
+D01569D8 0000
+D01569DA 0000
+D3156414 0001
+80156414 0001
+D01569D8 0000
+D01569DA 0000
+D3156610 0001
+80156610 0001
+D01569D8 0000
+D01569DA 0000
+D315680C 0001
+8015680C 0001
+"Infinite Silver (65536+)
+8008A7BE ????
+$0001  65536 silver
+$05f5  max silver
+#Wild Arms 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"[#] Random battles (off)
+D0075474 102A
+D0075476 0082
+8007547A 1000
+D0075474 102A
+D0075476 0082
+8007547C 0007
+"[#] Random battles (on)
+D0075474 102A
+D0075476 0082
+8007547A 1040
+D0075474 102A
+D0075476 0082
+8007547C 0007
+"[#] Random battles (always)
+D0075474 102A
+D0075476 0082
+8007547A 0000
+D0075474 102A
+D0075476 0082
+8007547C 0000
+"[#] Battle - Always allow run
+D00AC07C 102A
+D00AC07E 0052
+800AC080 0001
+D0091FFC E5ED
+D0091FFE 0C01
+80092006 1000
+"[#] Battle - Infinite HP
+D00FB2DC FFFF
+8011A72C 270F
+D00FB2DC FFFF
+8011A7A8 270F
+D00FB2DC FFFF
+8011A824 270F
+D00FB2DC FFFF
+8011A8A0 270F
+D00FB2DC FFFF
+8011A91C 270F
+D00FB2DC FFFF
+8011A998 270F
+"[#] Battle - Infinite FP
+D00FB2DC FFFF
+8011A73A 03F0
+D00FB2DC FFFF
+8011A7B6 03F0
+D00FB2DC FFFF
+8011A832 03F0
+D00FB2DC FFFF
+8011A8AE 03F0
+D00FB2DC FFFF
+8011A92A 03F0
+D00FB2DC FFFF
+8011A9A6 03F0
+"[#] Battle - EXP gained
+D00FB2DC FFFF
+D20FB620 ????
+800FB620 ????
+$0064  100 EXP
+$01F4  500 EXP
+$07D0  2000 EXP
+$1388  5000 EXP
+$2710  10000 EXP
+$88B8  30000 EXP
+$EA60  60000 EXP
+"[#_!~~] Battle - Instant win
+801256CC 0000
+801256CE 0000
+8012574C 0000
+8012574E 0000
+801257CC 0000
+801257CE 0000
+.Does not work on Demon Blazer (final boss)
+"[#] Battle - Enemy 1 HP
+D31256CC 0001
+801256CC 0001
+801256CE 0000
+D312574C 0001
+8012574C 0001
+8012574E 0000
+D31257CC 0001
+801257CC 0001
+801257CE 0000
+"[#] Battle - Party 1 HP
+D311A72C 0001
+8011A72C 0001
+D311A7A8 0001
+8011A7A8 0001
+D311A824 0001
+8011A824 0001
+D311A8A0 0001
+8011A8A0 0001
+D311A91C 0001
+8011A91C 0001
+D311A91C 0001
+8011A998 0001
+"Infinite Gella
+8011AEEC ????
+$0000  0 gella
+$1000  4096 gella
+$2EE0  12000 gella
+$8000  32768 gella
+$FFFF  65535 gella
+"Party - Infinite SP
+3011A795 00FF
+3011A811 00FF
+3011A88D 00FF
+3011A909 00FF
+3011A985 00FF
+3011AA01 00FF
+"[!~~] Ashley - All weapon skills
+3011AF14 0000
+3011AF18 0001
+3011AF1C 0002
+3011AF20 0003
+3011AF24 0004
+3011AF28 0005
+3011AF2C 0006
+3011AF30 0007
+.Better to select the ones you need
+.Examine this list manually
+"[!~~] Brad - All weapon skills
+3011AF34 0000
+3011AF38 0001
+3011AF3C 0002
+3011AF40 0003
+3011AF44 0004
+3011AF48 0005
+3011AF4C 0006
+3011AF50 0007
+.Better to select the ones you need
+.Examine this list manually
+"[!~~] Lilka - All magic skills
+3011AF54 0010
+3011AF55 0011
+3011AF56 0012
+3011AF57 0013
+3011AF58 0014
+3011AF59 0015
+3011AF5A 0016
+3011AF5B 0017
+3011AF5C 0018
+3011AF5D 0019
+3011AF5E 001A
+3011AF5F 001B
+3011AF60 001C
+3011AF61 001D
+3011AF62 001E
+3011AF63 001F
+3011AF64 0000
+3011AF65 0001
+3011AF66 0002
+3011AF67 0003
+3011AF68 0004
+3011AF69 0005
+3011AF6A 0006
+3011AF6B 0007
+3011AF6C 0008
+3011AF6D 0009
+3011AF6E 000A
+3011AF6F 000B
+3011AF70 000C
+3011AF71 000D
+3011AF72 000E
+3011AF73 000F
+.Better to select the ones you need
+.Examine this list manually
+"[!~~] Tim - All magic skills
+3011AF76 0000
+3011AF79 0000
+3011AF7C 0000
+3011AF7F 0000
+3011AF82 0000
+3011AF85 0000
+3011AF88 0000
+3011AF8B 0000
+3011AF8E 0000
+3011AF91 0000
+3011AF94 0000
+3011AF97 0000
+3011AF9A 0000
+3011AF9D 0000
+3011AFA0 0000
+3011AFA3 0000
+.Useful to learn all magic at once
+"[!~~] Kanon - All weapon skills
+3011AFC8 0000
+3011AFCA 0001
+3011AFCC 0002
+3011AFCE 0003
+3011AFD0 0004
+3011AFD2 0005
+3011AFD4 0006
+3011AFD6 0007
+.Useful to learn all magic at once
+"[!~~] Marivel - All magic skills
+3011AFD8 0000
+3011AFDA 0001
+3011AFDC 0002
+3011AFDE 0003
+3011AFE0 0004
+3011AFE2 0005
+3011AFE4 0006
+3011AFE6 0007
+3011AFE8 0008
+3011AFEA 0009
+3011AFEC 000A
+3011AFEE 000B
+3011AFF0 000C
+3011AFF2 000D
+3011AFF4 000E
+3011AFF6 000F
+3011AFF8 0010
+3011AFFA 0011
+3011AFFC 0012
+3011AFFE 0013
+3011B000 0014
+3011B002 0015
+3011B004 0016
+3011B006 0017
+3011B008 0018
+3011B00A 0019
+3011B00C 001A
+3011B00E 001B
+3011B010 001C
+3011B012 001D
+3011B014 001E
+3011B016 001F
+.Useful to learn all magic at once
+.
+.
+.FORCE ABILITIES 3011A897 00FF
+.FORCE ABILITIES 3011A79F 00FF
+#Countdown Vampires#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"[#] Player - Infinite HP
+800B3F2E 0064
+"[#] Player - Infinite money
+800B2F90 270F
+"[#_R] Enemy - 1 hit kill (on)
+D001D084 000A
+D001D086 2842
+8001D08E A600
+D0039894 0010
+D0039896 97A3
+8003989E 0003
+D0039894 0010
+D0039896 97A3
+800325EA 0003
+"[#_R] Enemy - 1 hit kill (off)
+D001D084 000A
+D001D086 2842
+8001D08E A604
+D0039894 0010
+D0039896 97A3
+8003989E 0043
+D0039894 0010
+D0039896 97A3
+800325EA 0043
+"[?] Ammo - Darts (@@@@)
+800B3F4C 00FF
+800B3F58 00FF
+800B3F64 00FF
+800B3F70 00FF
+800B3F6A 00FF
+800B3F82 00FF
+800B3F64 7FFF
+800B3F58 00FF
+.Darts A ammo
+.Shotgun
+.Shotgun ammo
+.9mm ammo
+.5.56mm ammo
+..44 magnum ammo
+.Machinegun ammo
+.Grenades ammo
+"Stop timer
+800CEB98 0017
+#Parasite Eve 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+.D0 = current value = code value
+.D1 = current value != code value
+.D2 = current value < code value
+.D3 = current value > code value
+"[#] Player - Infinite HP
+80073BA0 00FF
+"[#] Player - Infinite MP
+80073BA4 00FF
+"[#_R] Enemy - 1 hit kill (on)
+D00E22DC 0051
+800E22E0 7000
+D00E22DC 0051
+800E22E2 3402
+"[#_R] Enemy - 1 hit kill (off)
+D00E22DC 0051
+800E22E0 1021
+D00E22DC 0051
+800E22E2 0200
+"[#] Battle - Gain EXP & BP
+D21153F8 ????
+801153F8 ????
+D21153FC ????
+801153FC ????
+$80    128 points
+$100   256 points
+$200   512 points
+$400   1024 points
+$800   2048 points
+$1000  4096 points
+$2000  8192 points
+$7FFF  32767 points
+"[#] Player - Current EXP
+80073B90 ????
+$100   128 points
+$200   256 points
+$400   1024 points
+$800   2048 points
+$1000  4096 points
+$2000  8192 points
+$4000  16384 points
+$7FFF  32767 points
+"[#] Player - Current BP
+80073B94 ????
+$100   128 points
+$200   256 points
+$400   1024 points
+$800   2048 points
+$1000  4096 points
+$2000  8192 points
+$4000  16384 points
+$7FFF  32767 points
+"[#] Player - 1 HP
+D3073BA0 0001
+D2073BA0 8000
+80073BA0 0001
+"[#] Ammo - Flashlight battery
+E0072782 00BB
+30072783 00FF
+E007278A 00BB
+3007278B 00FF
+E0072792 00BB
+30072793 00FF
+E007279A 00BB
+3007279B 00FF
+E00727A2 00BB
+300727A3 00FF
+E00727AA 00BB
+300727AB 00FF
+E00727B2 00BB
+300727B3 00FF
+E00727BA 00BB
+300727BB 00FF
+E00727C2 00BB
+300727C3 00FF
+E00727CA 00BB
+300727CB 00FF
+E00727D2 00BB
+300727D3 00FF
+E00727DA 00BB
+300727DB 00FF
+E00727E2 00BB
+300727E3 00FF
+E00727EA 00BB
+300727EB 00FF
+E00727F2 00BB
+300727F3 00FF
+E00727FA 00BB
+300727FB 00FF
+E0072802 00BB
+30072803 00FF
+E007280A 00BB
+3007280B 00FF
+E0072812 00BB
+30072813 00FF
+E007281A 00BB
+3007281B 00FF
+E0072822 00BB
+30072823 00FF
+E007282A 00BB
+3007282B 00FF
+"[#_!~~] Ammo - 9mm
+E0072314 00A0
+80072316 ????
+E0072318 00A0
+8007231A ????
+E007231C 00A0
+8007231E ????
+E0072320 00A0
+80072322 ????
+E0072324 00A0
+80072326 ????
+E0072328 00A0
+8007232A ????
+E007232C 00A0
+8007232E ????
+E0072330 00A0
+80072332 ????
+E0072334 00A0
+80072336 ????
+E0072338 00A0
+8007233A ????
+E007233C 00A0
+8007233E ????
+E0072340 00A0
+80072342 ????
+E0072344 00A0
+80072346 ????
+E0072348 00A0
+8007234A ????
+E007234C 00A0
+8007234E ????
+E0072350 00A0
+80072352 ????
+E0072354 00A0
+80072356 ????
+E0072358 00A0
+8007235A ????
+E007235C 00A0
+8007235E ????
+E0072360 00A0
+80072362 ????
+E0072364 00A0
+80072366 ????
+E0072368 00A0
+8007236A ????
+E007236C 00A0
+8007236E ????
+E0072370 00A0
+80072372 ????
+E0072374 00A0
+80072376 ????
+E0072378 00A0
+8007237A ????
+E007237C 00A0
+8007237E ????
+E0072314 00A1
+80072316 ????
+E0072318 00A1
+8007231A ????
+E007231C 00A1
+8007231E ????
+E0072320 00A1
+80072322 ????
+E0072324 00A1
+80072326 ????
+E0072328 00A1
+8007232A ????
+E007232C 00A1
+8007232E ????
+E0072330 00A1
+80072332 ????
+E0072334 00A1
+80072336 ????
+E0072338 00A1
+8007233A ????
+E007233C 00A1
+8007233E ????
+E0072340 00A1
+80072342 ????
+E0072344 00A1
+80072346 ????
+E0072348 00A1
+8007234A ????
+E007234C 00A1
+8007234E ????
+E0072350 00A1
+80072352 ????
+E0072354 00A1
+80072356 ????
+E0072358 00A1
+8007235A ????
+E007235C 00A1
+8007235E ????
+E0072360 00A1
+80072362 ????
+E0072364 00A1
+80072366 ????
+E0072368 00A1
+8007236A ????
+E007236C 00A1
+8007236E ????
+E0072370 00A1
+80072372 ????
+E0072374 00A1
+80072376 ????
+E0072378 00A1
+8007237A ????
+E007237C 00A1
+8007237E ????
+E0072314 00A2
+80072316 ????
+E0072318 00A2
+8007231A ????
+E007231C 00A2
+8007231E ????
+E0072320 00A2
+80072322 ????
+E0072324 00A2
+80072326 ????
+E0072328 00A2
+8007232A ????
+E007232C 00A2
+8007232E ????
+E0072330 00A2
+80072332 ????
+E0072334 00A2
+80072336 ????
+E0072338 00A2
+8007233A ????
+E007233C 00A2
+8007233E ????
+E0072340 00A2
+80072342 ????
+E0072344 00A2
+80072346 ????
+E0072348 00A2
+8007234A ????
+E007234C 00A2
+8007234E ????
+E0072350 00A2
+80072352 ????
+E0072354 00A2
+80072356 ????
+E0072358 00A2
+8007235A ????
+E007235C 00A2
+8007235E ????
+E0072360 00A2
+80072362 ????
+E0072364 00A2
+80072366 ????
+E0072368 00A2
+8007236A ????
+E007236C 00A2
+8007236E ????
+E0072370 00A2
+80072372 ????
+E0072374 00A2
+80072376 ????
+E0072378 00A2
+8007237A ????
+E007237C 00A2
+8007237E ????
+$80   128 bullets
+$100  256 bullets
+$200  512 bullets
+$3E7  999 bullets
+.Must have at least 1 in inventory:
+.- P.B.
+.- Hydra
+.- Spartan
+"[#_!~~] Ammo - 5.56mm
+E0072314 00AF
+80072316 ????
+E0072318 00AF
+8007231A ????
+E007231C 00AF
+8007231E ????
+E0072320 00AF
+80072322 ????
+E0072324 00AF
+80072326 ????
+E0072328 00AF
+8007232A ????
+E007232C 00AF
+8007232E ????
+E0072330 00AF
+80072332 ????
+E0072334 00AF
+80072336 ????
+E0072338 00AF
+8007233A ????
+E007233C 00AF
+8007233E ????
+E0072340 00AF
+80072342 ????
+E0072344 00AF
+80072346 ????
+E0072348 00AF
+8007234A ????
+E007234C 00AF
+8007234E ????
+E0072350 00AF
+80072352 ????
+E0072354 00AF
+80072356 ????
+E0072358 00AF
+8007235A ????
+E007235C 00AF
+8007235E ????
+E0072360 00AF
+80072362 ????
+E0072364 00AF
+80072366 ????
+E0072368 00AF
+8007236A ????
+E007236C 00AF
+8007236E ????
+E0072370 00AF
+80072372 ????
+E0072374 00AF
+80072376 ????
+E0072378 00AF
+8007237A ????
+E007237C 00AF
+8007237E ????
+$80   128 bullets
+$100  256 bullets
+$200  512 bullets
+$3E7  999 bullets
+.Must have at least 1 in inventory
+"[#_!~~] Ammo - Shotgun shells
+E0072314 00AC
+80072316 ????
+E0072318 00AC
+8007231A ????
+E007231C 00AC
+8007231E ????
+E0072320 00AC
+80072322 ????
+E0072324 00AC
+80072326 ????
+E0072328 00AC
+8007232A ????
+E007232C 00AC
+8007232E ????
+E0072330 00AC
+80072332 ????
+E0072334 00AC
+80072336 ????
+E0072338 00AC
+8007233A ????
+E007233C 00AC
+8007233E ????
+E0072340 00AC
+80072342 ????
+E0072344 00AC
+80072346 ????
+E0072348 00AC
+8007234A ????
+E007234C 00AC
+8007234E ????
+E0072350 00AC
+80072352 ????
+E0072354 00AC
+80072356 ????
+E0072358 00AC
+8007235A ????
+E007235C 00AC
+8007235E ????
+E0072360 00AC
+80072362 ????
+E0072364 00AC
+80072366 ????
+E0072368 00AC
+8007236A ????
+E007236C 00AC
+8007236E ????
+E0072370 00AC
+80072372 ????
+E0072374 00AC
+80072376 ????
+E0072378 00AC
+8007237A ????
+E007237C 00AC
+8007237E ????
+E0072314 00AD
+80072316 ????
+E0072318 00AD
+8007231A ????
+E007231C 00AD
+8007231E ????
+E0072320 00AD
+80072322 ????
+E0072324 00AD
+80072326 ????
+E0072328 00AD
+8007232A ????
+E007232C 00AD
+8007232E ????
+E0072330 00AD
+80072332 ????
+E0072334 00AD
+80072336 ????
+E0072338 00AD
+8007233A ????
+E007233C 00AD
+8007233E ????
+E0072340 00AD
+80072342 ????
+E0072344 00AD
+80072346 ????
+E0072348 00AD
+8007234A ????
+E007234C 00AD
+8007234E ????
+E0072350 00AD
+80072352 ????
+E0072354 00AD
+80072356 ????
+E0072358 00AD
+8007235A ????
+E007235C 00AD
+8007235E ????
+E0072360 00AD
+80072362 ????
+E0072364 00AD
+80072366 ????
+E0072368 00AD
+8007236A ????
+E007236C 00AD
+8007236E ????
+E0072370 00AD
+80072372 ????
+E0072374 00AD
+80072376 ????
+E0072378 00AD
+8007237A ????
+E007237C 00AD
+8007237E ????
+E0072314 00AE
+80072316 ????
+E0072318 00AE
+8007231A ????
+E007231C 00AE
+8007231E ????
+E0072320 00AE
+80072322 ????
+E0072324 00AE
+80072326 ????
+E0072328 00AE
+8007232A ????
+E007232C 00AE
+8007232E ????
+E0072330 00AE
+80072332 ????
+E0072334 00AE
+80072336 ????
+E0072338 00AE
+8007233A ????
+E007233C 00AE
+8007233E ????
+E0072340 00AE
+80072342 ????
+E0072344 00AE
+80072346 ????
+E0072348 00AE
+8007234A ????
+E007234C 00AE
+8007234E ????
+E0072350 00AE
+80072352 ????
+E0072354 00AE
+80072356 ????
+E0072358 00AE
+8007235A ????
+E007235C 00AE
+8007235E ????
+E0072360 00AE
+80072362 ????
+E0072364 00AE
+80072366 ????
+E0072368 00AE
+8007236A ????
+E007236C 00AE
+8007236E ????
+E0072370 00AE
+80072372 ????
+E0072374 00AE
+80072376 ????
+E0072378 00AE
+8007237A ????
+E007237C 00AE
+8007237E ????
+$80   128 shells
+$100  256 shells
+$200  512 shells
+$3E7  999 shells
+.Must have at least 1 in inventory:
+.- Buckshot
+.- Firefly
+.- R. Slugs
+"[#_!~~] Ammo - 40mm grenades
+E0072314 00A9
+80072316 ????
+E0072318 00A9
+8007231A ????
+E007231C 00A9
+8007231E ????
+E0072320 00A9
+80072322 ????
+E0072324 00A9
+80072326 ????
+E0072328 00A9
+8007232A ????
+E007232C 00A9
+8007232E ????
+E0072330 00A9
+80072332 ????
+E0072334 00A9
+80072336 ????
+E0072338 00A9
+8007233A ????
+E007233C 00A9
+8007233E ????
+E0072340 00A9
+80072342 ????
+E0072344 00A9
+80072346 ????
+E0072348 00A9
+8007234A ????
+E007234C 00A9
+8007234E ????
+E0072350 00A9
+80072352 ????
+E0072354 00A9
+80072356 ????
+E0072358 00A9
+8007235A ????
+E007235C 00A9
+8007235E ????
+E0072360 00A9
+80072362 ????
+E0072364 00A9
+80072366 ????
+E0072368 00A9
+8007236A ????
+E007236C 00A9
+8007236E ????
+E0072370 00A9
+80072372 ????
+E0072374 00A9
+80072376 ????
+E0072378 00A9
+8007237A ????
+E007237C 00A9
+8007237E ????
+E0072314 00AA
+80072316 ????
+E0072318 00AA
+8007231A ????
+E007231C 00AA
+8007231E ????
+E0072320 00AA
+80072322 ????
+E0072324 00AA
+80072326 ????
+E0072328 00AA
+8007232A ????
+E007232C 00AA
+8007232E ????
+E0072330 00AA
+80072332 ????
+E0072334 00AA
+80072336 ????
+E0072338 00AA
+8007233A ????
+E007233C 00AA
+8007233E ????
+E0072340 00AA
+80072342 ????
+E0072344 00AA
+80072346 ????
+E0072348 00AA
+8007234A ????
+E007234C 00AA
+8007234E ????
+E0072350 00AA
+80072352 ????
+E0072354 00AA
+80072356 ????
+E0072358 00AA
+8007235A ????
+E007235C 00AA
+8007235E ????
+E0072360 00AA
+80072362 ????
+E0072364 00AA
+80072366 ????
+E0072368 00AA
+8007236A ????
+E007236C 00AA
+8007236E ????
+E0072370 00AA
+80072372 ????
+E0072374 00AA
+80072376 ????
+E0072378 00AA
+8007237A ????
+E007237C 00AA
+8007237E ????
+E0072314 00AB
+80072316 ????
+E0072318 00AB
+8007231A ????
+E007231C 00AB
+8007231E ????
+E0072320 00AB
+80072322 ????
+E0072324 00AB
+80072326 ????
+E0072328 00AB
+8007232A ????
+E007232C 00AB
+8007232E ????
+E0072330 00AB
+80072332 ????
+E0072334 00AB
+80072336 ????
+E0072338 00AB
+8007233A ????
+E007233C 00AB
+8007233E ????
+E0072340 00AB
+80072342 ????
+E0072344 00AB
+80072346 ????
+E0072348 00AB
+8007234A ????
+E007234C 00AB
+8007234E ????
+E0072350 00AB
+80072352 ????
+E0072354 00AB
+80072356 ????
+E0072358 00AB
+8007235A ????
+E007235C 00AB
+8007235E ????
+E0072360 00AB
+80072362 ????
+E0072364 00AB
+80072366 ????
+E0072368 00AB
+8007236A ????
+E007236C 00AB
+8007236E ????
+E0072370 00AB
+80072372 ????
+E0072374 00AB
+80072376 ????
+E0072378 00AB
+8007237A ????
+E007237C 00AB
+8007237E ????
+$80   128 grenades
+$100  256 grenades
+$200  512 grenades
+$3E7  999 grenades
+.Must have at least 1 in inventory:
+.- Fragmentation
+.- Airburst
+.- Riot
+#Syphon Filter 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+"[#] Player - Infinite HP
+D0089E68 0006
+80089E6A 2400
+"[#] Stop timer
+800F2B68 0073
+"[#] Ammo - Handgun
+D312A5BC 0000
+8012A5BC ????
+D312A5C0 0000
+8012A5C0 ????
+D312A5C4 0000
+8012A5C4 ????
+.Silenced 9mm
+.9mm
+..45
+"[#] Ammo - Sniper Rifle
+D312A5EC 0000
+8012A5EC ????
+D312A5F0 0000
+8012A5F0 ????
+D312A5F8 0000
+8012A5F8 ????
+.H-11
+.Silenced
+.Nightvision
+"[#] Ammo - Shotgun
+D312A5D8 0000
+8012A5D8 ????
+D312A5DC 0000
+8012A5DC ????
+D312A5DE 0000
+8012A5DE ????
+.12-gauge
+.UAS-12
+.UAS-12
+"[#] Ammo - Machine Pistol
+D312A5CC 0000
+8012A5CC ????
+D312A5E0 0000
+8012A5E0 ????
+D312A5E4 0000
+8012A5E4 ????
+.Silenced HK-5
+.G-18
+.Biz-2
+"[#] Ammo - Assault Rifle
+D312A5C8 0000
+8012A5C8 ????
+D312A5D0 0000
+8012A5D0 ????
+D312A5D4 0000
+8012A5D4 ????
+D312A5E8 0000
+8012A5E8 ????
+D312A5F4 0000
+8012A5F4 ????
+$80   128 bullets
+$100  256 bullets
+$200  512 bullets
+.M-16
+.PK-102
+.KG34
+"[#] Ammo - Special weapons
+D312A5FE 0000
+8012A5FE ????
+D312A60E 0000
+8012A60E ????
+D312A62A 0000
+8012A62A ????
+$80   128 supply
+$100  256 supply
+$200  512 supply
+.Crossbow bolts
+.M-79 Grenades
+.Tear Gas Launcher
+"[#] Ammo - Grenades
+D212A612 0000
+8012A612 ????
+D212A616 0000
+8012A616 ????
+$10  16 grenades
+$63  99 grenades
+#Driver 2#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+"[#] Infinite time"
+800D77B4 A8C8
+800D77B6 0112
+800DA490 A8C8
+800DA492 0112 
+"[#_R] Target always in range (on)"
+8006329E 1000
+"[#_R] Target always in range (off)"
+8006329E 1440
+"[#_R] Player - No player damage (on)"
+8001CDC0 0000
+8001CDC2 3402
+8001CDD8 0000
+8001CDDA 3402
+8001CEA0 0000
+8001CEA2 3402
+"[#_R] Player - No player damage (off)"
+8001CDC0 1021
+8001CDC2 0066
+8001CDD8 1021
+8001CDDA 0046
+8001CEA0 1021
+8001CEA2 00E2
+"[#] Instantly finish mission - L1+R1+L2+R2"
+D00AA674 000F
+800AA194 0001
+D00AA674 000F
+800AAA6C 0004 
+#Final Fantasy 8#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+"[?] No random battles
+80078DF8 000C
+"[?] Save anywhere
+80070652 0100
+"[?] Battle - Infinite Limit
+80068AB6 0454
+80068BF2 0454
+80068D2E 0454
+"[?] Enemy - 1 HP
+D20ED3E0 0001
+800ED3E0 0001
+#Alone in the Dark - The New Nightmare#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code, read notes
+"[#_!~~] Item - Infinite Save charm
+D01451C4 007E
+801451C6 00??
+D01451C8 007E
+801451CA 00??
+D01451CC 007E
+801451CE 00??
+D01451D0 007E
+801451D2 00??
+D01451D4 007E
+801451D6 00??
+D01451D8 007E
+801451DA 00??
+D01451DC 007E
+801451DE 00??
+D01451E0 007E
+801451E2 00??
+D01451E4 007E
+801451E6 00??
+D01451E8 007E
+801451EA 00??
+D01451EC 007E
+801451EE 00??
+D01451F0 007E
+801451F2 00??
+D01451F4 007E
+801451F6 00??
+D01451F8 007E
+801451FA 00??
+D01451FC 007E
+801451FE 00??
+D0145200 007E
+80145202 00??
+D0145204 007E
+80145206 00??
+D0145208 007E
+8014520A 00??
+D014520C 007E
+8014520E 00??
+D0145210 007E
+80145212 00??
+D0145214 007E
+80145216 00??
+D0145218 007E
+8014521A 00??
+D014521C 007E
+8014521E 00??
+D0145220 007E
+80145222 00??
+D0145224 007E
+80145226 00??
+D0145228 007E
+8014522A 00??
+D014522C 007E
+8014522E 00??
+D0145230 007E
+80145232 00??
+D0145234 007E
+80145236 00??
+D0145238 007E
+8014523A 00??
+D014523C 007E
+8014523E 00??
+D0145240 007E
+80145242 00??
+D0145244 007E
+80145246 00??
+D0145248 007E
+8014524A 00??
+D014524C 007E
+8014524E 00??
+D0145250 007E
+80145252 00??
+D0145254 007E
+80145256 00??
+D0145258 007E
+8014525A 00??
+D014525C 007E
+8014525E 00??
+D0145260 007E
+80145262 00??
+D0145264 007E
+80145266 00??
+D0145268 007E
+8014526A 00??
+D014526C 007E
+8014526E 00??
+D0145270 007E
+80145272 00??
+D0145274 007E
+80145276 00??
+D0145278 007E
+8014527A 00??
+D014527C 007E
+8014527E 00??
+D0145280 007E
+80145282 00??
+D0145284 007E
+80145286 00??
+D0145288 007E
+8014528A 00??
+D014528C 007E
+8014528E 00??
+D0145290 007E
+80145292 00??
+D0145294 007E
+80145296 00??
+D0145298 007E
+8014529A 00??
+D014529C 007E
+8014529E 00??
+$03    3 charms
+$0A   10 charms
+$FF  255 charms
+.Must have at least 1 in inventory
+"[#_!~~] Item - Infinite First Aid
+D01451C4 0072
+801451C6 00??
+D01451C8 0072
+801451CA 00??
+D01451CC 0072
+801451CE 00??
+D01451D0 0072
+801451D2 00??
+D01451D4 0072
+801451D6 00??
+D01451D8 0072
+801451DA 00??
+D01451DC 0072
+801451DE 00??
+D01451E0 0072
+801451E2 00??
+D01451E4 0072
+801451E6 00??
+D01451E8 0072
+801451EA 00??
+D01451EC 0072
+801451EE 00??
+D01451F0 0072
+801451F2 00??
+D01451F4 0072
+801451F6 00??
+D01451F8 0072
+801451FA 00??
+D01451FC 0072
+801451FE 00??
+D0145200 0072
+80145202 00??
+D0145204 0072
+80145206 00??
+D0145208 0072
+8014520A 00??
+D014520C 0072
+8014520E 00??
+D0145210 0072
+80145212 00??
+D0145214 0072
+80145216 00??
+D0145218 0072
+8014521A 00??
+D014521C 0072
+8014521E 00??
+D0145220 0072
+80145222 00??
+D0145224 0072
+80145226 00??
+D0145228 0072
+8014522A 00??
+D014522C 0072
+8014522E 00??
+D0145230 0072
+80145232 00??
+D0145234 0072
+80145236 00??
+D0145238 0072
+8014523A 00??
+D014523C 0072
+8014523E 00??
+D0145240 0072
+80145242 00??
+D0145244 0072
+80145246 00??
+D0145248 0072
+8014524A 00??
+D014524C 0072
+8014524E 00??
+D0145250 0072
+80145252 00??
+D0145254 0072
+80145256 00??
+D0145258 0072
+8014525A 00??
+D014525C 0072
+8014525E 00??
+D0145260 0072
+80145262 00??
+D0145264 0072
+80145266 00??
+D0145268 0072
+8014526A 00??
+D014526C 0072
+8014526E 00??
+D0145270 0072
+80145272 00??
+D0145274 0072
+80145276 00??
+D0145278 0072
+8014527A 00??
+D014527C 0072
+8014527E 00??
+D0145280 0072
+80145282 00??
+D0145284 0072
+80145286 00??
+D0145288 0072
+8014528A 00??
+D014528C 0072
+8014528E 00??
+D0145290 0072
+80145292 00??
+D0145294 0072
+80145296 00??
+D0145298 0072
+8014529A 00??
+D014529C 0072
+8014529E 00??
+$0A   10 kits
+$19   25 kits
+$FF  255 kits
+.Must have at least 1 in inventory
+"[#_!~~] Weapon - Magnesium bullets
+D01451C4 006F
+801451C6 00??
+D01451C8 006F
+801451CA 00??
+D01451CC 006F
+801451CE 00??
+D01451D0 006F
+801451D2 00??
+D01451D4 006F
+801451D6 00??
+D01451D8 006F
+801451DA 00??
+D01451DC 006F
+801451DE 00??
+D01451E0 006F
+801451E2 00??
+D01451E4 006F
+801451E6 00??
+D01451E8 006F
+801451EA 00??
+D01451EC 006F
+801451EE 00??
+D01451F0 006F
+801451F2 00??
+D01451F4 006F
+801451F6 00??
+D01451F8 006F
+801451FA 00??
+D01451FC 006F
+801451FE 00??
+D0145200 006F
+80145202 00??
+D0145204 006F
+80145206 00??
+D0145208 006F
+8014520A 00??
+D014520C 006F
+8014520E 00??
+D0145210 006F
+80145212 00??
+D0145214 006F
+80145216 00??
+D0145218 006F
+8014521A 00??
+D014521C 006F
+8014521E 00??
+D0145220 006F
+80145222 00??
+D0145224 006F
+80145226 00??
+D0145228 006F
+8014522A 00??
+D014522C 006F
+8014522E 00??
+D0145230 006F
+80145232 00??
+D0145234 006F
+80145236 00??
+D0145238 006F
+8014523A 00??
+D014523C 006F
+8014523E 00??
+D0145240 006F
+80145242 00??
+D0145244 006F
+80145246 00??
+D0145248 006F
+8014524A 00??
+D014524C 006F
+8014524E 00??
+D0145250 006F
+80145252 00??
+D0145254 006F
+80145256 00??
+D0145258 006F
+8014525A 00??
+D014525C 006F
+8014525E 00??
+D0145260 006F
+80145262 00??
+D0145264 006F
+80145266 00??
+D0145268 006F
+8014526A 00??
+D014526C 006F
+8014526E 00??
+D0145270 006F
+80145272 00??
+D0145274 006F
+80145276 00??
+D0145278 006F
+8014527A 00??
+D014527C 006F
+8014527E 00??
+D0145280 006F
+80145282 00??
+D0145284 006F
+80145286 00??
+D0145288 006F
+8014528A 00??
+D014528C 006F
+8014528E 00??
+D0145290 006F
+80145292 00??
+D0145294 006F
+80145296 00??
+D0145298 006F
+8014529A 00??
+D014529C 006F
+8014529E 00??
+$24   36 bullets
+$6C  108 bullets
+$FF  255 bullets
+.Must have at least 1 in inventory
+"[#_!~~] Weapon - Phosphorus cartridges
+D01451C4 0070
+801451C6 00??
+D01451C8 0070
+801451CA 00??
+D01451CC 0070
+801451CE 00??
+D01451D0 0070
+801451D2 00??
+D01451D4 0070
+801451D6 00??
+D01451D8 0070
+801451DA 00??
+D01451DC 0070
+801451DE 00??
+D01451E0 0070
+801451E2 00??
+D01451E4 0070
+801451E6 00??
+D01451E8 0070
+801451EA 00??
+D01451EC 0070
+801451EE 00??
+D01451F0 0070
+801451F2 00??
+D01451F4 0070
+801451F6 00??
+D01451F8 0070
+801451FA 00??
+D01451FC 0070
+801451FE 00??
+D0145200 0070
+80145202 00??
+D0145204 0070
+80145206 00??
+D0145208 0070
+8014520A 00??
+D014520C 0070
+8014520E 00??
+D0145210 0070
+80145212 00??
+D0145214 0070
+80145216 00??
+D0145218 0070
+8014521A 00??
+D014521C 0070
+8014521E 00??
+D0145220 0070
+80145222 00??
+D0145224 0070
+80145226 00??
+D0145228 0070
+8014522A 00??
+D014522C 0070
+8014522E 00??
+D0145230 0070
+80145232 00??
+D0145234 0070
+80145236 00??
+D0145238 0070
+8014523A 00??
+D014523C 0070
+8014523E 00??
+D0145240 0070
+80145242 00??
+D0145244 0070
+80145246 00??
+D0145248 0070
+8014524A 00??
+D014524C 0070
+8014524E 00??
+D0145250 0070
+80145252 00??
+D0145254 0070
+80145256 00??
+D0145258 0070
+8014525A 00??
+D014525C 0070
+8014525E 00??
+D0145260 0070
+80145262 00??
+D0145264 0070
+80145266 00??
+D0145268 0070
+8014526A 00??
+D014526C 0070
+8014526E 00??
+D0145270 0070
+80145272 00??
+D0145274 0070
+80145276 00??
+D0145278 0070
+8014527A 00??
+D014527C 0070
+8014527E 00??
+D0145280 0070
+80145282 00??
+D0145284 0070
+80145286 00??
+D0145288 0070
+8014528A 00??
+D014528C 0070
+8014528E 00??
+D0145290 0070
+80145292 00??
+D0145294 0070
+80145296 00??
+D0145298 0070
+8014529A 00??
+D014529C 0070
+8014529E 00??
+$24   36 bullets
+$6C  108 bullets
+$FF  255 bullets
+"[#_!~~] Weapon - Grenade boxes
+D01451C4 0076
+801451C6 00??
+D01451C8 0076
+801451CA 00??
+D01451CC 0076
+801451CE 00??
+D01451D0 0076
+801451D2 00??
+D01451D4 0076
+801451D6 00??
+D01451D8 0076
+801451DA 00??
+D01451DC 0076
+801451DE 00??
+D01451E0 0076
+801451E2 00??
+D01451E4 0076
+801451E6 00??
+D01451E8 0076
+801451EA 00??
+D01451EC 0076
+801451EE 00??
+D01451F0 0076
+801451F2 00??
+D01451F4 0076
+801451F6 00??
+D01451F8 0076
+801451FA 00??
+D01451FC 0076
+801451FE 00??
+D0145200 0076
+80145202 00??
+D0145204 0076
+80145206 00??
+D0145208 0076
+8014520A 00??
+D014520C 0076
+8014520E 00??
+D0145210 0076
+80145212 00??
+D0145214 0076
+80145216 00??
+D0145218 0076
+8014521A 00??
+D014521C 0076
+8014521E 00??
+D0145220 0076
+80145222 00??
+D0145224 0076
+80145226 00??
+D0145228 0076
+8014522A 00??
+D014522C 0076
+8014522E 00??
+D0145230 0076
+80145232 00??
+D0145234 0076
+80145236 00??
+D0145238 0076
+8014523A 00??
+D014523C 0076
+8014523E 00??
+D0145240 0076
+80145242 00??
+D0145244 0076
+80145246 00??
+D0145248 0076
+8014524A 00??
+D014524C 0076
+8014524E 00??
+D0145250 0076
+80145252 00??
+D0145254 0076
+80145256 00??
+D0145258 0076
+8014525A 00??
+D014525C 0076
+8014525E 00??
+D0145260 0076
+80145262 00??
+D0145264 0076
+80145266 00??
+D0145268 0076
+8014526A 00??
+D014526C 0076
+8014526E 00??
+D0145270 0076
+80145272 00??
+D0145274 0076
+80145276 00??
+D0145278 0076
+8014527A 00??
+D014527C 0076
+8014527E 00??
+D0145280 0076
+80145282 00??
+D0145284 0076
+80145286 00??
+D0145288 0076
+8014528A 00??
+D014528C 0076
+8014528E 00??
+D0145290 0076
+80145292 00??
+D0145294 0076
+80145296 00??
+D0145298 0076
+8014529A 00??
+D014529C 0076
+8014529E 00??
+$24   36 grenades
+$6C  108 grenades
+$FF  255 grenades
+.Must have at least 1 in inventory
+"[#_!~~] Weapon - Rocket boxes
+D01451C4 0075
+801451C6 00??
+D01451C8 0075
+801451CA 00??
+D01451CC 0075
+801451CE 00??
+D01451D0 0075
+801451D2 00??
+D01451D4 0075
+801451D6 00??
+D01451D8 0075
+801451DA 00??
+D01451DC 0075
+801451DE 00??
+D01451E0 0075
+801451E2 00??
+D01451E4 0075
+801451E6 00??
+D01451E8 0075
+801451EA 00??
+D01451EC 0075
+801451EE 00??
+D01451F0 0075
+801451F2 00??
+D01451F4 0075
+801451F6 00??
+D01451F8 0075
+801451FA 00??
+D01451FC 0075
+801451FE 00??
+D0145200 0075
+80145202 00??
+D0145204 0075
+80145206 00??
+D0145208 0075
+8014520A 00??
+D014520C 0075
+8014520E 00??
+D0145210 0075
+80145212 00??
+D0145214 0075
+80145216 00??
+D0145218 0075
+8014521A 00??
+D014521C 0075
+8014521E 00??
+D0145220 0075
+80145222 00??
+D0145224 0075
+80145226 00??
+D0145228 0075
+8014522A 00??
+D014522C 0075
+8014522E 00??
+D0145230 0075
+80145232 00??
+D0145234 0075
+80145236 00??
+D0145238 0075
+8014523A 00??
+D014523C 0075
+8014523E 00??
+D0145240 0075
+80145242 00??
+D0145244 0075
+80145246 00??
+D0145248 0075
+8014524A 00??
+D014524C 0075
+8014524E 00??
+D0145250 0075
+80145252 00??
+D0145254 0075
+80145256 00??
+D0145258 0075
+8014525A 00??
+D014525C 0075
+8014525E 00??
+D0145260 0075
+80145262 00??
+D0145264 0075
+80145266 00??
+D0145268 0075
+8014526A 00??
+D014526C 0075
+8014526E 00??
+D0145270 0075
+80145272 00??
+D0145274 0075
+80145276 00??
+D0145278 0075
+8014527A 00??
+D014527C 0075
+8014527E 00??
+D0145280 0075
+80145282 00??
+D0145284 0075
+80145286 00??
+D0145288 0075
+8014528A 00??
+D014528C 0075
+8014528E 00??
+D0145290 0075
+80145292 00??
+D0145294 0075
+80145296 00??
+D0145298 0075
+8014529A 00??
+D014529C 0075
+8014529E 00??
+$24   36 rockets
+$6C  108 rockets
+$FF  255 rockets
+.Must have at least 1 in inventory
+"[#_!~~] Weapon - Gas catridges
+D01451C4 0077
+801451C6 00??
+D01451C8 0077
+801451CA 00??
+D01451CC 0077
+801451CE 00??
+D01451D0 0077
+801451D2 00??
+D01451D4 0077
+801451D6 00??
+D01451D8 0077
+801451DA 00??
+D01451DC 0077
+801451DE 00??
+D01451E0 0077
+801451E2 00??
+D01451E4 0077
+801451E6 00??
+D01451E8 0077
+801451EA 00??
+D01451EC 0077
+801451EE 00??
+D01451F0 0077
+801451F2 00??
+D01451F4 0077
+801451F6 00??
+D01451F8 0077
+801451FA 00??
+D01451FC 0077
+801451FE 00??
+D0145200 0077
+80145202 00??
+D0145204 0077
+80145206 00??
+D0145208 0077
+8014520A 00??
+D014520C 0077
+8014520E 00??
+D0145210 0077
+80145212 00??
+D0145214 0077
+80145216 00??
+D0145218 0077
+8014521A 00??
+D014521C 0077
+8014521E 00??
+D0145220 0077
+80145222 00??
+D0145224 0077
+80145226 00??
+D0145228 0077
+8014522A 00??
+D014522C 0077
+8014522E 00??
+D0145230 0077
+80145232 00??
+D0145234 0077
+80145236 00??
+D0145238 0077
+8014523A 00??
+D014523C 0077
+8014523E 00??
+D0145240 0077
+80145242 00??
+D0145244 0077
+80145246 00??
+D0145248 0077
+8014524A 00??
+D014524C 0077
+8014524E 00??
+D0145250 0077
+80145252 00??
+D0145254 0077
+80145256 00??
+D0145258 0077
+8014525A 00??
+D014525C 0077
+8014525E 00??
+D0145260 0077
+80145262 00??
+D0145264 0077
+80145266 00??
+D0145268 0077
+8014526A 00??
+D014526C 0077
+8014526E 00??
+D0145270 0077
+80145272 00??
+D0145274 0077
+80145276 00??
+D0145278 0077
+8014527A 00??
+D014527C 0077
+8014527E 00??
+D0145280 0077
+80145282 00??
+D0145284 0077
+80145286 00??
+D0145288 0077
+8014528A 00??
+D014528C 0077
+8014528E 00??
+D0145290 0077
+80145292 00??
+D0145294 0077
+80145296 00??
+D0145298 0077
+8014529A 00??
+D014529C 0077
+8014529E 00??
+$06    6 gas catridges
+$32   50 gas catridges
+$FF  255 gas catridges
+.Must have at least 1 in inventory
+"[#_!~~] Weapon - Photoelectric battery
+D01451C4 005A
+801451C6 00??
+D01451C8 005A
+801451CA 00??
+D01451CC 005A
+801451CE 00??
+D01451D0 005A
+801451D2 00??
+D01451D4 005A
+801451D6 00??
+D01451D8 005A
+801451DA 00??
+D01451DC 005A
+801451DE 00??
+D01451E0 005A
+801451E2 00??
+D01451E4 005A
+801451E6 00??
+D01451E8 005A
+801451EA 00??
+D01451EC 005A
+801451EE 00??
+D01451F0 005A
+801451F2 00??
+D01451F4 005A
+801451F6 00??
+D01451F8 005A
+801451FA 00??
+D01451FC 005A
+801451FE 00??
+D0145200 005A
+80145202 00??
+D0145204 005A
+80145206 00??
+D0145208 005A
+8014520A 00??
+D014520C 005A
+8014520E 00??
+D0145210 005A
+80145212 00??
+D0145214 005A
+80145216 00??
+D0145218 005A
+8014521A 00??
+D014521C 005A
+8014521E 00??
+D0145220 005A
+80145222 00??
+D0145224 005A
+80145226 00??
+D0145228 005A
+8014522A 00??
+D014522C 005A
+8014522E 00??
+D0145230 005A
+80145232 00??
+D0145234 005A
+80145236 00??
+D0145238 005A
+8014523A 00??
+D014523C 005A
+8014523E 00??
+D0145240 005A
+80145242 00??
+D0145244 005A
+80145246 00??
+D0145248 005A
+8014524A 00??
+D014524C 005A
+8014524E 00??
+D0145250 005A
+80145252 00??
+D0145254 005A
+80145256 00??
+D0145258 005A
+8014525A 00??
+D014525C 005A
+8014525E 00??
+D0145260 005A
+80145262 00??
+D0145264 005A
+80145266 00??
+D0145268 005A
+8014526A 00??
+D014526C 005A
+8014526E 00??
+D0145270 005A
+80145272 00??
+D0145274 005A
+80145276 00??
+D0145278 005A
+8014527A 00??
+D014527C 005A
+8014527E 00??
+D0145280 005A
+80145282 00??
+D0145284 005A
+80145286 00??
+D0145288 005A
+8014528A 00??
+D014528C 005A
+8014528E 00??
+D0145290 005A
+80145292 00??
+D0145294 005A
+80145296 00??
+D0145298 005A
+8014529A 00??
+D014529C 005A
+8014529E 00??
+$64  100 charge
+$96  150 charge
+$FF  255 charge
+.Must have at least 1 in inventory
+"[#] Weapon - Revolver ammo
+801452c8 00??
+$32   50 bullets
+$6C  108 bullets
+$FF  255 bullets
+"[#] Weapon - Shotgun ammo
+801452d0 00??
+$32   50 bullets
+$6C  108 bullets
+$FF  255 bullets
+"[#] Weapon - Grenade launcher ammo
+80145300 00??
+$14   20 grenades
+$32   50 grenades
+$FF  255 grenades
+"[#] Weapon - Rocket launcher ammo
+801452e8 00??
+$14   20 rockets
+$32   50 rockets
+$FF  255 rockets
+"[#] Weapon - Plasma cannon ammo
+801452f8 00??
+$64  100 charges
+$96  150 charges
+$FF  255 charges
+"[#] Weapon - Lightning gun ammo
+80145308 00??
+$64  100 charges
+$96  150 charges
+$FF  255 charges
+"[#] Weapon - Photoelectric Pulsar ammo
+801452D8 00??
+$0A  10 charges
+$14  20 charges
+$FF  255 charges
+"[#] Player - Infinite HP
+801450D8 0064
+"[#] Player - 1 HP
+D11450D8 0001
+801450D8 0001
+#Final Fantasy 7#SLUS-00000
+"____LEGEND____
+.[#] = can always leave code on
+.[#_R] = clear dynarec block for code to work immediately
+.[!~~] = careful use of code
+"[#] Random battles (on)
+D00ABBBE 3C02
+8007173C C350
+8007173E 0000
+D00A827C 1023
+8011627C C350
+8011627E 0000
+"[#] Random battles (off)
+D00ABBBE 3C02
+8007173C 0000
+D00A827C 1023
+8011627C 0000
+"[#] Party - PHS, Save anytime
+D00ABBBE 3C02
+8009D2A6 0000
+D00ABBBE 3C02
+8009D2A4 FFFF
+D01D093E 3042
+801D0940 0001
+D01D093E 3042
+D01D09AE 1040
+801D09AE 1000
+D01D093E 3042
+D01D0AC6 1040
+801D0AC6 1000
+D01D093E 3042
+D01D0A60 001A
+801D0A60 0001
+D01D093E 3042
+D01D0E82 1482
+801D0E80 0001
+"[#] Battle - Infinite HP
+D00C7C36 AC22
+D00A4080 7DB6
+800F840C 270F
+D00C7C36 AC22
+D00A4080 7DB6
+800F8410 270F
+D00C7C36 AC22
+D00A4080 7DB6
+800F8474 270F
+D00C7C36 AC22
+D00A4080 7DB6
+800F8478 270F
+D00C7C36 AC22
+D00A4080 7DB6
+800F84DC 270F
+D00C7C36 AC22
+D00A4080 7DB6
+800F84E0 270F
+"[#] Battle - Infinite MP
+D00C7C36 AC22
+D00A4080 7DB6
+800F8408 03E7
+D00C7C36 AC22
+D00A4080 7DB6
+800F8470 03E7
+D00C7C36 AC22
+D00A4080 7DB6
+800F84D8 03E7
+"[#] Battle - Infinite ATB
+D00C7C36 AC22
+D00A4080 7DB6
+800F5BBC FFF0
+D00C7C36 AC22
+D00A4080 7DB6
+800F5C00 FFF0
+D00C7C36 AC22
+D00A4080 7DB6
+800F5C44 FFF0
+"[#] Battle - Infinite Limit
+D00C7C36 AC22
+D00A4080 7DB6
+800F5E6A 00FF
+D00C7C36 AC22
+D00A4080 7DB6
+800F5E9E 00FF
+D00C7C36 AC22
+D00A4080 7DB6
+800F5ED2 00FF
+"[#] Battle - EXP gained
+D00C7C36 AC22
+D00A4080 7DB6
+8009D7D8 ????
+$02BC  700 EXP
+$0640  1600 EXP
+$10CC  4300 EXP
+$17D4  6100 EXP
+$1F40  8000 EXP
+$88B8  30000 EXP
+$EA60  60000 EXP
+?0000-FFFF
+"[#] Battle - AP gained
+D00C7C36 AC22
+D00A4080 7DB6
+8009D7DC ????
+$1770  6000 AP
+$2710  10000 AP
+$4E20  20000 AP
+$88B8  30000 AP
+$EA60  60000 AP
+?0000-FFFF
+"[#_R] Battle - Always allow run
+D00C7C36 AC22
+D00A4080 7DB6
+800A4048 0001
+D00C7C36 AC22
+D00A4080 7DB6
+800A4090 0001
+D00C7C36 AC22
+D00A4080 7DB6
+800A4098 0001
+"[#] Battle - Party 1 HP
+D00C7C36 AC22
+D00A4080 7DB6
+D10F840C 0001
+800F840C 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F8474 0001
+800F8474 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F84DC 0001
+800F84DC 0001
+"[#] Battle - Enemy 1 HP
+D00C7C36 AC22
+D00A4080 7DB6
+D10F85AC 0001
+800F85AC 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F85AD 0000
+800F85AD 0000
+D00C7C36 AC22
+D00A4080 7DB6
+D10F8614 0001
+800F8614 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F8615 0000
+800F8615 0000
+D00C7C36 AC22
+D00A4080 7DB6
+D10F867C 0001
+800F867C 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F867D 0000
+800F867D 0000
+D00C7C36 AC22
+D00A4080 7DB6
+D10F86E4 0001
+800F86E4 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F86E5 0000
+800F86E5 0000
+D00C7C36 AC22
+D00A4080 7DB6
+D10F874C 0001
+800F874C 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F874D 0000
+800F874D 0000
+D00C7C36 AC22
+D00A4080 7DB6
+D10F87B4 0001
+800F87B4 0001
+D00C7C36 AC22
+D00A4080 7DB6
+D10F87B5 0000
+800F87B5 0000
+"Money
+8009D262 ????
+$01  65536 Gil
+$03  196608 Gil
+$05  327680 Gil
+$08  524288 Gil
+$10  1048576 Gil
+?0000-FFFF
+"Battles fought (0-65535)
+8009D2A0 ????
+?0000-FFFF
+"Escapes made (0-65535)
+8009D2A2 ????
+?0000-FFFF
+"Junon - CPR mini-game
+30075E3C 007F
+"Gold Saucer - Infinite GP
+8009D3D2 2710
+"Gold Saucer - Infinite BP
+8009d3d8 EA60
+"Gold Saucer - Shooter always full
+300D1C5C 0080
+"Gold Saucer - Aeris date
+3009D28B 00FF
+"Gold Saucer - Tifa date
+3009D28C 00FF
+"Gold Saucer - Yuffie date
+3009D28D 00FF
+"Gold Saucer - Barret date
+3009D28E 00FF
+"Highwind - Cloud / Tifa date
+3009D28C 00??
+$00  No affection
+$FF  Much affection
+"Turn newborn chocobo to Gold
+8009BC4E 0400
+"[!~~] Cloud Strife - Limit breaks
+8009C75A ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Barret Wallace - Limit breaks
+8009c7de ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Tifa Lockheart - Limit breaks
+8009c862 ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Aeris Gainsborough - Limit breaks
+8009c8e6 ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Red XIII (Nanki) - Limit breaks
+8009c96a ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Yuffie Kisaragi - Limit breaks
+8009c9ee ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Cait Sith - Limit breaks
+8009ca72 ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Vincent Valentine - Limit breaks
+8009caf6 ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party
+"[!~~] Cid Highwind - Limit breaks
+8009cb7a ????
+$003  All L1 limits
+$01B  All L2 limits
+$0DB  All L3 limits
+$2DB  All L4 limits
+.Must have person in active party

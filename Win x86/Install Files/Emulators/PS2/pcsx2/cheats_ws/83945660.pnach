@@ -1,0 +1,4 @@
+gametitle=Chou Battle Houshin [NTSC-J] (SLPM-65207)
+comment=Widescreen hack by Little Giant
+
+patch=1,EE,20324B10,extended,3f400000 //3f800000

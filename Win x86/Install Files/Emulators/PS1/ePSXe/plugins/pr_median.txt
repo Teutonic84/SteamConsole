@@ -1,0 +1,16 @@
+Pete's OpenGL2 ARB program shader effect: "Pseudo Median" - Coded by Renee Cousins
+==================================================================================
+
+Description:
+------------
+Pseudo Median shader - by Renee Cousins - to improve the display.
+
+
+Installation:
+-------------
+Copy the "gpuPeteOGL2.vp" and "gpuPeteOGL2.fp" files into a emu sub-directory called "shaders". Configure the plugin's "Shader effects" option to "3 - ARB program files". The "Shader effect level" option will control how strong the effect will be done. The OGL2 plugin's "full screen filter" option should be activated as well.
+
+
+License:
+--------
+None - freeware
