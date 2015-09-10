@@ -27,7 +27,6 @@ ComponentText "Please choose components to install. If this is your first time r
 RequestExecutionLevel admin
 ShowInstDetails show
 
-#Page license
 !insertmacro MUI_PAGE_LICENSE "License.rtf"
 !insertmacro MUI_PAGE_README "Changelog.rtf"
 Page custom installwarning
@@ -40,22 +39,16 @@ Section "Core Files (Required)"
   SectionIn RO
     # Required files here
 	KillProcDLL::KillProc "Xpadder.exe"
-	#KillProcDLL::KillProc "XboxExt.exe"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
-	#KillProcDLL::KillProc "Custom Hotkeys.exe"
 	SetOutPath $INSTDIR
-	#File /r "SteamConsole.7z"
 	File /r "Changelog.rtf"
 	File /r "License.rtf"
-	#File /r "SteamConsole.ico"
-	#File /r "ROM_Importer.ico"
+	File /r "README.txt"
 	File "SteamConsole.7z"
-	Nsis7z::ExtractWithDetails "SteamConsole.7z"
-	#ZipDLL::extractall "SteamConsole.zip" $INSTDIR #File # Extract all files from zip file to install directory based off of user's selection
+	Nsis7z::ExtractWithDetails "SteamConsole.7z" # Extract all files from 7zip file to install directory based off of user's selection
 	Delete "$INSTDIR\SteamConsole.7z"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
-	#ExecDos::exec /NOUNLOAD /TOSTACK '"$INSTDIR\Scripts\services.bat" $INSTDIR' "" ""
 	SetOutPath $INSTDIR
 		SetRegView 64
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
@@ -72,11 +65,9 @@ Section "Core Files (Required)"
 	MessageBox MB_OK '"Core Files Installation Complete!"'
 	SetOutPath $INSTDIR\Scripts
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
-	
 SectionEnd
  
-#SectionGroup /e "Features" grp1 # /e expands group by default
-Section "Prerequisites" SEC_PREREQS # prerequisite section
+Section "Prerequisites" SEC_PREREQS
   SectionIn 1
 	ExecWait '"$INSTDIR\Installs\dxwebsetup.exe" /Q'
 	ExecWait '"$INSTDIR\Installs\vcredist_x86 (2013).exe" /passive'
@@ -104,7 +95,7 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 '	taskkill /f /im "Custom Hotkeys.exe"'
 	FileWrite $0 "$\r$\n"
-    FileWrite $0 '	cscript.exe "%dirpath%\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
+    FileWrite $0 '	cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
@@ -175,7 +166,6 @@ Section "Import ROMS" SEC_ROMIMPORT
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
 SectionEnd
-#SectionGroupEnd
 
 Section "DS3 & DS4 (Not Implemented Yet)" SEC_DS3
   SectionIn 2
@@ -229,22 +219,17 @@ Function .onSelChange
 FunctionEnd
 
 Function installwarning
-
-MessageBox MB_OK "WARNING! Do not install to C:\Program Files or C:\Program Files (x86) folders. SteamConsole won't function poperly. Also make sure that you have Steam installed and that you logged into it at least once on the PC you're installing this on."
-
+	MessageBox MB_OK "WARNING! Do not install to C:\Program Files or C:\Program Files (x86) folders. SteamConsole won't function poperly. Also make sure that you have Steam installed and that you logged into it at least once on the PC you're installing this on."
 FunctionEnd
 
 Function setupfinished
-
-MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
-
+	MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
 FunctionEnd
 
 #===========================
 #| Initial Install Section |
 #===========================
 Section # create a section for installing SteamConsole
-
 CreateUninstaller:
 	SetOutPath $INSTDIR
 	WriteUninstaller "$INSTDIR\SteamConsole_uninstaller.exe" # define uninstaller name
@@ -253,20 +238,15 @@ CreateUninstaller:
 	DetailPrint ""
 	DetailPrint ""
 	DetailPrint ""
-	#DetailPrint "Setup Finished!"
-	
 SectionEnd
 
 #=====================
 #| Uninstall Section |
 #=====================
 Section "Uninstall" # create a section to define what the uninstaller does.
-
-MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
-
+	MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
 yes:
 	KillProcDLL::KillProc "Xpadder.exe"
-	#KillProcDLL::KillProc "XboxExt.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder on the desktop labeled SteamConsole_BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
@@ -336,5 +316,4 @@ no3:
 	Goto end
  
 end:
-
 SectionEnd
