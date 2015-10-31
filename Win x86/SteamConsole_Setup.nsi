@@ -17,7 +17,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.3"
+!define VERSION "v1.3.1.12"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -27,7 +27,6 @@ ComponentText "Please choose components to install. If this is your first time r
 RequestExecutionLevel admin
 ShowInstDetails show
 
-#Page license
 !insertmacro MUI_PAGE_LICENSE "License.rtf"
 !insertmacro MUI_PAGE_README "Changelog.rtf"
 Page custom installwarning
@@ -40,67 +39,38 @@ Section "Core Files (Required)"
   SectionIn RO
     # Required files here
 	KillProcDLL::KillProc "Xpadder.exe"
-	#KillProcDLL::KillProc "XboxExt.exe"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
-	#KillProcDLL::KillProc "Custom Hotkeys.exe"
 	SetOutPath $INSTDIR
-	#File /r "SteamConsole.7z"
 	File /r "Changelog.rtf"
 	File /r "License.rtf"
-	#File /r "SteamConsole.ico"
-	#File /r "ROM_Importer.ico"
+	File /r "README.txt"
 	File "SteamConsole.7z"
-	Nsis7z::ExtractWithDetails "SteamConsole.7z"
-	#ZipDLL::extractall "SteamConsole.zip" $INSTDIR #File # Extract all files from zip file to install directory based off of user's selection
+	Nsis7z::ExtractWithDetails "SteamConsole.7z" # Extract all files from 7zip file to install directory based off of user's selection
 	Delete "$INSTDIR\SteamConsole.7z"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
-	#ExecDos::exec /NOUNLOAD /TOSTACK '"$INSTDIR\Scripts\services.bat" $INSTDIR' "" ""
 	SetOutPath $INSTDIR
-	${If} ${RunningX64} # 64 bit code
-		SetRegView 64
-		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.0"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
-		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
-		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.0"
-		SetOutPath $INSTDIR\Scripts
-		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
-	${Else} # 32 bit code
 		SetRegView 32
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole"
-		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.0"
+		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.1.83"
 		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.0"
+		WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.1"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
-	${EndIf}
 	MessageBox MB_OK '"Core Files Installation Complete!"'
 	SetOutPath $INSTDIR\Scripts
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
-	
 SectionEnd
- 
-#SectionGroup /e "Features" grp1 # /e expands group by default
-Section "Prerequisites" SEC_PREREQS # prerequisite section
+
+Section "Prerequisites" SEC_PREREQS
   SectionIn 1
-	${If} ${RunningX64} # 64 bit code
 		ExecWait '"$INSTDIR\Installs\dxwebsetup.exe" /Q'
 		ExecWait '"$INSTDIR\Installs\vcredist_x86 (2013).exe" /passive'
-		ExecWait '"$INSTDIR\Installs\vcredist_x64 (2013).exe" /passive'
-	${Else} # 32 bit code
-		ExecWait '"$INSTDIR\Installs\dxwebsetup.exe" /Q'
-		ExecWait '"$INSTDIR\Installs\vcredist_x86 (2013).exe" /passive'
-	${EndIf}
 SectionEnd
 
 Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
@@ -122,19 +92,9 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'if exist "C:\Program Files (x86)" ('
-	FileWrite $0 "$\r$\n"
 	FileWrite $0 '	taskkill /f /im "Custom Hotkeys.exe"'
 	FileWrite $0 "$\r$\n"
-    FileWrite $0 '	cscript.exe "%dirpath%\steam_path_check_x64.vbs" > "%dirpath%\steam_path.txt"'
-	FileWrite $0 "$\r$\n"
-    FileWrite $0 '	goto steampath'
-	FileWrite $0 "$\r$\n"
-	FileWrite $0 ")"
-	FileWrite $0 "$\r$\n"
-	FileWrite $0 'taskkill /f /im "Custom Hotkeys x86.exe"'
-	FileWrite $0 "$\r$\n"
-	FileWrite $0 'cscript.exe "%dirpath%\steam_path_check_x86.vbs" > "%dirpath%\steam_path.txt"'
+	FileWrite $0 '	cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
@@ -205,7 +165,6 @@ Section "Import ROMS" SEC_ROMIMPORT
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
 SectionEnd
-#SectionGroupEnd
 
 Section "DS3 & DS4 (Not Implemented Yet)" SEC_DS3
   SectionIn 2
@@ -226,7 +185,7 @@ Function .onInit
   StrCpy $1 ${SEC_DS4}
 FunctionEnd
 
-LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, MSVC 2013 x64, Xpadder."
+LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, Xpadder."
 LangString DESC_Section2 ${LANG_ENGLISH} "Create program shortcuts in the start menu and on the desktop."
 #LangString DESC_Section2 ${LANG_ENGLISH} "Search for ROMS on your Hard Drive and move them to the ROMS folder found in the Emulators folder within the root SteamConsole folder."
 LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
@@ -259,22 +218,17 @@ Function .onSelChange
 FunctionEnd
 
 Function installwarning
-
-MessageBox MB_OK "WARNING! Do not install to C:\Program Files or C:\Program Files (x86) folders. SteamConsole won't function poperly. Also make sure that you have Steam installed and that you logged into it at least once on the PC you're installing this on."
-
+	MessageBox MB_OK "WARNING! Do not install to C:\Program Files. SteamConsole won't function poperly. Also make sure that you have Steam installed and that you logged into it at least once on the PC you're installing this on."
 FunctionEnd
 
 Function setupfinished
-
-MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
-
+	MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
 FunctionEnd
 
 #===========================
 #| Initial Install Section |
 #===========================
 Section # create a section for installing SteamConsole
-
 CreateUninstaller:
 	SetOutPath $INSTDIR
 	WriteUninstaller "$INSTDIR\SteamConsole_uninstaller.exe" # define uninstaller name
@@ -283,20 +237,15 @@ CreateUninstaller:
 	DetailPrint ""
 	DetailPrint ""
 	DetailPrint ""
-	#DetailPrint "Setup Finished!"
-	
 SectionEnd
 
 #=====================
 #| Uninstall Section |
 #=====================
 Section "Uninstall" # create a section to define what the uninstaller does.
-
-MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
-
+	MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
 yes:
 	KillProcDLL::KillProc "Xpadder.exe"
-	#KillProcDLL::KillProc "XboxExt.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder on the desktop labeled SteamConsole_BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
@@ -306,8 +255,7 @@ no:
 
 yes3:
 	CopyFiles /SILENT "$INSTDIR\Emulators\ROMS\*.*" "$DESKTOP\SteamConsole_BACKUP\ROMS"
-	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch_x86\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch_x86\SAVEDATA"
-	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch_x64\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch_x64\SAVEDATA"
+	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch\SAVEDATA"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\SaveStates"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$DESKTOP\SteamConsole_BACKUP\PS1\MemoryCards"
@@ -366,5 +314,4 @@ no3:
 	Goto end
  
 end:
-
 SectionEnd

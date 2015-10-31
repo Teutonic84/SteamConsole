@@ -1,7 +1,5 @@
 @echo off
 
-
-
 ::set dirpath=%1
 cd ..\..
 set dirpath=%cd%

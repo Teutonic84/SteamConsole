@@ -17,7 +17,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.3"
+!define VERSION "v1.3.1.12"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -54,7 +54,7 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.1"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.1.83"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
@@ -256,8 +256,7 @@ no:
 
 yes3:
 	CopyFiles /SILENT "$INSTDIR\Emulators\ROMS\*.*" "$DESKTOP\SteamConsole_BACKUP\ROMS"
-	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch_x86\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch_x86\SAVEDATA"
-	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch_x64\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch_x64\SAVEDATA"
+	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch\SAVEDATA"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\SaveStates"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$DESKTOP\SteamConsole_BACKUP\PS1\MemoryCards"

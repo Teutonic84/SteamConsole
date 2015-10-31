@@ -11,11 +11,7 @@ if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
 taskkill /f /im "Custom Hotkeys.exe"
 "%dirpath%\Tools\Xpadder\Xpadder.exe" /C
 
-if exist "C:\Program Files (x86)" (
-    cscript.exe "%dirpath%\steam_path_check_x64.vbs" > "%dirpath%\steam_path.txt"
-    goto steampath
-)
-cscript.exe "%dirpath%\steam_path_check_x86.vbs" > "%dirpath%\steam_path.txt"
+cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 
 :steampath
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"

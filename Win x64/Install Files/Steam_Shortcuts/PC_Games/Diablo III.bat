@@ -2,13 +2,7 @@ echo off
 
 cd ..\..
 set dirpath=%cd%
-
-if exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files (x86)"
-)
-if not exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files"
-)
+set "programfiles=C:\Program Files (x86)"
 
 "%dirpath%\Tools\Xpadder\Xpadder.exe" /C
 

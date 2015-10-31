@@ -2,14 +2,8 @@ echo off
 
 cd ..
 set dirpath=%cd%
+set "programfiles=C:\Program Files"
 cls
-
-if exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files (x86)"
-)
-if not exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files"
-)
 
 ECHO.
 ECHO.
