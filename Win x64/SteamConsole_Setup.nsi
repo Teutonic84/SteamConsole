@@ -93,14 +93,16 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 '	taskkill /f /im "Custom Hotkeys.exe"'
+	FileWrite $0 '  taskkill /f /im "Custom Hotkeys.exe"'
 	FileWrite $0 "$\r$\n"
-    FileWrite $0 '	cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
+    FileWrite $0 '  cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"'
+	FileWrite $0 "$\r$\n"
+	FileWrite $0 'del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 '"%dirpath%\Tools\Xpadder\Xpadder.exe" /C'

@@ -101,6 +101,8 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"'
 	FileWrite $0 "$\r$\n"
+	FileWrite $0 'del "%dirpath%\steam_path.txt"'
+	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 '"%dirpath%\Tools\Xpadder\Xpadder.exe" /C'
 	FileWrite $0 "$\r$\n"
