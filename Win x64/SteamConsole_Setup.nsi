@@ -257,16 +257,19 @@ no:
 	Goto end
 
 yes3:
-	CopyFiles /SILENT "$INSTDIR\Emulators\ROMS\*.*" "$DESKTOP\SteamConsole_BACKUP\ROMS"
-	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$DESKTOP\SteamConsole_BACKUP\RetroArch\SAVEDATA"
-	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\MemoryCards"
-	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$DESKTOP\SteamConsole_BACKUP\Dolphin\SaveStates"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$DESKTOP\SteamConsole_BACKUP\PS1\MemoryCards"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$DESKTOP\SteamConsole_BACKUP\PS1\SaveStates"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\memcards\*.*" "$DESKTOP\SteamConsole_BACKUP\PS2\MemoryCards"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$DESKTOP\SteamConsole_BACKUP\PS2\SaveStates"
-	RMDir /r "$INSTDIR\Emulators\ROMS"
-	RMDir /r "$INSTDIR\Steam_Shortcuts\Arcade"
+	# CopyFiles /SILENT "$INSTDIR\Emulators\ROMS\*.*" "$DESKTOP\SteamConsole_BACKUP\ROMS"
+	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$INSTDIR\Emulators\BACKUP\RetroArch\SAVEDATA"
+	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\MemoryCards"
+	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\SaveStates"
+	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS1\MemoryCards"
+	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS1\SaveStates"
+	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS2\MemoryCards"
+	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS2\SaveStates"
+	RMDir /r "$INSTDIR\Emulators\Gamecube"
+	RMDir /r "$INSTDIR\Emulators\PS1"
+	RMDir /r "$INSTDIR\Emulators\PS2"
+	RMDir /r "$INSTDIR\Emulators\RetroArch"
+	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	SetOutPath "$INSTDIR\Tools\Ice"
 	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	ExecWait '"ice.exe"'
@@ -280,7 +283,11 @@ yes3:
 	SetShellVarContext all
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
-	RMDir /r "$INSTDIR" # now delete installed files
+	RMDir /r "$INSTDIR\Docs" # now delete installed files
+	RMDir /r "$INSTDIR\Images"
+	RMDir /r "$INSTDIR\Installs"
+	RMDir /r "$INSTDIR\Scripts"
+	RMDir /r "$INSTDIR\Tools"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
 	DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
@@ -292,7 +299,7 @@ yes3:
 
 no3:
 	RMDir /r "$INSTDIR\Emulators\ROMS"
-	RMDir /r "$INSTDIR\Steam_Shortcuts\Arcade"
+	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	SetOutPath "$INSTDIR\Tools\Ice"
 	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	ExecWait '"ice.exe"'
