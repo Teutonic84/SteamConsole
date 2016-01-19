@@ -10,10 +10,12 @@ if not exist "C:\Program Files (x86)" (
     set "programfiles=C:\Program Files"
 )
 
-start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile"
-"%programfiles%\Google\Chrome\Application\chrome.exe" --kiosk "http://cartoonhangover.com"
+start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Diablo3_Xbox360.xpadderprofile"
 
-"%dirpath%\Tools\Xpadder\xpadder.exe" /C
+cd "%programfiles%\Diablo III"
+"Diablo III.exe" -launch
+
 start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 
+:end
 exit
