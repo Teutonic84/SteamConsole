@@ -45,8 +45,8 @@ command=%r
 location=SMS
 command=%r
 
-[Apps]
-location=Apps
+[PC]
+location=PC
 command=%r
 
 [Gamecube]

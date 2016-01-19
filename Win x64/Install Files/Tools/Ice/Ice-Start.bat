@@ -8,12 +8,7 @@ cd ..\..
 set dirpath=%cd%
 
 if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
-taskkill /f /im "Custom Hotkeys.exe"
-"%dirpath%\Tools\Xpadder\Xpadder.exe" /C
-
-cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
-
-:steampath
+cscript.exe "%dirpath%\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
 cd "%dirpath%\Tools\Ice"
@@ -227,17 +222,17 @@ set "_strInsert14=location=%sms%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
-::Apps
+::PC Apps & Games
 ::============
 
-:Variables_apps
-set apps=%dirpath%\Steam_Shortcuts\Arcade\Arcade
+:Variables_pc
+set pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade
 set InputFile9=%dirpath%\Tools\Ice\emulators.txt
 set OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt
-set "_strFind9=location=Apps"
-set "_strInsert9=location=%apps%"
+set "_strFind9=location=PC"
+set "_strInsert9=location=%pc%"
 
-:Replace_apps
+:Replace_pc
 >"%OutputFile9%" (
   for /f "usebackq delims=" %%I in ("%InputFile9%") do (
     if "%%I" equ "%_strFind9%" (echo %_strInsert9%) else (echo %%I)
@@ -338,6 +333,8 @@ del /F /Q "%dirpath%\steam_path.txt"
 :end
 
 start "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
-start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
+start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 start "" "%steampath%\Steam.exe" -start steam://open/bigpicture
+exit
+
 exit

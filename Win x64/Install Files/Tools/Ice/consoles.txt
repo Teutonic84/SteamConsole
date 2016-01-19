@@ -39,9 +39,9 @@ nickname=SMS
 emulator=retroarch_sms
 extensions=bat
 
-[Apps]
+[Apps and PC Games]
 nickname=Arcade
-emulator=Apps
+emulator=PC
 extensions=bat
 
 [Nintendo Gamecube]

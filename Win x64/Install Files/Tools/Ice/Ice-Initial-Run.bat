@@ -220,17 +220,17 @@ set "_strInsert14=location=%sms%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
-::Apps
+::PC Apps & Games
 ::============
 
-:Variables_apps
-set apps=%dirpath%\Steam_Shortcuts\Arcade\Arcade
+:Variables_pc
+set pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade
 set InputFile9=%dirpath%\Tools\Ice\emulators.txt
 set OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt
-set "_strFind9=location=Apps"
-set "_strInsert9=location=%apps%"
+set "_strFind9=location=PC"
+set "_strInsert9=location=%pc%"
 
-:Replace_apps
+:Replace_pc
 >"%OutputFile9%" (
   for /f "usebackq delims=" %%I in ("%InputFile9%") do (
     if "%%I" equ "%_strFind9%" (echo %_strInsert9%) else (echo %%I)
