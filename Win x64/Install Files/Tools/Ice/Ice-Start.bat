@@ -2,13 +2,15 @@
 
 tasklist /FI "IMAGENAME eq steam.exe" 2>NUL | find /I /N "steam.exe">NUL
 if "%ERRORLEVEL%"=="0" taskkill /f /im steam.exe
+tasklist /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | find /I /N "Custom Hotkeys.exe">NUL
+if "%ERRORLEVEL%"=="0" taskkill /f /im "Custom Hotkeys.exe"
 
 cls
 cd ..\..
 set dirpath=%cd%
 
 if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
-cscript.exe "%dirpath%\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
+cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
 cd "%dirpath%\Tools\Ice"
