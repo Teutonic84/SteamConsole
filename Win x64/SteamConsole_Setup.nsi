@@ -251,7 +251,7 @@ yes:
 	KillProcDLL::KillProc "Xpadder.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
-	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder on the desktop labeled SteamConsole_BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
+	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder in ..\SteamConsole\Emulators labeled BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
 
 no:
 	Goto end
@@ -265,11 +265,11 @@ yes3:
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS1\SaveStates"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS2\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS2\SaveStates"
+	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	RMDir /r "$INSTDIR\Emulators\Gamecube"
 	RMDir /r "$INSTDIR\Emulators\PS1"
 	RMDir /r "$INSTDIR\Emulators\PS2"
 	RMDir /r "$INSTDIR\Emulators\RetroArch"
-	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	SetOutPath "$INSTDIR\Tools\Ice"
 	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	ExecWait '"ice.exe"'
@@ -277,10 +277,15 @@ yes3:
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	RMDir /r "$INSTDIR\Steam_Shortcuts"
 
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
+	Delete "$INSTDIR\Changelog.rtf"
+	Delete "$INSTDIR\License.rtf"
+	Delete "$INSTDIR\README.txt"
+	Delete "$INSTDIR\Steam Launch.lnk"
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
 	RMDir /r "$INSTDIR\Docs" # now delete installed files
@@ -298,8 +303,8 @@ yes3:
 	Goto end
 
 no3:
-	RMDir /r "$INSTDIR\Emulators\ROMS"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
+	RMDir /r "$INSTDIR\Emulators\ROMS"
 	SetOutPath "$INSTDIR\Tools\Ice"
 	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	ExecWait '"ice.exe"'
@@ -307,10 +312,15 @@ no3:
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	RMDir /r "$INSTDIR\Steam_Shortcuts"
 
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
+	Delete "$INSTDIR\Changelog.rtf"
+	Delete "$INSTDIR\License.rtf"
+	Delete "$INSTDIR\README.txt"
+	Delete "$INSTDIR\Steam Launch.lnk"
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
 	RMDir /r "$INSTDIR" # now delete installed files
