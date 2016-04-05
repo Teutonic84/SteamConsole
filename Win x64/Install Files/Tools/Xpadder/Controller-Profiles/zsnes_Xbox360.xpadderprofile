@@ -10,7 +10,7 @@ Version=5.7
 
 [Assignments]
 Set1Button7SetSelect=1
-Set2Button1Slots=Left Control,Alt,7
+Set2Button1Slots=Enter
 Set2Button2Slots=F1
 Set2Button3Slots=F2
 Set2Button4Slots=F4
@@ -18,7 +18,7 @@ Set2Button5Slots=F6
 Set2Button6Slots=F7
 Set2Button7SetSelect=0
 Set2Button8Slots=Escape
-Set2Button10Slots=Left Control,Alt,6
+Set2Button10Slots=Left Control,Tab
 Set2DPadUpSlots=Left Control,Alt,1
 Set2DPadRightSlots=Left Control,Alt,2
 Set2DPadDownSlots=Left Control,Alt,4

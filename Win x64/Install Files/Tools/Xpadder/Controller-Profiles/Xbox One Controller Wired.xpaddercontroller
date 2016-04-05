@@ -28,8 +28,8 @@ Stick2UpLocation=315,153
 Stick2RightLocation=347,185
 Stick2DownLocation=315,217
 Stick2LeftLocation=283,185
-TriggerLeftLocation=474,10
-TriggerRightLocation=8,14
+TriggerLeftLocation=4,4
+TriggerRightLocation=478,4
 
 [Access]
 DPadUpAccess=POV
@@ -40,8 +40,8 @@ Stick1XAccess=Axis X
 Stick1YAccess=Axis Y
 Stick2XAccess=Axis RX
 Stick2YAccess=Axis RY
-TriggerLeftAccess=Axis RZ Full
-TriggerRightAccess=Axis Z Full
+TriggerLeftAccess=Axis Z
+TriggerRightAccess=Axis Z -
 
 [Names]
 Button1Name=Button 1
