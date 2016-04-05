@@ -1501,13 +1501,15 @@ Name   = SOCOM - U.S. Navy SEALs [Beta & Full Release]
 Region = PAL-M6
 ---------------------------------------------
 Serial = SCES-50934
-Name   = World Rally Championship II Extreme
+Name   = WRC II Extreme
 Region = PAL-M7
 Compat = 5
+XgKickHack = 1
 ---------------------------------------------
 Serial = SCES-50935
-Name   = World Rally Championship II Extreme
+Name   = WRC II Extreme
 Region = PAL-Unk
+XgKickHack = 1
 ---------------------------------------------
 Serial = SCES-50956
 Name   = Ferrari F355 Challenge
@@ -1730,7 +1732,7 @@ Name   = My Street
 Region = PAL-M5
 ---------------------------------------------
 Serial = SCES-51684
-Name   = World Rally Championship 3
+Name   = WRC 3
 Region = PAL-M8
 Compat = 5
 XgKickHack = 1
@@ -1879,7 +1881,7 @@ Name   = Forbidden Siren - Viviendo la Pesadilla
 Region = PAL-S
 ---------------------------------------------
 Serial = SCES-52389
-Name   = World Rally Championship 4
+Name   = WRC 4
 Region = PAL-M8
 Compat = 1
 ---------------------------------------------
@@ -2137,7 +2139,7 @@ Compat = 5
 eeClampMode = 1
 ---------------------------------------------
 Serial = SCES-53247
-Name   = WRC - World Rally Championship - Rally Evolved
+Name   = WRC Rally Evolved
 Region = PAL-M8
 Compat = 5
 XgKickHack = 1			//SPS.
@@ -2168,6 +2170,10 @@ Name   = Jak X - Combat Racing
 Region = PAL-M7
 // reads Ratchet Gladiator data
 MemCardFilter = SCES-53286/SCES-53285
+[patches = df659e77]
+	comment=patched by Ge-Force
+	patch=1,EE,00275CF7,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SCES-53300
 Name   = SOCOM 3 - U.S. Navy SEALs
@@ -4372,15 +4378,16 @@ Serial = SCPS-56015
 Name   = Ninja Assault
 Region = NTSC-J
 ---------------------------------------------
-Serial = SCUS-21295
-Name   = Tony Hawk's American Wasteland Collector's Edition
-Region = NTSC-U
-Compat = 5
----------------------------------------------
 Serial = SCUS-21494
 Name   = Need for Speed Carbon Collector's Edition
 Region = NTSC-U
 Compat = 5
+---------------------------------------------
+Serial = SCUS-21295
+Name   = Tony Hawk's American Wasteland Collector's Edition
+Region = NTSC-U
+Compat = 5
+vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SCUS-90174
 Name   = Toy Story 3 (PlayStation 2 Bundle)
@@ -5497,6 +5504,10 @@ Name   = Jak X - Combat Racing
 Region = NTSC-U
 Compat = 5
 MemCardFilter = SCUS-97429/SCUS-97465
+[patches = 3091e6fb]
+	comment=patched by Ge-Force
+	patch=1,EE,00275C67,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SCUS-97430
 Name   = Hot Shots Golf FORE! [Regular Demo]
@@ -6897,6 +6908,14 @@ Region = PAL-E
 Serial = SLES-50176
 Name   = Oni
 Region = PAL-F
+[patches = F77639F1]
+
+		comment=patches by Nachbrenner
+		
+		//skip "branch if copro 0 condition false"
+		patch=0,EE,001cef7c,word,00000000 // bc0f $001cef7c
+		
+[/patches]
 ---------------------------------------------
 Serial = SLES-50177
 Name   = Oni
@@ -6910,6 +6929,14 @@ Compat = 5
 	patch=0,EE,001cef7c,word,00000000 // bc0f $001cef7c
 	
 [/patches]
+---------------------------------------------
+Serial = SLES-50178
+Name   = Oni
+Region = PAL-I
+---------------------------------------------
+Serial = SLES-50179
+Name   = Oni
+Region = PAL-S
 ---------------------------------------------
 Serial = SLES-50182
 Name   = MTV Music Generator 2
@@ -8729,6 +8756,7 @@ Serial = SLES-51044
 Name   = Burnout 2 - Point of Impact
 Region = PAL-M5
 Compat = 5
+vuRoundMode = 1		//bright lights in cars
 ---------------------------------------------
 Serial = SLES-51045
 Name   = Legends of Wrestling II
@@ -8948,6 +8976,11 @@ Serial = SLES-51130
 Name   = Tony Hawk's Pro Skater 4
 Region = PAL-E
 Compat = 5
+vuRoundMode = 0		//Crashes without.
+---------------------------------------------
+Serial = SLES-51131
+Name   = Tony Hawk's Pro Skater 4
+Region = PAL-F
 vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLES-51132
@@ -10108,6 +10141,11 @@ Name   = Disney's Extreme Skate Adventure
 Region = PAL-E
 vuRoundMode = 0
 ---------------------------------------------
+Serial = SLES-51721
+Name   = Disney's Extreme Skate Adventure
+Region = PAL-M4
+vuRoundMode = 0
+---------------------------------------------
 Serial = SLES-51723
 Name   = Hobbit, The
 Region = PAL-M5
@@ -10378,9 +10416,10 @@ Region = PAL-F
 vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLES-51852
-Name   = Thug MOTX [Demo]
+Name   = Tony Hawk's Underground
 Region = PAL-G
 Compat = 5
+vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLES-51853
 Name   = Tony Hawk's Underground
@@ -11701,16 +11740,12 @@ Name   = Neo Contra
 Region = PAL-M3
 Compat = 4
 [patches = EEE2F6A3]
-	//comment=Patches By Nachbrenner and Prafull
-	
-	//fix IPU busy! ingame
-	patch=0,EE,003a9a88,word,03e00008
-	patch=0,EE,003a9a8c,word,00000000
-	patch=0,EE,003a9b60,word,03e00008
-	patch=0,EE,003a9b64,word,00000000
-	comment= Patch By Prafull
-	//Game should work, avoid pressing start to pause the game
-	patch=1,EE,00100530,word,00000000
+	comment=Patches By Prafull
+	//New patch fixes most issues
+	patch=0,EE,003a9b20,word,00000000
+	//Fix hang at Level 4
+	patch=0,EE,0037b764,word,03e00008
+	patch=0,EE,0037b768,word,00000000
 [/patches]
 ---------------------------------------------
 Serial = SLES-52511
@@ -12786,6 +12821,11 @@ Region = PAL-M5
 Serial = SLES-52943
 Name   = ESPN NFL 2K5
 Region = PAL-E
+[patches = 7D5403E1]
+	//Patched by Prafull
+	//Fixes random hangs
+	patch=0,EE,0043c930,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SLES-52944
 Name   = Robotech - Invasion
@@ -14134,10 +14174,12 @@ Serial = SLES-53534
 Name   = Tony Hawk's American Wasteland
 Region = PAL-E
 Compat = 5
+vuRoundMode = 0 //Crashes without.
 ---------------------------------------------
 Serial = SLES-53535
 Name   = Tony Hawk's American Wasteland
 Region = PAL-M4
+vuRoundMode = 0 //Crashes without.
 ---------------------------------------------
 Serial = SLES-53536
 Name   = London Racer - Police Madness
@@ -14619,6 +14661,7 @@ Region = PAL-E
 Serial = SLES-53747
 Name   = Ed, Edd, 'n Eddy - The Misadventure
 Region = PAL-E
+eeRoundMode = 2		//fixes missing text
 ---------------------------------------------
 Serial = SLES-53748
 Name   = Quest for Sleeping Beauty
@@ -15955,6 +15998,13 @@ Serial = SLES-54389
 Name   = Tony Hawk's Project 8
 Region = PAL-E
 Compat = 5
+vuRoundMode = 0		//Crashes without.
+---------------------------------------------
+Serial = SLES-54390
+Name   = Tony Hawk's Project 8
+Region = PAL-M4
+Compat = 5
+vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLES-54393
 Name   = Pippa Funnell - Take the Reins
@@ -16494,6 +16544,16 @@ Name   = Shadow Hearts - From the New World
 Region = PAL-E
 Compat = 5
 ---------------------------------------------
+Serial = SLES-54714
+Name   = Tony Hawk's Downhill Jam
+Region = PAL-E
+vuRoundMode = 0 //Crashes without.
+---------------------------------------------
+Serial = SLES-54715
+Name   = Tony Hawk's Downhill Jam
+Region = PAL-M4
+vuRoundMode = 0 //Crashes without.
+---------------------------------------------
 Serial = SLES-54717
 Name   = Power Volleyball
 Region = PAL-E
@@ -16820,10 +16880,12 @@ Serial = SLES-54963
 Name   = Tony Hawks - Proving Ground
 Region = PAL-E
 Compat = 5
+vuRoundMode = 0 //Crashes without.
 ---------------------------------------------
 Serial = SLES-54964
 Name   = Tony Hawk's Proving Ground
 Region = PAL-M4
+vuRoundMode = 0 //Crashes without.
 ---------------------------------------------
 Serial = SLES-54975
 Name   = George Of The Jungle
@@ -22530,6 +22592,7 @@ Region = NTSC-J
 Serial = SLPM-65419
 Name   = Tony Hawk's Pro Skater 2003
 Region = NTSC-J
+vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLPM-65420
 Name   = Dabitsuku 3 - Let's Become a Derby Owner
@@ -23107,7 +23170,7 @@ Name   = Winning Post 6 Maximum 2004
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-65583
-Name   = World Rally Championship 3
+Name   = WRC 3
 Region = NTSC-J
 Compat = 4
 XgKickHack = 1
@@ -24585,7 +24648,7 @@ Name   = Kenka Banchou
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-65975
-Name   = World Rally Championship 4
+Name   = WRC 4
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-65976
@@ -25878,7 +25941,7 @@ Region = NTSC-J
 Compat = 5
 ---------------------------------------------
 Serial = SLPM-66334
-Name   = WRC - World Rally Championship 4 [Spike the Best]
+Name   = WRC 4 [Spike the Best]
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-66336
@@ -28704,7 +28767,7 @@ Name   = Samurai Complete Edition [PlayStation 2 The Best]
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-74406
-Name   = WRC - World Rally Chanpionship [PlayStation 2 The Best]
+Name   = World Rally Chanpionship [PlayStation 2 The Best]
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPM-74407
@@ -30376,7 +30439,7 @@ Name   = Air Ranger 2 - Rescue Helicopter
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPS-25099
-Name   = WRC - World Rally Championship
+Name   = World Rally Championship
 Region = NTSC-J
 ---------------------------------------------
 Serial = SLPS-25100
@@ -35505,7 +35568,7 @@ Region = NTSC-U
 Compat = 2
 ---------------------------------------------
 Serial = SLUS-20419
-Name   = WRC - World Rally Championship
+Name   = World Rally Championship
 Region = NTSC-U
 ---------------------------------------------
 Serial = SLUS-20420
@@ -35650,6 +35713,12 @@ EETimingHack = 1
 Serial = SLUS-20455
 Name   = F1 2002
 Region = NTSC-U
+[patches = 8FF059A1]
+	//Patched by Prafull
+	//Fixes controller issue but skips videos
+	patch=0,EE,002d8c58,word,03e00008
+	patch=0,EE,002d8c5c,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SLUS-20456
 Name   = Soccer Mania
@@ -36878,6 +36947,11 @@ Region = NTSC-U
 Serial = SLUS-20727
 Name   = ESPN - NFL Football
 Region = NTSC-U
+[patches = 56920AD1]
+	//Patched by Prafull
+	//Fixes random hangs
+	patch=0,EE,003bb900,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SLUS-20728
 Name   = ESPN - NHL Hockey
@@ -37692,6 +37766,12 @@ Serial = SLUS-20904
 Name   = SpongeBob Squarepants - The Movie
 Region = NTSC-U
 Compat = 5
+[patches = 536FEB77]
+comment= Patch By Prafull
+// fix hang at loading screen
+patch=1,EE,0010f3e0,word,00000000
+comment= this disc has the same crc as SLES-52895.
+[/patches]
 ---------------------------------------------
 Serial = SLUS-20905
 Name   = Incredibles, The
@@ -37789,6 +37869,11 @@ Serial = SLUS-20921
 Name   = ESPN - NHL 2K5
 Region = NTSC-U
 Compat = 2
+[patches = 9B6E69EC]
+	//Patched by Prafull
+	//Avoid hang at start
+	patch=0,EE,003ed218,word,00000000
+[/patches]
 ---------------------------------------------
 Serial = SLUS-20922
 Name   = ESPN - College Hoops 2K5
@@ -37988,17 +38073,12 @@ Name   = Neo Contra
 Region = NTSC-U
 Compat = 4
 [patches = 08901101]
-	
-	comment=Patches By Nachbrenner
-	
-	//fix IPU busy! ingame
-	patch=0,EE,003a9538,word,03e00008
-	patch=0,EE,003a953c,word,00000000
-	
-	patch=0,EE,003a9460,word,03e00008
-	patch=0,EE,003a9464,word,00000000
-	patch=1,EE,00100530,word,00000000
-	
+	comment=Patches by prafull
+	//New patch fixes most issues
+	patch=0,EE,003a94f8,word,00000000
+	//Fix hang at Level 4
+	patch=0,EE,0037b1a4,word,03e00008
+	patch=0,EE,0037b1a8,word,00000000
 [/patches]
 ---------------------------------------------
 Serial = SLUS-20962
@@ -39199,6 +39279,7 @@ Serial = SLUS-21208
 Name   = Tony Hawk's American Wasteland
 Region = NTSC-U
 Compat = 5
+vuRoundMode = 0 //Crashes without.
 ---------------------------------------------
 Serial = SLUS-21209
 Name   = Urban Reign
@@ -39471,6 +39552,7 @@ Serial = SLUS-21260
 Name   = Ed, Edd, 'n Eddy - The Mis-Edventures
 Region = NTSC-U
 Compat = 5
+eeRoundMode = 2		//fixes missing text
 ---------------------------------------------
 Serial = SLUS-21261
 Name   = Shadow the Hedgehog
@@ -39644,6 +39726,8 @@ Region = NTSC-U
 Serial = SLUS-21295
 Name   = Tony Hawk's American Wasteland [Collector's Edition]
 Region = NTSC-U
+Compat = 5
+vuRoundMode = 0		//Crashes without.
 ---------------------------------------------
 Serial = SLUS-21296
 Name   = Dance Factory
@@ -40383,6 +40467,7 @@ Serial = SLUS-21444
 Name   = Tony Hawk's Project 8
 Region = NTSC-U
 Compat = 5
+vuRoundMode = 0
 ---------------------------------------------
 Serial = SLUS-21445
 Name   = Ar tonelico: Melody of Elemia
@@ -40443,6 +40528,7 @@ Serial = SLUS-21456
 Name   = Tony Hawk's Downhill Jam
 Region = NTSC-U
 Compat = 5
+vuRoundMode = 0
 ---------------------------------------------
 Serial = SLUS-21457
 Name   = World Championship Paintball
@@ -41045,6 +41131,7 @@ Serial = SLUS-21616
 Name   = Tony Hawk's Proving Ground
 Region = NTSC-U
 Compat = 5
+vuRoundMode = 0
 ---------------------------------------------
 Serial = SLUS-21618
 Name   = Plan, The

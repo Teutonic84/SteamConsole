@@ -1,9 +1,9 @@
-PCSX2 1.3.1-20150622172347 - compiled on Jun 22 2015
-Savestate version: 0x9a0a0000
+PCSX2 1.5.0-20160405000143 - compiled on Apr  5 2016
+Savestate version: 0x9a0b0000
 
 Host Machine Init:
-	Operating System =  Microsoft  (build 9200), 64-bit
-	Physical RAM     =  4066 MB
+	Operating System =  Microsoft Windows 10 Pro (build 10586), 64-bit
+	Physical RAM     =  3998 MB
 	CPU name         =  Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz
 	Vendor/Model     =  GenuineIntel (stepping 09)
 	CPU speed        =  3.191 ghz (4 logical threads)
@@ -17,15 +17,14 @@ x86 Features Detected:
 Reserving memory for recompilers...
 
 Loading plugins...
-	Binding   GS: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\GSdx32-AVX.dll 
-Windows 6.2.9200
-	Binding  PAD: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\LilyPad.dll 
-	Binding SPU2: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\SPU2-X.dll 
-	Binding CDVD: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\cdvdGigaherz.dll 
-	Binding  USB: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\USBnull.dll 
-	Binding   FW: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\FWnull.dll 
-(GameDB) 9677 games on record (loaded in 163ms)
-	Binding DEV9: C:\SteamConsole\Emulators\PS2\pcsx2\plugins\DEV9null.dll 
+	Binding   GS: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\GSdx32-AVX.dll 
+	Binding  PAD: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\LilyPad.dll 
+	Binding SPU2: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\SPU2-X.dll 
+	Binding CDVD: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\cdvdGigaherz.dll 
+	Binding  USB: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\USBnull.dll 
+	Binding   FW: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\FWnull.dll 
+	Binding DEV9: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\DEV9null.dll 
 Plugins loaded successfully.
 
+(GameDB) 9700 games on record (loaded in 168ms)
 (GameDB) Unloading...
