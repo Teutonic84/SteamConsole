@@ -9,63 +9,45 @@
 # ~\ROMs                     => C:\Users\<YOUR USERNAME>\ROMs
 ROMs Directory=
 
-[Grid Images]
-# The website listed should provide the grid images used by Ice. This URL will
-# most likely need to be provided by the website itself, as it is fairly specific.
+# Set a directory to store backups of your shortcuts.vdf file. If left blank,
+# Ice will store backups in it's metadata folder (see note). If this option is
+# missing or commented out (using the preceding `#`) then no backups will be
+# created. Backups are stored in the format "/[user id]/shortcuts.[timestamp].vdf"
 #
-# The default is ConsoleGrid (consolegrid.com/api/top_picture)
+# Use ~ to represent your home folder (for example, C:\Users\Scott\)
 #
-# If this field is left blank, Ice will not attempt to download images
-Source=consolegrid.com/api/top_picture
+# NOTE: When this option is left blank, backups will be created in a different
+# folder depending on the operating system.
+#
+# Windows  => C:\Documents and Settings\<User>\Application Data\Scott Rice\Ice
+# Mac OS X => ~/Library/Application Support/Ice
+# Linux    => ~/.local/share/Ice
+Backup Directory=
 
-[LinSnes9x]
-download-location=http://powrtoch.org/public/linsnes9x.zip
-relative-exe-path=linsnes9x/snes9x
+[Steam]
+# Leave this field blank unless Ice can't find Steam.
+#
+# The directory for Steam's userdata folder. This can be in any local drive or directory,
+# as long as the full path is specified. Use ~ to represent your home folder
+# (for example, C:\Users\Scott\)
+#
+# It is located in Steam's installation directory on Windows (ex. C:\Program Files\Steam\userdata).
+# It is generally located at ~/Library/Application Support/Steam/userdata/ on OSX and
+# ~/.local/share/Steam/userdata/ on Linux.
+Userdata Directory=
 
-[LinMednafen]
-download-location=http://powrtoch.org/public/linmednafen.zip
-relative-exe-path=linmednafen/mednafen
 
-[LinePSXe]
-download-location=http://powrtoch.org/public/linepsxe.zip
-relative-exe-path=linepsxe/epsxe
-
-[LinMupen64Plus]
-download-location=http://powrtoch.org/public/linmupen64plus.zip
-relative-exe-path=linmupen64plus/mupen64plus
-
-[MacSnes9x]
-download-location=http://consolegrid.com/ice_emulators/MacSnes9x.zip
-relative-exe-path=MacSnes9x/Snes9x.app
-
-[MacMednafen]
-download-location=http://consolegrid.com/ice_emulators/MacMednafen.zip
-relative-exe-path=MacMednafen/mednafen
-
-[Winbsnes]
-download-location=http://consolegrid.com/ice_emulators/Winbsnes.zip
-relative-exe-path=Winbsnes\bsnes.exe
-
-[WinProject64]
-download-location=http://consolegrid.com/ice_emulators/WinProject64.zip
-relative-exe-path=WinProject64\Project64-launcher.exe
-
-[WinDolphin]
-download-location=http://consolegrid.com/ice_emulators/WinDolphin.zip
-relative-exe-path=Dolphin\Dolphin.exe
-
-[WinePSXe]
-download-location=http://consolegrid.com/ice_emulators/WinePSXe.zip
-relative-exe-path=WinePSXe\ePSXe.exe
-
-[WinPCSX2]
-download-location=http://consolegrid.com/ice_emulators/WinPCSX2.zip
-relative-exe-path=WinPCSX2\pcsx2-launcher.exe
-
-[WinGens]
-download-location=http://consolegrid.com/ice_emulators/WinGens.zip
-relative-exe-path=WinGens\gens-launcher.exe
-
-[WinVisualBoyAdvance]
-download-location=http://consolegrid.com/ice_emulators/WinVisualBoyAdvance.zip
-relative-exe-path=WinVisualBoyAdvance\VisualBoyAdvance.exe
+[Images]
+# Comma separated list of providers for Ice to use when looking for grid
+# images. The valid values are:
+#
+# * `local`       - Looks in the `custom_images_directory` of the Console for
+#                   a game of the same name.
+# * `consolegrid` - Hits the ConsoleGrid API looking for a game of that name.
+#
+# Ice will ask these providers for images in order, stopping when it one is
+# found. This means order matters, and `local, consolegrid` is not the same as
+# `consolegrid, local`.
+#
+# The default is `local, consolegrid`
+Providers=local, consolegrid

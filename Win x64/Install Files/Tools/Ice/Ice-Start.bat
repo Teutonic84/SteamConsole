@@ -228,11 +228,16 @@ rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 ::============
 
 :Variables_pc
-set pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade
-set InputFile9=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt
+set "pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade"
+set "pcimage=%dirpath%\Images\Steam_Grid_Images"
+set "InputFile9=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile92=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile92=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind9=location=PC"
+set "_strFind92=images directory=pc-image"
 set "_strInsert9=location=%pc%"
+set "_strInsert92=images directory=%pcimage%"
 
 :Replace_pc
 >"%OutputFile9%" (
@@ -243,6 +248,16 @@ set "_strInsert9=location=%pc%"
 
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+
+:Replace_pc2
+>"%OutputFile92%" (
+  for /f "usebackq delims=" %%I in ("%InputFile92%") do (
+    if "%%I" equ "%_strFind92%" (echo %_strInsert92%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 
 ::Gamecube
 ::============
