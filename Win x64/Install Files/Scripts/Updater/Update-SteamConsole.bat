@@ -53,7 +53,7 @@ move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_
 move /y "Files\SteamConsole_%newversionsc%_x64\README.txt" "Files\SteamConsole_%newversionsc%_x64\Root\README.txt"
 move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "Files\SteamConsole_%newversionsc%_x64\Root\SteamConsole_uninstaller.exe"
 
-robocopy "Files\SteamConsole_%newversionsc%_x64\SteamConsole\Install Files" ..\..\..\SteamConsole\ "*.*" /E /XO /XD "DS4Tool-1.2.2" "DSTool-Reloaded" /MOVE
+robocopy "Files\SteamConsole_%newversionsc%_x64\Install Files" ..\..\..\SteamConsole\ "*.*" /E /XO /XD "DS4Tool-1.2.2" "DSTool-Reloaded" /MOVE
 robocopy "Files\SteamConsole_%newversionsc%_x64\Root" ..\..\..\SteamConsole\ "*.*" /E /XO /MOVE
 
 echo Windows Registry Editor Version 5.00 >>"reg_add.reg"
