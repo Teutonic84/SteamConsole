@@ -37,12 +37,12 @@ del /q "index.html"
 if %currentver% == %newversionsc% goto NOUPSC
 
 cls
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.001"
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.002"
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.003"
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.004"
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.005"
-::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.006"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.001"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.002"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.003"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.004"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.005"
+wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.006"
 
 7za x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_%newversionsc%_x64.7z.001
 del "SteamConsole_%newversionsc%_x64.7z.00*"
@@ -50,7 +50,7 @@ mkdir "Files\SteamConsole_%newversionsc%_x64\Root"
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf"
 move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf"
 move /y "Files\SteamConsole_%newversionsc%_x64\README.txt" "Files\SteamConsole_%newversionsc%_x64\Root\README.txt"
-move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "Files\SteamConsole_%newversionsc%_x64\Root\SteamConsole_uninstaller.exe"
+::move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "Files\SteamConsole_%newversionsc%_x64\Root\SteamConsole_uninstaller.exe"
 
 robocopy "Files\SteamConsole_%newversionsc%_x64\SteamConsole\Install Files" ..\..\..\SteamConsole\ "*.*" /E /XO /XD "DS4Tool-1.2.2" "DSTool-Reloaded" /MOVE
 robocopy "Files\SteamConsole_%newversionsc%_x64\Root" ..\..\..\SteamConsole\ "*.*" /E /XO /MOVE
