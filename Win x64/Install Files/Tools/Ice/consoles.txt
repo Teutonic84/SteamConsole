@@ -56,51 +56,63 @@
 nickname=DS
 emulator=retroarch_nds
 extensions=bat
+
 [Gameboy Advance]
 nickname=GBA
 emulator=retroarch_gba
 extensions=bat
+
 [Nintendo 64]
 nickname=N64
 emulator=retroarch_n64
 extensions=bat
+
 [Nintendo Entertainment System]
 nickname=NES
 emulator=retroarch_nes
 extensions=bat
+
 [Super Nintendo]
 nickname=SNES
 emulator=retroarch_snes
 extensions=bat
+
 [Playstation Portable]
 nickname=PSP
 emulator=retroarch_psp
 extensions=bat
+
 [Sega Genesis]
 nickname=Genesis
 emulator=retroarch_sega
 extensions=bat
+
 [Sega Master System]
 nickname=SMS
 emulator=retroarch_sms
 extensions=bat
+
 [Apps and PC Games]
 nickname=Arcade
 emulator=PC
 extensions=bat
-images directory=C:\SteamConsole\Images\Steam_Grid_Images
+images directory=pc-image
+
 [Nintendo Gamecube]
 nickname=Gamecube
 emulator=Gamecube
 extensions=bat
+
 [Nintendo Wii]
 nickname=Wii
 emulator=Wii
 extensions=bat
+
 [Playstation 1]
 nickname=PS1
 emulator=PS1
 extensions=bat
+
 [Playstation 2]
 nickname=PS2
 emulator=PS2

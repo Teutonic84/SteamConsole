@@ -14,6 +14,10 @@ cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
 cd "%dirpath%\Tools\Ice"
+if not exist "%userprofile%\AppData\Local\Scott Rice" (
+    mkdir "%userprofile%\AppData\Local\Scott Rice"
+    mkdir "%userprofile%\AppData\Local\Scott Rice\Ice"
+)
 
 if exist "%steampath%\userdata\anonymous" (
     rmdir /q /s "%steampath%\userdata\anonymous"
@@ -345,6 +349,8 @@ del /F /Q "%dirpath%\Tools\Ice\config.txt"
 copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 copy /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
 del /F /Q "%dirpath%\steam_path.txt"
 
 :end

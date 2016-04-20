@@ -67,10 +67,6 @@ command=%r
 location=PC
 command=%r
 
-[Apps]
-location=Apps
-command=%r
-
 [Gamecube]
 location=Gamecube
 command=%r
