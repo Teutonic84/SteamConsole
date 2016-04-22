@@ -37,7 +37,7 @@ del /q "index.html"
 if %currentver% == %newversionsc% goto NOUPSC
 
 cls
-wget --no-check-certificate "http://teutonic84.pcriot.com/SteamConsole_%newversionsc%_x64.7z"
+wget --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/SteamConsole_%newversionsc%_x64.7z"
 ::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.002"
 ::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.003"
 ::wget --no-check-certificate "http://teutonic84.atwebpages.com/SteamConsole_%newversionsc%_x64.7z.004"
