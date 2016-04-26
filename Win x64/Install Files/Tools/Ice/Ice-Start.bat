@@ -28,6 +28,7 @@ start "" /WAIT GBA.bat
 start "" /WAIT N64.bat
 start "" /WAIT NDS.bat
 start "" /WAIT NES.bat
+start "" /WAIT PC.bat
 start "" /WAIT PS1.bat
 start "" /WAIT PS2.bat
 start "" /WAIT PSP.bat
