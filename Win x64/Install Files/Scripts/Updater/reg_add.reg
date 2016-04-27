@@ -1,0 +1,6 @@
+Windows Registry Editor Version 5.00 
+ 
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole] 
+"Updater"="1.2" 
+ 
+ 

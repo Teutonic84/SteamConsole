@@ -60,6 +60,7 @@ Section "Core Files (Required)"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.5"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.2"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
 	MessageBox MB_OK '"Core Files Installation Complete!"'
