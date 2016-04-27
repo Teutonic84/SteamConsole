@@ -12,6 +12,7 @@ if %regcheck%==32 set "key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninst
 for /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "GAMENAME"') DO if not defined line set "line=%%a" 2>NUL 1>NUL
 for /f "tokens=* delims= " %%c IN ('Reg query "%line%" /v DisplayIcon') DO set "instloc=%%c" 2>NUL 1>NUL
 set instloc=%instloc:DisplayIcon    REG_SZ    =%
+set instloc=%instloc:"=%
 
 ::Launch Game
 ::===========
