@@ -1260,14 +1260,6 @@ Name   = Klonoa 2 - Lunatea's Veil
 Region = PAL-M5
 Compat = 5
 eeClampMode = 3		//Objects needed appear in wrong places without it
-[patches = 7EBEEBBD]
-	
-	comment=Patch By CKemu
-	
-	//Skips IUP blitz
-	patch=0,EE,003078F4,word,00000000
-	
-[/patches]
 ---------------------------------------------
 Serial = SCES-50360
 Name   = Twisted Metal - Black
@@ -6395,6 +6387,7 @@ Region = PAL-E
 Serial = SLED-51211
 Name   = Burnout 2 - Point of Impact [Demo]
 Region = PAL-Unk
+vuRoundMode = 1		//bright lights in cars
 ---------------------------------------------
 Serial = SLED-51281
 Name   = Haven - Call of the King [Demo]
@@ -12902,6 +12895,7 @@ Serial = SLES-52968
 Name   = Burnout 2 - Point of Impact
 Region = PAL-Unk
 Compat = 5
+vuRoundMode = 1		//bright lights in cars
 ---------------------------------------------
 Serial = SLES-52973
 Name   = Ski Racing 2005
@@ -14126,6 +14120,7 @@ Region = PAL-M4
 Serial = SLES-53523
 Name   = Gun
 Region = PAL-M4
+vuRoundMode = 0 //Fixes textures and crashes
 ---------------------------------------------
 Serial = SLES-53524
 Name   = Mortal Kombat - Shaolin Monks
@@ -14418,6 +14413,7 @@ Region = PAL-M5
 Serial = SLES-53647
 Name   = Gun
 Region = PAL-G
+vuRoundMode = 0 //Fixes textures and crashes
 ---------------------------------------------
 Serial = SLES-53651
 Name   = WWII - Soldier
@@ -30237,14 +30233,6 @@ Name   = Kaze no Klonoa 2 - Sekai ga Nozonda Wasuremono
 Region = NTSC-J
 Compat = 5
 eeClampMode = 3		//Objects needed appear in wrong places without it
-[patches = 1645DE53]
-	
-	comment=Patch by Shadow Lady
-	//For hang in Volk City
-	//Skip sceIpuSync
-	patch=0,EE,003047D0,word,03e00008
-	
-[/patches]
 ---------------------------------------------
 Serial = SLPS-25034
 Name   = Flower, Sun and Rain
@@ -31279,6 +31267,7 @@ Region = NTSC-J
 Serial = SLPS-25351
 Name   = Burnout 2 - Point of Impact
 Region = NTSC-J
+vuRoundMode = 1		//bright lights in cars
 ---------------------------------------------
 Serial = SLPS-25352
 Name   = Espgaluda
@@ -34355,14 +34344,6 @@ Name   = Klonoa 2 - Lunatea's Veil
 Region = NTSC-U
 Compat = 5
 eeClampMode = 3		//Objects needed appear in wrong places without it
-[patches = 2F56CBC9]
-	
-	comment=patches by nachbrenner
-	
-	//Skip sceIpuSync
-	patch=0,EE,00305b90,word,03e00008
-	
-[/patches]
 ---------------------------------------------
 Serial = SLUS-20152
 Name   = Ace Combat 4 - Shattered Skies
@@ -38945,6 +38926,7 @@ Serial = SLUS-21139
 Name   = Gun
 Region = NTSC-U
 Compat = 5
+vuRoundMode = 0 //Fixes textures and crashes
 ---------------------------------------------
 Serial = SLUS-21140
 Name   = Mobile Suit Gundam Seed - Never Ending Tomorrow
