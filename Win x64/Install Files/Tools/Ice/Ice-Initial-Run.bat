@@ -6,14 +6,20 @@ if "%ERRORLEVEL%"=="0" taskkill /f /im steam.exe
 cls
 cd ..\..
 set dirpath=%cd%
-set steampath=%1
-cd %steampath%
 
-if exist "%cd%\userdata\anonymous" (
-    rmdir /q /s "%cd%\userdata\anonymous"
-)
+if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
+cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
+for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
 cd "%dirpath%\Tools\Ice"
+if not exist "%userprofile%\AppData\Local\Scott Rice" (
+    mkdir "%userprofile%\AppData\Local\Scott Rice"
+    mkdir "%userprofile%\AppData\Local\Scott Rice\Ice"
+)
+
+if exist "%steampath%\userdata\anonymous" (
+    rmdir /q /s "%steampath%\userdata\anonymous"
+)
 
 start "" /WAIT Gamecube.bat
 start "" /WAIT GBA.bat
@@ -225,11 +231,16 @@ rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 ::============
 
 :Variables_pc
-set pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade
-set InputFile9=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt
+set "pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade"
+set "pcimage=%dirpath%\Images\Steam_Grid_Images"
+set "InputFile9=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile92=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile92=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind9=location=PC"
+set "_strFind92=images directory=pc-image"
 set "_strInsert9=location=%pc%"
+set "_strInsert92=images directory=%pcimage%"
 
 :Replace_pc
 >"%OutputFile9%" (
@@ -240,6 +251,16 @@ set "_strInsert9=location=%pc%"
 
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+
+:Replace_pc2
+>"%OutputFile92%" (
+  for /f "usebackq delims=" %%I in ("%InputFile92%") do (
+    if "%%I" equ "%_strFind92%" (echo %_strInsert92%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 
 ::Gamecube
 ::============
@@ -320,6 +341,7 @@ set "_strInsert13=location=%ps2%"
 
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+del /F /Q "%dirpath%\steam_path.txt"
 
 ::"%dirpath%\Tools\Ice\ice.exe"
 

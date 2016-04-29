@@ -12,6 +12,7 @@
 !include "zipdll.nsh"
 
 Insttype "/CUSTOMSTRING=Custom"
+Insttype "/COMPONENTSONLYONCUSTOM"
 Insttype "Standard Installation"
 #Insttype "Dualshock Installation"
 
@@ -157,20 +158,20 @@ SectionEnd
     # Standard installation files here
 #SectionEnd
 
-Section "Import ROMS" SEC_ROMIMPORT
-  SectionIn 1
+#Section "Import ROMS" SEC_ROMIMPORT
+  #SectionIn 1
     # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
 	
 	# Run Ice to import ROMS into Steam
-	MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
-	SetOutPath "$INSTDIR\Tools\Ice"
-	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
-	ExecWait '"ice.exe"'
-	Delete "config.txt"
-	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
-	Delete "emulators.txt"
-	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
-SectionEnd
+	#MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
+	#SetOutPath "$INSTDIR\Tools\Ice"
+	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
+	#ExecWait '"ice.exe"'
+	#Delete "config.txt"
+	#CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
+	#Delete "emulators.txt"
+	#CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+#SectionEnd
 
 Section "DS3 & DS4 (Not Implemented Yet)" SEC_DS3
   SectionIn 2
@@ -186,7 +187,7 @@ Function .onInit
   StrCpy $1 ${SEC_PREREQS}
   StrCpy $1 ${SEC_STARTMENU}
   #StrCpy $1 ${SEC_ROMSEARCH}
-  StrCpy $1 ${SEC_ROMIMPORT}
+  #StrCpy $1 ${SEC_ROMIMPORT}
   StrCpy $1 ${SEC_DS3}
   StrCpy $1 ${SEC_DS4}
 FunctionEnd
@@ -194,7 +195,7 @@ FunctionEnd
 LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, MSVC 2013 x64, Xpadder."
 LangString DESC_Section2 ${LANG_ENGLISH} "Create program shortcuts in the start menu and on the desktop."
 #LangString DESC_Section2 ${LANG_ENGLISH} "Search for ROMS on your Hard Drive and move them to the ROMS folder found in the Emulators folder within the root SteamConsole folder."
-LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
+#LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
 LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller support (DSTool Reloaded)."
 LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (DS4Tool)."
 
@@ -202,7 +203,7 @@ LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (D
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_PREREQS} $(DESC_Section1)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_STARTMENU} $(DESC_Section2)
   #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMSEARCH} $(DESC_Section2)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
+  #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section4)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
