@@ -49,6 +49,7 @@ Section "Core Files (Required)"
 	Delete "$INSTDIR\SteamConsole.7z"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
+	CreateShortCut "$INSTDIR\Emulators\PS1\ePSXe\ps1.lnk" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe" "" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe"
 	SetOutPath $INSTDIR
 		SetRegView 64
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
