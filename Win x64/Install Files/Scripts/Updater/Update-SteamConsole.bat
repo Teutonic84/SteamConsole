@@ -12,6 +12,25 @@ taskkill /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
 taskkill /f /im "Steam.exe" 2>NUL 1>NUL
 "..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 
+if exist "Files\SteamConsole_%newversionsc%_x64" rmdir /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
+if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
+if exist "..\..\Emulators\Gamecube\Dolphin\Updater" rmdir /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
+if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_Games" 2>NUL 1>NUL
+if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
+if exist "..\..\Steam_Grid_Images" move "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
+if exist "..\..\steam_path_check.vbs" move /y "..\..\steam_path_check.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
+if exist "..\..\steam_path_check_x64.vbs" del /q "..\..\steam_path_check_x64.vbs" 2>NUL 1>NUL
+if exist "..\..\steam_path_check_x86.vbs" del /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
+if exist "..\..\replace.vbs" del /q "..\..\replace.vbs" 2>NUL 1>NUL
+if exist "..\..\replace2.vbs" del /q "..\..\replace2.vbs" 2>NUL 1>NUL
+if exist "..\..\Shortcut.exe" del /q "..\..\Shortcut.exe" 2>NUL 1>NUL
+if exist "..\..\Scripts\Logoff.bat" del /q "..\..\Scripts\Logoff.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\ROM_Rename.bat" del /q "..\..\Scripts\ROM_Rename.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
+
 :steampath
 if exist "..\..\steam_path.txt" del "..\..\steam_path.txt"
 cscript.exe "..\steam_path_check.vbs" > "..\..\steam_path.txt"
@@ -152,24 +171,6 @@ if exist "..\steam.bat" (
     del /q "..\steam.bat"
     copy /y "steam.bat" "..\steam.bat"
 )
-if exist "Files\SteamConsole_%newversionsc%_x64" rmdir /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
-if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
-if exist "..\..\Emulators\Gamecube\Dolphin\Updater" rmdir /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
-if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_Games" 2>NUL 1>NUL
-if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
-if exist "..\..\Steam_Grid_Images" move "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
-if exist "..\..\steam_path_check.vbs" del /q "..\..\steam_path_check.vbs" 2>NUL 1>NUL
-if exist "..\..\steam_path_check_x64.vbs" del /q "..\..\steam_path_check_x64.vbs" 2>NUL 1>NUL
-if exist "..\..\steam_path_check_x86.vbs" del /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
-if exist "..\..\replace.vbs" del /q "..\..\replace.vbs" 2>NUL 1>NUL
-if exist "..\..\replace2.vbs" del /q "..\..\replace2.vbs" 2>NUL 1>NUL
-if exist "..\..\Shortcut.exe" del /q "..\..\Shortcut.exe" 2>NUL 1>NUL
-if exist "..\..\Scripts\Logoff.bat" del /q "..\..\Scripts\Logoff.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Rename.bat" del /q "..\..\Scripts\ROM_Rename.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
 cls
 echo SteamConsole successfully updated to %newversionsc%...
 set "steamconsole=SteamConsole Updated to %newversionsc%..."
@@ -201,6 +202,7 @@ wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/snes9x
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/vbam_libretro.dll.zip 2>NUL 1>NUL
 cls
 echo Extracting RetroArch cores...
+if not exist "files\RetroArch_Cores" mkdir "files\RetroArch_Cores"
 7zG x -y -o"files\RetroArch_Cores" "mupen64plus_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
@@ -210,14 +212,14 @@ echo Extracting RetroArch cores...
 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "vbam_libretro.dll.zip"
 
-del mupen64plus_libretro.dll.zip 2>NUL 1>NUL
-del desmume_libretro.dll.zip 2>NUL 1>NUL
-del genesis_plus_gx_libretro.dll.zip 2>NUL 1>NUL
-del mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
-del nestopia_libretro.dll.zip 2>NUL 1>NUL
-del ppsspp_libretro.zip 2>NUL 1>NUL
-del snes9x_libretro.dll.zip 2>NUL 1>NUL
-del vbam_libretro.dll.zip 2>NUL 1>NUL
+del "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
+del "desmume_libretro.dll.zip" 2>NUL 1>NUL
+del "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
+del "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+del "nestopia_libretro.dll.zip" 2>NUL 1>NUL
+del "ppsspp_libretro.zip" 2>NUL 1>NUL
+del "snes9x_libretro.dll.zip" 2>NUL 1>NUL
+del "vbam_libretro.dll.zip" 2>NUL 1>NUL
 cls
 echo Replacing new files with old ones...
 robocopy "Files\RetroArch_Cores" ..\..\Emulators\RetroArch\cores\ /E /XO /MOVE 2>NUL 1>NUL
