@@ -19,7 +19,7 @@ if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_
 if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
 if exist "..\..\Steam_Grid_Images" move "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
 if exist "..\..\steam_path_check.vbs" move /y "..\..\steam_path_check.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
-if exist "..\..\steam_path_check_x64.vbs" del /q "..\..\steam_path_check_x64.vbs" 2>NUL 1>NUL
+if exist "..\..\steam_path_check_x64.vbs" move /y "..\..\steam_path_check_x64.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
 if exist "..\..\steam_path_check_x86.vbs" del /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
 if exist "..\..\replace.vbs" del /q "..\..\replace.vbs" 2>NUL 1>NUL
 if exist "..\..\replace2.vbs" del /q "..\..\replace2.vbs" 2>NUL 1>NUL
@@ -29,6 +29,7 @@ if exist "..\..\Scripts\ROM_Rename.bat" del /q "..\..\Scripts\ROM_Rename.bat" 2>
 if exist "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
+if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
 
 :steampath
@@ -146,7 +147,7 @@ mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\README.txt" "Files\SteamConsole_%newversionsc%_x64\Root\README.txt" 2>NUL 1>NUL
-move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "Files\SteamConsole_%newversionsc%_x64\Root\SteamConsole_uninstaller.exe" 2>NUL 1>NUL
+move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "%dirpath%\SteamConsole_uninstaller.exe" 2>NUL 1>NUL
 
 robocopy "Files\SteamConsole_%newversionsc%_x64\Install Files" ..\..\..\SteamConsole\ "*.*" /E /XO /XD "DS4Tool-1.2.2" "DSTool-Reloaded" /MOVE 2>NUL 1>NUL
 robocopy "Files\SteamConsole_%newversionsc%_x64\Root" ..\..\..\SteamConsole\ "*.*" /E /XO /MOVE 2>NUL 1>NUL
@@ -197,7 +198,7 @@ wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/desmum
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/genesis_plus_gx_libretro.dll.zip 2>NUL 1>NUL
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/nestopia_libretro.dll.zip 2>NUL 1>NUL
-wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/ppsspp_libretro.zip 2>NUL 1>NUL
+wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/ppsspp_libretro.dll.zip 2>NUL 1>NUL
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/snes9x_libretro.dll.zip 2>NUL 1>NUL
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/vbam_libretro.dll.zip 2>NUL 1>NUL
 cls
@@ -208,7 +209,7 @@ if not exist "files\RetroArch_Cores" mkdir "files\RetroArch_Cores"
 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.zip"
+7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
 7zG x -y -o"files\RetroArch_Cores" "vbam_libretro.dll.zip"
 
