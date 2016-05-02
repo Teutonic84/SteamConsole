@@ -11,6 +11,28 @@
 !include "Sections.nsh"
 !include "zipdll.nsh"
 
+!macro ShellExecWait verb app param workdir show exitoutvar ;only app and show must be != "", every thing else is optional
+#define SEE_MASK_NOCLOSEPROCESS 0x40 
+System::Store S
+System::Call '*(&i60)i.r0'
+System::Call '*$0(i 60,i 0x40,i $hwndparent,t "${verb}",t $\'${app}$\',t $\'${param}$\',t "${workdir}",i ${show})i.r0'
+System::Call 'shell32::ShellExecuteEx(ir0)i.r1 ?e'
+${If} $1 <> 0
+	System::Call '*$0(is,i,i,i,i,i,i,i,i,i,i,i,i,i,i.r1)' ;stack value not really used, just a fancy pop ;)
+	System::Call 'kernel32::WaitForSingleObject(ir1,i-1)'
+	System::Call 'kernel32::GetExitCodeProcess(ir1,*i.s)'
+	System::Call 'kernel32::CloseHandle(ir1)'
+${EndIf}
+System::Free $0
+!if "${exitoutvar}" == ""
+	pop $0
+!endif
+System::Store L
+!if "${exitoutvar}" != ""
+	pop ${exitoutvar}
+!endif
+!macroend
+
 Insttype "/CUSTOMSTRING=Custom"
 Insttype "/COMPONENTSONLYONCUSTOM"
 Insttype "Standard Installation"
@@ -158,20 +180,26 @@ SectionEnd
     # Standard installation files here
 #SectionEnd
 
-#Section "Import ROMS" SEC_ROMIMPORT
-  #SectionIn 1
+Section "Import ROMS" SEC_ROMIMPORT
+  SectionIn 1
     # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
 	
 	# Run Ice to import ROMS into Steam
-	#MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
-	#SetOutPath "$INSTDIR\Tools\Ice"
+	MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
+	SetOutPath "$INSTDIR\Tools\Ice"
+    #!insertmacro ShellExecWait "" '"Ice-Initial-Run.bat"' "" "" ${SW_SHOW} $1
+	ExpandEnvStrings $0 %COMSPEC%
+    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	nsExec::ExecToLog '"ice.exe" -s'
 	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	#ExecWait '"ice.exe"'
-	#Delete "config.txt"
-	#CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
-	#Delete "emulators.txt"
-	#CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
-#SectionEnd
+	Delete "config.txt"
+	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
+	Delete "emulators.txt"
+	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	Delete "consoles.txt"
+	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
+SectionEnd
 
 Section "DS3 & DS4 (Not Implemented Yet)" SEC_DS3
   SectionIn 2
@@ -187,7 +215,7 @@ Function .onInit
   StrCpy $1 ${SEC_PREREQS}
   StrCpy $1 ${SEC_STARTMENU}
   #StrCpy $1 ${SEC_ROMSEARCH}
-  #StrCpy $1 ${SEC_ROMIMPORT}
+  StrCpy $1 ${SEC_ROMIMPORT}
   StrCpy $1 ${SEC_DS3}
   StrCpy $1 ${SEC_DS4}
 FunctionEnd
@@ -195,7 +223,7 @@ FunctionEnd
 LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, MSVC 2013 x64, Xpadder."
 LangString DESC_Section2 ${LANG_ENGLISH} "Create program shortcuts in the start menu and on the desktop."
 #LangString DESC_Section2 ${LANG_ENGLISH} "Search for ROMS on your Hard Drive and move them to the ROMS folder found in the Emulators folder within the root SteamConsole folder."
-#LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
+LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
 LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller support (DSTool Reloaded)."
 LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (DS4Tool)."
 
@@ -203,7 +231,7 @@ LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (D
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_PREREQS} $(DESC_Section1)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_STARTMENU} $(DESC_Section2)
   #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMSEARCH} $(DESC_Section2)
-  #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section4)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
@@ -241,8 +269,6 @@ CreateUninstaller:
 	WriteUninstaller "$INSTDIR\SteamConsole_uninstaller.exe" # define uninstaller name
 	SetShellVarContext all
 	CreateShortCut "$SMPROGRAMS\SteamConsole\Remove SteamConsole.lnk" "$INSTDIR\SteamConsole_uninstaller.exe" # create a shortcut named in the start menu programs directory
-	DetailPrint ""
-	DetailPrint ""
 	DetailPrint ""
 SectionEnd
 
