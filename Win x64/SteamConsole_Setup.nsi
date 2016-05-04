@@ -40,7 +40,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.3.5.3"
+!define VERSION "v1.3.6"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -70,8 +70,8 @@ Section "Core Files (Required)"
 	File "SteamConsole.7z"
 	Nsis7z::ExtractWithDetails "SteamConsole.7z" # Extract all files from 7zip file to install directory based off of user's selection
 	Delete "$INSTDIR\SteamConsole.7z"
-	SetOutPath "$INSTDIR\Emulators\PS1\ePSXe"
-	CreateShortCut "$INSTDIR\Emulators\PS1\ePSXe\ps1.lnk" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe" "" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe"
+	#SetOutPath "$INSTDIR\Emulators\PS1\ePSXe"
+	#CreateShortCut "$INSTDIR\Emulators\PS1\ePSXe\ps1.lnk" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe" "" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	SetOutPath $INSTDIR
@@ -79,13 +79,13 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.5.3"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.6"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.5.3"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.3"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.6"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.4"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
 	MessageBox MB_OK '"Core Files Installation Complete!"'
@@ -291,13 +291,13 @@ yes3:
 	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$INSTDIR\Emulators\BACKUP\RetroArch\SAVEDATA"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\SaveStates"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS1\MemoryCards"
-	CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS1\SaveStates"
+	#CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS1\MemoryCards"
+	#CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS1\SaveStates"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS2\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS2\SaveStates"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	RMDir /r "$INSTDIR\Emulators\Gamecube"
-	RMDir /r "$INSTDIR\Emulators\PS1"
+	#RMDir /r "$INSTDIR\Emulators\PS1"
 	RMDir /r "$INSTDIR\Emulators\PS2"
 	RMDir /r "$INSTDIR\Emulators\RetroArch"
 	SetOutPath "$INSTDIR\Tools\Ice"
@@ -307,6 +307,8 @@ yes3:
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	Delete "consoles.txt"
+	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
 
 	SetOutPath $INSTDIR
@@ -342,6 +344,8 @@ no3:
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
 	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	Delete "consoles.txt"
+	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
 
 	SetOutPath $INSTDIR
