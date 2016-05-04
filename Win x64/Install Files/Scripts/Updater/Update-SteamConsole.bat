@@ -14,6 +14,7 @@ taskkill /f /im "Steam.exe" 2>NUL 1>NUL
 
 if exist "Files\SteamConsole_%newversionsc%_x64" rmdir /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
 if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
+if exist "Update-Emulators.bat" del /q "Update-Emulators.bat" 2>NUL 1>NUL
 if exist "..\..\Emulators\Gamecube\Dolphin\Updater" rmdir /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
 if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_Games" 2>NUL 1>NUL
 if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
@@ -218,7 +219,7 @@ del "desmume_libretro.dll.zip" 2>NUL 1>NUL
 del "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
 del "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
 del "nestopia_libretro.dll.zip" 2>NUL 1>NUL
-del "ppsspp_libretro.zip" 2>NUL 1>NUL
+del "ppsspp_libretro.dll.zip" 2>NUL 1>NUL
 del "snes9x_libretro.dll.zip" 2>NUL 1>NUL
 del "vbam_libretro.dll.zip" 2>NUL 1>NUL
 cls
