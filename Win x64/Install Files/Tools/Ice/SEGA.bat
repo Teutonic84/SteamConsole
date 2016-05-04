@@ -7,33 +7,36 @@ set dirpath=%cd%
 ::=====================
 ::| Start ROM Renamer |
 ::=====================
-setlocal disabledelayedexpansion
-
-set "space= "
-set "underscore=_"
-
 for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Genesis\*.*"') do (
-    set "oldname=%%a"
-    set "extension=%%~xa"
-    for /f usebackq^ tokens^=1^ delims^=^(^" %%f in ('"%%a"') do (
+    call :check "%%a"
+)
+goto renamer
+
+:check
+    set "oldname=%~1"
+    set "extension=%~x1"
+    set "newname=%~n1"
+    if "%newname%"=="" goto :eof
+    setlocal enabledelayedexpansion
+    set newname=!newname:.=!
+    set newname=!newname:_= !
+    for /f "usebackq tokens=1 delims=(" %%f in ('"!newname!"') do (
         set "newname=%%~nf"
         for /f usebackq^ tokens^=1^ delims^=^[^" %%b in ('"%%f"') do (
-        set "newname=%%~nb"
-        setlocal enabledelayedexpansion
-        set newname=!newname:%underscore%=%space%!
+            set "newname=%%~nb"
             for /f "tokens=* delims= " %%d in ('echo "!newname!"') do (
-                set newname=%%~d
-                move /Y "%dirpath%\Emulators\ROMS\Genesis\!oldname!" "%dirpath%\Emulators\ROMS\Genesis\!newname:%underscore%=%space%!!extension!"
+                set "newname=%%~d%"
+                move /Y "%dirpath%\Emulators\ROMS\Genesis\!oldname!" "%dirpath%\Emulators\ROMS\Genesis\!newname!!extension!"
                 endlocal
             )
         )
-    )   
-)
-endlocal
+    )
+goto :eof
 
 ::===================
 ::| End ROM Renamer |
 ::===================
+:renamer
 cls
 setlocal EnableDelayedExpansion
 

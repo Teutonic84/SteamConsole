@@ -7,33 +7,95 @@ set dirpath=%cd%
 ::=====================
 ::| Start ROM Renamer |
 ::=====================
-setlocal disabledelayedexpansion
-
-set "space= "
-set "underscore=_"
-
 for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.*"') do (
-    set "oldname=%%a"
-    set "extension=%%~xa"
-    for /f usebackq^ tokens^=1^ delims^=^(^" %%f in ('"%%a"') do (
+    call :check "%%a"
+)
+goto renamer
+
+:check
+    set "oldname=%~1"
+    set "extension=%~x1"
+    set "newname=%~n1"
+    ::Check for multiple disc games
+    ::=============================
+    echo."%newname%" | findstr /C:"Disc 1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"Disc1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"Disk 1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"Disk1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"CD 1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"CD1"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:" - CD1"
+    if %errorlevel%==0 set "disc="
+    echo."%newname%" | findstr /C:"Disc 2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:"Disc2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:"Disk 2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:"Disk2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:"CD 2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:"CD2"
+    if %errorlevel%==0 set "disc= - CD2"
+    echo."%newname%" | findstr /C:" - CD2"
+    if %errorlevel%==0 set "disc="
+    echo."%newname%" | findstr /C:"Disc 3"
+    if %errorlevel%==0 set "disc= - CD1"
+    echo."%newname%" | findstr /C:"Disc3"
+    if %errorlevel%==0 set "disc= - CD3"
+    echo."%newname%" | findstr /C:"Disk 3"
+    if %errorlevel%==0 set "disc= - CD3"
+    echo."%newname%" | findstr /C:"Disk3"
+    if %errorlevel%==0 set "disc= - CD3"
+    echo."%newname%" | findstr /C:"CD 3"
+    if %errorlevel%==0 set "disc= - CD3"
+    echo."%newname%" | findstr /C:"CD3"
+    if %errorlevel%==0 set "disc= - CD3"
+    echo."%newname%" | findstr /C:" - CD3"
+    if %errorlevel%==0 set "disc="
+    echo."%newname%" | findstr /C:"Disc 4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:"Disc4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:"Disk 4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:"Disk4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:"CD 4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:"CD4"
+    if %errorlevel%==0 set "disc= - CD4"
+    echo."%newname%" | findstr /C:" - CD4"
+    if %errorlevel%==0 set "disc="
+
+    if "%newname%"=="" goto :eof
+    setlocal enabledelayedexpansion
+    set newname=!newname:.=!
+    set newname=!newname:_= !
+    for /f "usebackq tokens=1 delims=(" %%f in ('"!newname!"') do (
         set "newname=%%~nf"
         for /f usebackq^ tokens^=1^ delims^=^[^" %%b in ('"%%f"') do (
-        set "newname=%%~nb"
-        setlocal enabledelayedexpansion
-        set newname=!newname:%underscore%=%space%!
+            set "newname=%%~nb"
             for /f "tokens=* delims= " %%d in ('echo "!newname!"') do (
-                set newname=%%~d
-                move /Y "%dirpath%\Emulators\ROMS\Gamecube\!oldname!" "%dirpath%\Emulators\ROMS\Gamecube\!newname:%underscore%=%space%!!extension!"
+                set "newname=%%~d%disc%"
+                move /Y "%dirpath%\Emulators\ROMS\Gamecube\!oldname!" "%dirpath%\Emulators\ROMS\Gamecube\!newname!!extension!"
                 endlocal
             )
         )
-    )   
-)
-endlocal
+    )
+goto :eof
 
 ::===================
 ::| End ROM Renamer |
 ::===================
+:renamer
 cls
 setlocal EnableDelayedExpansion
 
