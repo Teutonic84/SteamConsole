@@ -351,4 +351,4 @@ del /F /Q "%dirpath%\steam_path.txt"
 ::copy /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
 
 :end
-exit
+goto :eof
