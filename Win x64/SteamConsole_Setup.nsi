@@ -297,7 +297,7 @@ yes3:
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS2\SaveStates"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	RMDir /r "$INSTDIR\Emulators\Gamecube"
-	#RMDir /r "$INSTDIR\Emulators\PS1"
+	RMDir /r "$INSTDIR\Emulators\PS1"
 	RMDir /r "$INSTDIR\Emulators\PS2"
 	RMDir /r "$INSTDIR\Emulators\RetroArch"
 	SetOutPath "$INSTDIR\Tools\Ice"
