@@ -173,8 +173,8 @@ if exist "..\steam.bat" (
     del /q "..\steam.bat"
     copy /y "steam.bat" "..\steam.bat"
 )
-"%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
-"%dirpath%\Tools\Ice\Ice.exe"
+call "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
+call "%dirpath%\Tools\Ice\Ice.exe"
 del /F /Q "%dirpath%\Tools\Ice\config.txt"
 copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
@@ -183,10 +183,7 @@ del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
 copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
 del /F /Q "%dirpath%\steam_path.txt"
 cls
-call "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
-call "%dirpath%\Tools\Ice\Ice.exe"
 cd "%dirpath%\Scripts\Updater"
-
 echo SteamConsole successfully updated to %newversionsc%...
 set "steamconsole=SteamConsole Updated to %newversionsc%..."
 goto cores
