@@ -32,7 +32,6 @@ if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_
 if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
-if exist "..\..\Steam_Shortcuts\Arcade" del /q "..\..\Steam_Shortcuts\Arcade\*.*" 2>NUL 1>NUL
 
 :steampath
 if exist "..\..\steam_path.txt" del "..\..\steam_path.txt"
@@ -128,6 +127,23 @@ set "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\St
 for /f "tokens=3 delims= " %%g in ('Reg query "%key%" /v DisplayVersion') do set "currentver=v%%g"
 del /q "index.html"
 
+cd "%dirpath%\Tools\Ice"
+if "%currentver%" LSS "v1.3.4" (
+    echo Removing old Steam shortcuts before Ice 1.0.0 import
+    if exist "..\..\Steam_Shortcuts" del /q "..\..\Steam_Shortcuts\*.*" 2>NUL 1>NUL
+    >"config-new.txt" (
+        for /f "usebackq delims=" %%A in ("config.txt") do (
+        if "%%A" equ "ROMs Directory=" (echo ROMS Directory=%dirpath%\Steam_Shortcuts) else (echo %%A)
+        )
+    )
+    del /F /Q "%dirpath%\Tools\Ice\config.txt"
+    rename "%dirpath%\Tools\Ice\config-new.txt" config.txt
+    call "%dirpath%\Tools\Ice\Ice.exe"
+    del /F /Q "%dirpath%\Tools\Ice\config.txt"
+    copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
+    pause
+)
+cd "%dirpath%\Scripts\Updater"
 if %currentver% == %newversionsc% goto NOUPSC
 
 cls
