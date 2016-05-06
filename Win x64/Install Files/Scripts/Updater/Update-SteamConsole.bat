@@ -32,6 +32,7 @@ if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_
 if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
+if exist "..\..\Steam_Shortcuts\Arcade" del /q "..\..\Steam_Shortcuts\Arcade\*.*" 2>NUL 1>NUL
 
 :steampath
 if exist "..\..\steam_path.txt" del "..\..\steam_path.txt"
