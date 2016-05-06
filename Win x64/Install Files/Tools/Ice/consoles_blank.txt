@@ -99,7 +99,7 @@ extensions=bat
 images directory=apps-image
 
 [PC Games]
-nickname=Arcade
+nickname=PC_Games
 emulator=PC
 extensions=bat
 images directory=pc-image

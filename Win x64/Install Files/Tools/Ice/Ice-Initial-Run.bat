@@ -266,7 +266,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_pc
-set "pc=%dirpath%\Steam_Shortcuts\Arcade\Arcade"
+set "pc=%dirpath%\Steam_Shortcuts\PC_Games\PC_Games"
 set "pcimage=%dirpath%\Images\Steam_Grid_Images"
 set "InputFile9=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt"
