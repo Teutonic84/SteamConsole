@@ -130,7 +130,7 @@ del /q "index.html"
 cd "%dirpath%\Tools\Ice"
 if "%currentver%" LSS "v1.3.4" (
     echo Removing old Steam shortcuts before Ice 1.0.0 import
-    if exist "..\..\Steam_Shortcuts" del /q "..\..\Steam_Shortcuts\*.*" 2>NUL 1>NUL
+    if exist "..\..\Steam_Shortcuts" del /q /s "..\..\Steam_Shortcuts\*.*" 2>NUL 1>NUL
     >"config-new.txt" (
         for /f "usebackq delims=" %%A in ("config.txt") do (
         if "%%A" equ "ROMs Directory=" (echo ROMS Directory=%dirpath%\Steam_Shortcuts) else (echo %%A)
@@ -141,7 +141,6 @@ if "%currentver%" LSS "v1.3.4" (
     call "%dirpath%\Tools\Ice\Ice.exe"
     del /F /Q "%dirpath%\Tools\Ice\config.txt"
     copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
-    pause
 )
 cd "%dirpath%\Scripts\Updater"
 if %currentver% == %newversionsc% goto NOUPSC
