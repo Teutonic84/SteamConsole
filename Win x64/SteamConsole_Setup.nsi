@@ -301,8 +301,10 @@ yes3:
 	RMDir /r "$INSTDIR\Emulators\PS2"
 	RMDir /r "$INSTDIR\Emulators\RetroArch"
 	SetOutPath "$INSTDIR\Tools\Ice"
-	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
-	ExecWait '"ice.exe"'
+	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
+	#ExecWait '"ice.exe"'
+    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	nsExec::ExecToLog '"ice.exe" -s'
 	Delete "config.txt"
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
@@ -338,8 +340,10 @@ no3:
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	RMDir /r "$INSTDIR\Emulators\ROMS"
 	SetOutPath "$INSTDIR\Tools\Ice"
-	ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
-	ExecWait '"ice.exe"'
+	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
+	#ExecWait '"ice.exe"'
+    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	nsExec::ExecToLog '"ice.exe" -s'
 	Delete "config.txt"
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
