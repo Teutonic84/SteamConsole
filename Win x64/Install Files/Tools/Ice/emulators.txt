@@ -63,6 +63,10 @@ command=%r
 location=SMS
 command=%r
 
+[Apps]
+location=APPS
+command=%r
+
 [PC]
 location=PC
 command=%r

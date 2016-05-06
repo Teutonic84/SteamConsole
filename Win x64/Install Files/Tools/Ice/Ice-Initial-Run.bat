@@ -227,7 +227,42 @@ set "_strInsert14=location=%sms%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
-::PC Apps & Games
+::PC Apps
+::============
+
+:Variables_apps
+set "apps=%dirpath%\Steam_Shortcuts\Apps\Apps"
+set "appsimage=%dirpath%\Images\Steam_Grid_Images"
+set "InputFile15=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile15=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile152=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile152=%dirpath%\Tools\Ice\consoles-new.txt"
+set "_strFind15=location=APPS"
+set "_strFind152=images directory=apps-image"
+set "_strInsert15=location=%apps%"
+set "_strInsert152=images directory=%appsimage%"
+
+:Replace_apps
+>"%OutputFile15%" (
+  for /f "usebackq delims=" %%I in ("%InputFile15%") do (
+    if "%%I" equ "%_strFind15%" (echo %_strInsert15%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
+rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+
+:Replace_apps2
+>"%OutputFile152%" (
+  for /f "usebackq delims=" %%I in ("%InputFile152%") do (
+    if "%%I" equ "%_strFind152%" (echo %_strInsert152%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
+::PC Games
 ::============
 
 :Variables_pc

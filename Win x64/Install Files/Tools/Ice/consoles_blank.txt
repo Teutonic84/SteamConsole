@@ -92,7 +92,13 @@ nickname=SMS
 emulator=retroarch_sms
 extensions=bat
 
-[Apps and PC Games]
+[Apps]
+nickname=Apps
+emulator=Apps
+extensions=bat
+images directory=apps-image
+
+[PC Games]
 nickname=Arcade
 emulator=PC
 extensions=bat

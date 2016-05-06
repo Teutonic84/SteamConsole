@@ -48,7 +48,7 @@ for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=!str:%old3%=64!
     echo !str!>>"%dirpath%\Scripts\temp\%name%.bat"
 )
-move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\Arcade\%name%.bat" 2>NUL 1>NUL
+move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
 if %errorlevel%==0 echo "%name%.bat" created
 goto :eof
 
@@ -68,7 +68,7 @@ for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=!str:%old3%=32!
     echo !str!>>"%dirpath%\Scripts\temp\%name%.bat"
 )
-move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\Arcade\%name%.bat" 2>NUL 1>NUL
+move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
 if %errorlevel%==0 echo "%name%.bat" created
 goto :eof
 
