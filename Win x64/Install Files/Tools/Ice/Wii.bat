@@ -1,13 +1,15 @@
 @echo off
 
-::set dirpath=%1
-cd ..\..
-set dirpath=%cd%
+set dirpath=%~1
+echo.
+echo ===============
+echo Start Wii:
+echo ===============
 
 ::=====================
 ::| Start ROM Renamer |
 ::=====================
-for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.*"') do (
+for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.*" 2^>NUL') do (
     call :check "%%a"
 )
 goto renamer
@@ -26,7 +28,7 @@ goto renamer
             set "newname=%%~nb"
             for /f "tokens=* delims= " %%d in ('echo "!newname!"') do (
                 set "newname=%%~d%"
-                move /Y "%dirpath%\Emulators\ROMS\Wii\!oldname!" "%dirpath%\Emulators\ROMS\Wii\!newname!!extension!"
+                move /Y "%dirpath%\Emulators\ROMS\Wii\!oldname!" "%dirpath%\Emulators\ROMS\Wii\!newname!!extension!" 2>NUL 1>NUL
                 endlocal
             )
         )
@@ -37,26 +39,26 @@ goto :eof
 ::| End ROM Renamer |
 ::===================
 :renamer
-cls
+::cls
 setlocal EnableDelayedExpansion
 
 ::Delete all batch files in ROMS folder before running the rest of the batch file
-for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\Wii\*.bat"') do (
+for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\Wii\*.bat" 2^>NUL') do (
     del /F /Q "%%A"
 )
-cls
+::cls
 
 ::Create ROM List
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.gcz"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.gcz" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.wbfs"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.wbfs" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.iso"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Wii\*.iso" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-cls
+::cls
 ::Create batch files from ROMS.txt list
 set "InputFile=%dirpath%\Scripts\ROM_Shortcut_Blank_2.bat"
 set "OutputFile=%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
@@ -90,7 +92,7 @@ del /F /Q "%OutputFile%"
 del /F /Q "%OutputFile2%"
 rename "%OutputFile3%" "ROM_Shortcut_Blank_Temp.bat"
 
-for /f "tokens=* delims=" %%M in ('Type "%romlist%"') do (
+for /f "tokens=* delims=" %%M in ('Type "%romlist%" 2^>NUL') do (
     echo %%M
     for /f "tokens=* delims=" %%L in ( 'Type "%OutputFile%"') do (
     set str=%%L
@@ -117,8 +119,8 @@ For %%# in ("%dirpath%\Steam_Shortcuts\Wii\*.bat") Do (
     Ren "%%#" "!File:%Pattern3%=%Replace%!"
 )
 
-del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
-del /F /Q "%dirpath%\Tools\Ice\ROMS.txt"
+del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat" 2>NUL 1>NUL
+del /F /Q "%dirpath%\Tools\Ice\ROMS.txt" 2>NUL 1>NUL
 
 :end
-exit
+goto :eof

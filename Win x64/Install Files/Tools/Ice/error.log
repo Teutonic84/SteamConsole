@@ -1,16 +1,3 @@
 Traceback (most recent call last):
-  File "<string>", line 7, in <module>
-  File "c:\program files (x86)\python27\lib\site-packages\PyInstaller-3.1-py2.7.egg\PyInstaller\loader\pyimod03_importers.py", line 389, in load_module
-  File "ice\runners\command_line_runner.py", line 12, in <module>
-  File "c:\program files (x86)\python27\lib\site-packages\PyInstaller-3.1-py2.7.egg\PyInstaller\loader\pyimod03_importers.py", line 389, in load_module
-  File "ice\runners\ice_engine.py", line 14, in <module>
-  File "c:\program files (x86)\python27\lib\site-packages\PyInstaller-3.1-py2.7.egg\PyInstaller\loader\pyimod03_importers.py", line 389, in load_module
-  File "ice\backups.py", line 10, in <module>
-  File "c:\program files (x86)\python27\lib\site-packages\PyInstaller-3.1-py2.7.egg\PyInstaller\loader\pyimod03_importers.py", line 389, in load_module
-  File "ice\logs.py", line 66, in <module>
-  File "ice\logs.py", line 53, in create_logger
-  File "logging\handlers.py", line 117, in __init__
-  File "logging\handlers.py", line 64, in __init__
-  File "logging\__init__.py", line 903, in __init__
-  File "logging\__init__.py", line 926, in _open
-IOError: [Errno 2] No such file or directory: u'C:\\Users\\Dan-H\\AppData\\Local\\Scott Rice\\Ice\\ice.log'
+  File "<string>", line 16, in <module>
+EOFError: EOF when reading a line

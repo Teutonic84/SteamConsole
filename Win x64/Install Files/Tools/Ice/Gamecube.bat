@@ -1,13 +1,15 @@
 @echo off
 
-::set dirpath=%1
-cd ..\..
-set dirpath=%cd%
+set dirpath=%~1
+echo.
+echo ===============
+echo Start Gamecube:
+echo ===============
 
 ::=====================
 ::| Start ROM Renamer |
 ::=====================
-for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.*"') do (
+for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.*" 2^>NUL') do (
     call :check "%%a"
 )
 goto renamer
@@ -18,61 +20,61 @@ goto renamer
     set "newname=%~n1"
     ::Check for multiple disc games
     ::=============================
-    echo."%newname%" | findstr /C:"Disc 1"
+    echo."%newname%" | findstr /C:"Disc 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disc1"
+    echo."%newname%" | findstr /C:"Disc1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disk 1"
+    echo."%newname%" | findstr /C:"Disk 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disk1"
+    echo."%newname%" | findstr /C:"Disk1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"CD 1"
+    echo."%newname%" | findstr /C:"CD 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"CD1"
+    echo."%newname%" | findstr /C:"CD1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:" - CD1"
+    echo."%newname%" | findstr /C:" - CD1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 2"
+    echo."%newname%" | findstr /C:"Disc 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disc2"
+    echo."%newname%" | findstr /C:"Disc2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disk 2"
+    echo."%newname%" | findstr /C:"Disk 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disk2"
+    echo."%newname%" | findstr /C:"Disk2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"CD 2"
+    echo."%newname%" | findstr /C:"CD 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"CD2"
+    echo."%newname%" | findstr /C:"CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:" - CD2"
+    echo."%newname%" | findstr /C:" - CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 3"
+    echo."%newname%" | findstr /C:"Disc 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disc3"
+    echo."%newname%" | findstr /C:"Disc3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"Disk 3"
+    echo."%newname%" | findstr /C:"Disk 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"Disk3"
+    echo."%newname%" | findstr /C:"Disk3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"CD 3"
+    echo."%newname%" | findstr /C:"CD 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"CD3"
+    echo."%newname%" | findstr /C:"CD3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:" - CD3"
+    echo."%newname%" | findstr /C:" - CD3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 4"
+    echo."%newname%" | findstr /C:"Disc 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disc4"
+    echo."%newname%" | findstr /C:"Disc4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disk 4"
+    echo."%newname%" | findstr /C:"Disk 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disk4"
+    echo."%newname%" | findstr /C:"Disk4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"CD 4"
+    echo."%newname%" | findstr /C:"CD 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"CD4"
+    echo."%newname%" | findstr /C:"CD4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:" - CD4"
+    echo."%newname%" | findstr /C:" - CD4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
 
     if "%newname%"=="" goto :eof
@@ -85,7 +87,7 @@ goto renamer
             set "newname=%%~nb"
             for /f "tokens=* delims= " %%d in ('echo "!newname!"') do (
                 set "newname=%%~d%disc%"
-                move /Y "%dirpath%\Emulators\ROMS\Gamecube\!oldname!" "%dirpath%\Emulators\ROMS\Gamecube\!newname!!extension!"
+                move /Y "%dirpath%\Emulators\ROMS\Gamecube\!oldname!" "%dirpath%\Emulators\ROMS\Gamecube\!newname!!extension!" 2>NUL 1>NUL
                 endlocal
             )
         )
@@ -96,27 +98,27 @@ goto :eof
 ::| End ROM Renamer |
 ::===================
 :renamer
-cls
+::cls
 setlocal EnableDelayedExpansion
 
 ::Delete all batch files in ROMS folder before running the rest of the batch file
-for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\Gamecube\*.bat"') do (
+for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\Gamecube\*.bat" 2^>NUL') do (
     del /F /Q "%%A"
 )
 
-cls
+::cls
 ::Create ROM List
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.gcz"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.gcz" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.gcm"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.gcm" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.wad"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\Gamecube\*.wad" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
 
-cls
+::cls
 ::Create batch files from ROMS.txt list
 set "InputFile=%dirpath%\Scripts\ROM_Shortcut_Blank_2.bat"
 set "OutputFile=%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
@@ -150,7 +152,7 @@ del /F /Q "%OutputFile%"
 del /F /Q "%OutputFile2%"
 rename "%OutputFile3%" "ROM_Shortcut_Blank_Temp.bat"
 
-for /f "tokens=* delims=" %%M in ('Type "%romlist%"') do (
+for /f "tokens=* delims=" %%M in ('Type "%romlist%" 2^>NUL') do (
     echo %%M
     for /f "tokens=* delims=" %%L in ( 'Type "%OutputFile%"') do (
     set str=%%L
@@ -177,8 +179,8 @@ For %%# in ("%dirpath%\Steam_Shortcuts\Gamecube\*.bat") Do (
     Ren "%%#" "!File:%Pattern3%=%Replace%!"
 )
 
-del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
-del /F /Q "%dirpath%\Tools\Ice\ROMS.txt"
+del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat" 2>NUL 1>NUL
+del /F /Q "%dirpath%\Tools\Ice\ROMS.txt" 2>NUL 1>NUL
 
 :end
-exit
+goto :eof

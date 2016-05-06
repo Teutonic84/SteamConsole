@@ -8,12 +8,12 @@ if "%ERRORLEVEL%"=="0" taskkill /f /im "Custom Hotkeys.exe"
 cls
 cd ..\..
 set dirpath=%cd%
+cd "%dirpath%\Tools\Ice"
 
 if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
 cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
-cd "%dirpath%\Tools\Ice"
 if not exist "%userprofile%\AppData\Local\Scott Rice" (
     mkdir "%userprofile%\AppData\Local\Scott Rice"
     mkdir "%userprofile%\AppData\Local\Scott Rice\Ice"
@@ -23,19 +23,19 @@ if exist "%steampath%\userdata\anonymous" (
     rmdir /q /s "%steampath%\userdata\anonymous"
 )
 
-start "" /WAIT Gamecube.bat
-start "" /WAIT GBA.bat
-start "" /WAIT N64.bat
-start "" /WAIT NDS.bat
-start "" /WAIT NES.bat
-start "" /WAIT PC.bat
-start "" /WAIT PS1.bat
-start "" /WAIT PS2.bat
-start "" /WAIT PSP.bat
-start "" /WAIT SEGA.bat
-start "" /WAIT SMS.bat
-start "" /WAIT SNES.bat
-start "" /WAIT Wii.bat
+call "Gamecube.bat" "%dirpath%"
+call "GBA.bat" "%dirpath%"
+call "N64.bat" "%dirpath%"
+call "NDS.bat" "%dirpath%"
+call "NES.bat" "%dirpath%"
+call "PC.bat" "%dirpath%"
+call "PS1.bat" "%dirpath%"
+call "PS2.bat" "%dirpath%"
+call "PSP.bat" "%dirpath%"
+call "SEGA.bat" "%dirpath%"
+call "SMS.bat" "%dirpath%"
+call "SNES.bat" "%dirpath%"
+call "Wii.bat" "%dirpath%"
 
 ::**************************************************************************************************||
 ::**************************************************************************************************||

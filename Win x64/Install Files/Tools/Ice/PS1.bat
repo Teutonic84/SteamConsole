@@ -1,15 +1,17 @@
 @echo off
 
-::set dirpath=%1
-cd ..\..
-set dirpath=%cd%
+set dirpath=%~1
+echo.
+echo ===============
+echo Start PS1:
+echo ===============
 
 ::=====================
 ::| Start ROM Renamer |
 ::=====================
 
 del /q "%dirpath%\Emulators\ROMS\PS1\*.cue" 2>NUL 1>NUL
-for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.*"') do (
+for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.*" 2^>NUL') do (
     call :check "%%a"
 )
 goto renamer
@@ -20,64 +22,65 @@ goto renamer
     set "newname=%~n1"
     ::Check for multiple disc games
     ::=============================
-    echo."%newname%" | findstr /C:"Disc 1"
+    echo."%newname%" | findstr /C:"Disc 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disc1"
+    echo."%newname%" | findstr /C:"Disc1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disk 1"
+    echo."%newname%" | findstr /C:"Disk 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disk1"
+    echo."%newname%" | findstr /C:"Disk1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"CD 1"
+    echo."%newname%" | findstr /C:"CD 1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"CD1"
+    echo."%newname%" | findstr /C:"CD1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:" - CD1"
+    echo."%newname%" | findstr /C:" - CD1" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 2"
+    echo."%newname%" | findstr /C:"Disc 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disc2"
+    echo."%newname%" | findstr /C:"Disc2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disk 2"
+    echo."%newname%" | findstr /C:"Disk 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"Disk2"
+    echo."%newname%" | findstr /C:"Disk2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"CD 2"
+    echo."%newname%" | findstr /C:"CD 2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:"CD2"
+    echo."%newname%" | findstr /C:"CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD2"
-    echo."%newname%" | findstr /C:" - CD2"
+    echo."%newname%" | findstr /C:" - CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 3"
+    echo."%newname%" | findstr /C:"Disc 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD1"
-    echo."%newname%" | findstr /C:"Disc3"
+    echo."%newname%" | findstr /C:"Disc3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"Disk 3"
+    echo."%newname%" | findstr /C:"Disk 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"Disk3"
+    echo."%newname%" | findstr /C:"Disk3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"CD 3"
+    echo."%newname%" | findstr /C:"CD 3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:"CD3"
+    echo."%newname%" | findstr /C:"CD3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
-    echo."%newname%" | findstr /C:" - CD3"
+    echo."%newname%" | findstr /C:" - CD3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
-    echo."%newname%" | findstr /C:"Disc 4"
+    echo."%newname%" | findstr /C:"Disc 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disc4"
+    echo."%newname%" | findstr /C:"Disc4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disk 4"
+    echo."%newname%" | findstr /C:"Disk 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"Disk4"
+    echo."%newname%" | findstr /C:"Disk4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"CD 4"
+    echo."%newname%" | findstr /C:"CD 4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:"CD4"
+    echo."%newname%" | findstr /C:"CD4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD4"
-    echo."%newname%" | findstr /C:" - CD4"
+    echo."%newname%" | findstr /C:" - CD4" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
 
     if "%extension%"==".mcr" goto :eof
+    if "%extension%"==".srm" goto :eof
     if "%newname%"=="" goto :eof
     setlocal enabledelayedexpansion
     set newname=!newname:.=!
@@ -86,12 +89,12 @@ goto renamer
         set "newname=%%~nf"
         for /f usebackq^ tokens^=1^ delims^=^[^" %%b in ('"%%f"') do (
             set "newname=%%~nb"
-            for /f "tokens=* delims= " %%d in ('echo "!newname!"') do (
+            for /f "usebackq tokens=* delims= " %%d in ('"!newname!"') do (
                 set "newname=%%~d%disc%"
-                move /Y "%dirpath%\Emulators\ROMS\PS1\!oldname!" "%dirpath%\Emulators\ROMS\PS1\!newname!!extension!"
-                copy /y "%dirpath%\Scripts\blank.cue" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue"
+                move /Y "%dirpath%\Emulators\ROMS\PS1\!oldname!" "%dirpath%\Emulators\ROMS\PS1\!newname!!extension!" 2>NUL 1>NUL
+                copy /y "%dirpath%\Scripts\blank.cue" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue" 2>NUL 1>NUL
                 call :replace "%%~d%disc%"
-                move /Y "%dirpath%\Emulators\ROMS\PS1\!newname!.cue.tmp" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue"
+                move /Y "%dirpath%\Emulators\ROMS\PS1\!newname!.cue.tmp" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue" 2>NUL 1>NUL
                 endlocal
             )
         )
@@ -101,9 +104,10 @@ goto :eof
 :replace
 set "name=%~1"
 set "replace=ROM"
+echo %name%
 
 setlocal enabledelayedexpansion
-for /f "tokens=* delims=" %%i in ('type "%dirpath%\Emulators\ROMS\PS1\%name%.cue"') do (
+for /f "tokens=* delims=" %%i in ('type "%dirpath%\Emulators\ROMS\PS1\%name%.cue" 2^>NUL') do (
     set str=%%i
     set str=!str:%replace%=%name%.bin!
     echo(!str!>>"%dirpath%\Emulators\ROMS\PS1\%name%.cue.tmp"
@@ -115,23 +119,23 @@ goto :eof
 ::| End ROM Renamer |
 ::===================
 :renamer
-cls
+::cls
 setlocal EnableDelayedExpansion
 
 ::Delete all batch files in ROMS folder before running the rest of the batch file
-for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\PS1\*.bat"') do (
+for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\PS1\*.bat" 2^>NUL') do (
     del /F /Q "%%A"
 )
-cls
+::cls
 
 ::Create ROM List
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.img"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.img" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.cue"') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.cue" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
-cls
+::cls
 ::Create batch files from ROMS.txt list
 set "InputFile=%dirpath%\Scripts\ROM_Shortcut_Blank.bat"
 set "OutputFile=%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
@@ -166,7 +170,7 @@ del /F /Q "%OutputFile%"
 del /F /Q "%OutputFile2%"
 rename "%OutputFile3%" "ROM_Shortcut_Blank_Temp.bat"
 
-for /f "tokens=* delims=" %%M in ('Type "%romlist%"') do (
+for /f "tokens=* delims=" %%M in ('Type "%romlist%" 2^>NUL') do (
     set "name=%%~nM"
     for /f "tokens=* delims=" %%L in ( 'Type "%OutputFile%"') do (
     set str=%%L
@@ -189,9 +193,9 @@ for /f "tokens=* delims=" %%M in ('Type "%romlist%"') do (
     ::Ren "%%#" "!File:%Pattern2%=%Replace%!"
 ::)
 
-del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat"
-del /F /Q "%dirpath%\Tools\Ice\ROMS.txt"
-del /F /Q "%dirpath%\Emulators\ROMS\PS1\.cue"
+del /F /Q "%dirpath%\Scripts\ROM_Shortcut_Blank_Temp.bat" 2>NUL 1>NUL
+del /F /Q "%dirpath%\Tools\Ice\ROMS.txt" 2>NUL 1>NUL
+del /F /Q "%dirpath%\Emulators\ROMS\PS1\.cue" 2>NUL 1>NUL
 
 :end
-exit
+goto :eof

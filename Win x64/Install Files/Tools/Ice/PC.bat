@@ -1,8 +1,10 @@
 @echo off
-echo Creating PC Game Batch Files...
+echo.
+echo ===============
+echo Start PC:
+echo ===============
 
-cd ..\..
-set dirpath=%cd%
+set dirpath=%~1
 set old=GAMENAME
 set old2=PARAMS
 set old3=TMP
@@ -74,4 +76,4 @@ goto :eof
 
 :end
 rmdir /s /q "%dirpath%\Scripts\temp"
-exit
+goto :eof
