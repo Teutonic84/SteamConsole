@@ -20,6 +20,7 @@ goto renamer
     set "oldname=%~1"
     set "extension=%~x1"
     set "newname=%~n1"
+    set "disc="
     ::Check for multiple disc games
     ::=============================
     echo."%newname%" | findstr /C:"Disc 1" 2>NUL 1>NUL
