@@ -160,6 +160,7 @@ echo Extracting SteamConsole %newversionsc% files...
 del "SteamConsole_%newversionsc%_x64.7z"
 cls
 echo Replacing old files with new ones...
+if exist "..\..\Steam_Shortcuts\Arcade" del /q /s "..\..\Steam_Shortcuts\Arcade\*.*" 2>NUL 1>NUL
 mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
