@@ -20,6 +20,7 @@ goto renamer
     set "oldname=%~1"
     set "extension=%~x1"
     set "newname=%~n1"
+    set "disc="
     ::Check for multiple disc games
     ::=============================
     echo."%newname%" | findstr /C:"Disc 1" 2>NUL 1>NUL
@@ -51,7 +52,7 @@ goto renamer
     echo."%newname%" | findstr /C:" - CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
     echo."%newname%" | findstr /C:"Disc 3" 2>NUL 1>NUL
-    if %errorlevel%==0 set "disc= - CD1"
+    if %errorlevel%==0 set "disc= - CD3"
     echo."%newname%" | findstr /C:"Disc3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
     echo."%newname%" | findstr /C:"Disk 3" 2>NUL 1>NUL
@@ -80,7 +81,6 @@ goto renamer
     if %errorlevel%==0 set "disc="
 
     if "%extension%"==".mcr" goto :eof
-    if "%extension%"==".srm" goto :eof
     if "%newname%"=="" goto :eof
     setlocal enabledelayedexpansion
     set newname=!newname:.=!
@@ -92,6 +92,28 @@ goto renamer
             for /f "usebackq tokens=* delims= " %%d in ('"!newname!"') do (
                 set "newname=%%~d%disc%"
                 move /Y "%dirpath%\Emulators\ROMS\PS1\!oldname!" "%dirpath%\Emulators\ROMS\PS1\!newname!!extension!" 2>NUL 1>NUL
+                if "!extension!"==".ccd" (
+                    echo !newname!!extension!
+                    goto :eof
+                )
+                if "!extension!"==".CCD" (
+                    echo !newname!!extension!
+                    goto :eof
+                )
+                if "!extension!"==".sub" goto :eof
+                if "!extension!"==".SUB" goto :eof
+                if "!extension!"==".ape" goto :eof
+                if "!extension!"==".APE" goto :eof
+                if "!extension!"==".srm" goto :eof
+                if "!extension!"==".SRM" goto :eof
+                if "!extension!"==".img" goto :eof
+                if "!extension!"==".IMG" goto :eof
+                if "!extension!"==".bin" (
+                    echo !newname!!extension!
+                )
+                if "!extension!"==".BIN" (
+                    echo !newname!!extension!
+                )
                 copy /y "%dirpath%\Scripts\blank.cue" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue" 2>NUL 1>NUL
                 call :replace "%%~d%disc%"
                 move /Y "%dirpath%\Emulators\ROMS\PS1\!newname!.cue.tmp" "%dirpath%\Emulators\ROMS\PS1\!newname!.cue" 2>NUL 1>NUL
@@ -104,7 +126,6 @@ goto :eof
 :replace
 set "name=%~1"
 set "replace=ROM"
-echo %name%
 
 setlocal enabledelayedexpansion
 for /f "tokens=* delims=" %%i in ('type "%dirpath%\Emulators\ROMS\PS1\%name%.cue" 2^>NUL') do (
@@ -129,7 +150,7 @@ for /f "tokens=* delims=" %%A in ('dir /b /s "%dirpath%\Steam_Shortcuts\PS1\*.ba
 ::cls
 
 ::Create ROM List
-for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.img" 2^>NUL') do (
+for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.CCD" 2^>NUL') do (
     echo %%F>>"%dirpath%\Tools\Ice\ROMS.txt"
 )
 for /f "tokens=* delims=" %%F in ('dir /b "%dirpath%\Emulators\ROMS\PS1\*.cue" 2^>NUL') do (
