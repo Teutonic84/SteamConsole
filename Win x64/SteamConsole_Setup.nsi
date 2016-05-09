@@ -40,7 +40,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.3.7"
+!define VERSION "v1.3.8"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -79,13 +79,13 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.7"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.8"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.7"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.4"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.8"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.4.3"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
 	MessageBox MB_OK '"Core Files Installation Complete!"'
@@ -175,11 +175,6 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 
 SectionEnd
 
-#Section "Search ROMS" SEC_ROMSEARCH
-  #SectionIn 1
-    # Standard installation files here
-#SectionEnd
-
 Section "Import ROMS" SEC_ROMIMPORT
   SectionIn 1
     # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
@@ -201,39 +196,97 @@ Section "Import ROMS" SEC_ROMIMPORT
 	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 SectionEnd
 
-Section "DS3 & DS4 (Not Implemented Yet)" SEC_DS3
+Section "DS3 & DS4" SEC_DS3
   SectionIn 2
-    # Standard installation files here
+    ExecWait "$INSTDIR\Tools\ScpToolkit\ScpDriverInstaller.exe"
 SectionEnd
 
-Section "DS4 Only (Not Implemented Yet)" SEC_DS4
-  SectionIn 2
-    # Standard installation files here
-SectionEnd
+#Section "DS4 Only" SEC_DS4
+  #SectionIn 2
+    #ExecWait "$INSTDIR\Tools\DS4Tool-1.2.2\Virtual Bus Driver\ScpDriver.exe"
+	#CreateShortCut "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\DS4Tool ScpServer Start.lnk" "$INSTDIR\Tools\DS4Tool-1.2.2\ScpServer.exe" "" "$INSTDIR\Tools\DS4Tool-1.2.2\ScpServer.exe"
+		#FileOpen $0 "$INSTDIR\Scripts\Steam_Open.bat" w
+	#FileWrite $0 "echo off"
+	#FileWrite $0 "$\r$\n" # go to new line
+	#FileWrite $0 "cd .."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "set dirpath=%cd%"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 '  taskkill /f /im "Custom Hotkeys.exe"'
+	#FileWrite $0 "$\r$\n"
+    #FileWrite $0 '  cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 ":steampath"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'del "%dirpath%\steam_path.txt"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 '"%dirpath%\Tools\Xpadder\Xpadder.exe" /C'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "cls"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          **       ****    *****   ***     ****  **    **    *****"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          **      **  **  **   **  ** **    **   ***   **   **   **"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          **      **  **  *******  **  **   **   ** *  **  **"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          **      **  **  **   **  **  **   **   **  * **  **  ****"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          ******  **  **  **   **  ** **    **   **   ***   **   **"
+	##FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO          ******   ****   **   **  ***     ****  **    **    *****"
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "ECHO."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "echo."
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'start "" "%dirpath%\Tools\DS4Tool-1.2.2\ScpServer.exe"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'start "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 'start "" "%steampath%\Steam.exe" -start steam://open/bigpicture'
+	#FileWrite $0 "$\r$\n"
+	#FileWrite $0 "exit"
+	#FileClose $0
+#SectionEnd
  
 Function .onInit
   StrCpy $1 ${SEC_PREREQS}
   StrCpy $1 ${SEC_STARTMENU}
-  #StrCpy $1 ${SEC_ROMSEARCH}
   StrCpy $1 ${SEC_ROMIMPORT}
   StrCpy $1 ${SEC_DS3}
-  StrCpy $1 ${SEC_DS4}
+  #StrCpy $1 ${SEC_DS4}
 FunctionEnd
 
 LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, MSVC 2013 x64, Xpadder."
 LangString DESC_Section2 ${LANG_ENGLISH} "Create program shortcuts in the start menu and on the desktop."
-#LangString DESC_Section2 ${LANG_ENGLISH} "Search for ROMS on your Hard Drive and move them to the ROMS folder found in the Emulators folder within the root SteamConsole folder."
 LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
-LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller support (DSTool Reloaded)."
-LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (DS4Tool)."
+LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller support (ScpToolkit)."
+#LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (DS4Tool)."
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_PREREQS} $(DESC_Section1)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_STARTMENU} $(DESC_Section2)
-  #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMSEARCH} $(DESC_Section2)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section4)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
+  #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
  
 Function .onSelChange
@@ -312,7 +365,13 @@ yes3:
 	Delete "consoles.txt"
 	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
-
+	
+	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes4 IDNO no4
+yes4:
+	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
+	Goto no4
+	
+no4:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
@@ -351,7 +410,12 @@ no3:
 	Delete "consoles.txt"
 	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
-
+	
+	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes5 IDNO no5
+yes5:
+	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
+	Goto no4
+no5:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
