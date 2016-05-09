@@ -10,7 +10,7 @@ if not exist "files" (mkdir Files)
 ::taskkill /T /IM "ScpService.exe" 2>NUL 1>NUL
 taskkill /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
 taskkill /f /im "Steam.exe" 2>NUL 1>NUL
-"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
+::"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 
 if exist "Files\SteamConsole_%newversionsc%_x64" rmdir /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
 if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
@@ -159,6 +159,7 @@ echo Extracting SteamConsole %newversionsc% files...
 7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_%newversionsc%_x64.7z
 del "SteamConsole_%newversionsc%_x64.7z"
 cls
+"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 echo Replacing old files with new ones...
 mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
@@ -185,10 +186,16 @@ del /q "%dirpath%\Scripts\Updater\reg_add.reg"
 ::=======================
 :cleanup
 
-if exist "..\steam.bat" (
-    del /q "..\steam.bat"
-    copy /y "steam.bat" "..\steam.bat"
+if not exist "..\Steam_Open.bat" (
+    del /q "..\steam.bat" 2>NUL 1>NUL
+    copy /y "steam.bat" "..\Steam_Open.bat"
 )
+if exist "..\Steam_Open.bat" (
+    del /q "..\steam.bat"
+    copy /y "steam.bat" "..\Steam_Open.bat"
+)
+
+start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 call "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
 call "%dirpath%\Tools\Ice\Ice.exe"
 del /F /Q "%dirpath%\Tools\Ice\config.txt"
