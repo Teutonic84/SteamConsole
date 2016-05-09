@@ -290,13 +290,13 @@ LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller s
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
  
 Function .onSelChange
-	${If} ${SectionIsSelected} ${SEC_DS3}
-		${If} ${SectionIsSelected} ${SEC_DS4}
-			MessageBox MB_OK "WARNING: Do not select both Dualshock options, only one"
-			!insertmacro UnSelectSection ${SEC_DS3}
-			!insertmacro UnSelectSection ${SEC_DS4}
-		${EndIf}
-	${EndIf}
+	#${If} ${SectionIsSelected} ${SEC_DS3}
+		#${If} ${SectionIsSelected} ${SEC_DS4}
+			#MessageBox MB_OK "WARNING: Do not select both Dualshock options, only one"
+			#!insertmacro UnSelectSection ${SEC_DS3}
+			#!insertmacro UnSelectSection ${SEC_DS4}
+		#${EndIf}
+	#${EndIf}
 	${IfNot} ${SectionIsSelected} ${SEC_PREREQS}
 		MessageBox MB_OK "WARNING: If you uncheck to install prerequisites and not all are installed, SteamConsole won't function properly. Prereqs: DirectX9 (latest version), Microsoft Visual C++ 2013 x86 (32bit windows) both x86 & x64 for 64bit windows, and Xpadder.)"
 	${EndIf}
