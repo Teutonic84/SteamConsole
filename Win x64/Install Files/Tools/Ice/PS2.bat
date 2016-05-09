@@ -50,7 +50,7 @@ goto renamer
     echo."%newname%" | findstr /C:" - CD2" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc="
     echo."%newname%" | findstr /C:"Disc 3" 2>NUL 1>NUL
-    if %errorlevel%==0 set "disc= - CD1"
+    if %errorlevel%==0 set "disc= - CD3"
     echo."%newname%" | findstr /C:"Disc3" 2>NUL 1>NUL
     if %errorlevel%==0 set "disc= - CD3"
     echo."%newname%" | findstr /C:"Disk 3" 2>NUL 1>NUL
