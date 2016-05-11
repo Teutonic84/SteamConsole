@@ -266,7 +266,7 @@ del "snes9x_libretro.dll.zip" 2>NUL 1>NUL
 del "vbam_libretro.dll.zip" 2>NUL 1>NUL
 cls
 echo Replacing new files with old ones...
-move /y "*.info" ..\..\Emulators\RetroArch\info\
+move /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
 robocopy "Files\RetroArch_Cores" ..\..\Emulators\RetroArch\cores\ /E /XO /MOVE 2>NUL 1>NUL
 if exist "files\RetroArch_Cores" rmdir /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
 
