@@ -1,0 +1,4 @@
+DS   - 385x213
+GBA  - 397x215
+N64  - 378x215
+SNES - 375x174 (4 right down 9 when placing in mspaint)

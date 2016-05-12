@@ -73,11 +73,16 @@ rename "%dirpath%\Tools\Ice\config-new.txt" config.txt
 ::===========
 
 :Variables_nds
-set nds=%dirpath%\Steam_Shortcuts\DS\DS
-set InputFile2=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile2=%dirpath%\Tools\Ice\emulators-new.txt
+set "nds=%dirpath%\Steam_Shortcuts\DS\DS"
+set "dsimage=%dirpath%\Images\Steam_Grid_Images\DS"
+set "InputFile2=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile2=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile22=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile22=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind2=location=DS"
+set "_strFind22=images directory=ds-image"
 set "_strInsert2=location=%nds%"
+set "_strInsert22=images directory=%dsimage%"
 
 :Replace_nds
 >"%OutputFile2%" (
@@ -89,35 +94,65 @@ set "_strInsert2=location=%nds%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_nds2
+>"%OutputFile22%" (
+  for /f "usebackq delims=" %%I in ("%InputFile22%") do (
+    if "%%I" equ "%_strFind22%" (echo %_strInsert22%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::Gameboy Advance
 ::===============
 
 :Variables_gba
-set gba=%dirpath%\Steam_Shortcuts\GBA\GBA
-set InputFile3=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile3=%dirpath%\Tools\Ice\emulators-new.txt
+set "gba=%dirpath%\Steam_Shortcuts\GBA\GBA"
+set "gbaimage=%dirpath%\Images\Steam_Grid_Images\GBA"
+set "InputFile3=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile3=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile32=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile32=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind3=location=GBA"
+set "_strFind32=images directory=gba-image"
 set "_strInsert3=location=%gba%"
+set "_strInsert32=images directory=%gbaimage%"
 
 :Replace_gba
 >"%OutputFile3%" (
-  for /f "usebackq delims=" %%C in ("%InputFile3%") do (
-    if "%%C" equ "%_strFind3%" (echo %_strInsert3%) else (echo %%C)
+  for /f "usebackq delims=" %%B in ("%InputFile3%") do (
+    if "%%B" equ "%_strFind3%" (echo %_strInsert3%) else (echo %%B)
   )
 )
 
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_gba2
+>"%OutputFile32%" (
+  for /f "usebackq delims=" %%I in ("%InputFile32%") do (
+    if "%%I" equ "%_strFind32%" (echo %_strInsert32%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::Nintendo 64
 ::===========
 
 :Variables_n64
-set n64=%dirpath%\Steam_Shortcuts\N64\N64
-set InputFile4=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile4=%dirpath%\Tools\Ice\emulators-new.txt
+set "n64=%dirpath%\Steam_Shortcuts\N64\N64"
+set "n64image=%dirpath%\Images\Steam_Grid_Images\N64"
+set "InputFile4=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile4=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile42=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile42=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind4=location=N64"
+set "_strFind42=images directory=n64-image"
 set "_strInsert4=location=%n64%"
+set "_strInsert42=images directory=%n64image%"
 
 :Replace_n64
 >"%OutputFile4%" (
@@ -129,15 +164,30 @@ set "_strInsert4=location=%n64%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_n642
+>"%OutputFile42%" (
+  for /f "usebackq delims=" %%I in ("%InputFile42%") do (
+    if "%%I" equ "%_strFind42%" (echo %_strInsert42%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::NES
 ::===
 
 :Variables_nes
-set nes=%dirpath%\Steam_Shortcuts\NES\NES
-set InputFile5=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile5=%dirpath%\Tools\Ice\emulators-new.txt
+set "nes=%dirpath%\Steam_Shortcuts\NES\NES"
+set "nesimage=%dirpath%\Images\Steam_Grid_Images\NES"
+set "InputFile5=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile5=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile52=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile52=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind5=location=NES"
+set "_strFind52=images directory=nes-image"
 set "_strInsert5=location=%nes%"
+set "_strInsert52=images directory=%nesimage%"
 
 :Replace_nes
 >"%OutputFile5%" (
@@ -149,15 +199,30 @@ set "_strInsert5=location=%nes%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_nes2
+>"%OutputFile52%" (
+  for /f "usebackq delims=" %%I in ("%InputFile52%") do (
+    if "%%I" equ "%_strFind52%" (echo %_strInsert52%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::SNES
 ::====
 
 :Variables_snes
-set snes=%dirpath%\Steam_Shortcuts\SNES\SNES
-set InputFile6=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile6=%dirpath%\Tools\Ice\emulators-new.txt
+set "snes=%dirpath%\Steam_Shortcuts\SNES\SNES"
+set "snesimage=%dirpath%\Images\Steam_Grid_Images\SNES"
+set "InputFile6=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile6=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile62=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile62=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind6=location=SNES"
+set "_strFind62=images directory=snes-image"
 set "_strInsert6=location=%snes%"
+set "_strInsert62=images directory=%snesimage%"
 
 :Replace_snes
 >"%OutputFile6%" (
@@ -169,15 +234,30 @@ set "_strInsert6=location=%snes%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_snes2
+>"%OutputFile62%" (
+  for /f "usebackq delims=" %%I in ("%InputFile62%") do (
+    if "%%I" equ "%_strFind62%" (echo %_strInsert62%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::PSP
 ::===
 
 :Variables_psp
-set psp=%dirpath%\Steam_Shortcuts\PSP\PSP
-set InputFile7=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile7=%dirpath%\Tools\Ice\emulators-new.txt
+set "psp=%dirpath%\Steam_Shortcuts\PSP\PSP"
+set "pspimage=%dirpath%\Images\Steam_Grid_Images\PSP"
+set "InputFile7=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile7=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile72=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile72=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind7=location=PSP"
+set "_strFind72=images directory=psp-image"
 set "_strInsert7=location=%psp%"
+set "_strInsert72=images directory=%pspimage%"
 
 :Replace_psp
 >"%OutputFile7%" (
@@ -189,15 +269,30 @@ set "_strInsert7=location=%psp%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_psp2
+>"%OutputFile72%" (
+  for /f "usebackq delims=" %%I in ("%InputFile72%") do (
+    if "%%I" equ "%_strFind72%" (echo %_strInsert72%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::SEGA Genesis
 ::============
 
 :Variables_sega
-set sega=%dirpath%\Steam_Shortcuts\Genesis\Genesis
-set InputFile8=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile8=%dirpath%\Tools\Ice\emulators-new.txt
+set "sega=%dirpath%\Steam_Shortcuts\Genesis\Genesis"
+set "segaimage=%dirpath%\Images\Steam_Grid_Images\Genesis"
+set "InputFile8=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile8=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile82=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile82=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind8=location=Genesis"
+set "_strFind82=images directory=sega-image"
 set "_strInsert8=location=%sega%"
+set "_strInsert82=images directory=%segaimage%"
 
 :Replace_sega
 >"%OutputFile8%" (
@@ -209,15 +304,30 @@ set "_strInsert8=location=%sega%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_sega2
+>"%OutputFile82%" (
+  for /f "usebackq delims=" %%I in ("%InputFile82%") do (
+    if "%%I" equ "%_strFind82%" (echo %_strInsert82%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::SEGA SMS
 ::============
 
 :Variables_sms
-set sms=%dirpath%\Steam_Shortcuts\SMS\SMS
-set InputFile14=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile14=%dirpath%\Tools\Ice\emulators-new.txt
+set "sms=%dirpath%\Steam_Shortcuts\SMS\SMS"
+set "smsimage=%dirpath%\Images\Steam_Grid_Images\SMS"
+set "InputFile14=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile14=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile142=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile142=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind14=location=SMS"
+set "_strFind142=images directory=sms-image"
 set "_strInsert14=location=%sms%"
+set "_strInsert142=images directory=%smsimage%"
 
 :Replace_sms
 >"%OutputFile14%" (
@@ -229,12 +339,22 @@ set "_strInsert14=location=%sms%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_sms2
+>"%OutputFile142%" (
+  for /f "usebackq delims=" %%I in ("%InputFile142%") do (
+    if "%%I" equ "%_strFind142%" (echo %_strInsert142%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::PC Apps
 ::============
 
 :Variables_apps
 set "apps=%dirpath%\Steam_Shortcuts\Apps\Apps"
-set "appsimage=%dirpath%\Images\Steam_Grid_Images"
+set "appsimage=%dirpath%\Images\Steam_Grid_Images\Apps"
 set "InputFile15=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile15=%dirpath%\Tools\Ice\emulators-new.txt"
 set "InputFile152=%dirpath%\Tools\Ice\consoles.txt"
@@ -269,7 +389,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 
 :Variables_pc
 set "pc=%dirpath%\Steam_Shortcuts\PC_Games\PC_Games"
-set "pcimage=%dirpath%\Images\Steam_Grid_Images"
+set "pcimage=%dirpath%\Images\Steam_Grid_Images\PC_Games"
 set "InputFile9=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt"
 set "InputFile92=%dirpath%\Tools\Ice\consoles.txt"
@@ -303,11 +423,16 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_gamecube
-set gamecube=%dirpath%\Steam_Shortcuts\Gamecube\Gamecube
-set InputFile10=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile10=%dirpath%\Tools\Ice\emulators-new.txt
+set "gamecube=%dirpath%\Steam_Shortcuts\Gamecube\Gamecube"
+set "gcimage=%dirpath%\Images\Steam_Grid_Images\Gamecube"
+set "InputFile10=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile10=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile102=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile102=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind10=location=Gamecube"
+set "_strFind102=images directory=gc-image"
 set "_strInsert10=location=%gamecube%"
+set "_strInsert102=images directory=%gcimage%"
 
 :Replace_gamecube
 >"%OutputFile10%" (
@@ -319,15 +444,30 @@ set "_strInsert10=location=%gamecube%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_gamecube2
+>"%OutputFile102%" (
+  for /f "usebackq delims=" %%I in ("%InputFile102%") do (
+    if "%%I" equ "%_strFind102%" (echo %_strInsert102%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::Wii
 ::============
 
 :Variables_gamecube
-set wii=%dirpath%\Steam_Shortcuts\Wii\Wii
-set InputFile11=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile11=%dirpath%\Tools\Ice\emulators-new.txt
+set "wii=%dirpath%\Steam_Shortcuts\Wii\Wii"
+set "wiiimage=%dirpath%\Images\Steam_Grid_Images\Wii"
+set "InputFile11=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile11=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile112=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile112=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind11=location=Wii"
+set "_strFind112=images directory=wii-image"
 set "_strInsert11=location=%wii%"
+set "_strInsert112=images directory=%wiiimage%"
 
 :Replace_wii
 >"%OutputFile11%" (
@@ -339,15 +479,30 @@ set "_strInsert11=location=%wii%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_wii2
+>"%OutputFile112%" (
+  for /f "usebackq delims=" %%I in ("%InputFile112%") do (
+    if "%%I" equ "%_strFind112%" (echo %_strInsert112%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::PS1
 ::============
 
 :Variables_ps1
-set ps1=%dirpath%\Steam_Shortcuts\PS1\PS1
-set InputFile12=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile12=%dirpath%\Tools\Ice\emulators-new.txt
+set "ps1=%dirpath%\Steam_Shortcuts\PS1\PS1"
+set "ps1image=%dirpath%\Images\Steam_Grid_Images\PS1"
+set "InputFile12=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile12=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile122=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile122=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind12=location=PS1"
+set "_strFind122=images directory=ps1-image"
 set "_strInsert12=location=%ps1%"
+set "_strInsert122=images directory=%ps1image%"
 
 :Replace_ps1
 >"%OutputFile12%" (
@@ -359,15 +514,30 @@ set "_strInsert12=location=%ps1%"
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
 
+:Replace_ps12
+>"%OutputFile122%" (
+  for /f "usebackq delims=" %%I in ("%InputFile122%") do (
+    if "%%I" equ "%_strFind122%" (echo %_strInsert122%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+
 ::PS2
 ::============
 
 :Variables_ps2
-set ps2=%dirpath%\Steam_Shortcuts\PS2\PS2
-set InputFile13=%dirpath%\Tools\Ice\emulators.txt
-set OutputFile13=%dirpath%\Tools\Ice\emulators-new.txt
+set "ps2=%dirpath%\Steam_Shortcuts\PS2\PS2"
+set "ps2image=%dirpath%\Images\Steam_Grid_Images\PS2"
+set "InputFile13=%dirpath%\Tools\Ice\emulators.txt"
+set "OutputFile13=%dirpath%\Tools\Ice\emulators-new.txt"
+set "InputFile132=%dirpath%\Tools\Ice\consoles.txt"
+set "OutputFile132=%dirpath%\Tools\Ice\consoles-new.txt"
 set "_strFind13=location=PS2"
+set "_strFind132=images directory=ps2-image"
 set "_strInsert13=location=%ps2%"
+set "_strInsert132=images directory=%ps2image%"
 
 :Replace_ps2
 >"%OutputFile13%" (
@@ -378,6 +548,16 @@ set "_strInsert13=location=%ps2%"
 
 del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
 rename "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+
+:Replace_ps22
+>"%OutputFile132%" (
+  for /f "usebackq delims=" %%I in ("%InputFile132%") do (
+    if "%%I" equ "%_strFind132%" (echo %_strInsert132%) else (echo %%I)
+  )
+)
+
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 
 "%dirpath%\Tools\Ice\ice.exe"
 
