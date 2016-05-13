@@ -56,54 +56,63 @@
 nickname=DS
 emulator=retroarch_nds
 extensions=bat
+prefix=-[DS] 
 images directory=ds-image
 
 [Gameboy Advance]
 nickname=GBA
 emulator=retroarch_gba
 extensions=bat
+prefix=-[GBA] 
 images directory=gba-image
 
 [Nintendo 64]
 nickname=N64
 emulator=retroarch_n64
 extensions=bat
+prefix=-[N64] 
 images directory=n64-image
 
 [Nintendo Entertainment System]
 nickname=NES
 emulator=retroarch_nes
 extensions=bat
+prefix=-[NES] 
 images directory=nes-image
 
 [Super Nintendo]
 nickname=SNES
 emulator=retroarch_snes
 extensions=bat
+prefix=-[SNES] 
 images directory=snes-image
 
 [Playstation Portable]
 nickname=PSP
 emulator=retroarch_psp
 extensions=bat
+prefix=-[PSP] 
 images directory=psp-image
 
 [Sega Genesis]
 nickname=Genesis
 emulator=retroarch_sega
 extensions=bat
+prefix=-[SEGA] 
 images directory=sega-image
 
 [Sega Master System]
 nickname=SMS
 emulator=retroarch_sms
 extensions=bat
+prefix=-[SMS] 
 images directory=sms-image
 
 [Apps]
 nickname=Apps
 emulator=Apps
 extensions=bat
+prefix=.[Apps] 
 images directory=apps-image
 
 [PC Games]
@@ -116,22 +125,26 @@ images directory=pc-image
 nickname=Gamecube
 emulator=Gamecube
 extensions=bat
+prefix=-[GC] 
 images directory=gc-image
 
 [Nintendo Wii]
 nickname=Wii
 emulator=Wii
 extensions=bat
+prefix=-[Wii] 
 images directory=wii-image
 
 [Playstation 1]
 nickname=PS1
 emulator=PS1
 extensions=bat
+prefix=-[PS1] 
 images directory=ps1-image
 
 [Playstation 2]
 nickname=PS2
 emulator=PS2
 extensions=bat
+prefix=-[PS2] 
 images directory=ps2-image
