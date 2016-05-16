@@ -426,6 +426,10 @@ no5:
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
 	RMDir /r "$INSTDIR" # now delete installed files
+	RMDir /r "$INSTDIR\Emulators\Gamecube"
+	RMDir /r "$INSTDIR\Emulators\PS1"
+	RMDir /r "$INSTDIR\Emulators\PS2"
+	RMDir /r "$INSTDIR\Emulators\RetroArch"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
 	DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
