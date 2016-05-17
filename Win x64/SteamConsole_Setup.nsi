@@ -40,7 +40,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.3.9.1"
+!define VERSION "v1.3.9.2"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -79,12 +79,12 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.9.1"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.3.9.2"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.9.1"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.3.9.2"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.4.6"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
@@ -171,6 +171,9 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SteamConsole\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	CreateShortCut "$DESKTOP\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
+	SetOutPath "$INSTDIR\Scripts\Updater"
+	CreateShortCut "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SteamConsole\Update SteamConsole.lnk" "$INSTDIR\Scripts\Updater\Update-SteamConsole.bat" "" "$INSTDIR\Images\updater.ico"
+	CreateShortCut "$DESKTOP\Update SteamConsole.lnk" "$INSTDIR\Scripts\Updater\Update-SteamConsole.bat" "" "$INSTDIR\Images\updater.ico"
 	SetOutPath $INSTDIR
 
 SectionEnd
@@ -381,6 +384,7 @@ no4:
 	Delete "$INSTDIR\Steam Launch.lnk"
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
+	Delete "$DESKTOP\Update SteamConsole.lnk"
 	RMDir /r "$INSTDIR\Docs" # now delete installed files
 	RMDir /r "$INSTDIR\Images"
 	RMDir /r "$INSTDIR\Installs"
@@ -414,7 +418,7 @@ no3:
 	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes5 IDNO no5
 yes5:
 	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
-	Goto no4
+	Goto no5
 no5:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
@@ -425,6 +429,7 @@ no5:
 	Delete "$INSTDIR\Steam Launch.lnk"
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
+	Delete "$DESKTOP\Update SteamConsole.lnk"
 	RMDir /r "$INSTDIR" # now delete installed files
 	RMDir /r "$INSTDIR\Emulators\Gamecube"
 	RMDir /r "$INSTDIR\Emulators\PS1"
