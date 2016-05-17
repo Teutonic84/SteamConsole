@@ -4,7 +4,7 @@ echo ===============
 echo Start PC:
 echo ===============
 
-set dirpath=%~1
+set "dirpath=%~1"
 set old=GAMENAME
 set old2=PARAMS
 set old3=TMP

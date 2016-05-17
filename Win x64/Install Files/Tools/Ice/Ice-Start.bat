@@ -7,7 +7,7 @@ if "%ERRORLEVEL%"=="0" taskkill /f /im "Custom Hotkeys.exe"
 
 cls
 cd ..\..
-set dirpath=%cd%
+set "dirpath=%cd%"
 cd "%dirpath%\Tools\Ice"
 
 if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
