@@ -1,19 +1,23 @@
 echo off
 
 cd ..\..
-set dirpath=%cd%
+set "dirpath=%cd%"
+set "key=HKCU\SOFTWARE\Plex, Inc.\Plex Media Player"
+set "key2=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Plex Home Theater"
 
-if exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files (x86)"
-)
-if not exist "C:\Program Files (x86)" (
-    set "programfiles=C:\Program Files"
-)
+:app_path
+for /f "tokens=* delims= " %%a IN ('Reg query "%key%" /v InstallFolder') DO set "instloc=%%a" 2>NUL 1>NUL
+set instloc=%instloc:InstallFolder    REG_SZ    =%
+set instloc=%instloc:"=%
+for /f "tokens=* delims= " %%b IN ('Reg query "%key2%" /v DisplayIcon') DO set "instloc2=%%b" 2>NUL 1>NUL
+set instloc2=%instloc2:DisplayIcon    REG_SZ    =%
+set instloc2=%instloc2:"=%
 
-::start "" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile"
-"C:\Program Files\PlexMediaPlayer\PlexMediaPlayer.exe"
+::start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile"
+if exist "%instloc%" "%instloc%\PlexMediaPlayer.exe"
+if exist "%instloc2%" "%instloc2%\Plex Home Theater.exe"
 
 ::"%dirpath%\Tools\Xpadder\xpadder.exe" /C
-::start "" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
+::start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 
 exit
