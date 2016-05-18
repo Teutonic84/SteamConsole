@@ -1,7 +1,7 @@
 echo off
 
 cd ..\..
-set dirpath=%cd%
+set "dirpath=%cd%"
 
 start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\CONSOLE_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\CONSOLE_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\CONSOLE_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\CONSOLE_Xbox360.xpadderprofile"
 copy /y "%dirpath%\Docs\Controller Maps\360 Controller - CONSOLE.rtf" "%dirpath%\Docs\Controller Maps\360 Controller.rtf"

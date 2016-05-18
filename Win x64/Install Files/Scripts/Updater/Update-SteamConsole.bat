@@ -162,7 +162,7 @@ cls
 "..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 echo Replacing old files with new ones...
 if exist "..\..\Steam_Shortcuts\Arcade" del /q /s "..\..\Steam_Shortcuts\Arcade\*.*" 2>NUL 1>NUL
-del /q /s "..\..\Images\Steam_Grid_Images\*.png"
+del /q /s "..\..\Images\Steam_Grid_Images\*.png" 2>NUL 1>NUL
 mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
