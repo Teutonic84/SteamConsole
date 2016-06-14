@@ -188,14 +188,14 @@ del /q "%dirpath%\Scripts\Updater\reg_add.reg"
 ::=======================
 :cleanup
 
-if not exist "..\Steam_Open.bat" (
-    del /q "..\steam.bat" 2>NUL 1>NUL
-    copy /y "steam.bat" "..\Steam_Open.bat"
+if exist "%dirpath%\Scripts\steam.bat" (
+    del /q "%dirpath%\Scripts\steam.bat"
+    copy /y "%dirpath%\Scripts\Updater\steam.bat" "%dirpath%\Scripts\steam_open.bat"
 )
-if exist "..\Steam_Open.bat" (
-    del /q "..\steam.bat"
-    copy /y "steam.bat" "..\Steam_Open.bat"
+if not exist "%dirpath%\Scripts\steam_open.bat" (
+    copy /y "%dirpath%\Scripts\Updater\steam.bat" "%dirpath%\Scripts\steam_open.bat"
 )
+
 cd "%dirpath%\Tools\Ice"
 start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 call "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
