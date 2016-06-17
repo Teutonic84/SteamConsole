@@ -24,17 +24,29 @@ if exist "%steampath%\userdata\anonymous" (
 )
 
 call "Gamecube.bat" "%dirpath%"
+cls
 call "GBA.bat" "%dirpath%"
+cls
 call "N64.bat" "%dirpath%"
+cls
 call "NDS.bat" "%dirpath%"
+cls
 call "NES.bat" "%dirpath%"
+cls
 call "PC.bat" "%dirpath%"
+cls
 call "PS1.bat" "%dirpath%"
+cls
 call "PS2.bat" "%dirpath%"
+cls
 call "PSP.bat" "%dirpath%"
+cls
 call "SEGA.bat" "%dirpath%"
+cls
 call "SMS.bat" "%dirpath%"
+cls
 call "SNES.bat" "%dirpath%"
+cls
 call "Wii.bat" "%dirpath%"
 
 ::**************************************************************************************************||

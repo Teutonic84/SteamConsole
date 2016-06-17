@@ -1,77 +1,97 @@
 @echo off
-echo.
-echo ===============
-echo Start PC:
-echo ===============
 
 set "dirpath=%~1"
 set old=GAMENAME
-set old2=PARAMS
-set old3=TMP
-set "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
-set "key2=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
-
+set old2=GAMEEXE
+set old3=PARAMS
+set old4=GAMEPATH
 if not exist "%dirpath%\Scripts\temp" mkdir "%dirpath%\Scripts\temp"
+if exist "%dirpath%\Tools\Ice\pclog.txt" del /q "%dirpath%\Tools\Ice\pclog.txt"
+
+cls
+echo.>>"%dirpath%\Tools\Ice\pclog.txt"
+echo ===============>>"%dirpath%\Tools\Ice\pclog.txt"
+echo Start PC:>>"%dirpath%\Tools\Ice\pclog.txt"
+echo ===============>>"%dirpath%\Tools\Ice\pclog.txt"
+type "%dirpath%\Tools\Ice\pclog.txt"
 
 ::Create batch files from GAMES.txt list
 for /f "skip=1 tokens=1,3,4,5,6 delims=[]" %%a IN ('type "%dirpath%\Tools\Ice\GAMES.txt"') DO (
-    call :checkreg "%%a" "%%b" "%%c" "%%d" %%e
+    call :checkreg "%%a" "%%b" "%%c" "%%d"
 )
+echo. >>"%dirpath%\Tools\Ice\pclog.txt"
+echo Search Complete>>"%dirpath%\Tools\Ice\pclog.txt"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
 goto end
 
 :checkreg
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
 set "name=%~1"
 set "name=%name::= -%"
-
+set exepath=
+echo "%name%" Searching...
 if %~2==disable goto :eof
-if %~3==custom set "InputFile=PC_Shortcut_Blank_Run_From_GameDir.bat"
-if %~3==customexe set "InputFile=PC_Shortcut_Blank_Custom_Exe.bat"
-if %~3==default set "InputFile=PC_Shortcut_Blank.bat"
 
-Reg query "%key%" /s /f %1 2>NUL 1>NUL
-if %errorlevel%==0 goto 64
-Reg query "%key2%" /s /f %1 2>NUL 1>NUL
-if %errorlevel%==0 goto 32
-goto :eof
+for %%w in (C D E F G H I J K L) DO @if exist %%w: for /f "delims=" %%x in ('where /R %%w:\ "%~3"') do set "exepath=%%x"
 
-:64
-setlocal EnableDelayedExpansion
-if %4=="override" goto create64
-for /f "skip=1 tokens=*" %%g IN ('Reg query "%key%" /s /f %1') DO if not defined line set "line=%%g" 2>NUL 1>NUL
-    Reg query "%line%" | find "Steam App" 2>NUL 1>NUL
-    if %errorlevel%==1 goto create64
-    if %errorlevel%==0 goto :eof
-)
-:create64
+if "%exepath%"=="" goto skip
+if "%name%"=="Diablo III" goto special
+set "InputFile=PC_Shortcut_Blank.bat"
+setlocal enabledelayedexpansion
 for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=%%i
     set str=!str:%old%=%%a!
-    set str=!str:%old2%=%%e!
-    set str=!str:%old3%=64!
+    set str=!str:%old2%="%exepath%"!
+    set str=!str:%old3%=%%d!
     echo !str!>>"%dirpath%\Scripts\temp\%name%.bat"
 )
 move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
-if %errorlevel%==0 echo "%name%.bat" created
+if %errorlevel%==0 (
+    echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
+    cls
+    type "%dirpath%\Tools\Ice\pclog.txt"
+    goto :eof
+)
+echo "%name%.bat" Failed To Be Created>>"%dirpath%\Tools\Ice\pclog.txt"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
 goto :eof
 
-:32
-setlocal EnableDelayedExpansion
-if %4=="import override" goto create32
-for /f "skip=1 tokens=*" %%g IN ('Reg query "%key2%" /s /f %1') DO if not defined line set "line=%%g" 2>NUL 1>NUL
-    Reg query "%line%" | find "Steam App" 2>NUL 1>NUL
-    if %errorlevel%==1 goto create32
-    if %errorlevel%==0 goto :eof
+:special
+set "InputFile=PC_Shortcut_Blank_Run_From_GameDir.bat"
+FOR %%k IN ("%exepath%") DO (
+    set tmp1=%%~dk
+    set tmp2=%%~pk
 )
-:create32
+set "exefolder=%tmp1%%tmp2%"
+
+setlocal enabledelayedexpansion
 for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=%%i
     set str=!str:%old%=%%a!
-    set str=!str:%old2%=%%e!
-    set str=!str:%old3%=32!
+    set str=!str:%old2%="%%c"!
+    set str=!str:%old3%=%%d!
+    set str=!str:%old4%="%exefolder%"!
     echo !str!>>"%dirpath%\Scripts\temp\%name%.bat"
 )
 move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
-if %errorlevel%==0 echo "%name%.bat" created
+if %errorlevel%==0 (
+    echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
+    cls
+    type "%dirpath%\Tools\Ice\pclog.txt"
+    goto :eof
+)
+echo "%name%.bat" Failed To Be Created>>"%dirpath%\Tools\Ice\pclog.txt"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
+goto :eof
+
+:skip
+echo "%name%" Not Found>>"%dirpath%\Tools\Ice\pclog.txt"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
 goto :eof
 
 :end
