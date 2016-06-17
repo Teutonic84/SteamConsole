@@ -17,6 +17,7 @@ if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1
 if exist "Update-Emulators.bat" del /q "Update-Emulators.bat" 2>NUL 1>NUL
 if exist "..\..\Emulators\Gamecube\Dolphin\Updater" rmdir /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
 if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_Games" 2>NUL 1>NUL
+if exist "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" del /q "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" 2>NUL 1>NUL
 if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
 if exist "..\..\Steam_Grid_Images" move "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
 if exist "..\..\steam_path_check.vbs" move /y "..\..\steam_path_check.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
