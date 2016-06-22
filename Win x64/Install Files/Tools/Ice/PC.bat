@@ -1,6 +1,8 @@
 @echo off
 
-set "dirpath=%~1"
+cd ..\..
+set "dirpath=%cd%"
+::set "dirpath=%~1"
 set old=GAMENAME
 set old2=GAMEEXE
 set old3=PARAMS
@@ -34,6 +36,31 @@ set exepath=
 echo "%name%" Searching...
 if %~2==disable goto :eof
 
+reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" /s /e /f "%name%"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
+echo "%name%" Searching...
+if %errorlevel%==1 (
+    echo "%name%" not found
+    goto check64
+)
+if %errorlevel%==0 goto search
+goto search
+
+:check64
+reg query "HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall" /s /e /f "%name%"
+cls
+type "%dirpath%\Tools\Ice\pclog.txt"
+echo "%name%" Searching...
+if %errorlevel%==1 (
+    echo "%name%" Not Found In System>>"%dirpath%\Tools\Ice\pclog.txt"
+    cls
+    type "%dirpath%\Tools\Ice\pclog.txt"
+    goto :eof
+)
+if %errorlevel%==0 goto search
+
+:search
 for %%w in (C D E F G H I J K L) DO @if exist %%w: for /f "delims=" %%x in ('where /R %%w:\ "%~3"') do set "exepath=%%x"
 
 if "%exepath%"=="" goto skip
