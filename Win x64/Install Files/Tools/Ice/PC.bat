@@ -1,8 +1,8 @@
 @echo off
 
-::cd ..\..
-::set "dirpath=%cd%"
-set "dirpath=%~1"
+cd ..\..
+set "dirpath=%cd%"
+::set "dirpath=%~1"
 set old=GAMENAME
 set old2=GAMEEXE
 set old3=PARAMS
@@ -35,6 +35,12 @@ set "name=%name::= -%"
 set exepath=
 echo "%name%" Searching...
 if %~2==disable goto :eof
+if exist "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" (
+    echo "%name%.bat" Already Exists>>"%dirpath%\Tools\Ice\pclog.txt"
+    cls
+    type "%dirpath%\Tools\Ice\pclog.txt"
+    goto :eof
+)
 
 reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" /s /e /f "%name%"
 cls
