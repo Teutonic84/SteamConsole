@@ -76,9 +76,14 @@ for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
 )
 move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
 if %errorlevel%==0 (
+    if not exist "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg" (
+        echo "%name%" - Downloading Grid Image...
+        "%dirpath%\Scripts\Updater\wget.exe" --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/Grid_Images/PC_Games/%name%.jpg" 2>NUL 1>NUL
+        move /y "%dirpath%\%name%.jpg" "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg"
+        )
     echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
     cls
-    type "%dirpath%\Tools\Ice\pclog.txt"
+    type "%dirpath%\Tools\Ice\pclog.txt"    
     goto :eof
 )
 echo "%name%.bat" Failed To Be Created>>"%dirpath%\Tools\Ice\pclog.txt"
@@ -105,6 +110,11 @@ for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
 )
 move /y "%dirpath%\Scripts\temp\%name%.bat" "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" 2>NUL 1>NUL
 if %errorlevel%==0 (
+    if not exist "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg" (
+        echo "%name%" - Downloading Grid Image...
+        "%dirpath%\Scripts\Updater\wget.exe" --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/Grid_Images/PC_Games/%name%.jpg" 2>NUL 1>NUL
+        move /y "%dirpath%\%name%.jpg" "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg"
+        )
     echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
     cls
     type "%dirpath%\Tools\Ice\pclog.txt"
