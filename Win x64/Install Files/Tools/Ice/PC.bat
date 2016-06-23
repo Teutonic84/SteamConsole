@@ -1,8 +1,8 @@
 @echo off
 
-cd ..\..
-set "dirpath=%cd%"
-::set "dirpath=%~1"
+::cd ..\..
+::set "dirpath=%cd%"
+set "dirpath=%~1"
 set old=GAMENAME
 set old2=GAMEEXE
 set old3=PARAMS
