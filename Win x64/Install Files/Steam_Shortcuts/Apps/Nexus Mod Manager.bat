@@ -2,16 +2,13 @@ echo off
 
 cd ..\..
 set "dirpath=%cd%"
-set "key=HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall"
 
 :app_path
-for /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "Nexus Mod Manager"') DO if not defined line set "line=%%a" 2>NUL 1>NUL
-for /f "tokens=* delims= " %%c IN ('Reg query "%line%" /v InstallLocation') DO set "instloc=%%c" 2>NUL 1>NUL
-set instloc=%instloc:InstallLocation    REG_SZ    =%
-set instloc=%instloc:"=%
+for %%w in (C D E F G H I J K L) DO @if exist %%w: for /f "delims=" %%x in ('where /R %%w:\ "NexusClient.exe"') do set "instloc=%%x"
+cls
 
 start "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Chrome_Xbox360.xpadderprofile"
-start /MAX "" "%instloc%\NexusClient.exe"
+start /MAX "" "%instloc%"
 
 :check
 ping localhost -n 2 2>NUL 1>NUL
