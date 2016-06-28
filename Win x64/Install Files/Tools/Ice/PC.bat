@@ -36,9 +36,24 @@ set exepath=
 echo "%name%" Searching...
 if %~2==disable goto :eof
 if exist "%dirpath%\Steam_Shortcuts\PC_Games\%name%.bat" (
-    echo "%name%.bat" Already Exists>>"%dirpath%\Tools\Ice\pclog.txt"
+    if exist "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg" (
+        echo "%name%.bat" and Grid Image Already Exists>>"%dirpath%\Tools\Ice\pclog.txt"
+        cls
+        type "%dirpath%\Tools\Ice\pclog.txt"
+        goto :eof
+    )
+    echo "%name%" - Downloading Grid Image...
+    "%dirpath%\Scripts\Updater\wget.exe" --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto -P "%dirpath%" "ftp://haackerit.duckdns.org/Grid_Images/PC_Games/%name%.jpg" 2>NUL 1>NUL
+    move /y "%dirpath%\%name%.jpg" "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg"
+    if errorlevel==0 (
+        echo "%name%.bat" Already Exists and Grid Image Downloaded Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
+        cls
+        type "%dirpath%\Tools\Ice\pclog.txt"    
+        goto :eof
+    )
+    echo "%name%.bat" Already Exists and Grid Image Failed To Downloaded>>"%dirpath%\Tools\Ice\pclog.txt"
     cls
-    type "%dirpath%\Tools\Ice\pclog.txt"
+    type "%dirpath%\Tools\Ice\pclog.txt"    
     goto :eof
 )
 
@@ -75,7 +90,7 @@ set "InputFile=PC_Shortcut_Blank.bat"
 setlocal enabledelayedexpansion
 for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=%%i
-    set str=!str:%old%=%%a!
+    set str=!str:%old%=%name%!
     set str=!str:%old2%="%exepath%"!
     set str=!str:%old3%=%%d!
     echo !str!>>"%dirpath%\Scripts\temp\%name%.bat"
@@ -86,8 +101,18 @@ if %errorlevel%==0 (
         echo "%name%" - Downloading Grid Image...
         "%dirpath%\Scripts\Updater\wget.exe" --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto -P "%dirpath%" "ftp://haackerit.duckdns.org/Grid_Images/PC_Games/%name%.jpg" 2>NUL 1>NUL
         move /y "%dirpath%\%name%.jpg" "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg"
+        if %errorlevel%==0 (
+            echo "%name%.bat" Created Successfully and Grid Image Downloaded>>"%dirpath%\Tools\Ice\pclog.txt"
+            cls
+            type "%dirpath%\Tools\Ice\pclog.txt"    
+            goto :eof
         )
-    echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
+        echo "%name%.bat" Created Successfully and Grid Image Failed to Download>>"%dirpath%\Tools\Ice\pclog.txt"
+        cls
+        type "%dirpath%\Tools\Ice\pclog.txt"    
+        goto :eof
+    )
+    echo "%name%.bat" Created Successfully and Grid Image Already Exists>>"%dirpath%\Tools\Ice\pclog.txt"
     cls
     type "%dirpath%\Tools\Ice\pclog.txt"    
     goto :eof
@@ -108,7 +133,7 @@ set "exefolder=%tmp1%%tmp2%"
 setlocal enabledelayedexpansion
 for /f "tokens=* delims=" %%i in ('Type "%dirpath%\Scripts\%InputFile%"') do (
     set str=%%i
-    set str=!str:%old%=%%a!
+    set str=!str:%old%=%name%!
     set str=!str:%old2%="%%c"!
     set str=!str:%old3%=%%d!
     set str=!str:%old4%="%exefolder%"!
@@ -120,10 +145,20 @@ if %errorlevel%==0 (
         echo "%name%" - Downloading Grid Image...
         "%dirpath%\Scripts\Updater\wget.exe" --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto -P "%dirpath%" "ftp://haackerit.duckdns.org/Grid_Images/PC_Games/%name%.jpg" 2>NUL 1>NUL
         move /y "%dirpath%\%name%.jpg" "%dirpath%\Images\Steam_Grid_Images\PC_Games\%name%.jpg"
+        if %errorlevel%==0 (
+            echo "%name%.bat" Created Successfully and Grid Image Downloaded>>"%dirpath%\Tools\Ice\pclog.txt"
+            cls
+            type "%dirpath%\Tools\Ice\pclog.txt"    
+            goto :eof
         )
-    echo "%name%.bat" Created Successfully>>"%dirpath%\Tools\Ice\pclog.txt"
+        echo "%name%.bat" Created Successfully and Grid Image Failed to Download>>"%dirpath%\Tools\Ice\pclog.txt"
+        cls
+        type "%dirpath%\Tools\Ice\pclog.txt"    
+        goto :eof
+    )
+    echo "%name%.bat" Created Successfully and Grid Image Already Exists>>"%dirpath%\Tools\Ice\pclog.txt"
     cls
-    type "%dirpath%\Tools\Ice\pclog.txt"
+    type "%dirpath%\Tools\Ice\pclog.txt"    
     goto :eof
 )
 echo "%name%.bat" Failed To Be Created>>"%dirpath%\Tools\Ice\pclog.txt"
@@ -139,4 +174,5 @@ goto :eof
 
 :end
 rmdir /s /q "%dirpath%\Scripts\temp"
+ping localhost -n 5 2>NUL 1>NUL
 goto :eof
