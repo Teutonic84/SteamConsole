@@ -102,6 +102,7 @@ Return
 	offX :=  (X/2) - (PICW /2)
 	offY :=  (Y/2) - (PICH /2)
 	guicontrol, move, PIC, x%offX%, y%offY%
+	WinSet, Transparent, 245, A
 	
 Return
 
