@@ -30,7 +30,7 @@ WinSet, TransColor, EEAA99
 WinSet AlwaysOnTop 
 Gui, -Caption 
 Gui, Margin, 0, 0 
-Gui, add, picture, gdragger x0 y0 w1280 h-1 vPIC gCentre backgroundtrans, %A_ScriptDir%\Controller Maps\Controller Map - Steam.JPG
+Gui, add, picture, gdragger x0 y0 w1280 h-1 vPIC gCentre backgroundtrans, %A_ScriptDir%\Controller Maps\Controller Map.JPG
 
 ^!1::
 Run,"%A_ScriptDir%\XboxExt.exe" /off 1
