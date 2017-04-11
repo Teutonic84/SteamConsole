@@ -371,10 +371,10 @@ set "dolphin=Dolphin already up to date..."
 ::=======================
 :retroarch
 set /P olddate=<date.txt
-::set datef=%date:~-4%-%date:~4,2%-%date:~7,2%
-set day=%date:~7,2%
-set /a day=%day%-1
-set datef=%date:~-4%-%date:~4,2%-%day%
+set datef=%date:~-4%-%date:~4,2%-%date:~7,2%
+::set day=%date:~7,2%
+::set /a day=%day%-1
+::set datef=%date:~-4%-%date:~4,2%-%day%
 if %olddate%==%datef% goto :nochange
 echo %datef%>date.txt
 
@@ -382,8 +382,8 @@ echo %datef%>date.txt
 ::==================================
 cls
 echo Downloading RetroArch Nightly Build %datef%...
-set link=http://buildbot.libretro.com/nightly/win-x86_64/%datef%_RetroArch.7z
-set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist-x86_64.7z
+set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
 if %errorlevel%==1 (
     set "retroarch=RetroArch No nightly build for today. Try again tomorrow."
@@ -395,9 +395,9 @@ wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
 cls
 echo Extracting RetroArch Nightly %datef%...
 7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
-7zG x -y -o"files\RetroArch-redist" redist-x86_64.7z
+7zG x -y -o"files\RetroArch-redist" redist.7z
 del /q %datef%_RetroArch.7z 2>NUL 1>NUL
-del /q redist-x86_64.7z 2>NUL 1>NUL
+del /q redist.7z 2>NUL 1>NUL
 cls
 echo Replacing old files with new ones...
 robocopy Files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
