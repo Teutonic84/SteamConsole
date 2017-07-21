@@ -40,7 +40,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.5.9.1"
+!define VERSION "v1.5.9.2"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -79,13 +79,13 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.5.9.1"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.5.9.2"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.5.9.1"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.5.2"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.5.9.2"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.5.3"
 		SetOutPath $INSTDIR\Scripts
 		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
 	MessageBox MB_OK '"Core Files Installation Complete!"'
