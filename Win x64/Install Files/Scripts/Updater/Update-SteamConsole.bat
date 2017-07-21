@@ -31,7 +31,7 @@ if exist "..\..\Scripts\ROM_Rename.bat" del /q "..\..\Scripts\ROM_Rename.bat" 2>
 if exist "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
+::if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
 if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
 
 :steampath
@@ -277,7 +277,7 @@ if exist "files\RetroArch_Cores" rmdir /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
 ::=====================
 :pcsx2
 set /p version=<version_pcsx2.txt
-wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate "http://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
+wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
 for /F "tokens=4 delims=><" %%a in ('findstr /I " \<v1.* " index.php.html') do (
     set "newversion=%%a"
     goto vercheck
@@ -292,10 +292,10 @@ if %version% == %newversion% goto NOUP
 
 cls
 echo Downloading PCSX2 %newversion% files...
-wget -Q7m --tries=3 --reject css,html --mirror -p --convert-links -P files\PCSX2 "http://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
+wget -Q7m --tries=3 --reject css,html --mirror -p --convert-links -P files\PCSX2 "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
 cls
 echo Extracting PCSX2 %newversion% files...
-7zG x -y -o"files\PCSX2" "Files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=get&rev=%newversion%&platform=windows-x86"
+7zG x -y -o"files\PCSX2" "Files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=dl&rev=%newversion%&platform=windows-x86"
 cls
 echo Replacing old files with new ones...
 robocopy "Files\PCSX2\pcsx2-%newversion%-windows-x86" ..\..\Emulators\PS2\PCSX2\ /E /XO /MOVE 2>NUL 1>NUL
@@ -385,11 +385,28 @@ echo Downloading RetroArch Nightly Build %datef%...
 set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
 set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
+if %errorlevel%==1 goto yesterday
+goto download
+
+:yesterday
+set day=%date:~7,2%
+set /a day=%day%-1
+set datef=%date:~-4%-%date:~4,2%-%day%
+
+::Download RetroArch Program Package:
+::==================================
+cls
+echo Downloading RetroArch Nightly Build %datef%...
+set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
+wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
 if %errorlevel%==1 (
     set "retroarch=RetroArch No nightly build for today. Try again tomorrow."
     goto complete
 )
 cls
+
+:download
 echo Downloading RetroArch Redist %datef%...
 wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
 cls
