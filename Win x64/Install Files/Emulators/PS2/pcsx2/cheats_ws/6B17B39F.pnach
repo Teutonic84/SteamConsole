@@ -10,3 +10,13 @@ patch=1,EE,00544dfc,word,4600ab46
 //rfix
 patch=1,EE,0052faec,word,3c014455
 patch=1,EE,0052fb28,word,44810000
+
+//menu fix
+patch=1,EE,004ee128,word,0c140ddf
+patch=1,EE,0050377c,word,3c014456
+patch=1,EE,005037c4,word,44813000
+patch=1,EE,005037c8,word,2407ff95
+
+//HUD fix
+patch=1,EE,0019e55c,word,3c03bddd
+patch=1,EE,0019e564,word,3464dddd

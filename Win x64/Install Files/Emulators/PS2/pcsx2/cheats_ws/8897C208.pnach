@@ -1,5 +1,5 @@
 gametitle=Shin Megami Tensei: Persona 3 FES (K) (SCKA-20109)
-comment=Widescreen hack by nemesis2000 and devina (pnach by Arapapa)
+comment=Widescreen hack by nemesis2000 and devina and sergx12 (pnach by Arapapa)
 
 //16:9
 patch=1,EE,007caf1c,word,3fe38e38 // 3faaaaab
@@ -37,3 +37,46 @@ patch=1,EE,001148dc,word,3c023f90 // 3c023f80
 //patch=1,EE,0039f330,word,01154018
 //patch=1,EE,0039f334,word,00084103
 //patch=1,EE,0039f338,word,0100a82d
+
+//popup character portraits fix by sergx12
+patch=1,EE,0010f600,word,3c024455 //3c024420
+patch=1,EE,00111554,word,3c024455 //3c024420
+patch=1,EE,004aa4cc,word,00000000 //ac60f220
+patch=1,EE,004c3b9c,word,00000000 //e4800030
+patch=1,EE,2095f220,extended,3e800000 //00000000
+
+//Arcana Card Fix by Arapapa
+//fe42023c 00608244
+//be42023c 00608244 (twice)
+patch=1,EE,003a0068,word,3c0242be //3c0242fe
+patch=1,EE,0039ff94,word,3c0242be //3c0242fe
+
+
+//b442023c 00008244 00000000 41080046
+//4042023c 00008244 00000000 41080046(2nd)
+patch=1,EE,0039fc80,word,3c024240 //3c0242b4
+
+//CH Icon position
+//patch=1,EE,0018c070,word,3c0242a0 //3c0241a0
+//patch=1,EE,0018c084,word,3c024290 //3c024190
+//patch=1,EE,0018c0cc,word,3c0242a0 //3c0241a0
+//patch=1,EE,0018c0e0,word,3c024290 //3c024190
+
+//Shuffle Card Face (Y-Fov)
+//patch=1,EE,0020c9c4,word,3c033fab //3c03bf80
+//???
+//patch=1,EE,00257bd4,word,3c024204 //3c0242b4
+
+//Shuffle Card Face Fix (X-Fov)
+//0040033c 00008344 00000000 03000146 (1st)
+patch=1,EE,0020c980,word,3c033fe0 //3c034000
+
+//Shuffle Card back Fix (X-Fov)
+//????
+
+//Shuffle Card face and back (Y-Fov) (It's a trick)
+//patch=1,EE,0020c988,word,3c01be90 //00000000
+//patch=1,EE,0020c9cc,word,44812800 //00000000
+
+//Infomation layer Zoom
+//patch=1,EE,004c9784,word,3c03bec0 //3c03bf00

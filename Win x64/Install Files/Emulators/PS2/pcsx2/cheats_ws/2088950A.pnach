@@ -17,8 +17,9 @@ patch=1,EE,0019adfc,word,a2020081
 patch=1,EE,00244d90,word,24060000
 patch=1,EE,00244da4,word,24c801c0
 
-//for bosses
-patch=1,EE,00a9e5d8,word,24060000
-patch=1,EE,00a9e5e0,word,240801c0
+//black border removal for bosses
+//(CAUSES ISSUES WITH HAKOX - characters not loading in tutorials)
+//patch=1,EE,00a9e5d8,word,24060000
+//patch=1,EE,00a9e5e0,word,240801c0
 
 //zoom value = 2054E200

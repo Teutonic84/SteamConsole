@@ -11,6 +11,13 @@ patch=1,EE,00106e44,word,00000000
 patch=1,EE,00106e48,word,24630004
 patch=1,EE,00106e4c,word,3c043f80
 
+//popup character portraits fix
+//patch=1,EE,0010f750,word,3c024455 //3c024420
+//patch=1,EE,001116a4,word,3c024455 //3c024420
+//patch=1,EE,004a9fbc,word,00000000 //ac60ede0
+//patch=1,EE,004c368c,word,00000000 //e4800030
+//patch=1,EE,2095ede0,extended,3e800000 //00000000
+
 //persona art fix
 patch=1,EE,00114a1c,word,3c033ec0
 patch=1,EE,00114a2c,word,3c023f90

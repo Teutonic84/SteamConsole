@@ -9,3 +9,7 @@ patch=1,EE,004b6b44,word,3c0143f0 //vert value
 //FMV's fix
 patch=1,EE,004C4BE4,word,24101E00 //width
 patch=1,EE,004C4D98,word,24110190 //x-pos
+
+//Font width
+patch=1,EE,207310EC,extended,3F400000 //3F800000 (Person's name)
+patch=1,EE,207321BC,extended,3F400000 //3F800000 (Dialogue)

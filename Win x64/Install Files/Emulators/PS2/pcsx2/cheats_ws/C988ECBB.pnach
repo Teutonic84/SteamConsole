@@ -1,10 +1,15 @@
-gametitle=Disaster Report 2 (J) (SLPS_25606)
-comment=Widescreen hack (NTSC-J by Arapapa)
+gametitle=Zettaizetsumei Toshi 2 - Itetsuita Kiokutachi [NTSC-J] (SLPS-25606)
+comment=Widescreen Hack by Little Giant
 
-// 16:9 gameplay
-//0000803f d7a3703f 00000045 00000045
-patch=1,EE,0048ab28,word,3f400000 // 3f800000
+//black borders's fix
+patch=1,EE,001CF198,word,00A52823 //00000000
 
-// render fix(0000a043 00007043 cdcc4c3e)
-patch=1,EE,003a7c60,word,43e00000 //43a00000
-patch=1,EE,003a7c80,word,43e00000 //43a00000
+//16:9
+patch=1,EE,0048ab28,word,3F400000 //3f800000 hor
+patch=1,EE,003a7c60,word,43E00000 //43A00000 (Increases hor. axis)
+patch=1,EE,003a7c80,word,43E00000 //43A00000 render fix
+
+//16:10
+//patch=1,EE,0048ab28,word,3F555555 //3F800000 hor
+//patch=1,EE,003a7c60,word,43C00000 //43A00000 (Increases hor. axis)
+//patch=1,EE,003a7c80,word,43C00000 //43A00000 render fix

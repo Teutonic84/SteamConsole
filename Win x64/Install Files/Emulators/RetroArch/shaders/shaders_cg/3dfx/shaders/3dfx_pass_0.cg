@@ -3,38 +3,33 @@
    - Cg   compilers
 */
 
-void main_vertex
-(
-	float4 position	: POSITION,
-	float4 color	: COLOR,
-	float2 texCoord : TEXCOORD0,
+#include "../../compat_includes.inc"
+uniform COMPAT_Texture2D(decal) : TEXUNIT0;
+uniform float4x4 modelViewProj;
 
-    uniform float4x4 modelViewProj,
-
-	out float4 oPosition : POSITION,
-	out float4 oColor    : COLOR,
-	out float2 otexCoord : TEXCOORD
-)
+struct out_vertex
 {
-	oPosition = mul(modelViewProj, position);
-	oColor = color;
-	otexCoord = texCoord;
+#ifndef HLSL_4
+	float4 Color    : COLOR;
+#endif
+	float4 position : COMPAT_POS;
+	float2 texCoord : TEXCOORD0;
+};
+
+out_vertex main_vertex(COMPAT_IN_VERTEX)
+{
+	out_vertex OUT;
+#ifdef HLSL_4
+	float4 position = VIN.position;
+	float2 texCoord = VIN.texCoord;
+#else
+	OUT.Color = color;
+#endif
+	OUT.position = mul(modelViewProj, position);
+	OUT.texCoord = texCoord;
+	
+	return OUT;
 }
-
-struct output 
-{
-  float4 color    : COLOR;
-};
-
-struct input
-{
-  float2 video_size;
-  float2 texture_size;
-  float2 output_size;
-  float  frame_count;
-  float  frame_direction;
-  float frame_rotation;
-};
 
 // "LeiFX" shader - "dither" and reduction process
 // 
@@ -66,30 +61,28 @@ uniform float LEIFX_LINES;
 #endif
 
 
-output main_fragment(float2 texCoord : TEXCOORD0, uniform sampler2D decal : TEXUNIT0, uniform input IN) 
+float4 _3dfx_pass_0(float2 texture_size, float2 video_size, float2 output_size, COMPAT_Texture2D(decal), float2 coord)
 {
-   	output OUT;
-	OUT.color = tex2D(decal, texCoord);
-
+   	float4 final = COMPAT_Sample(decal, coord);
 
 	float2 res;
-	res.x = IN.texture_size.x;
-	res.y = IN.texture_size.y;
+	res.x = texture_size.x;
+	res.y = texture_size.y;
 	
-	float2 ditheu = texCoord.xy * res.xy;
+	float2 ditheu = coord.xy * res.xy;
 
-	ditheu.x = texCoord.x * res.x;
-	ditheu.y = texCoord.y * res.y;
+	ditheu.x = coord.x * res.x;
+	ditheu.y = coord.y * res.y;
 
 	// Dither. Total rewrite.
 	// NOW, WHAT PIXEL AM I!??
 
-	int ditdex = 	int(mod(ditheu.x, 4.0)) * 4 + int(mod(ditheu.y, 4.0)); // 4x4!
+	int ditdex = 	int(fmod(ditheu.x, 4.0)) * 4 + int(fmod(ditheu.y, 4.0)); // 4x4!
 	int3 color;
 	int3 colord;
-	color.r = OUT.color.r * 255;
-	color.g = OUT.color.g * 255;
-	color.b = OUT.color.b * 255;
+	color.r = final.r * 255;
+	color.g = final.g * 255;
+	color.b = final.b * 255;
 	int yeh = 0;
 	int ohyes = 0;
 
@@ -124,49 +117,52 @@ output main_fragment(float2 texCoord : TEXCOORD0, uniform sampler2D decal : TEXU
 	colord.r = color.r + ohyes;
 	colord.g = color.g + (ohyes / 2);
 	colord.b = color.b + ohyes;
-	OUT.color.rgb = colord.rgb * 0.003921568627451; // divide by 255, i don't trust em
-
-
-
+	final.rgb = colord.rgb * 0.003921568627451; // divide by 255, i don't trust em
 
 	//
 	// Reduce to 16-bit color
 	//
 
-	float3 why = 1;
-	float3 reduceme = 1;
+	float3 why = float3(1.0, 1.0, 1.0);
+	float3 reduceme = float3(1.0, 1.0, 1.0);
 	float radooct = 32;	// 32 is usually the proper value
 
-	reduceme.r = pow(OUT.color.r, why);  
+	reduceme.r = pow(final.r, why.r);  
 	reduceme.r *= radooct;	
 	reduceme.r = int(floor(reduceme.r));	
 	reduceme.r /= radooct; 
-	reduceme.r = pow(reduceme.r, why);
+	reduceme.r = pow(reduceme.r, why.r);
 
-	reduceme.g = pow(OUT.color.g, why);  
+	reduceme.g = pow(final.g, why.g);  
 	reduceme.g *= radooct * 2;	
 	reduceme.g = int(floor(reduceme.g));	
 	reduceme.g /= radooct * 2; 
-	reduceme.g = pow(reduceme.g, why);
+	reduceme.g = pow(reduceme.g, why.g);
 
-	reduceme.b = pow(OUT.color.b, why);  
+	reduceme.b = pow(final.b, why.b);  
 	reduceme.b *= radooct;	
 	reduceme.b = int(floor(reduceme.b));	
 	reduceme.b /= radooct; 
-	reduceme.b = pow(reduceme.b, why);
+	reduceme.b = pow(reduceme.b, why.b);
 
-	OUT.color.rgb = reduceme.rgb;
+	final.rgb = reduceme.rgb;
 
 	// Add the purple line of lineness here, so the filter process catches it and gets gammaed.
 	{
 		float leifx_linegamma = (LEIFX_LINES / 10);
-		float horzline1 = 	(mod(ditheu.y, 	2.0));
+		float horzline1 = 	(fmod(ditheu.y, 	2.0));
 		if (horzline1 < 1)	leifx_linegamma = 0;
 	
-		OUT.color.r += leifx_linegamma;
-		OUT.color.b += leifx_linegamma;	
+		final.r += leifx_linegamma;
+		final.b += leifx_linegamma;	
 	}
 
 
-   return OUT;
+   return final;
 }
+
+float4 main_fragment(COMPAT_IN_FRAGMENT) : COMPAT_Output
+{
+	return _3dfx_pass_0(COMPAT_texture_size, COMPAT_video_size, COMPAT_output_size, decal, VOUT.texCoord);
+}
+COMPAT_END

@@ -2,17 +2,11 @@
 comment=Widescreen hack by Little Giant
 
 //gameplay 16:9
-patch=1,EE,00144DD8,word,46012f80 //00000000
-patch=1,EE,00144E00,word,461e2103 //00000000
-patch=1,EE,00144E10,word,e464a360 //00000000
+patch=1,EE,00144DD8,word,3c013f40 //00000000
+patch=1,EE,00144E00,word,4481F000 //00000000
+patch=1,EE,00144E10,word,461e2102 //00000000
+patch=1,EE,00144E14,word,e464a360 //00000000
 
 //render fix
-patch=1,EE,00144E64,word,3c013fbb //00000000
-patch=1,EE,00144E68,word,342114cb //00000000
-patch=1,EE,00144EB8,word,4481f800 //00000000
-patch=1,EE,00144EE0,word,461f1803 //46001803
-patch=1,EE,00144F38,word,461f20c3 //460020c3
-
-//UI FIX(defective)
-//patch=1,EE,203AA430,extended,46E20400 //46D80000
-//patch=1,EE,203AA434,extended,41400000 //41800000
+patch=1,EE,00144EC4,word,3C063F40 //3C063F80 right
+patch=1,EE,00144F1C,word,3C063F40 //3C063F80 left

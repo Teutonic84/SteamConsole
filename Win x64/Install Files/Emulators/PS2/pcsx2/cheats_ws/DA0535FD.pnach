@@ -19,7 +19,7 @@ patch=1,EE,00106cd0,word,461effc2 // 00000000
 patch=1,EE,00106cd4,word,e61f004c // 00000000
 
 //optional zoom for cutscenes
-patch=1,EE,20378104,word,43f90000 // 43d00000
+//patch=1,EE,20378104,word,43f90000 // 43d00000
 
 //font fix
 patch=1,EE,2037ae44,word,3F400000 // 3F800000
@@ -33,7 +33,7 @@ patch=1,EE,0014ab40,word,24050000
 patch=1,EE,0014ab70,word,24050000
 
 //lower subtitles
-patch=1,EE,001aae88,word,240a018a
+patch=1,EE,001aae88,word,240a0190
 
 //subtitles off
 //patch=1,EE,002274cc,word,11e00019

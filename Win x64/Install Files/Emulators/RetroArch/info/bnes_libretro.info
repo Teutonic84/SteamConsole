@@ -1,5 +1,5 @@
-display_name = "NES / Famicom (bnes)"
-authors = "byuu"
+display_name = "Nintendo - NES / Famicom (bnes)"
+authors = "byuu|Ryphecha"
 supported_extensions = "nes"
 corename = "bnes/higan"
 manufacturer = "Nintendo"

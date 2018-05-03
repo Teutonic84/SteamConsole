@@ -1,10 +1,12 @@
 gametitle=Ragingbless (NTSC-K)(SLPM-64521)
-comment=Widescreen hack by El_Patas and Arapapa
+comment=Widescreen hack by Arapapa
 
 //Widescreen hack 16:9
 
-//0000803f d7a3f03e 00000045 00000045
-patch=1,EE,20292D8C,extended,3f400000 //3f800000 fov
+//X-Fov
+//803f013c 00608144 c6730046
+patch=1,EE,00228754,word,3c013f40 //3c013f80
 
-//0000a043 414c6e43 0000803f 00ff7f47
-patch=1,EE,202D2F70,extended,43E00000 //43A00000 render fix
+//Render fix
+//0000a043 414c6e43
+patch=1,EE,002d2f70,word,43e00000 //43a00000

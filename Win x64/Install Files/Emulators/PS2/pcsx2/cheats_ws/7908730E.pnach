@@ -1,12 +1,20 @@
-gametitle=Winback - Covert Operations (NTSC-K)
-comment=Widescreen hack by Arapapa
+gametitle=WinBack - Covert Operations (K) (PBPX)(SLPM-64502)
+comment=Widescreen hack (NTSC-K by Arapapa)
 
-//Widescreen hack 16:9
+// 16:9
+patch=1,EE,00248808,word,3c013f40 // 00000000 hor fov
+patch=1,EE,0024880c,word,4481f000 // 00000000
+patch=1,EE,0024881c,word,461eb583 // 00000000
 
-//zoom (ELF hack)
-//003f013c 00008144 0000b0ff 2000b4e7
-patch=1,EE,0024711c,word,3c013f2a //3c013f00
+patch=1,EE,001c7000,word,461e0002 // 00000000 cross hairs position fix
+patch=1,EE,001c751c,word,461ea302 // 4600a306 cross hairs render fix
 
-//fov (Memory hack)
-//efee6f3f 00401cc6 00401cc6 9a99193f 0ad7a33c
-patch=1,EE,20459EE4,extended,3F9F49CF //3f6eeeef
+///////////////////////////////////////////////
+//00000000 00000000 03a51146 
+//403f013c 00f08144 03a51146 
+
+//00000000 00000000 03000146 1400c0e7 (3rd)
+//02001e46 00000000 03000146 1400c0e7
+
+//06a30046 2d904000
+//02a31e46 2d904000

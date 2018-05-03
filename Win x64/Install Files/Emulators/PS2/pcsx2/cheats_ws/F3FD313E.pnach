@@ -14,3 +14,14 @@ patch=1,EE,0013bd7c,extended,3c013f10
 
 //Draw distance
 //patch=1,EE,20302418,extended,00000000
+
+//noise off
+patch=1,EE,2073D6A0,extended,00000000
+
+//noise off (alternate address)
+//patch=1,EE,001c9cec,word,e43f1fa0 //e4211fa0
+
+//black borders's fix
+patch=1,EE,00190e58,word,24050000
+
+//Camera distance = 203035B0

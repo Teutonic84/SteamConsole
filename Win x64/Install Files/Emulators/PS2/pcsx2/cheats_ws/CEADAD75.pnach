@@ -1,0 +1,10 @@
+gametitle=Hudson Selection Vol 3 PC Genjin [SLPM_624.18] [CEADAD75]
+comment=Widescreen hacks by gamemasterplc
+
+patch=1,EE,201603C0,extended,00000000 //Skip Hudson Intro (Required on Bad Dumps)
+patch=1,EE,201785DC,extended,08030000 //Jump to HOR Corrections
+patch=1,EE,200C0000,extended,3C043FAB //Load HOR Multiplier into A0
+patch=1,EE,200C0004,extended,4484A800 //Load HOR Multiplier into F21
+patch=1,EE,200C0008,extended,46156302 //Multiply F12 by F21
+patch=1,EE,200C000C,extended,0805E179 //Jump Back to Original Code
+patch=1,EE,200C0010,extended,46006D46 //Replaced Instruction

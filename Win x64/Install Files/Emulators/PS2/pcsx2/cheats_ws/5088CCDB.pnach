@@ -5,6 +5,8 @@ comment=Widescreen hack by nemesis2000 (pnach by nemesis2000)
 patch=1,EE,003d6030,word,3f400000 //hor val / pal mode
 patch=1,EE,001d9ae8,word,3c023f28 //hor val / ntsc mode
 patch=1,EE,001d9aec,word,3442f5c3 //hor val / ntsc mode
+patch=1,EE,001B4E64,word,3c023f28 //hor val / ntsc mode
+patch=1,EE,001b4e68,word,3442f5c3 //hor val / ntsc mode
 
 //FMV's fix
 

@@ -10,3 +10,7 @@ patch=1,EE,002ad04c,word,3C026F50 //top
 
 //patch=1,EE,002ad094,word,34c68c80 //right
 //patch=1,EE,002ad050,word,34467380 //left
+
+//black borders fix
+//(0c00a286 ff7f4224 01004224) the second one
+patch=1,EE,001B887C,word,86A20010 //86a2000c

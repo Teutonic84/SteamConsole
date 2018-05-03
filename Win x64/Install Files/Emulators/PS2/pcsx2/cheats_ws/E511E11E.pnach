@@ -1,0 +1,51 @@
+gametitle=Men in Black II - Alien Escape (K)(SLPM-67533)
+comment=Widescreen hack by Arapapa
+ 
+//Widescreen 16:9
+
+//3f5c370f -> 3F252945
+//AB AA AA 3E 89 88 08 3E
+patch=1,EE,E0023f5c,extended,0076BA62 //Gameplay
+patch=1,EE,2076BA60,extended,3F252945 //3f5c370f Y-Fov
+patch=1,EE,20621450,extended,3fb0aaab //3eaaaaab Zoom
+
+patch=1,EE,E0023f89,extended,0076BA62 //Menu
+patch=1,EE,2076BA60,extended,3F4E7393 //3f89a269 Y-Fov
+patch=1,EE,20621450,extended,40290000 //3eaaaaab Zoom
+
+///////////////////////////////////////////////////////
+//patch=1,EE,015e39d0,word,3c023fc9 //3c023f80
+//patch=1,EE,015e5da8,word,3c023fc9 //3c023f80
+//patch=1,EE,015e9d58,word,3c033fc9 //3c033f80
+//patch=1,EE,015e9d78,word,3c033fc9 //3c033f80
+///patch=1,EE,015eb364,word,3c053fc9 //3c053f00
+//patch=1,EE,016196e4,word,3c023fc9 //3c023f99
+//patch=1,EE,01667204,word,3c023fc9 //3c023f80
+//patch=1,EE,01684a18,word,3c0d3fc9 //3c0d3f80
+//patch=1,EE,014cd3a4,word,3c023fc9 //3c023fef
+//patch=1,EE,014cd418,word,3c023fc9 //3c023ff0
+//patch=1,EE,014cd42c,word,3c023fc9 //3c023fef
+//patch=1,EE,014cd4ac,word,3c023fc9 //3c023fe0
+//patch=1,EE,014cd4fc,word,3c023fc9 //3c023ff0
+//patch=1,EE,014cd5d8,word,3c023fc9 //3c023fef
+//patch=1,EE,014cd61c,word,3c023fc9 //3c023ff0
+//patch=1,EE,0152a32c,word,3c013fc9 //3c013f00
+//patch=1,EE,0152a4dc,word,3c013fc9 //3c013f80
+//patch=1,EE,0153b074,word,3c013fc9 //3c013f80
+//patch=1,EE,0153baf8,word,3c013fc9 //3c013f80
+//patch=1,EE,0153c588,word,3c013fc9 //3c013f80
+//patch=1,EE,0153d558,word,3c013fc9 //3c013f80
+//patch=1,EE,0153d5a8,word,3c013fc9 //3c013f80
+//patch=1,EE,0153ed50,word,3c013fc9 //3c013f80
+//patch=1,EE,0153f3a8,word,3c013fc9 //3c013f80
+
+//Zoom
+//20621450
+//3eaaaaab(2nd) 
+//patch=1,EE,20621450,extended,40290000 //3eaaaaab
+
+//xxx
+//patch=1,EE,017afd60,word,3e7ef9db //3f7ef9db
+//patch=1,EE,017afd64,word,3e800000 //3f800000
+//patch=1,EE,017afd68,word,3e70a3d7 //3f70a3d7
+//patch=1,EE,017efd90,word,3f400000 //3f800000

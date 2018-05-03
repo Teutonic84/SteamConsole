@@ -1,6 +1,8 @@
-gametitle=Shin Megami Tensei: Persona 3 FES PAL (SLES_55354)
-comment=Shin Megami Tensei: Persona 3 FES PAL (SLES_55354) - 16:9 Widescreen, 60fps, & Progressive Scan
-//16:9
+gametitle=Shin Megami Tensei: Persona 3 FES [PAL] (SLES-55354)
+comment=16:9 Widescreen, 60fps, & Progressive Scan
+//Persona art fix added by El_Patas
+
+//Gameplay 16:9
 patch=1,EE,007cd01c,word,3fe38e38
 
 //Partial HUD fix
@@ -11,7 +13,11 @@ patch=1,EE,00106eb4,word,00000000
 patch=1,EE,00106eb8,word,24630004
 patch=1,EE,00106ebc,word,3c043f80
 
-//Font fix by nemesis2000 (causes spacing errors)
+//Persona art fix
+patch=1,EE,00115fa8,word,3c033ec0 //3c033f00
+patch=1,EE,00115fb8,word,3c023f90 //3c023f80
+
+//Font fix (causes spacing errors)
 patch=1,EE,003b3134,word,00118903
 patch=1,EE,003b3138,word,02338818
 patch=1,EE,003b3140,word,8E93001c

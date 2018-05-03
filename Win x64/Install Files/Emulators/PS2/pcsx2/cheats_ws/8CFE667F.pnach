@@ -1,6 +1,8 @@
 gametitle=Silent Hill 3 [NTSC-J] (SLPM-65257)
-comment=NTSC-J Widescreen Hack by synce
-patch=1,EE,21e54570,extended,3F400000
+comment=NTSC-J Widescreen Hack by nemesis2000
+
+patch=1,EE,001b4a24,word,3c023f28 //3c023f61
+patch=1,EE,001b4a28,word,3442f5c3 //344247ae
 
 //Oringal FMV's fix by nemesis2000
 patch=1,EE,002b6078,word,24112550 //fmv height

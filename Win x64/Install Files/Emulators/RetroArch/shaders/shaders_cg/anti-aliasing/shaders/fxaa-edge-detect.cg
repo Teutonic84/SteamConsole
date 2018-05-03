@@ -1,34 +1,26 @@
-struct input
+#include "../../compat_includes.inc"
+uniform COMPAT_Texture2D(decal) : TEXUNIT0;
+uniform float4x4 modelViewProj;
+
+struct out_vertex
 {
-  float2 video_size;
-  float2 texture_size;
-  float2 output_size;
-  float frame_count;
-  float frame_direction;
-  float frame_rotation;
+#ifndef HLSL_4
+	float4 Color    : COLOR;
+#endif
+	float4 position : COMPAT_POS;
+	float4 vpos : TEXCOORD1;
+	float2 texCoord : TEXCOORD0;
 };
 
-struct VERTEX_OUTPUT {
-  float4 position : POSITION;
-  float4 vpos : TEXCOORD1;
-  float2 texCoord : TEXCOORD0;
-};
-
-struct output 
+out_vertex main_vertex(COMPAT_IN_VERTEX)
 {
-  float4 color : COLOR;
-};
-
-VERTEX_OUTPUT main_vertex
-(
-	float4 position	: POSITION,
-	float2 texCoord : TEXCOORD0,
-	float4 vpos : TEXCOORD1,
-    uniform input IN,
-   	uniform float4x4 modelViewProj
-)
-{
-	VERTEX_OUTPUT OUT;
+	out_vertex OUT;
+#ifdef HLSL_4
+	float4 position = VIN.position;
+	float2 texCoord = VIN.texCoord;
+#else
+	OUT.Color = color;
+#endif
 	OUT.position = mul(modelViewProj, position);
     OUT.vpos = OUT.position;
 	OUT.texCoord = texCoord;
@@ -40,29 +32,29 @@ struct deltas
    float2 UL, UR, DL, DR, M;
 };
 
-output main_fragment(in VERTEX_OUTPUT VAR, uniform sampler2D decal : TEXUNIT0, uniform input IN) 
+float4 fxaa_edge_detect(float2 texture_size, float2 video_size, float2 output_size, COMPAT_Texture2D(decal), float2 texCoord, float4 vpos)
 {
     //yes Cg is THIS retarded, passing position as texturecoord
-	output OUT;
-	VAR.vpos /= VAR.vpos.w;
+	vpos /= vpos.w;
 	// get texel size   	
-	float2 ps = float2(0.9999/IN.texture_size.x, 0.9999/IN.texture_size.y);
+	float2 ps = float2(0.9999/texture_size.x, 0.9999/texture_size.y);
 
 	deltas loc = { 
-      VAR.texCoord + float2(-ps.x, -ps.y),
-      VAR.texCoord + float2(ps.x, -ps.y),
-      VAR.texCoord + float2(-ps.x, ps.y),
-      VAR.texCoord + float2(ps.x, ps.y),
-	  VAR.texCoord
+      texCoord + float2(-ps.x, -ps.y),
+      texCoord + float2(ps.x, -ps.y),
+      texCoord + float2(-ps.x, ps.y),
+      texCoord + float2(ps.x, ps.y),
+	  texCoord
    };
+
    //read locations
-   float3 colUL = tex2D(decal, loc.UL).xyz;
-   float3 colUR= tex2D(decal, loc.UR).xyz;
-   float3 colDL = tex2D(decal, loc.DL).xyz;
-   float3 colDR = tex2D(decal, loc.DR).xyz;
-   float3 colM = tex2D(decal, loc.M).xyz;
+   float3 colUL = COMPAT_SamplePoint(decal, loc.UL).xyz;
+   float3 colUR= COMPAT_SamplePoint(decal, loc.UR).xyz;
+   float3 colDL = COMPAT_SamplePoint(decal, loc.DL).xyz;
+   float3 colDR = COMPAT_SamplePoint(decal, loc.DR).xyz;
+   float3 colM = COMPAT_SamplePoint(decal, loc.M).xyz;
    //get luma vals/edge detection
-   float3 luma = vec3(0.299, 0.587, 0.114);
+   float3 luma = float3(0.299, 0.587, 0.114);
    float lumaUL = dot(colUL, luma);
    float lumaUR = dot(colUR, luma);
    float lumaDL = dot(colDL, luma);
@@ -74,8 +66,13 @@ output main_fragment(in VERTEX_OUTPUT VAR, uniform sampler2D decal : TEXUNIT0, u
    dir.x = -((lumaUL + lumaUR) - (lumaDR + lumaDL));
    dir.y =  ((lumaUR + lumaDR) - (lumaUL + lumaDL));
    
-   OUT.color = abs(dir.x) +abs(dir.y);
+   float4 final = abs(dir.x) +abs(dir.y);
 
-	return OUT;
-	
+	return final;
 }
+
+float4 main_fragment(COMPAT_IN_FRAGMENT) : COMPAT_Output
+{
+	return fxaa_edge_detect(COMPAT_texture_size, COMPAT_video_size, COMPAT_output_size, decal, VOUT.texCoord, VOUT.vpos);
+}
+COMPAT_END
