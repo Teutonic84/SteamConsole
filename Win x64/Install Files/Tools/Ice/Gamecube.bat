@@ -130,7 +130,7 @@ set old2=PROGRAM
 set old3=CONGEN
 set old4=ROMFILE
 set new=Dolphin
-set new2=Gamecube\Dolphin\dolphin.exe" /e
+set new2=Gamecube\Dolphin\dolphin.exe" -e
 set new3=Gamecube
 set "romlist=%dirpath%\Tools\Ice\ROMS.txt"
 
@@ -157,7 +157,7 @@ for /f "tokens=* delims=" %%M in ('Type "%romlist%" 2^>NUL') do (
     echo %%M
     for /f "tokens=* delims=" %%L in ( 'Type "%OutputFile%"') do (
     set str=%%L
-    set str=!str:%old4%=%%M" /b!
+    set str=!str:%old4%=%%M" -b!
     echo !str!>>"%dirpath%\Steam_Shortcuts\Gamecube\%%M.bat"
     )
 )
