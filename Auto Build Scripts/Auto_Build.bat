@@ -87,7 +87,7 @@ PING localhost -n 5 >NUL
 ECHO SteamConsole EXE Build Complete...
 ECHO ==================================
 ECHO.
-pause
+
 :end
 ECHO Cleaning Up Build Files.
 RMDIR /S /Q "%bpath%"
