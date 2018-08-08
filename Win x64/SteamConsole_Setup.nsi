@@ -9,7 +9,7 @@
 !include "MUI_EXTRAPAGES.nsh"
 !include "nsProcess.nsh"
 !include "Sections.nsh"
-!include "zipdll.nsh"
+#!include "zipdll.nsh"
 
 !macro ShellExecWait verb app param workdir show exitoutvar ;only app and show must be != "", every thing else is optional
 #define SEE_MASK_NOCLOSEPROCESS 0x40 
@@ -52,6 +52,8 @@ ShowInstDetails show
 
 !insertmacro MUI_PAGE_LICENSE "License.rtf"
 !insertmacro MUI_PAGE_README "Changelog.rtf"
+!insertmacro MUI_LANGUAGE "English"
+
 Page custom installwarning
 Page directory
 Page components
@@ -70,8 +72,6 @@ Section "Core Files (Required)"
 	File "SteamConsole.7z"
 	Nsis7z::ExtractWithDetails "SteamConsole.7z" # Extract all files from 7zip file to install directory based off of user's selection
 	Delete "$INSTDIR\SteamConsole.7z"
-	#SetOutPath "$INSTDIR\Emulators\PS1\ePSXe"
-	#CreateShortCut "$INSTDIR\Emulators\PS1\ePSXe\ps1.lnk" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe" "" "$INSTDIR\Emulators\PS1\ePSXe\epsxe.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	SetOutPath $INSTDIR

@@ -72,7 +72,7 @@ ECHO.
 PING localhost -n 5 >NUL
 
 ECHO Building "SteamConsole_Setup.nsi"
-".\NSIS\makensis.exe" "%bpath%\Win x64\SteamConsole_Setup.nsi"
+"C:\Program Files (x86)\NSIS\makensis.exe" /X"SetCompressor /FINAL lzma" "%bpath%\Win x64\SteamConsole_Setup.nsi"
 RENAME "%bpath%\Win x64\SteamConsole_Setup.exe" "SteamConsole_v%scversion%.exe"
 ECHO Done
 ECHO.
