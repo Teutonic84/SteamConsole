@@ -1,7 +1,8 @@
 echo off
 cls
+cd "%~dp0"
 cd ..\..
-set dirpath=%cd%
+set "dirpath=%cd%"
 
 ::Launch Game
 ::===========

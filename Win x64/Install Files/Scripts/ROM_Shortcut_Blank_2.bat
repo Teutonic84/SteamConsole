@@ -1,5 +1,5 @@
 echo off
-
+cd "%~dp0"
 cd ..\..
 set "dirpath=%cd%"
 
