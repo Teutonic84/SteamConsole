@@ -6,9 +6,17 @@ tasklist /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | find /I /N "Custom Hotkey
 if "%ERRORLEVEL%"=="0" taskkill /f /im "Custom Hotkeys.exe"
 
 cls
+cd "%~dp0%"
 cd ..\..
 set "dirpath=%cd%"
 cd "%dirpath%\Tools\Ice"
+
+del /F /Q "%dirpath%\Tools\Ice\config.txt"
+copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
+del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
+copy /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
+del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
 
 if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
 cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
@@ -59,18 +67,23 @@ call "Wii.bat" "%dirpath%"
 ::|       config.txt        |
 ::===========================
 
-setlocal DisableDelayedExpansion
-
-:Variables
+set steampath=%steampath:(=^^(%
+set steampath=%steampath:)=^^)%
 set "InputFile=%dirpath%\Tools\Ice\config.txt"
 set "OutputFile=%dirpath%\Tools\Ice\config-new.txt"
 set "_strFind=ROMs Directory="
 set "_strInsert=ROMS Directory=%dirpath%\Steam_Shortcuts"
+set "_strFind1=Userdata Directory="
+set "_strInsert1=Userdata Directory=%steampath%\userdata"
 
 :Replace
 >"%OutputFile%" (
   for /f "usebackq delims=" %%A in ("%InputFile%") do (
-    if "%%A" equ "%_strFind%" (echo %_strInsert%) else (echo %%A)
+    if "%%A" equ "%_strFind%" (echo %_strInsert%)
+	if "%%A" equ "%_strFind1%" (echo %_strInsert1%)
+	if not "%%A" equ "%_strFind%" (
+		if not "%%A" equ "%_strFind1%" (echo %%A)
+	)
   )
 )
 

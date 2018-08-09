@@ -4,6 +4,7 @@ tasklist /FI "IMAGENAME eq steam.exe" 2>NUL | find /I /N "steam.exe">NUL
 if "%ERRORLEVEL%"=="0" taskkill /f /im steam.exe
 
 cls
+cd "%~dp0%"
 cd ..\..
 set "dirpath=%cd%"
 cd "%dirpath%\Tools\Ice"
@@ -58,18 +59,23 @@ call "Wii.bat" "%dirpath%"
 ::|       config.txt        |
 ::===========================
 
-setlocal DisableDelayedExpansion
-
-:Variables
+set steampath=%steampath:(=^^(%
+set steampath=%steampath:)=^^)%
 set "InputFile=%dirpath%\Tools\Ice\config.txt"
 set "OutputFile=%dirpath%\Tools\Ice\config-new.txt"
 set "_strFind=ROMs Directory="
 set "_strInsert=ROMS Directory=%dirpath%\Steam_Shortcuts"
+set "_strFind1=Userdata Directory="
+set "_strInsert1=Userdata Directory=%steampath%\userdata"
 
 :Replace
 >"%OutputFile%" (
   for /f "usebackq delims=" %%A in ("%InputFile%") do (
-    if "%%A" equ "%_strFind%" (echo %_strInsert%) else (echo %%A)
+    if "%%A" equ "%_strFind%" (echo %_strInsert%)
+	if "%%A" equ "%_strFind1%" (echo %_strInsert1%)
+	if not "%%A" equ "%_strFind%" (
+		if not "%%A" equ "%_strFind1%" (echo %%A)
+	)
   )
 )
 
