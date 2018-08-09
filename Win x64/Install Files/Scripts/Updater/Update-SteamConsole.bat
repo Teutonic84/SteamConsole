@@ -46,7 +46,7 @@ del "..\..\steam_path.txt"
 ::=======================
 :updater
 cls
-wget -N --no-parent --tries=3 --html-extension --secure-protocol=tlsv1 --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
+wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
 for /F "tokens=8 delims=/ " %%h in ('findstr /I " Updater_ " index.html') do (
     set "newversionup=%%h"
     goto nextup
