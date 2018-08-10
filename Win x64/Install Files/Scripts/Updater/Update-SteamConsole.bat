@@ -113,7 +113,7 @@ goto end
 ::============================
 :steamconsole
 cls
-wget -N --no-parent --tries=3 --html-extension --secure-protocol=tlsv1 --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
+wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
 for /F "tokens=6 delims=/ " %%f in ('findstr /I " Teutonic84/SteamConsole/tree " index.html') do (
     set newversionsc="%%f
     goto nextsc
