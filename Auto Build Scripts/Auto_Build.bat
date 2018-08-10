@@ -42,12 +42,12 @@ PING localhost -n 5 >NUL
 
 ECHO Zipping Updated SteamConsole Files
 MOVE /Y "%bpath%\Win x64\SteamConsole_Setup.nsi" "%bpath%\SteamConsole_Setup.nsi" >NUL
-7zg a -y "%bpath%\Win x64\SteamConsole_v%scversion%.7z" "%bpath%\Win x64\*"
+7zg a -y "%bpath%\Win x64\SteamConsole_v%scversion%_x64.7z" "%bpath%\Win x64\*"
 ECHO Done
 ECHO.
 
-ECHO Moving "SteamConsole_v%scversion%.7z" To FTP Folder On \\Server.
-MOVE /Y "%bpath%\Win x64\SteamConsole_v%scversion%.7z" "\\server\c$\ftp_root\steamconsole\SteamConsole_v%scversion%.7z"
+ECHO Moving "SteamConsole_v%scversion%_x64.7z" To FTP Folder On \\Server.
+MOVE /Y "%bpath%\Win x64\SteamConsole_v%scversion%_x64.7z" "\\server\c$\ftp_root\steamconsole\SteamConsole_v%scversion%_x64.7z"
 ECHO Done
 ECHO.
 PING localhost -n 5 >NUL
@@ -73,13 +73,13 @@ PING localhost -n 5 >NUL
 
 ECHO Building "SteamConsole_Setup.nsi"
 "C:\Program Files (x86)\NSIS\makensis.exe" /X"SetCompressor /FINAL lzma" "%bpath%\Win x64\SteamConsole_Setup.nsi"
-RENAME "%bpath%\Win x64\SteamConsole_Setup.exe" "SteamConsole_v%scversion%.exe"
+RENAME "%bpath%\Win x64\SteamConsole_Setup.exe" "SteamConsole_v%scversion%_x64.exe"
 ECHO Done
 ECHO.
 PING localhost -n 5 >NUL
 
 ECHO Moving "SteamConsole_v%scversion%.exe" To "Builds" Root Folder.
-MOVE /Y "%bpath%\Win x64\SteamConsole_v%scversion%.exe" "%userprofile%\Desktop\Builds\SteamConsole_v%scversion%.exe"
+MOVE /Y "%bpath%\Win x64\SteamConsole_v%scversion%_x64.exe" "%userprofile%\Desktop\Builds\SteamConsole_v%scversion%_x64.exe"
 ECHO Done
 ECHO.
 PING localhost -n 5 >NUL
