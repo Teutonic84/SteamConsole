@@ -1,5 +1,6 @@
 echo off
 
+cd "%~dp0%"
 cd ..\..
 set "dirpath=%cd%"
 set "key=HKCU\SOFTWARE\Plex, Inc.\Plex Media Player"
