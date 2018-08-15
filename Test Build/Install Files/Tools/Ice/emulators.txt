@@ -33,39 +33,39 @@
 
 [retroarch_nds]
 location=DS
-command=%r
+command=%l retroarch ds %r
 
 [retroarch_gba]
 location=GBA
-command=%r
+command=%l retroarch gba %r
 
 [retroarch_n64]
 location=N64
-command=%r
+command=%l retroarch n64 %r
 
 [retroarch_nes]
 location=NES
-command=%r
+command=%l retroarch nes %r
 
 [retroarch_snes]
 location=SNES
-command=%r
+command=%l retroarch snes %r
 
 [retroarch_psp]
 location=PSP
-command=%r
+command=%l retroarch psp %r
 
 [retroarch_sega]
 location=Genesis
-command=%r
+command=%l retroarch sega %r
 
 [retroarch_sms]
 location=SMS
-command=%r
+command=%l retroarch sega %r
 
 [Apps]
 location=APPS
-command=%r
+command=%l apps 0 %r
 
 [PC]
 location=PC
@@ -73,16 +73,16 @@ command=%r
 
 [Gamecube]
 location=Gamecube
-command=%r
+command=%l dolphin gc %r
 
 [Wii]
 location=Wii
-command=%r
+command=%l dolphin wii %r
 
 [PS1]
 location=PS1
-command=%r
+command=%l retroarch ps1 %r
 
 [PS2]
 location=PS2
-command=%r
+command=%l pcsx2 ps2 %r

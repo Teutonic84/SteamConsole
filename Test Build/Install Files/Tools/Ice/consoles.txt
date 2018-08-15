@@ -55,57 +55,57 @@
 [Nintendo DS]
 nickname=DS
 emulator=retroarch_nds
-extensions=bat
-prefix=-[DS] 
+extensions=nds
+prefix=.[DS] 
 images directory=ds-image
 
 [Gameboy Advance]
 nickname=GBA
 emulator=retroarch_gba
-extensions=bat
-prefix=-[GBA] 
+extensions=gba
+prefix=.[GBA] 
 images directory=gba-image
 
 [Nintendo 64]
 nickname=N64
 emulator=retroarch_n64
-extensions=bat
-prefix=-[N64] 
+extensions=n64,v64,z64
+prefix=.[N64] 
 images directory=n64-image
 
 [Nintendo Entertainment System]
 nickname=NES
 emulator=retroarch_nes
-extensions=bat
-prefix=-[NES] 
+extensions=nes,zip
+prefix=.[NES] 
 images directory=nes-image
 
 [Super Nintendo]
 nickname=SNES
 emulator=retroarch_snes
-extensions=bat
-prefix=-[SNES] 
+extensions=sfc,smc,zip
+prefix=.[SNES] 
 images directory=snes-image
 
 [Playstation Portable]
 nickname=PSP
 emulator=retroarch_psp
-extensions=bat
-prefix=-[PSP] 
+extensions=iso
+prefix=.[PSP] 
 images directory=psp-image
 
 [Sega Genesis]
 nickname=Genesis
 emulator=retroarch_sega
-extensions=bat
-prefix=-[SEGA] 
+extensions=md
+prefix=.[SEGA] 
 images directory=sega-image
 
 [Sega Master System]
 nickname=SMS
 emulator=retroarch_sms
-extensions=bat
-prefix=-[SMS] 
+extensions=sms
+prefix=.[SMS] 
 images directory=sms-image
 
 [Apps]
@@ -124,27 +124,27 @@ images directory=pc-image
 [Nintendo Gamecube]
 nickname=Gamecube
 emulator=Gamecube
-extensions=bat
+extensions=gcz,gcm,iso,wad
 prefix=-[GC] 
 images directory=gc-image
 
 [Nintendo Wii]
 nickname=Wii
 emulator=Wii
-extensions=bat
+extensions=gcz,gcm,iso,wad,wbfs
 prefix=-[Wii] 
 images directory=wii-image
 
 [Playstation 1]
 nickname=PS1
 emulator=PS1
-extensions=bat
+extensions=bin,img
 prefix=-[PS1] 
 images directory=ps1-image
 
 [Playstation 2]
 nickname=PS2
 emulator=PS2
-extensions=bat
+extensions=bin,iso
 prefix=-[PS2] 
 images directory=ps2-image
