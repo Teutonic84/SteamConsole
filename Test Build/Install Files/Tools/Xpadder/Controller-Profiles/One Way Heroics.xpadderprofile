@@ -1,0 +1,48 @@
+;----------------------
+; Xpadder Profile File
+;----------------------
+
+Version=5.7
+
+[Profile Settings]
+
+[Set Settings]
+
+[Assignments]
+Set1Button1Slots=Z
+Set1Button2Slots=X
+Set1Button3Slots=Left Control
+Set1Button4Slots=C
+Set1DPadUpSlots=Arrow Up
+Set1DPadRightSlots=Arrow Right
+Set1DPadDownSlots=Arrow Down
+Set1DPadLeftSlots=Arrow Left
+Set1Stick1UpSlots=Arrow Up
+Set1Stick1RightSlots=Arrow Right
+Set1Stick1DownSlots=Arrow Down
+Set1Stick1LeftSlots=Arrow Left
+Set2Button1Slots=Enter
+Set2Button2Slots=Backspace
+Set2Button3Slots=Media Browser Refresh
+Set2Button4Slots=Alt,Escape
+Set2Button5Slots=Alt,F4
+Set2Button6Slots=Windows Logo Left
+Set2DPadUpSlots=Left Control,Alt,5
+Set2Stick1UpSlots=Left Control,Alt,1
+Set2Stick1RightSlots=Left Control,Alt,2
+Set2Stick1DownSlots=Left Control,Alt,4
+Set2Stick1LeftSlots=Left Control,Alt,3
+Set2Stick2UpSlots=Mouse Move Up
+Set2Stick2UpMouseSpeed=32
+Set2Stick2RightSlots=Mouse Move Right
+Set2Stick2RightMouseSpeed=32
+Set2Stick2DownSlots=Mouse Move Down
+Set2Stick2DownMouseSpeed=32
+Set2Stick2LeftSlots=Mouse Move Left
+Set2Stick2LeftMouseSpeed=32
+Set2TriggerLeftSlots=Left Mouse Button (1)
+Set2TriggerRightSlots=Right Mouse Button (2)
+Set3Stick2UpMouseSpeed=32
+Set3Stick2RightMouseSpeed=32
+Set3Stick2DownMouseSpeed=32
+Set3Stick2LeftMouseSpeed=32

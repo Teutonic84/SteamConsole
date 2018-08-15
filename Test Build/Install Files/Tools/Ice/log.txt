@@ -1,0 +1,198 @@
+[04/19/16 15:16:52] =========================Starting Ice
+[04/19/16 15:16:52] Detected Emulator: retroarch_nds
+[04/19/16 15:16:52] Detected Emulator: retroarch_nes
+[04/19/16 15:16:52] Detected Emulator: retroarch_sms
+[04/19/16 15:16:52] Detected Emulator: retroarch_psp
+[04/19/16 15:16:52] Detected Emulator: retroarch_n64
+[04/19/16 15:16:52] Detected Emulator: Gamecube
+[04/19/16 15:16:52] Detected Emulator: retroarch_snes
+[04/19/16 15:16:52] Detected Emulator: retroarch_gba
+[04/19/16 15:16:52] Detected Emulator: PC
+[04/19/16 15:16:52] Detected Emulator: Wii
+[04/19/16 15:16:52] Detected Emulator: retroarch_sega
+[04/19/16 15:16:52] Detected Emulator: PS2
+[04/19/16 15:16:52] Detected Emulator: PS1
+[04/19/16 15:16:52] Detected Console: Nintendo DS => retroarch_nds
+[04/19/16 15:16:52] Detected Console: Super Nintendo => retroarch_snes
+[04/19/16 15:16:52] Detected Console: Playstation Portable => retroarch_psp
+[04/19/16 15:16:52] Detected Console: Playstation 2 => PS2
+[04/19/16 15:16:52] Detected Console: Playstation 1 => PS1
+[04/19/16 15:16:52] Detected Console: Nintendo Entertainment System => retroarch_nes
+[04/19/16 15:16:52] Detected Console: Nintendo Wii => Wii
+[04/19/16 15:16:52] Detected Console: Sega Master System => retroarch_sms
+[04/19/16 15:16:52] Detected Console: Gameboy Advance => retroarch_gba
+[04/19/16 15:16:52] Detected Console: Nintendo Gamecube => Gamecube
+[04/19/16 15:16:52] Detected Console: Apps and PC Games => PC
+[04/19/16 15:16:52] Detected Console: Nintendo 64 => retroarch_n64
+[04/19/16 15:16:52] Detected Console: Sega Genesis => retroarch_sega
+[04/19/16 15:16:52] ---------------Running for user 19087720
+[04/19/16 15:16:52] Adding Final Fantasy IV
+[04/19/16 15:16:52] Adding Legend of Zelda - Spirit Tracks
+[04/19/16 15:16:52] Adding Aladdin
+[04/19/16 15:16:52] Adding American Gladiators
+[04/19/16 15:16:52] Adding Breath of Fire II
+[04/19/16 15:16:52] Adding Breath of Fire
+[04/19/16 15:16:52] Adding Chrono Trigger
+[04/19/16 15:16:52] Adding Donkey Kong Country 2 - Diddy's Kong Quest
+[04/19/16 15:16:52] Adding Donkey Kong Country
+[04/19/16 15:16:52] Adding Dragon Quest I & II
+[04/19/16 15:16:52] Adding Dragon Quest III - Soshite Densetsu e
+[04/19/16 15:16:52] Adding Dragon Quest V - Tenkuu no Hanayome
+[04/19/16 15:16:52] Adding Dragon Quest VI - Maboroshi no Daichi
+[04/19/16 15:16:52] Adding EarthBound
+[04/19/16 15:16:52] Adding Earthworm Jim 2
+[04/19/16 15:16:52] Adding Earthworm Jim
+[04/19/16 15:16:52] Adding Final Fantasy IV
+[04/19/16 15:16:52] Adding Final Fantasy V
+[04/19/16 15:16:52] Adding Final Fantasy VI - Revelations
+[04/19/16 15:16:52] Adding Final Fantasy VI
+[04/19/16 15:16:52] Adding Killer Instinct
+[04/19/16 15:16:52] Adding Knights of the Round
+[04/19/16 15:16:52] Adding Legend of Zelda, The - A Link to the Past
+[04/19/16 15:16:52] Adding Lufia II - Rise of the Sinistrals
+[04/19/16 15:16:52] Adding Megaman X
+[04/19/16 15:16:52] Adding Mortal Kombat 3
+[04/19/16 15:16:52] Adding Mortal Kombat II
+[04/19/16 15:16:52] Adding Mortal Kombat
+[04/19/16 15:16:52] Adding Secret of Mana 2
+[04/19/16 15:16:52] Adding Secret of Mana
+[04/19/16 15:16:52] Adding Star Ocean
+[04/19/16 15:16:52] Adding Street Fighter II Turbo - Hyper Fighting
+[04/19/16 15:16:52] Adding Super Mario All-Stars + Super Mario World
+[04/19/16 15:16:52] Adding Super Mario Kart
+[04/19/16 15:16:52] Adding Super Mario RPG - Legend of the Seven Stars
+[04/19/16 15:16:52] Adding Super Mario World 2 - Yoshi's Island
+[04/19/16 15:16:52] Adding Super Metroid
+[04/19/16 15:16:52] Adding Super Off Road
+[04/19/16 15:16:52] Adding Super Smash TV
+[04/19/16 15:16:52] Adding Super Star Wars - Return of the Jedi
+[04/19/16 15:16:52] Adding Super Star Wars - The Empire Strikes Back
+[04/19/16 15:16:52] Adding Super Star Wars
+[04/19/16 15:16:52] Adding Super Street Fighter II - The New Challengers
+[04/19/16 15:16:52] Adding Tales of Phantasia
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles - Tournament Fighters
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles IV - Turtles in Time
+[04/19/16 15:16:52] Adding Terranigma
+[04/19/16 15:16:52] Adding Crisis Core - Final Fantasy VII
+[04/19/16 15:16:52] Adding Final Fantasy I
+[04/19/16 15:16:52] Adding Final Fantasy II
+[04/19/16 15:16:52] Adding Final Fantasy III
+[04/19/16 15:16:52] Adding Final Fantasy IV - Complete Collection
+[04/19/16 15:16:52] Adding Valkyrie Profile - Lenneth
+[04/19/16 15:16:52] Adding 1942
+[04/19/16 15:16:52] Adding 1943
+[04/19/16 15:16:52] Adding 1944
+[04/19/16 15:16:52] Adding Balloon Fight
+[04/19/16 15:16:52] Adding Battletoads & Double Dragon
+[04/19/16 15:16:52] Adding Blaster Master
+[04/19/16 15:16:52] Adding Bubble Bobble
+[04/19/16 15:16:52] Adding Chip 'n Dale Rescue Rangers 2
+[04/19/16 15:16:52] Adding Chip 'n Dale Rescue Rangers
+[04/19/16 15:16:52] Adding Contra
+[04/19/16 15:16:52] Adding Double Dragon
+[04/19/16 15:16:52] Adding Dragon Warrior IV
+[04/19/16 15:16:52] Adding Final Fantasy III
+[04/19/16 15:16:52] Adding Legend of Zelda II, The - The Adventure of Link
+[04/19/16 15:16:52] Adding Legend of Zelda, The
+[04/19/16 15:16:52] Adding Marble Madness
+[04/19/16 15:16:52] Adding Mega Man 2
+[04/19/16 15:16:52] Adding Mega Man 3
+[04/19/16 15:16:52] Adding Mega Man 4
+[04/19/16 15:16:52] Adding Mega Man 5
+[04/19/16 15:16:52] Adding Mega Man 6
+[04/19/16 15:16:52] Adding Mega Man
+[04/19/16 15:16:52] Adding Metroid
+[04/19/16 15:16:52] Adding Ninja Gaiden II - The Dark Sword of Chaos
+[04/19/16 15:16:52] Adding Ninja Gaiden III - The Ancient Ship of Doom
+[04/19/16 15:16:52] Adding Ninja Gaiden
+[04/19/16 15:16:52] Adding Paperboy 2
+[04/19/16 15:16:52] Adding Paperboy
+[04/19/16 15:16:52] Adding Punch-Out
+[04/19/16 15:16:52] Adding Rush'n Attack
+[04/19/16 15:16:52] Adding Shinobi
+[04/19/16 15:16:52] Adding Star Wars - The Empire Strikes Back
+[04/19/16 15:16:52] Adding Star Wars
+[04/19/16 15:16:52] Adding Super Mario Bros
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles II - The Arcade Game
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles III - The Manhattan Project
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles
+[04/19/16 15:16:52] Adding Willow
+[04/19/16 15:16:52] Adding Phantasy Star
+[04/19/16 15:16:52] Adding Legend of Zelda, The - The Minish Cap
+[04/19/16 15:16:52] Adding Sonic Advance 2
+[04/19/16 15:16:52] Adding Sonic Advance 3
+[04/19/16 15:16:52] Adding Sonic Advance
+[04/19/16 15:16:52] Adding AMC
+[04/19/16 15:16:52] Adding BTN2GO
+[04/19/16 15:16:52] Adding Cartoon Hangover
+[04/19/16 15:16:52] Adding chrome
+[04/19/16 15:16:52] Adding ComedyCentral
+[04/19/16 15:16:52] Adding Danny Choo Channel
+[04/19/16 15:16:52] Adding Diablo II
+[04/19/16 15:16:52] Adding Diablo III
+[04/19/16 15:16:52] Adding ESPN3
+[04/19/16 15:16:52] Adding Final Fantasy XIV
+[04/19/16 15:16:52] Adding FoxSportsGo
+[04/19/16 15:16:52] Adding Geek & Sundry
+[04/19/16 15:16:52] Adding HBOGO
+[04/19/16 15:16:52] Adding Hulu
+[04/19/16 15:16:52] Adding Malwarebytes
+[04/19/16 15:16:52] Adding NBCSports
+[04/19/16 15:16:52] Adding Netflix
+[04/19/16 15:16:52] Adding Plex
+[04/19/16 15:16:52] Adding Pluto TV
+[04/19/16 15:16:52] Adding Showtime
+[04/19/16 15:16:52] Adding SpikeTV
+[04/19/16 15:16:52] Adding Star Wars Battlefront
+[04/19/16 15:16:52] Adding Starz
+[04/19/16 15:16:52] Adding Tru TV
+[04/19/16 15:16:52] Adding Tumblr
+[04/19/16 15:16:52] Adding Twitch
+[04/19/16 15:16:52] Adding VH1
+[04/19/16 15:16:52] Adding Xbox-Games
+[04/19/16 15:16:52] Adding Xbox
+[04/19/16 15:16:52] Adding Youtube
+[04/19/16 15:16:52] Adding 007 - GoldenEye
+[04/19/16 15:16:52] Adding Donkey Kong 64
+[04/19/16 15:16:52] Adding Gauntlet Legends
+[04/19/16 15:16:52] Adding Gex 3 - Deep Cover Gecko
+[04/19/16 15:16:52] Adding Killer Instinct Gold
+[04/19/16 15:16:52] Adding Legend of Zelda, The - Majora's Mask
+[04/19/16 15:16:52] Adding Legend of Zelda, The - Ocarina of Time - Master Quest
+[04/19/16 15:16:52] Adding Legend of Zelda, The - Ocarina of Time
+[04/19/16 15:16:52] Adding Mario Kart 64
+[04/19/16 15:16:52] Adding Perfect Dark
+[04/19/16 15:16:52] Adding Star Fox 64
+[04/19/16 15:16:52] Adding Star Wars - Rogue Squadron
+[04/19/16 15:16:52] Adding Super Mario 64
+[04/19/16 15:16:52] Adding Super Smash Bros
+[04/19/16 15:16:52] Adding American Gladiators
+[04/19/16 15:16:52] Adding Arcade Classics
+[04/19/16 15:16:52] Adding Cool Spot
+[04/19/16 15:16:52] Adding Gauntlet IV
+[04/19/16 15:16:52] Adding Ghouls 'n Ghosts
+[04/19/16 15:16:52] Adding Golden Axe III
+[04/19/16 15:16:52] Adding Landstalker
+[04/19/16 15:16:52] Adding Mortal Kombat 3
+[04/19/16 15:16:52] Adding Mortal Kombat II
+[04/19/16 15:16:52] Adding Mortal Kombat
+[04/19/16 15:16:52] Adding Phantasy Star II
+[04/19/16 15:16:52] Adding Phantasy Star III - Generations of Doom
+[04/19/16 15:16:52] Adding Phantasy Star IV
+[04/19/16 15:16:52] Adding Shaq Fu
+[04/19/16 15:16:52] Adding Shining Force II
+[04/19/16 15:16:52] Adding Shining Force
+[04/19/16 15:16:52] Adding Skitchin'
+[04/19/16 15:16:52] Adding Sonic and Knuckles
+[04/19/16 15:16:52] Adding Sonic the Hedgehog 2
+[04/19/16 15:16:52] Adding Sonic the Hedgehog
+[04/19/16 15:16:52] Adding Streets of Rage 2
+[04/19/16 15:16:52] Adding Streets of Rage 3
+[04/19/16 15:16:52] Adding Sunset Riders
+[04/19/16 15:16:52] Adding Sword of Vermilion
+[04/19/16 15:16:52] Adding Teenage Mutant Ninja Turtles - The Hyperstone Heist
+[04/19/16 15:16:52] Adding Toe Jam & Earl
+[04/19/16 15:16:52] Adding X-Men 2 - Clone Wars
+[04/19/16 15:16:52] Adding X-Men
+[04/19/16 15:16:52] ---Downloading grid images
+[04/19/16 15:16:52] =========================Finished

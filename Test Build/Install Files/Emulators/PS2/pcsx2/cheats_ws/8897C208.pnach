@@ -1,0 +1,82 @@
+gametitle=Shin Megami Tensei: Persona 3 FES (K) (SCKA-20109)
+comment=Widescreen hack by nemesis2000 and devina and sergx12 (pnach by Arapapa)
+
+//16:9
+patch=1,EE,007caf1c,word,3fe38e38 // 3faaaaab
+
+//partial HUD fix by nemesis2000
+patch=1,EE,00106d20,word,3c043f40
+patch=1,EE,00106d28,word,00701821 // 246330ac($1) 
+patch=1,EE,00106d2c,word,246330ac // recall $1 (NTSC-U 24632bac)  
+patch=1,EE,00106d34,word,00000000
+patch=1,EE,00106d38,word,24630004
+patch=1,EE,00106d3c,word,3c043f80
+
+//FMV's fix by nemesis2000
+patch=1,EE,0010ae80,word,1462000a
+patch=1,EE,0010ae88,word,3c02c294
+patch=1,EE,0010ae8c,word,10000008
+patch=1,EE,0010ae9c,word,00000000
+patch=1,EE,0010aeac,word,3c02c1a8
+patch=1,EE,0010aec0,word,00000000
+
+//persona art fix by devina and nemesis2000
+//003f033c 3001a3af 3401a0af 7001a0af 803f023c
+patch=1,EE,001148cc,word,3c033ec0 // 3c033f00
+patch=1,EE,001148dc,word,3c023f90 // 3c023f80
+
+//Font fix by nemesis2000 (causes spacing errors)
+//patch=1,EE,0039ce64,word,00118903
+//patch=1,EE,0039ce68,word,02338818
+//patch=1,EE,0039ce70,word,8E93001c
+//patch=1,EE,0039cf18,word,82970003
+//patch=1,EE,0039d064,word,24130015
+
+//patch=1,EE,0039f2ec,word,2415000c
+//patch=1,EE,0039f304,word,3c0241a8
+//patch=1,EE,0039f330,word,01154018
+//patch=1,EE,0039f334,word,00084103
+//patch=1,EE,0039f338,word,0100a82d
+
+//popup character portraits fix by sergx12
+patch=1,EE,0010f600,word,3c024455 //3c024420
+patch=1,EE,00111554,word,3c024455 //3c024420
+patch=1,EE,004aa4cc,word,00000000 //ac60f220
+patch=1,EE,004c3b9c,word,00000000 //e4800030
+patch=1,EE,2095f220,extended,3e800000 //00000000
+
+//Arcana Card Fix by Arapapa
+//fe42023c 00608244
+//be42023c 00608244 (twice)
+patch=1,EE,003a0068,word,3c0242be //3c0242fe
+patch=1,EE,0039ff94,word,3c0242be //3c0242fe
+
+
+//b442023c 00008244 00000000 41080046
+//4042023c 00008244 00000000 41080046(2nd)
+patch=1,EE,0039fc80,word,3c024240 //3c0242b4
+
+//CH Icon position
+//patch=1,EE,0018c070,word,3c0242a0 //3c0241a0
+//patch=1,EE,0018c084,word,3c024290 //3c024190
+//patch=1,EE,0018c0cc,word,3c0242a0 //3c0241a0
+//patch=1,EE,0018c0e0,word,3c024290 //3c024190
+
+//Shuffle Card Face (Y-Fov)
+//patch=1,EE,0020c9c4,word,3c033fab //3c03bf80
+//???
+//patch=1,EE,00257bd4,word,3c024204 //3c0242b4
+
+//Shuffle Card Face Fix (X-Fov)
+//0040033c 00008344 00000000 03000146 (1st)
+patch=1,EE,0020c980,word,3c033fe0 //3c034000
+
+//Shuffle Card back Fix (X-Fov)
+//????
+
+//Shuffle Card face and back (Y-Fov) (It's a trick)
+//patch=1,EE,0020c988,word,3c01be90 //00000000
+//patch=1,EE,0020c9cc,word,44812800 //00000000
+
+//Infomation layer Zoom
+//patch=1,EE,004c9784,word,3c03bec0 //3c03bf00

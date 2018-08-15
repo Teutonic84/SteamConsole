@@ -1,0 +1,30 @@
+PCSX2 1.5.0-20160405000143 - compiled on Apr  5 2016
+Savestate version: 0x9a0b0000
+
+Host Machine Init:
+	Operating System =  Microsoft Windows 10 Pro (build 10586), 64-bit
+	Physical RAM     =  3998 MB
+	CPU name         =  Intel(R) Core(TM) i5-3470 CPU @ 3.20GHz
+	Vendor/Model     =  GenuineIntel (stepping 09)
+	CPU speed        =  3.191 ghz (4 logical threads)
+	x86PType         =  Standard OEM
+	x86Flags         =  bfebfbff 7fbae3ff
+	x86EFlags        =  28100000
+
+x86 Features Detected:
+	SSE2.. SSE3.. SSSE3.. SSE4.1.. SSE4.2.. AVX
+
+Reserving memory for recompilers...
+
+Loading plugins...
+	Binding   GS: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\GSdx32-AVX.dll 
+	Binding  PAD: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\LilyPad.dll 
+	Binding SPU2: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\SPU2-X.dll 
+	Binding CDVD: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\cdvdGigaherz.dll 
+	Binding  USB: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\USBnull.dll 
+	Binding   FW: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\FWnull.dll 
+	Binding DEV9: C:\Users\Dan-H\Documents\GitHub\SteamConsole\Win x64\Install Files\Emulators\PS2\pcsx2\plugins\DEV9null.dll 
+Plugins loaded successfully.
+
+(GameDB) 9700 games on record (loaded in 168ms)
+(GameDB) Unloading...

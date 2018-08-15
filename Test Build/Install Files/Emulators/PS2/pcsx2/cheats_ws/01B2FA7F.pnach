@@ -1,0 +1,4 @@
+gametitle=Metal Gear Solid 3 - Subsistence (Disc 2of3) (U)(SLUS-21243)
+comment=Widescreen
+//patch=1,EE,2026D1DC,extended,3F400000
+patch=1,EE,202050ac,extended,3F400000
