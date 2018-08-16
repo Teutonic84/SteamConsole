@@ -161,9 +161,11 @@ echo Extracting SteamConsole %newversionsc% files...
 del "SteamConsole_%newversionsc%_x64.7z"
 cls
 "..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
-echo Replacing old files with new ones...
-if exist "..\..\Steam_Shortcuts\Arcade" del /q /s "..\..\Steam_Shortcuts\Arcade\*.*" 2>NUL 1>NUL
-del /q /s "..\..\Images\Steam_Grid_Images\*.png" 2>NUL 1>NUL
+ECHO Replacing old files with new ones...
+IF EXIST "..\..\Steam_Shortcuts\Arcade" RMDIR /q /s "..\..\Steam_Shortcuts\Arcade" 2>NUL 1>NUL
+IF EXIST "..\..\Steam_Shortcuts\Apps" MOVE /y "..\..\Steam_Shortcuts\Apps" "..\..\Emulators\ROMS\Apps"
+
+::del /q /s "..\..\Images\Steam_Grid_Images\*.png" 2>NUL 1>NUL
 mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
 move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
@@ -188,15 +190,19 @@ del /q "%dirpath%\Scripts\Updater\reg_add.reg"
 ::|  Cleanup Section    |
 ::=======================
 :cleanup
-
-if exist "%dirpath%\Scripts\steam.bat" (
-    del /q "%dirpath%\Scripts\steam.bat"
-    copy /y "%dirpath%\Scripts\Updater\steam.bat" "%dirpath%\Scripts\Steam_Open.bat"
+cd "%~dp0%"
+IF EXIST "..\steam.bat" (
+    DEL /q "..\steam.bat"
+    COPY /y "steam.bat" "..\Steam_Open.bat"
+    PING localhost -n 2 >NUL
 )
-if not exist "%dirpath%\Scripts\Steam_Open.bat" (
-    copy /y "%dirpath%\Scripts\Updater\steam.bat" "%dirpath%\Scripts\Steam_Open.bat"
+IF EXIST "..\Steam_Open.bat" (
+    DEL /q "..\Steam_Open.bat"
+    COPY /y "steam.bat" "..\Steam_Open.bat"
 )
-copy /y "%dirpath%\Scripts\Updater\steam.bat" "%dirpath%\Scripts\Steam_Open.bat"
+IF NOT EXIST "..\Steam_Open.bat" (
+    COPY /y "steam.bat" "..\Steam_Open.bat"
+)
 
 cd "%dirpath%\Tools\Ice"
 start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
