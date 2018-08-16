@@ -1,7 +1,7 @@
 echo off
 
 cd "%~dp0%"
-cd ..\..
+cd ..\..\..
 set "dirpath=%cd%"
 set "key=HKCU\SOFTWARE\Plex, Inc.\Plex Media Player"
 set "key2=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\Plex Home Theater"

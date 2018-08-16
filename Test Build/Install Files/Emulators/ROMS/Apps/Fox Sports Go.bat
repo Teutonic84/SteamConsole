@@ -1,7 +1,7 @@
 echo off
 
 cd "%~dp0%"
-cd ..\..
+cd ..\..\..
 set "dirpath=%cd%"
 
 taskkill /im "Custom Hotkeys.exe"

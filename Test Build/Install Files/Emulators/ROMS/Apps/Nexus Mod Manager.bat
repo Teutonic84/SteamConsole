@@ -1,9 +1,8 @@
 echo off
 
 cd "%~dp0%"
-cd ..\..
+cd ..\..\..
 set "dirpath=%cd%"
-
 
 taskkill /im "Custom Hotkeys.exe"
 copy /y "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map - Chrome.JPG" "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map.JPG"

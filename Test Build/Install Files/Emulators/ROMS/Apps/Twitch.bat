@@ -1,7 +1,7 @@
 echo off
 
 cd "%~dp0%"
-cd ..\..
+cd ..\..\..
 set "dirpath=%cd%"
 set "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
 
