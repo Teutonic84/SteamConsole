@@ -164,6 +164,7 @@ cls
 ECHO Replacing old files with new ones...
 IF EXIST "..\..\Steam_Shortcuts\Arcade" RMDIR /q /s "..\..\Steam_Shortcuts\Arcade" 2>NUL 1>NUL
 IF EXIST "..\..\Steam_Shortcuts\Apps" MOVE /y "..\..\Steam_Shortcuts\Apps" "..\..\Emulators\ROMS\Apps"
+IF EXIST "..\..\Emulators\ROMS\PSP\PPSSPP" RMDIR /s /q "..\..\Emulators\ROMS\PSP\PPSSPP"
 
 ::del /q /s "..\..\Images\Steam_Grid_Images\*.png" 2>NUL 1>NUL
 mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
@@ -254,16 +255,16 @@ wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/snes9x_libretro
 wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/vbam_libretro.dll.zip 2>NUL 1>NUL
 wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/vbam_libretro.info 2>NUL 1>NUL
 cls
-echo Extracting RetroArch cores...
-if not exist "files\RetroArch_Cores" mkdir "files\RetroArch_Cores"
-7zG x -y -o"files\RetroArch_Cores" "mupen64plus_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
-7zG x -y -o"files\RetroArch_Cores" "vbam_libretro.dll.zip"
+ECHO Extracting RetroArch cores...
+IF NOT EXIST "files\RetroArch_Cores" MKDIR "files\RetroArch_Cores"
+IF EXIST "mupen64plus_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mupen64plus_libretro.dll.zip"
+IF EXIST "desmume_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
+IF EXIST "genesis_plus_gx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
+IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
+IF EXIST "nestopia_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
+IF EXIST "ppsspp_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
+IF EXIST "snes9x_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
+IF EXIST "vbam_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "vbam_libretro.dll.zip"
 
 del "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
 del "desmume_libretro.dll.zip" 2>NUL 1>NUL
@@ -277,13 +278,13 @@ cls
 echo Updating RetroArch cores...
 move /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
 robocopy "Files\RetroArch_Cores" ..\..\Emulators\RetroArch\cores\ /E /XO /MOVE 2>NUL 1>NUL
-if exist "files\RetroArch_Cores" rmdir /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
+IF EXIST "files\RetroArch_Cores" RMDIR /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
 
 ::=====================
 ::|  PCSX2 Section    |
 ::=====================
 :pcsx2
-set /p version=<version_pcsx2.txt
+SET /p version=<version_pcsx2.txt
 wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
 for /F "tokens=4 delims=><" %%a in ('findstr /I " \<v1.* " index.php.html') do (
     set "newversion=%%a"
@@ -298,10 +299,15 @@ cls
 if %version% == %newversion% goto NOUP
 
 cls
-echo Downloading PCSX2 %newversion% files...
+ECHO Downloading PCSX2 %newversion% files...
 wget -Q7m --tries=3 --reject css,html --mirror -p --convert-links -P files\PCSX2 "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
 cls
-echo Extracting PCSX2 %newversion% files...
+IF NOT EXIST "Files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=dl&rev=%newversion%&platform=windows-x86" (
+    ECHO Download of PCSX2 failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "pcsx2=Download of PCSX2 failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO dolphin
+)
+ECHO Extracting PCSX2 %newversion% files...
 7zG x -y -o"files\PCSX2" "Files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=dl&rev=%newversion%&platform=windows-x86"
 cls
 echo Replacing old files with new ones...
@@ -349,6 +355,11 @@ cls
 echo Downloading Dolphin %newversion2% files...
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
 cls
+IF NOT EXIST "dolphin-master-%newversion2%-x64.7z" (
+    ECHO Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "pcsx2=Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO retroarch
+)
 echo Extracting Dolphin %newversion2% files...
 7zG x -y -o"files\" dolphin-master-%newversion2%-x64.7z
 del dolphin-master-%newversion2%-x64.7z 2>NUL 1>NUL
@@ -417,6 +428,16 @@ cls
 echo Downloading RetroArch Redist %datef%...
 wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
 cls
+IF NOT EXIST "%datef%_RetroArch.7z" (
+    ECHO Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "pcsx2=Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO complete
+)
+IF NOT EXIST "redist.7z" (
+    ECHO Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "pcsx2=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO complete
+)
 echo Extracting RetroArch Nightly %datef%...
 7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
 7zG x -y -o"files\RetroArch-redist" redist.7z
