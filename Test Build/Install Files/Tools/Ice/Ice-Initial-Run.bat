@@ -13,7 +13,6 @@ if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
 cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
 
-cd "%dirpath%\Tools\Ice"
 if not exist "%userprofile%\AppData\Local\Scott Rice" (
     mkdir "%userprofile%\AppData\Local\Scott Rice"
     mkdir "%userprofile%\AppData\Local\Scott Rice\Ice"
@@ -23,50 +22,33 @@ if exist "%steampath%\userdata\anonymous" (
     rmdir /q /s "%steampath%\userdata\anonymous"
 )
 
-call "Gamecube.bat" "%dirpath%"
-cls
-call "GBA.bat" "%dirpath%"
-cls
-call "N64.bat" "%dirpath%"
-cls
-call "NDS.bat" "%dirpath%"
-cls
-call "NES.bat" "%dirpath%"
-cls
-call "PC.bat" "%dirpath%"
-cls
-call "PS1.bat" "%dirpath%"
-cls
-call "PS2.bat" "%dirpath%"
-cls
-call "PSP.bat" "%dirpath%"
-cls
-call "SEGA.bat" "%dirpath%"
-cls
-call "SMS.bat" "%dirpath%"
-cls
-call "SNES.bat" "%dirpath%"
-cls
-call "Wii.bat" "%dirpath%"
-
-::**************************************************************************************************||
-::**************************************************************************************************||
-::--------------------------------------------------------------------------------------------------||
-::**************************************************************************************************||
-::**************************************************************************************************||
+::ROM Renamer Script Call
+::=======================
+CALL "rom_renamer.bat" "%dirpath%" "Gamecube"
+CALL "rom_renamer.bat" "%dirpath%" "GBA"
+CALL "rom_renamer.bat" "%dirpath%" "N64"
+CALL "rom_renamer.bat" "%dirpath%" "DS"
+CALL "rom_renamer.bat" "%dirpath%" "NES"
+CALL "rom_renamer.bat" "%dirpath%" "PS1"
+CALL "rom_renamer.bat" "%dirpath%" "PS2"
+CALL "rom_renamer.bat" "%dirpath%" "PSP"
+CALL "rom_renamer.bat" "%dirpath%" "Genesis"
+CALL "rom_renamer.bat" "%dirpath%" "SMS"
+CALL "rom_renamer.bat" "%dirpath%" "SNES"
+CALL "rom_renamer.bat" "%dirpath%" "Wii"
 
 ::===========================
 ::|       config.txt        |
 ::===========================
 
-set steampath=%steampath:(=^^(%
-set steampath=%steampath:)=^^)%
+set steampath2=%steampath:(=^^(%
+set steampath2=%steampath:)=^^)%
 set "InputFile=%dirpath%\Tools\Ice\config.txt"
 set "OutputFile=%dirpath%\Tools\Ice\config-new.txt"
 set "_strFind=ROMs Directory="
-set "_strInsert=ROMS Directory=%dirpath%\Steam_Shortcuts"
+set "_strInsert=ROMS Directory=%dirpath%\Emulators\ROMS"
 set "_strFind1=Userdata Directory="
-set "_strInsert1=Userdata Directory=%steampath%\userdata"
+set "_strInsert1=Userdata Directory=%steampath2%\userdata"
 
 :Replace
 >"%OutputFile%" (
@@ -90,7 +72,7 @@ rename "%dirpath%\Tools\Ice\config-new.txt" config.txt
 ::===========
 
 :Variables_nds
-set "nds=%dirpath%\Steam_Shortcuts\DS\DS"
+set "nds=%dirpath%\Scripts\Launcher.bat"
 set "dsimage=%dirpath%\Images\Steam_Grid_Images\DS"
 set "InputFile2=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile2=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -125,7 +107,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::===============
 
 :Variables_gba
-set "gba=%dirpath%\Steam_Shortcuts\GBA\GBA"
+set "gba=%dirpath%\Scripts\Launcher.bat"
 set "gbaimage=%dirpath%\Images\Steam_Grid_Images\GBA"
 set "InputFile3=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile3=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -160,7 +142,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::===========
 
 :Variables_n64
-set "n64=%dirpath%\Steam_Shortcuts\N64\N64"
+set "n64=%dirpath%\Scripts\Launcher.bat"
 set "n64image=%dirpath%\Images\Steam_Grid_Images\N64"
 set "InputFile4=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile4=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -195,7 +177,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::===
 
 :Variables_nes
-set "nes=%dirpath%\Steam_Shortcuts\NES\NES"
+set "nes=%dirpath%\Scripts\Launcher.bat"
 set "nesimage=%dirpath%\Images\Steam_Grid_Images\NES"
 set "InputFile5=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile5=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -230,7 +212,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::====
 
 :Variables_snes
-set "snes=%dirpath%\Steam_Shortcuts\SNES\SNES"
+set "snes=%dirpath%\Scripts\Launcher.bat"
 set "snesimage=%dirpath%\Images\Steam_Grid_Images\SNES"
 set "InputFile6=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile6=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -265,7 +247,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::===
 
 :Variables_psp
-set "psp=%dirpath%\Steam_Shortcuts\PSP\PSP"
+set "psp=%dirpath%\Scripts\Launcher.bat"
 set "pspimage=%dirpath%\Images\Steam_Grid_Images\PSP"
 set "InputFile7=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile7=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -300,7 +282,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_sega
-set "sega=%dirpath%\Steam_Shortcuts\Genesis\Genesis"
+set "sega=%dirpath%\Scripts\Launcher.bat"
 set "segaimage=%dirpath%\Images\Steam_Grid_Images\Genesis"
 set "InputFile8=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile8=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -335,7 +317,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_sms
-set "sms=%dirpath%\Steam_Shortcuts\SMS\SMS"
+set "sms=%dirpath%\Scripts\Launcher.bat"
 set "smsimage=%dirpath%\Images\Steam_Grid_Images\SMS"
 set "InputFile14=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile14=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -370,7 +352,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_apps
-set "apps=%dirpath%\Steam_Shortcuts\Apps\Apps"
+set "apps=%dirpath%\Scripts\Launcher.bat"
 set "appsimage=%dirpath%\Images\Steam_Grid_Images\Apps"
 set "InputFile15=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile15=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -405,7 +387,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_pc
-set "pc=%dirpath%\Steam_Shortcuts\PC_Games\PC_Games"
+set "pc=%dirpath%\Scripts\Launcher.bat"
 set "pcimage=%dirpath%\Images\Steam_Grid_Images\PC_Games"
 set "InputFile9=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile9=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -440,7 +422,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_gamecube
-set "gamecube=%dirpath%\Steam_Shortcuts\Gamecube\Gamecube"
+set "gamecube=%dirpath%\Scripts\Launcher.bat"
 set "gcimage=%dirpath%\Images\Steam_Grid_Images\Gamecube"
 set "InputFile10=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile10=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -475,7 +457,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_gamecube
-set "wii=%dirpath%\Steam_Shortcuts\Wii\Wii"
+set "wii=%dirpath%\Scripts\Launcher.bat"
 set "wiiimage=%dirpath%\Images\Steam_Grid_Images\Wii"
 set "InputFile11=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile11=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -510,7 +492,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_ps1
-set "ps1=%dirpath%\Steam_Shortcuts\PS1\PS1"
+set "ps1=%dirpath%\Scripts\Launcher.bat"
 set "ps1image=%dirpath%\Images\Steam_Grid_Images\PS1"
 set "InputFile12=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile12=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -545,7 +527,7 @@ rename "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
 ::============
 
 :Variables_ps2
-set "ps2=%dirpath%\Steam_Shortcuts\PS2\PS2"
+set "ps2=%dirpath%\Scripts\Launcher.bat"
 set "ps2image=%dirpath%\Images\Steam_Grid_Images\PS2"
 set "InputFile13=%dirpath%\Tools\Ice\emulators.txt"
 set "OutputFile13=%dirpath%\Tools\Ice\emulators-new.txt"
@@ -587,4 +569,4 @@ del /F /Q "%dirpath%\steam_path.txt"
 ::copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
 
 :end
-goto :eof
+GOTO :eof
