@@ -69,7 +69,7 @@ command=%l apps 0 %r
 
 [PC]
 location=PC
-command=%r
+command=%l pc 0 %r
 
 [Gamecube]
 location=Gamecube
