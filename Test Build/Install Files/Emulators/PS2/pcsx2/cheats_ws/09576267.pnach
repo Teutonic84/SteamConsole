@@ -1,5 +1,0 @@
-gametitle=Gantz: The Game [NTSC-J] (SLPM-65950)
-comment=Widescreen Hack by Little Giant
-
-patch=1,EE,0013f834,word,3c023fc0 //zoom
-patch=1,EE,003665D8,word,3FAA9FBE //ver

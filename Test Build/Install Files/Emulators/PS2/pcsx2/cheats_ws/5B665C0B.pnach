@@ -1,6 +1,0 @@
-gametitle=Dynasty Warriors 2
-patch=1,EE,0020263c,word,3c013f40 // 00000000 zoom
-patch=1,EE,00202640,word,4481f000 // 00000000
-patch=1,EE,00202650,word,461e0003 // 46000306
-patch=1,EE,003321f4,word,3faaaaab // 3f800000 ver fov
-patch=1,EE,00253d24,word,3c013f2b // 3c013f00 renderfix

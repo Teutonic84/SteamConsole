@@ -1,6 +1,0 @@
-gametitle=Bible Game, The (NTSC-U) [SLUS-21175]
-comment=Widescreen hack
-
-//hor fov (default = 3FB6DB6E, 21:9 = 3F5B6DB7)
-
-patch=1,EE,2061B008,extended,3F92F054

@@ -1,8 +1,0 @@
-gametitle=Echo Night: Beyond (NTSC-U)
-comment=Widescreen Hack by Arapapa
-
-//Widescreen hack 16:9 (set Screen Ratio to 4:3)
-
-//703f033c 003f023c d7a36334
-patch=1,EE,00143d10,word,3c033fa0 //3c023f70 Y-Fov
-patch=1,EE,00143d14,word,3c023f20 //3c023f00 Zoom

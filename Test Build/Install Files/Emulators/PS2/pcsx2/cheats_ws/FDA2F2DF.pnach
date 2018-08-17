@@ -1,6 +1,0 @@
-gametitle=DoRoRo (K)(SLKA-25225)
-comment=Widescreen Hack by Little Giant (NTSC-K by Arapapa)
-
-//Widescreen hack 16:9
-patch=1,EE,001b8cbc,word,3c023f06 //3c023f33
-patch=1,EE,001b8cc4,word,34426666 //34423333

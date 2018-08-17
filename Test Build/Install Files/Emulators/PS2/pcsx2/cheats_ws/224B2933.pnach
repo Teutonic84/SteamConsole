@@ -1,6 +1,0 @@
-﻿gametitle=Onimusha 2 [NTSC-J] (SLPM-65101])
-comment=Widescreen correction by nemesis2000 (pnach by Little Giant)
-//gameplay
-patch=1,EE,2010285C,extended,3c013f40
-patch=1,EE,20102860,extended,44810000
-patch=1,EE,20102868,extended,4600c602

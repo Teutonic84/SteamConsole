@@ -1,5 +1,0 @@
-gametitle=Naruto - Ultimate Ninja (NTSC-U)
-comment=Widescreen Hack
-
-//16:9
-patch=1,EE,2082F300,word,3f400000 // 3f800000

@@ -1,4 +1,0 @@
-﻿gametitle=Genji [NTSC-J] (SCPS-15095)
-comment=Widescreen Hack by okuha8748p (pnach by Little Giant)
-
-patch=1,EE,002e4ba0,word,3C013FC5
