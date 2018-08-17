@@ -119,7 +119,7 @@ for /F "tokens=6 delims=/ " %%f in ('findstr /I " Teutonic84/SteamConsole/tree "
     goto nextsc
 )
 set "steamconsole=SteamConsole Host Down Currently..."
-goto cores
+goto retroarch
 
 :nextsc
 set newversionsc=%newversionsc:"=%
@@ -128,21 +128,6 @@ set "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\St
 for /f "tokens=3 delims= " %%g in ('Reg query "%key%" /v DisplayVersion') do set "currentver=v%%g"
 del /q "index.html"
 
-cd "%dirpath%\Tools\Ice"
-if "%currentver%" LSS "v1.3.4" (
-    echo Removing old Steam shortcuts before Ice 1.0.0 import
-    if exist "..\..\Steam_Shortcuts" del /q /s "..\..\Steam_Shortcuts\*.*" 2>NUL 1>NUL
-    >"config-new.txt" (
-        for /f "usebackq delims=" %%A in ("config.txt") do (
-        if "%%A" equ "ROMs Directory=" (echo ROMS Directory=%dirpath%\Steam_Shortcuts) else (echo %%A)
-        )
-    )
-    del /F /Q "%dirpath%\Tools\Ice\config.txt"
-    rename "%dirpath%\Tools\Ice\config-new.txt" config.txt
-    call "%dirpath%\Tools\Ice\Ice.exe"
-    del /F /Q "%dirpath%\Tools\Ice\config.txt"
-    copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
-)
 cd "%dirpath%\Scripts\Updater"
 if %currentver% == %newversionsc% goto NOUPSC
 
@@ -150,7 +135,7 @@ cls
 ping haackerit.duckdns.org -n 1 2>NUL 1>NUL
 if %errorlevel%==1 (
     set "steamconsole=SteamConsole Host Down Currently..."
-    goto cores
+    goto retroarch
 )
 cls
 echo Downloading SteamConsole %newversionsc% files...
@@ -166,12 +151,11 @@ IF EXIST "..\..\Steam_Shortcuts\Arcade" RMDIR /q /s "..\..\Steam_Shortcuts\Arcad
 IF EXIST "..\..\Steam_Shortcuts\Apps" MOVE /y "..\..\Steam_Shortcuts\Apps" "..\..\Emulators\ROMS\Apps"
 IF EXIST "..\..\Emulators\ROMS\PSP\PPSSPP" RMDIR /s /q "..\..\Emulators\ROMS\PSP\PPSSPP"
 
-::del /q /s "..\..\Images\Steam_Grid_Images\*.png" 2>NUL 1>NUL
-mkdir "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
-move /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
-move /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
-move /y "Files\SteamConsole_%newversionsc%_x64\README.txt" "Files\SteamConsole_%newversionsc%_x64\Root\README.txt" 2>NUL 1>NUL
-move /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "%dirpath%\SteamConsole_uninstaller.exe" 2>NUL 1>NUL
+MKDIR "Files\SteamConsole_%newversionsc%_x64\Root" 2>NUL 1>NUL
+MOVE /y "Files\SteamConsole_%newversionsc%_x64\Changelog.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\Changelog.rtf" 2>NUL 1>NUL
+MOVE /y "Files\SteamConsole_%newversionsc%_x64\License.rtf" "Files\SteamConsole_%newversionsc%_x64\Root\License.rtf" 2>NUL 1>NUL
+MOVE /y "Files\SteamConsole_%newversionsc%_x64\README.txt" "Files\SteamConsole_%newversionsc%_x64\Root\README.txt" 2>NUL 1>NUL
+MOVE /y "Files\SteamConsole_%newversionsc%_x64\SteamConsole_uninstaller.exe" "%dirpath%\SteamConsole_uninstaller.exe" 2>NUL 1>NUL
 
 robocopy "Files\SteamConsole_%newversionsc%_x64\Install Files" ..\..\..\SteamConsole\ "*.*" /E /XO /XD "DS4Tool-1.2.2" "DSTool-Reloaded" /MOVE 2>NUL 1>NUL
 robocopy "Files\SteamConsole_%newversionsc%_x64\Root" ..\..\..\SteamConsole\ "*.*" /E /XO /MOVE 2>NUL 1>NUL
@@ -184,8 +168,8 @@ echo "Version"="%regver%" >>"%dirpath%\Scripts\Updater\reg_add.reg"
 echo. >>"%dirpath%\Scripts\Updater\reg_add.reg"
 echo. >>"%dirpath%\Scripts\Updater\reg_add.reg"
 
-regedit /s "%dirpath%\Scripts\Updater\reg_add.reg"
-del /q "%dirpath%\Scripts\Updater\reg_add.reg"
+REGEDIT /s "%dirpath%\Scripts\Updater\reg_add.reg"
+DEL /q "%dirpath%\Scripts\Updater\reg_add.reg"
 
 ::=======================
 ::|  Cleanup Section    |
@@ -194,8 +178,6 @@ del /q "%dirpath%\Scripts\Updater\reg_add.reg"
 cd "%~dp0%"
 IF EXIST "..\steam.bat" (
     DEL /q "..\steam.bat"
-    COPY /y "steam.bat" "..\Steam_Open.bat"
-    PING localhost -n 2 >NUL
 )
 IF EXIST "..\Steam_Open.bat" (
     DEL /q "..\Steam_Open.bat"
@@ -207,20 +189,20 @@ IF NOT EXIST "..\Steam_Open.bat" (
 
 cd "%dirpath%\Tools\Ice"
 start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
-call "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
-call "%dirpath%\Tools\Ice\Ice.exe"
-del /F /Q "%dirpath%\Tools\Ice\config.txt"
-copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
-del /F /Q "%dirpath%\Tools\Ice\emulators.txt"
-copy /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
-del /F /Q "%dirpath%\Tools\Ice\consoles.txt"
-copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
-del /F /Q "%dirpath%\steam_path.txt"
+CALL "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
+CALL "%dirpath%\Tools\Ice\Ice.exe"
+DEL /F /Q "%dirpath%\Tools\Ice\config.txt"
+COPY /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
+DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
+COPY /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
+DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+COPY /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
+DEL /F /Q "%dirpath%\steam_path.txt"
 cls
 cd "%dirpath%\Scripts\Updater"
-echo SteamConsole successfully updated to %newversionsc%...
-set "steamconsole=SteamConsole Updated to %newversionsc%..."
-goto cores
+ECHO SteamConsole successfully updated to %newversionsc%...
+SET "steamconsole=SteamConsole Updated to %newversionsc%..."
+GOTO retroarch
 
 :NOUPSC
 echo.
@@ -231,6 +213,74 @@ echo ======================================
 echo.
 echo.
 set "steamconsole=SteamConsole already up to date..."
+
+::=======================
+::|  RetroArch Section  |
+::=======================
+:retroarch
+set /P olddate=<date.txt
+set datef=%date:~-4%-%date:~4,2%-%date:~7,2%
+::set day=%date:~7,2%
+::set /a day=%day%-1
+::set datef=%date:~-4%-%date:~4,2%-%day%
+if %olddate%==%datef% (
+	SET "retroarch=RetroArch EXE Already Up To Date."
+	GOTO cores
+)
+echo %datef%>date.txt
+
+::Download RetroArch Program Package:
+::==================================
+cls
+echo Downloading RetroArch Nightly Build %datef%...
+set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
+wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
+if %errorlevel%==1 goto yesterday
+goto download
+
+:yesterday
+set day=%date:~7,2%
+set /a day=%day%-1
+set datef=%date:~-4%-%date:~4,2%-%day%
+
+::Download RetroArch Program Package:
+::==================================
+cls
+echo Downloading RetroArch Nightly Build %datef%...
+set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
+wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
+if %errorlevel%==1 (
+    set "retroarch=RetroArch No nightly build for today. Try again tomorrow."
+    goto cores
+)
+cls
+
+:download
+echo Downloading RetroArch Redist %datef%...
+wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
+cls
+IF NOT EXIST "%datef%_RetroArch.7z" (
+    ECHO Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "retroarch=Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO cores
+)
+IF NOT EXIST "redist.7z" (
+    ECHO Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
+	SET "retroarch=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+	GOTO cores
+)
+echo Extracting RetroArch Nightly %datef%...
+7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
+7zG x -y -o"files\RetroArch-redist" redist.7z
+del /q %datef%_RetroArch.7z 2>NUL 1>NUL
+del /q redist.7z 2>NUL 1>NUL
+cls
+echo Replacing old files with new ones...
+robocopy Files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
+robocopy Files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
+set "retroarch=RetroArch updated to %datef%..."
 
 ::=====================
 ::|  Cores Section    |
@@ -279,6 +329,7 @@ echo Updating RetroArch cores...
 move /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
 robocopy "Files\RetroArch_Cores" ..\..\Emulators\RetroArch\cores\ /E /XO /MOVE 2>NUL 1>NUL
 IF EXIST "files\RetroArch_Cores" RMDIR /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
+SET "cores=RetroArch Cores Updated To Latest Versions."
 
 ::=====================
 ::|  PCSX2 Section    |
@@ -342,7 +393,7 @@ for /F "tokens=2 delims=)(" %%a in ('findstr /I " \<(.* " index.html') do (
     goto next
 )
 set "dolphin=Dolphin Host Down Currently..."
-goto retroarch
+goto complete
 
 :next
 set /p version2=<version_dolphin.txt
@@ -358,7 +409,7 @@ cls
 IF NOT EXIST "dolphin-master-%newversion2%-x64.7z" (
     ECHO Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
 	SET "pcsx2=Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
-	GOTO retroarch
+	GOTO complete
 )
 echo Extracting Dolphin %newversion2% files...
 7zG x -y -o"files\" dolphin-master-%newversion2%-x64.7z
@@ -372,7 +423,7 @@ if exist "Dolphin-x64" rmdir /s /q Dolphin-x64 2>NUL 1>NUL
 cls
 echo Dolphin successfully updated to %newversion2%...
 set "dolphin=Dolphin Updated to %newversion2%..."
-goto retroarch
+GOTO complete
 
 :NOUP2
 echo.
@@ -383,71 +434,6 @@ echo ======================================
 echo.
 echo.
 set "dolphin=Dolphin already up to date..."
-
-::=======================
-::|  RetroArch Section  |
-::=======================
-:retroarch
-set /P olddate=<date.txt
-set datef=%date:~-4%-%date:~4,2%-%date:~7,2%
-::set day=%date:~7,2%
-::set /a day=%day%-1
-::set datef=%date:~-4%-%date:~4,2%-%day%
-if %olddate%==%datef% goto :nochange
-echo %datef%>date.txt
-
-::Download RetroArch Program Package:
-::==================================
-cls
-echo Downloading RetroArch Nightly Build %datef%...
-set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
-wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-if %errorlevel%==1 goto yesterday
-goto download
-
-:yesterday
-set day=%date:~7,2%
-set /a day=%day%-1
-set datef=%date:~-4%-%date:~4,2%-%day%
-
-::Download RetroArch Program Package:
-::==================================
-cls
-echo Downloading RetroArch Nightly Build %datef%...
-set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
-wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-if %errorlevel%==1 (
-    set "retroarch=RetroArch No nightly build for today. Try again tomorrow."
-    goto complete
-)
-cls
-
-:download
-echo Downloading RetroArch Redist %datef%...
-wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
-cls
-IF NOT EXIST "%datef%_RetroArch.7z" (
-    ECHO Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
-	SET "pcsx2=Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
-	GOTO complete
-)
-IF NOT EXIST "redist.7z" (
-    ECHO Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
-	SET "pcsx2=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
-	GOTO complete
-)
-echo Extracting RetroArch Nightly %datef%...
-7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
-7zG x -y -o"files\RetroArch-redist" redist.7z
-del /q %datef%_RetroArch.7z 2>NUL 1>NUL
-del /q redist.7z 2>NUL 1>NUL
-cls
-echo Replacing old files with new ones...
-robocopy Files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
-robocopy Files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
-set "retroarch=RetroArch updated to %datef%..."
 
 :complete
 if exist "Files\" (rmdir /q /s Files)
@@ -469,6 +455,7 @@ echo ======================================
 echo.
 echo ======================================
 echo   %retroarch%
+ECHO   %cores%
 echo ======================================
 echo.
 echo.
