@@ -31,7 +31,7 @@ IF "%emu%"=="retroarch" (
     COPY /y "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map - RetroArch.JPG" "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map.JPG" >NUL
     START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
     START "" "%dirpath%\Tools\Xpadder\xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\RetroArch.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\RetroArch.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\RetroArch.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\RetroArch.xpadderprofile"
-    "%dirpath%\Emulators\RetroArch\retroarch.exe" --config "%dirpath%\Emulators\RetroArch\configs\%core%_libretro.cfg" -L "%dirpath%\Emulators\RetroArch\cores\%core%_libretro.dll" "%game%" -f
+    "%dirpath%\Emulators\RetroArch\retroarch.exe" --config "%dirpath%\Emulators\RetroArch\config\%core%_libretro.cfg" -L "%dirpath%\Emulators\RetroArch\cores\%core%_libretro.dll" "%game%" -f
 )
 IF "%emu%"=="dolphin" (
     TASKKILL /im "Custom Hotkeys.exe" >NUL
