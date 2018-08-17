@@ -1,45 +1,42 @@
 @echo off
 cls
-cd ..\..
-set "dirpath=%cd%"
-cd "%dirpath%\Scripts\Updater"
+CD ..\..
+SET "dirpath=%cd%"
+CD "%dirpath%\Scripts\Updater"
 
-if not exist "..\..\Images" (mkdir ..\..\Images)
-if not exist "files" (mkdir Files)
+IF NOT EXIST "..\..\Images" (MKDIR ..\..\Images)
+IF NOT EXIST "files" (MKDIR files)
 
 ::taskkill /T /IM "ScpService.exe" 2>NUL 1>NUL
-taskkill /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
-taskkill /f /im "Steam.exe" 2>NUL 1>NUL
-::"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
+TASKKILL /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
+TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 
-if exist "Files\SteamConsole_%newversionsc%_x64" rmdir /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
-if exist "..\..\Emulators\Updater" rmdir /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
-if exist "Update-Emulators.bat" del /q "Update-Emulators.bat" 2>NUL 1>NUL
-if exist "..\..\Emulators\Gamecube\Dolphin\Updater" rmdir /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
-if exist "..\..\Steam_Shortcuts\PC_Games" rmdir /s /q "..\..\Steam_Shortcuts\PC_Games" 2>NUL 1>NUL
-if exist "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" del /q "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" 2>NUL 1>NUL
-if exist "..\..\Emulators\RetroArch_x64" rename "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
-if exist "..\..\Steam_Grid_Images" move "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
-if exist "..\..\steam_path_check.vbs" move /y "..\..\steam_path_check.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
-if exist "..\..\steam_path_check_x64.vbs" move /y "..\..\steam_path_check_x64.vbs" "..\..\Scripts\steam_path_check.vbs" 2>NUL 1>NUL
-if exist "..\..\steam_path_check_x86.vbs" del /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
-if exist "..\..\replace.vbs" del /q "..\..\replace.vbs" 2>NUL 1>NUL
-if exist "..\..\replace2.vbs" del /q "..\..\replace2.vbs" 2>NUL 1>NUL
-if exist "..\..\Shortcut.exe" del /q "..\..\Shortcut.exe" 2>NUL 1>NUL
-if exist "..\..\Scripts\Logoff.bat" del /q "..\..\Scripts\Logoff.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Rename.bat" del /q "..\..\Scripts\ROM_Rename.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" del /q "..\..\Scripts\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
-::if exist "..\..\Scripts\Steam_Open.bat" del /q "..\..\Scripts\Steam_Open.bat" 2>NUL 1>NUL
-if exist "..\..\Scripts\Services.bat" del /q "..\..\Scripts\Services.bat" 2>NUL 1>NUL
+IF EXIST "Files\SteamConsole_%newversionsc%_x64" RMDIR /s /q "Files\SteamConsole_%newversionsc%_x64" 2>NUL 1>NUL
+IF EXIST "..\..\Emulators\Updater" RMDIR /s /q "..\..\Emulators\Updater" 2>NUL 1>NUL
+IF EXIST "Update-Emulators.bat" DEL /q "Update-Emulators.bat" 2>NUL 1>NUL
+IF EXIST "..\..\Emulators\Gamecube\Dolphin\Updater" RMDIR /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
+IF EXIST "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" DEL /q "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" 2>NUL 1>NUL
+IF EXIST "..\..\Emulators\RetroArch_x64" RENAME "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
+IF EXIST "..\..\Steam_Grid_Images" MOVE "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
+IF EXIST "..\..\steam_path_check.vbs" DEL /q "..\..\steam_path_check.vbs" 2>NUL 1>NUL
+IF EXIST "..\..\steam_path_check_x64.vbs" DEL /q "..\..\steam_path_check_x64.vbs" 2>NUL 1>NUL
+IF EXIST "..\..\steam_path_check_x86.vbs" DEL /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
+IF EXIST "..\..\replace.vbs" DEL /q "..\..\replace.vbs" 2>NUL 1>NUL
+IF EXIST "..\..\replace2.vbs" DEL /q "..\..\replace2.vbs" 2>NUL 1>NUL
+IF EXIST "..\..\Shortcut.exe" DEL /q "..\..\Shortcut.exe" 2>NUL 1>NUL
+IF EXIST "..\Logoff.bat" DEL /q "..\Logoff.bat" 2>NUL 1>NUL
+IF EXIST "..\ROM_Rename.bat" DEL /q "..\ROM_Rename.bat" 2>NUL 1>NUL
+IF EXIST "..\ROM_Shortcut_Blank_Dolphin.bat" DEL /q "..\ROM_Shortcut_Blank_Dolphin.bat" 2>NUL 1>NUL
+IF EXIST "..\ROM_Shortcut_Blank_ePSXe.bat" DEL /q "..\ROM_Shortcut_Blank_ePSXe.bat" 2>NUL 1>NUL
+IF EXIST "..\ROM_Shortcut_Blank_PCSX2.bat" DEL /q "..\ROM_Shortcut_Blank_PCSX2.bat" 2>NUL 1>NUL
+IF EXIST "..\Services.bat" DEL /q "..\Services.bat" 2>NUL 1>NUL
 
 :steampath
-if exist "..\..\steam_path.txt" del "..\..\steam_path.txt"
+IF EXIST "..\..\steam_path.txt" DEL "..\..\steam_path.txt" 2>NUL 1>NUL
 cscript.exe "..\steam_path_check.vbs" > "..\..\steam_path.txt"
 
-for /F "usebackq delims=" %%i in ("..\..\steam_path.txt") do set "steampath=%%i"
-del "..\..\steam_path.txt"
+FOR /F "usebackq delims=" %%i IN ("..\..\steam_path.txt") DO SET "steampath=%%i"
+DEL "..\..\steam_path.txt"
 
 ::=======================
 ::|  Updater Section    |
@@ -47,33 +44,33 @@ del "..\..\steam_path.txt"
 :updater
 cls
 wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
-for /F "tokens=8 delims=/ " %%h in ('findstr /I " Updater_ " index.html') do (
-    set "newversionup=%%h"
-    goto nextup
+FOR /F "tokens=8 delims=/ " %%h IN ('findstr /I " Updater_ " index.html') DO (
+    SET "newversionup=%%h"
+    GOTO nextup
 )
-set "updater=Updater Host Down Currently..."
-del /q "index.html" 2>NUL 1>NUL
-goto steamconsole
+SET "updater=Updater Host Down Currently..."
+DEL /q "index.html" 2>NUL 1>NUL
+GOTO steamconsole
 
 :nextup
 cls
-del /q "index.html" 2>NUL 1>NUL
-set newversionup=%newversionup:Updater_v=%
-set newversionup=%newversionup:.7z"=%
-set "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
+DEL /q "index.html" 2>NUL 1>NUL
+SET newversionup=%newversionup:Updater_v=%
+SET newversionup=%newversionup:.7z"=%
+SET "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
 
 Reg query "%key%" /v Updater 2>NUL 1>NUL
-if %errorlevel%==1 goto update
+if %errorlevel%==1 GOTO update
 
-for /f "tokens=3 delims= " %%i in ('Reg query "%key%" /v Updater') do set "currentver=%%i"
-if %currentver% == %newversionup% goto steamconsole
+FOR /f "tokens=3 delims= " %%i IN ('Reg query "%key%" /v Updater') DO SET "currentver=%%i"
+if %currentver% == %newversionup% GOTO steamconsole
 
 :update
 cls
 ping haackerit.duckdns.org -n 1 2>NUL 1>NUL
 if %errorlevel%==1 (
-    set "updater=Updater Host Down Currently..."
-    goto steamconsole
+    SET "updater=Updater Host Down Currently..."
+    GOTO steamconsole
 )
 cls
 echo Downloading SteamConsole Updater v%newversionup% files...
@@ -81,7 +78,7 @@ wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certifi
 cls
 echo Extracting SteamConsole Updater v%newversionup% files...
 7zG x -y -o"files\Updater_v%newversionup%" Updater_v%newversionup%.7z
-del "Updater_v%newversionup%.7z"
+DEL "Updater_v%newversionup%.7z"
 cls
 echo Replacing old files with new ones...
 robocopy "Files\Updater_v%newversionup%\Updater" ..\..\..\SteamConsole\Scripts\Updater "*.*" /E /XO /MOVE 2>NUL 1>NUL
@@ -94,9 +91,9 @@ echo. >>"%dirpath%\Scripts\Updater\reg_add.reg"
 echo. >>"%dirpath%\Scripts\Updater\reg_add.reg"
 
 regedit /s "%dirpath%\Scripts\Updater\reg_add.reg"
-del /q "%dirpath%\Scripts\Updater\reg_add.reg"
+DEL /q "%dirpath%\Scripts\Updater\reg_add.reg"
 
-if exist "files\Updater_v%newversionup%" rmdir /s /q "files\Updater_v%newversionup%"
+IF EXIST "files\Updater_v%newversionup%" RMDIR /s /q "files\Updater_v%newversionup%"
 cls
 echo.
 echo.
@@ -106,7 +103,7 @@ echo ===========================================================================
 echo.
 echo.
 pause
-goto end
+GOTO end
 
 ::============================
 ::|  SteamConsole Section    |
@@ -114,28 +111,28 @@ goto end
 :steamconsole
 cls
 wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate https://github.com/Teutonic84/SteamConsole/releases/ 2>NUL 1>NUL
-for /F "tokens=6 delims=/ " %%f in ('findstr /I " Teutonic84/SteamConsole/tree " index.html') do (
-    set newversionsc="%%f
-    goto nextsc
+FOR /F "tokens=6 delims=/ " %%f IN ('findstr /I " Teutonic84/SteamConsole/tree " index.html') DO (
+    SET newversionsc="%%f
+    GOTO nextsc
 )
-set "steamconsole=SteamConsole Host Down Currently..."
-goto retroarch
+SET "steamconsole=SteamConsole Host Down Currently..."
+GOTO retroarch
 
 :nextsc
-set newversionsc=%newversionsc:"=%
-set regver=%newversionsc:v=%
-set "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
-for /f "tokens=3 delims= " %%g in ('Reg query "%key%" /v DisplayVersion') do set "currentver=v%%g"
-del /q "index.html"
+SET newversionsc=%newversionsc:"=%
+SET regver=%newversionsc:v=%
+SET "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
+FOR /f "tokens=3 delims= " %%g IN ('Reg query "%key%" /v DisplayVersion') DO SET "currentver=v%%g"
+DEL /q "index.html"
 
 cd "%dirpath%\Scripts\Updater"
-if %currentver% == %newversionsc% goto NOUPSC
+if %currentver% == %newversionsc% GOTO NOUPSC
 
 cls
 ping haackerit.duckdns.org -n 1 2>NUL 1>NUL
 if %errorlevel%==1 (
-    set "steamconsole=SteamConsole Host Down Currently..."
-    goto retroarch
+    SET "steamconsole=SteamConsole Host Down Currently..."
+    GOTO retroarch
 )
 cls
 echo Downloading SteamConsole %newversionsc% files...
@@ -143,7 +140,7 @@ wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certifi
 cls
 echo Extracting SteamConsole %newversionsc% files...
 7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_%newversionsc%_x64.7z
-del "SteamConsole_%newversionsc%_x64.7z"
+DEL "SteamConsole_%newversionsc%_x64.7z"
 cls
 "..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 ECHO Replacing old files with new ones...
@@ -212,17 +209,17 @@ echo   SteamConsole already up to date...
 echo ======================================
 echo.
 echo.
-set "steamconsole=SteamConsole already up to date..."
+SET "steamconsole=SteamConsole already up to date..."
 
 ::=======================
 ::|  RetroArch Section  |
 ::=======================
 :retroarch
-set /P olddate=<date.txt
-set datef=%date:~-4%-%date:~4,2%-%date:~7,2%
-::set day=%date:~7,2%
-::set /a day=%day%-1
-::set datef=%date:~-4%-%date:~4,2%-%day%
+SET /P olddate=<date.txt
+SET datef=%date:~-4%-%date:~4,2%-%date:~7,2%
+::SET day=%date:~7,2%
+::SET /a day=%day%-1
+::SET datef=%date:~-4%-%date:~4,2%-%day%
 if %olddate%==%datef% (
 	SET "retroarch=RetroArch EXE Already Up To Date."
 	GOTO cores
@@ -233,27 +230,27 @@ echo %datef%>date.txt
 ::==================================
 cls
 echo Downloading RetroArch Nightly Build %datef%...
-set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
+SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-if %errorlevel%==1 goto yesterday
-goto download
+if %errorlevel%==1 GOTO yesterday
+GOTO download
 
 :yesterday
-set day=%date:~7,2%
-set /a day=%day%-1
-set datef=%date:~-4%-%date:~4,2%-%day%
+SET day=%date:~7,2%
+SET /a day=%day%-1
+SET datef=%date:~-4%-%date:~4,2%-%day%
 
 ::Download RetroArch Program Package:
 ::==================================
 cls
 echo Downloading RetroArch Nightly Build %datef%...
-set link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-set link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
+SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
+SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
 if %errorlevel%==1 (
-    set "retroarch=RetroArch No nightly build for today. Try again tomorrow."
-    goto cores
+    SET "retroarch=RetroArch No nightly build for today. Try again tomorrow."
+    GOTO cores
 )
 cls
 
@@ -274,13 +271,13 @@ IF NOT EXIST "redist.7z" (
 echo Extracting RetroArch Nightly %datef%...
 7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
 7zG x -y -o"files\RetroArch-redist" redist.7z
-del /q %datef%_RetroArch.7z 2>NUL 1>NUL
-del /q redist.7z 2>NUL 1>NUL
+DEL /q %datef%_RetroArch.7z 2>NUL 1>NUL
+DEL /q redist.7z 2>NUL 1>NUL
 cls
 echo Replacing old files with new ones...
 robocopy Files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 robocopy Files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
-set "retroarch=RetroArch updated to %datef%..."
+SET "retroarch=RetroArch updated to %datef%..."
 
 ::=====================
 ::|  Cores Section    |
@@ -316,14 +313,14 @@ IF EXIST "ppsspp_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "ppsspp_li
 IF EXIST "snes9x_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
 IF EXIST "vbam_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "vbam_libretro.dll.zip"
 
-del "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
-del "desmume_libretro.dll.zip" 2>NUL 1>NUL
-del "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
-del "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
-del "nestopia_libretro.dll.zip" 2>NUL 1>NUL
-del "ppsspp_libretro.dll.zip" 2>NUL 1>NUL
-del "snes9x_libretro.dll.zip" 2>NUL 1>NUL
-del "vbam_libretro.dll.zip" 2>NUL 1>NUL
+DEL "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
+DEL "desmume_libretro.dll.zip" 2>NUL 1>NUL
+DEL "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
+DEL "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+DEL "nestopia_libretro.dll.zip" 2>NUL 1>NUL
+DEL "ppsspp_libretro.dll.zip" 2>NUL 1>NUL
+DEL "snes9x_libretro.dll.zip" 2>NUL 1>NUL
+DEL "vbam_libretro.dll.zip" 2>NUL 1>NUL
 cls
 echo Updating RetroArch cores...
 move /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
@@ -337,17 +334,17 @@ SET "cores=RetroArch Cores Updated To Latest Versions."
 :pcsx2
 SET /p version=<version_pcsx2.txt
 wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
-for /F "tokens=4 delims=><" %%a in ('findstr /I " \<v1.* " index.php.html') do (
-    set "newversion=%%a"
-    goto vercheck
+FOR /F "tokens=4 delims=><" %%a IN ('findstr /I " \<v1.* " index.php.html') DO (
+    SET "newversion=%%a"
+    GOTO vercheck
 )
-set "pcsx2=PCSX2 Host Down Currently..."
-goto dolphin
+SET "pcsx2=PCSX2 Host Down Currently..."
+GOTO dolphin
 
 :vercheck
-del /q index.php.html 2>NUL 1>NUL
+DEL /q index.php.html 2>NUL 1>NUL
 cls
-if %version% == %newversion% goto NOUP
+if %version% == %newversion% GOTO NOUP
 
 cls
 ECHO Downloading PCSX2 %newversion% files...
@@ -366,11 +363,11 @@ robocopy "Files\PCSX2\pcsx2-%newversion%-windows-x86" ..\..\Emulators\PS2\PCSX2\
 copy /y portable.ini "..\..\Emulators\PS2\PCSX2\portable.ini" 2>NUL 1>NUL
 "..\..\Emulators\PS2\PCSX2\4gb_patch.exe" ..\..\Emulators\PS2\pcsx2\pcsx2.exe
 
-if exist "files\PCSX2" rmdir /s /q "files\PCSX2" 2>NUL 1>NUL
+IF EXIST "files\PCSX2" RMDIR /s /q "files\PCSX2" 2>NUL 1>NUL
 @echo %newversion%>version_pcsx2.txt
 echo PCSX2 successfully updated to %newversion%...
-set "pcsx2=PCSX2 Updated to %newversion%..."
-goto dolphin
+SET "pcsx2=PCSX2 Updated to %newversion%..."
+GOTO dolphin
 
 :NOUP
 echo.
@@ -380,7 +377,7 @@ echo   PCSX2 already up to date...
 echo ======================================
 echo.
 echo.
-set "pcsx2=PCSX2 already up to date..."
+SET "pcsx2=PCSX2 already up to date..."
 
 ::=======================
 ::|  Dolphin Section    |
@@ -388,20 +385,20 @@ set "pcsx2=PCSX2 already up to date..."
 :dolphin
 cls
 wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate https://dolphin-emu.org/download/ 2>NUL 1>NUL
-for /F "tokens=2 delims=)(" %%a in ('findstr /I " \<(.* " index.html') do (
-    set "newversion2=%%a"
-    goto next
+FOR /F "tokens=2 delims=)(" %%a IN ('findstr /I " \<(.* " index.html') DO (
+    SET "newversion2=%%a"
+    GOTO next
 )
-set "dolphin=Dolphin Host Down Currently..."
-goto complete
+SET "dolphin=Dolphin Host Down Currently..."
+GOTO complete
 
 :next
-set /p version2=<version_dolphin.txt
-del /q "index.html" 2>NUL 1>NUL
+SET /p version2=<version_dolphin.txt
+DEL /q "index.html" 2>NUL 1>NUL
 
-if %version2% == %newversion2% goto NOUP2
+if %version2% == %newversion2% GOTO NOUP2
 
-set link=http://dl.dolphin-emu.org/builds/dolphin-master-%newversion2%-x64.7z
+SET link=http://dl.dolphin-emu.org/builds/dolphin-master-%newversion2%-x64.7z
 cls
 echo Downloading Dolphin %newversion2% files...
 wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
@@ -413,16 +410,16 @@ IF NOT EXIST "dolphin-master-%newversion2%-x64.7z" (
 )
 echo Extracting Dolphin %newversion2% files...
 7zG x -y -o"files\" dolphin-master-%newversion2%-x64.7z
-del dolphin-master-%newversion2%-x64.7z 2>NUL 1>NUL
+DEL dolphin-master-%newversion2%-x64.7z 2>NUL 1>NUL
 cls
 echo Replacing old files with new ones...
 @echo %newversion2%>version_dolphin.txt
 robocopy Files\Dolphin-x64 ..\..\Emulators\Gamecube\Dolphin\ /E /XO /MOVE 2>NUL 1>NUL
 
-if exist "Dolphin-x64" rmdir /s /q Dolphin-x64 2>NUL 1>NUL
+IF EXIST "Dolphin-x64" RMDIR /s /q Dolphin-x64 2>NUL 1>NUL
 cls
 echo Dolphin successfully updated to %newversion2%...
-set "dolphin=Dolphin Updated to %newversion2%..."
+SET "dolphin=Dolphin Updated to %newversion2%..."
 GOTO complete
 
 :NOUP2
@@ -433,12 +430,12 @@ echo   Dolphin already up to date...
 echo ======================================
 echo.
 echo.
-set "dolphin=Dolphin already up to date..."
+SET "dolphin=Dolphin already up to date..."
 
 :complete
-if exist "Files\" (rmdir /q /s Files)
-if exist "%datef%_RetroArch.7z" (del /q %datef%_RetroArch.7z)
-if exist "dolphin-master-%newversion%-x64.7z" (del /q dolphin-master-%newversion%-x64.7z)
+IF EXIST "Files\" (RMDIR /q /s Files)
+IF EXIST "%datef%_RetroArch.7z" (DEL /q %datef%_RetroArch.7z)
+IF EXIST "dolphin-master-%newversion%-x64.7z" (DEL /q dolphin-master-%newversion%-x64.7z)
 cls
 echo.
 echo ======================================
@@ -463,12 +460,12 @@ start "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
 start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 pause
 start "" "%steampath%\Steam.exe" -start steam://open/bigpicture
-goto end
+GOTO end
 
 :nochange
-if exist "Files\" (rmdir /q /s Files)
-if exist "%datef%_RetroArch.7z" (del /q %datef%_RetroArch.7z)
-if exist "dolphin-master-%newversion%-x64.7z" (del /q dolphin-master-%newversion%-x64.7z)
+IF EXIST "Files\" (RMDIR /q /s Files)
+IF EXIST "%datef%_RetroArch.7z" (DEL /q %datef%_RetroArch.7z)
+IF EXIST "dolphin-master-%newversion%-x64.7z" (DEL /q dolphin-master-%newversion%-x64.7z)
 cls
 echo.
 echo ======================================
@@ -492,7 +489,7 @@ start "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
 start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 pause
 start "" "%steampath%\Steam.exe" -start steam://open/bigpicture
-goto end
+GOTO end
 
 :end
 exit
