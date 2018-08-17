@@ -17,7 +17,7 @@ IF EXIST "Update-Emulators.bat" DEL /q "Update-Emulators.bat" 2>NUL 1>NUL
 IF EXIST "..\..\Emulators\Gamecube\Dolphin\Updater" RMDIR /s /q "..\..\Emulators\Gamecube\Dolphin\Updater" 2>NUL 1>NUL
 IF EXIST "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" DEL /q "..\..\Steam_Shortcuts\Apps\Xbox Games.bat" 2>NUL 1>NUL
 IF EXIST "..\..\Emulators\RetroArch_x64" RENAME "..\..\Emulators\RetroArch_x64" RetroArch 2>NUL 1>NUL
-IF EXIST "..\..\Steam_Grid_Images" MOVE "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
+IF EXIST "..\..\Steam_Grid_Images" MOVE /y "..\..\Steam_Grid_Images" "..\..\Images" 2>NUL 1>NUL
 IF EXIST "..\..\steam_path_check.vbs" DEL /q "..\..\steam_path_check.vbs" 2>NUL 1>NUL
 IF EXIST "..\..\steam_path_check_x64.vbs" DEL /q "..\..\steam_path_check_x64.vbs" 2>NUL 1>NUL
 IF EXIST "..\..\steam_path_check_x86.vbs" DEL /q "..\..\steam_path_check_x86.vbs" 2>NUL 1>NUL
