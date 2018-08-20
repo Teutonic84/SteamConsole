@@ -57,94 +57,94 @@ nickname=DS
 emulator=retroarch_nds
 extensions=nds
 prefix=.[DS] 
-images directory=ds-image
+images directory=DS-image
 
 [Gameboy Advance]
 nickname=GBA
 emulator=retroarch_gba
 extensions=gba
 prefix=.[GBA] 
-images directory=gba-image
+images directory=GBA-image
 
 [Nintendo 64]
 nickname=N64
 emulator=retroarch_n64
 extensions=n64,v64,z64
 prefix=.[N64] 
-images directory=n64-image
+images directory=N64-image
 
 [Nintendo Entertainment System]
 nickname=NES
 emulator=retroarch_nes
 extensions=nes,zip
 prefix=.[NES] 
-images directory=nes-image
+images directory=NES-image
 
 [Super Nintendo]
 nickname=SNES
 emulator=retroarch_snes
 extensions=sfc,smc,zip
 prefix=.[SNES] 
-images directory=snes-image
+images directory=SNES-image
 
 [Playstation Portable]
 nickname=PSP
 emulator=retroarch_psp
 extensions=iso
 prefix=.[PSP] 
-images directory=psp-image
+images directory=PSP-image
 
 [Sega Genesis]
 nickname=Genesis
 emulator=retroarch_sega
 extensions=md
 prefix=.[SEGA] 
-images directory=sega-image
+images directory=Genesis-image
 
 [Sega Master System]
 nickname=SMS
 emulator=retroarch_sms
 extensions=sms
 prefix=.[SMS] 
-images directory=sms-image
+images directory=SMS-image
 
 [Apps]
 nickname=Apps
 emulator=Apps
 extensions=bat
 prefix=.[Apps] 
-images directory=apps-image
+images directory=Apps-image
 
 [PC Games]
 nickname=PC_Games
 emulator=PC
 extensions=bat
-images directory=pc-image
+images directory=PC_Games-image
 
 [Nintendo Gamecube]
 nickname=Gamecube
 emulator=Gamecube
 extensions=gcz,gcm,iso,wad
 prefix=-[GC] 
-images directory=gc-image
+images directory=Gamecube-image
 
 [Nintendo Wii]
 nickname=Wii
 emulator=Wii
 extensions=gcz,gcm,iso,wad,wbfs
 prefix=-[Wii] 
-images directory=wii-image
+images directory=Wii-image
 
 [Playstation 1]
 nickname=PS1
 emulator=PS1
 extensions=bin,img
 prefix=-[PS1] 
-images directory=ps1-image
+images directory=PS1-image
 
 [Playstation 2]
 nickname=PS2
 emulator=PS2
 extensions=bin,iso
 prefix=-[PS2] 
-images directory=ps2-image
+images directory=PS2-image

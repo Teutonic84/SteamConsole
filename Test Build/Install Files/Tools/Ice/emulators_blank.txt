@@ -64,11 +64,11 @@ location=SMS
 command=%l retroarch sega %r
 
 [Apps]
-location=APPS
+location=Apps
 command=%l apps 0 %r
 
 [PC]
-location=PC
+location=PC_Games
 command=%l pc 0 %r
 
 [Gamecube]
