@@ -3,7 +3,15 @@
 \pard\f0\fs20\lang1033 SteamConsole\par
 Version History\par
 \par
-v1.5.9.2:\par
+v1.6.0:\par
+
+\pard{\pntext\f1\'B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\'B7}}\fi-360\li720 Updated ROM Importer Script - Did some code cleanup and have a better method for ROM launching. It will be possible in the future to setup SteamConsole to work with multiple frontends instead of just Steam. Possible rebranding coming soon.\par
+{\pntext\f1\'B7\tab}Added new "launcher.bat" file for launching ROMS in Steam. No more need to have separate batch files for each ROM in "..\\Steam_Shortcuts".\par
+{\pntext\f1\'B7\tab}Updated SteamConsole Updater script to v1.5.4 - Changed update location from a personal FTP server to github itself. Will save me bandwidth and have better download speeds.\par
+{\pntext\f1\'B7\tab}Fixed issue with ICE throwing an error when importing ROMS to Steam. If you experience an error message, delete your Steam shortcuts.vdf file from the folder "..\\Program Files (x86)\\Steam\\userdata\\USER_ID\\config\\". NOTE the shortcuts.vdf file holds all the shortcut info for Steam. So if you have custom shortcuts they will be removed.\par
+{\pntext\f1\'B7\tab}Moved "..\\Steam_Shortcuts\\Apps" folder to "..\\Emulators\\ROMS\\Apps" to work with the new ROM import/launch method.\par
+
+\pard v1.5.9.2:\par
 
 \pard{\pntext\f1\'B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\'B7}}\fi-360\li720 Fixed issue with PCSX2 and Dolphin emulators erroring out when trying to download the latest nightly builds.\par
 {\pntext\f1\'B7\tab}Updated Wget to v1.19.1 in order to help resolve the download issues.\par
