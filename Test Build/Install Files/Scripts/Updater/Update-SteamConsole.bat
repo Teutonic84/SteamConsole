@@ -140,8 +140,8 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 		::wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/SteamConsole_%newversionsc%_x64.7z" 2>NUL 1>NUL
 		cls
 	ECHO Extracting SteamConsole %newversionsc% files...
-		7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_%newversionsc%_x64.7z
-		DEL "SteamConsole_%newversionsc%_x64.7z"
+		7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_Update_Only_v%newversionsc%_x64.7z
+		DEL "SteamConsole_Update_Only_v%newversionsc%_x64.7z"
 		cls
 		"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 	ECHO Replacing old files with new ones...
