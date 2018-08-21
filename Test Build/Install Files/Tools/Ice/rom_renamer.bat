@@ -5,7 +5,7 @@ SET "platform=%~2"
 cls
 ECHO.
 ECHO ===========================
-ECHO Start %platform% ROM Renamer:
+ECHO Start %platform% ROM Checker:
 ECHO ===========================
 
 for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\%platform%\*.*" 2^>NUL') do (
@@ -17,7 +17,7 @@ for /f "tokens=* delims=" %%a in ('dir /b "%dirpath%\Emulators\ROMS\%platform%\*
 ::===================
 ECHO Done
 ECHO.
-PING localhost -n 4 >NUL
+PING localhost -n 2 >NUL
 GOTO end
 
 :check
