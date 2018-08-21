@@ -11,6 +11,7 @@ TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkey
 IF "%ERRORLEVEL%"=="0" TASKKILL /f /im "Custom Hotkeys.exe"
 
 :FILE_CLEANUP
+	IF EXIST "%dirpath%\steam_path.txt" DEL /q "%dirpath%\steam_path.txt"
 	DEL /F /Q "%dirpath%\Tools\Ice\config.txt" >NUL
 	COPY /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt" >NUL
 	DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt" >NUL
@@ -19,13 +20,13 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im "Custom Hotkeys.exe"
 	COPY /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt" >NUL
 
 :STEAM_PATH
-	IF EXIST "%dirpath%\steam_path.txt" DEL "%dirpath%\steam_path.txt"
 	cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 	FOR /F "usebackq delims=" %%i IN ("%dirpath%\steam_path.txt") DO SET "steampath=%%i"
+	IF EXIST "%dirpath%\steam_path.txt" DEL /q "%dirpath%\steam_path.txt"
+	
 	IF EXIST "%steampath%\userdata\anonymous" (
 		RMDIR /q /s "%steampath%\userdata\anonymous"
 	)
-	
 	IF NOT EXIST "%userprofile%\AppData\Local\Scott Rice" (
 		MKDIR "%userprofile%\AppData\Local\Scott Rice"
 		MKDIR "%userprofile%\AppData\Local\Scott Rice\Ice"
