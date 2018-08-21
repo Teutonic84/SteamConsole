@@ -36,7 +36,7 @@ PING localhost -n 5 >NUL
 ECHO Starting SteamConsole Main Script Build.
 ECHO Edit The File "Changelog.rtf" Before Continuing.
 "%bpath%\SteamConsole\Test Build\Changelog.rtf"
-COPY /y "%bpath%\SteamConsole\Test Build\Changelog.rft" "..\Test Build\Changelog.rtf"
+COPY /y "%bpath%\SteamConsole\Test Build\Changelog.rtf" "..\Test Build\Changelog.rtf"
 ECHO Done
 ECHO.
 PING localhost -n 5 >NUL
