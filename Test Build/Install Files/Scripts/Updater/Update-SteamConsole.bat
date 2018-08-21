@@ -225,11 +225,10 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	::SET day=%date:~7,2%
 	::SET /a day=%day%-1
 	::SET datef=%date:~-4%-%date:~4,2%-%day%
-	IF %olddate%==%datef% (
+	IF "%olddate%"=="%datef%" (
 		SET "retroarch=RetroArch EXE Already Up To Date."
 		GOTO cores
 	)
-	ECHO %datef%>date.txt
 
 	::Download RetroArch Program Package:
 	::==================================
@@ -238,51 +237,52 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 		SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
 		SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 		wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-			IF %errorlevel%==1 GOTO yesterday
-		GOTO download
+			IF NOT EXIST "%datef%_RetroArch.7z" GOTO yesterday
+			IF %errorlevel%==0 ECHO %datef%>date.txt
+			GOTO download
 
 	:yesterday
+		cls
+		ECHO Couldn't Download Today's Nightly Build %datef%. Trying Yesterday's...
 		SET day=%date:~7,2%
 		SET /a day=%day%-1
 		SET datef=%date:~-4%-%date:~4,2%-%day%
 
 		::Download RetroArch Program Package:
 		::==================================
-		cls
-		ECHO Downloading RetroArch Nightly Build %datef%...
-			SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-			SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
-			wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-			IF %errorlevel%==1 (
-				SET "retroarch=RetroArch No nightly build for today. Try again tomorrow."
+		wget --tries=3 --no-check-certificate http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z 2>NUL 1>NUL
+			IF NOT EXIST "%datef%_RetroArch.7z" (
+				SET "retroarch=RetroArch - Couldn't download today or yesterday's nightly build. Try again tomorrow."
 				GOTO cores
 			)
 			cls
 
 	:download
+		cls
+		IF EXIST "%datef%_RetroArch.7z" (
+			ECHO Extracting RetroArch Nightly %datef%...
+				7zG x -y -o"files\RetroArch" "%datef%_RetroArch.7z"
+				DEL /q %datef%_RetroArch.7z 2>NUL 1>NUL
+			ECHO Replacing old files with new ones...
+				ROBOCOPY files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
+				SET "retroarch=RetroArch updated to %datef%..."
+		)
+		cls
 		ECHO Downloading RetroArch Redist %datef%...
 			wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
 			cls
-			IF NOT EXIST "%datef%_RetroArch.7z" (
-				ECHO Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
-				SET "retroarch=Download of RetroArch core files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
-				GOTO cores
-			)
 			IF NOT EXIST "redist.7z" (
 				ECHO Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
-				SET "retroarch=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
+				SET "redist=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
 				GOTO cores
 			)
-		ECHO Extracting RetroArch Nightly %datef%...
-			7zG x -y -o"files\RetroArch" %datef%_RetroArch.7z
-			7zG x -y -o"files\RetroArch-redist" redist.7z
-			DEL /q %datef%_RetroArch.7z 2>NUL 1>NUL
-			DEL /q redist.7z 2>NUL 1>NUL
+		ECHO Extracting RetroArch Redist Files...
+			7zG x -y -o"files\RetroArch-redist" "redist.7z"
+			DEL /q "redist.7z" 2>NUL 1>NUL
 			cls
 		ECHO Replacing old files with new ones...
-			ROBOCOPY files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 			ROBOCOPY files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
-			SET "retroarch=RetroArch updated to %datef%..."
+			SET "redist=RetroArch Redist Files Updated."
 
 ::=====================
 ::|  Cores Section    |
@@ -457,6 +457,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	ECHO.
 	ECHO ======================================
 	ECHO   %retroarch%
+	ECHO   %redist%
 	ECHO   %cores%
 	ECHO ======================================
 	ECHO.
