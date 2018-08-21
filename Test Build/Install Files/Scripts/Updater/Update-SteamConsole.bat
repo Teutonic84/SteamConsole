@@ -328,6 +328,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 		DEL "vbam_libretro.dll.zip" 2>NUL 1>NUL
 		cls
 	ECHO Updating RetroArch cores...
+		IF NOT EXIST "..\..\Emulators\RetroArch\info" MKDIR "..\..\Emulators\RetroArch\info" 2>NUL 1>NUL
 		MOVE /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
 		ROBOCOPY "files\RetroArch_Cores" ..\..\Emulators\RetroArch\cores\ /E /XO /MOVE 2>NUL 1>NUL
 		IF EXIST "files\RetroArch_Cores" RMDIR /s /q "files\RetroArch_Cores" 2>NUL 1>NUL
