@@ -83,17 +83,6 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 	CALL :EMULATOR_REPLACE "%dirpath%" "PS2"
 	CALL :EMULATOR_REPLACE "%dirpath%" "PC"
 	CALL :EMULATOR_REPLACE "%dirpath%" "Launchers"
-
-:ICE_RUN
-	"%dirpath%\Tools\Ice\ice.exe"
-
-	DEL /F /Q "%dirpath%\Tools\Ice\config.txt"
-	COPY /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
-	DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
-	COPY /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
-	DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
-	COPY /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
-	DEL /F /Q "%dirpath%\steam_path.txt"
 	GOTO end
 
 ::=================

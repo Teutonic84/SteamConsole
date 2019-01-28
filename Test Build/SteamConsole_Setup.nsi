@@ -12,7 +12,7 @@
 #!include "zipdll.nsh"
 
 !macro ShellExecWait verb app param workdir show exitoutvar ;only app and show must be != "", every thing else is optional
-#define SEE_MASK_NOCLOSEPROCESS 0x40 
+#define SEE_MASK_NOCLOSEPROCESS 0x40
 System::Store S
 System::Call '*(&i60)i.r0'
 System::Call '*$0(i 60,i 0x40,i $hwndparent,t "${verb}",t $\'${app}$\',t $\'${param}$\',t "${workdir}",i ${show})i.r0'
@@ -40,7 +40,7 @@ Insttype "Standard Installation"
 
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\win-install.ico"
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\win-uninstall.ico"
-!define VERSION "v1.5.9.2"
+!define VERSION "v1.6.1"
 
 Name "SteamConsole" # The name of the installer
 OutFile "SteamConsole_Setup.exe" # The file to write
@@ -60,11 +60,11 @@ Page components
 Page instfiles
 Page custom setupfinished
 
-Section "Core Files (Required)" 
+Section "Core Files (Required)"
   SectionIn RO
     # Required files here
-	KillProcDLL::KillProc "Xpadder.exe"
-	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
+	#KillProcDLL::KillProc "Xpadder.exe"
+	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	SetOutPath $INSTDIR
 	File /r "Changelog.rtf"
 	File /r "License.rtf"
@@ -79,20 +79,23 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.5.9.2"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.6.1"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "InstallLocation" "$INSTDIR"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoModify" "0x00000001"
 		WriteRegDWORD HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "NoRepair" "0x00000001"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "UninstallString" "$INSTDIR\SteamConsole_uninstaller.exe"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.5.9.2"
-		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.5.3"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Version" "1.6.1"
+		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.5.5"
 		SetOutPath $INSTDIR\Scripts
-		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
+		#ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
+		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTIR\Tools\Xpadder\Xpadder.exe"
 	MessageBox MB_OK '"Core Files Installation Complete!"'
 	SetOutPath $INSTDIR\Scripts
-	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
+	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
+	ExecDos::exec /NOUNLOAD /TOSTACK TASKKILL /im "Xpadder.exe"
+	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\Download_Emulators.bat" "" ""
 SectionEnd
- 
+
 Section "Prerequisites" SEC_PREREQS
   SectionIn 1
 	ExecWait '"$INSTDIR\Installs\dxwebsetup.exe" /Q'
@@ -108,20 +111,20 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	SetOutPath "$INSTDIR\Tools\Ice"
 	CreateShortCut "$SMPROGRAMS\SteamConsole\ROM Importer.lnk" "$INSTDIR\Tools\Ice\Ice-Start.bat" "" "$INSTDIR\Images\ROM_Importer.ico"
 	CreateShortCut "$DESKTOP\ROM Importer.lnk" "$INSTDIR\Tools\Ice\Ice-Start.bat" "" "$INSTDIR\Images\ROM_Importer.ico"
-	
+
 	FileOpen $0 "$INSTDIR\Scripts\Steam_Open.bat" w
 	FileWrite $0 "echo off"
 	FileWrite $0 "$\r$\n" # go to new line
+	FileWrite $0 'cd "%~dp0%"'
+	FileWrite $0 "$\r$\n"
 	FileWrite $0 "cd .."
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "set dirpath=%cd%"
 	FileWrite $0 "$\r$\n"
+	FileWrite $0 "$\r$\n"
 	FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 "$\r$\n"
-	FileWrite $0 '  taskkill /f /im "Custom Hotkeys.exe"'
-	FileWrite $0 "$\r$\n"
-    FileWrite $0 '  cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
+  FileWrite $0 'cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
@@ -130,8 +133,6 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 "$\r$\n"
-	FileWrite $0 '"%dirpath%\Tools\Xpadder\Xpadder.exe" /C'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "cls"
 	FileWrite $0 "$\r$\n"
@@ -157,17 +158,21 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "ECHO."
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 "echo."
+	FileWrite $0 "ECHO."
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'start "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"'
+	FileWrite $0 'TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'start "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"'
+	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"'
+	FileWrite $0 "$\r$\n"
+	FileWrite $0 'TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL'
+	FileWrite $0 "$\r$\n"
+	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'start "" "%steampath%\Steam.exe" -start steam://open/bigpicture'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 "exit"
+	FileWrite $0 "EXIT"
 	FileClose $0
-	
+
 	SetOutPath "$INSTDIR\Scripts"
 	CreateShortCut "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\SteamConsole\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	CreateShortCut "$DESKTOP\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
@@ -180,14 +185,13 @@ SectionEnd
 
 Section "Import ROMS" SEC_ROMIMPORT
   SectionIn 1
-    # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
-	
+  # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
 	# Run Ice to import ROMS into Steam
 	MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
 	SetOutPath "$INSTDIR\Tools\Ice"
-    #!insertmacro ShellExecWait "" '"Ice-Initial-Run.bat"' "" "" ${SW_SHOW} $1
+  #!insertmacro ShellExecWait "" '"Ice-Initial-Run.bat"' "" "" ${SW_SHOW} $1
 	ExpandEnvStrings $0 %COMSPEC%
-    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+  nsExec::ExecToLog '"Ice-Initial-Run.bat"'
 	nsExec::ExecToLog '"ice.exe" -s'
 	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	#ExecWait '"ice.exe"'
@@ -269,7 +273,7 @@ SectionEnd
 	#FileWrite $0 "exit"
 	#FileClose $0
 #SectionEnd
- 
+
 Function .onInit
   StrCpy $1 ${SEC_PREREQS}
   StrCpy $1 ${SEC_STARTMENU}
@@ -291,7 +295,7 @@ LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller s
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section4)
   #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
- 
+
 Function .onSelChange
 	#${If} ${SectionIsSelected} ${SEC_DS3}
 		#${If} ${SectionIsSelected} ${SEC_DS4}
@@ -368,12 +372,12 @@ yes3:
 	Delete "consoles.txt"
 	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
-	
+
 	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes4 IDNO no4
 yes4:
 	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
 	Goto no4
-	
+
 no4:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
@@ -414,7 +418,7 @@ no3:
 	Delete "consoles.txt"
 	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
 	RMDir /r "$INSTDIR\Steam_Shortcuts"
-	
+
 	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes5 IDNO no5
 yes5:
 	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
@@ -443,6 +447,6 @@ no5:
 	DetailPrint ""
 	DetailPrint "Uninstall Complete"
 	Goto end
- 
+
 end:
 SectionEnd
