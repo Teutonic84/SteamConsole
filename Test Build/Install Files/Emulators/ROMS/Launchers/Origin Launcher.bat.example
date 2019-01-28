@@ -1,0 +1,7 @@
+ECHO off
+cls
+
+"C:\Program Files (x86)\Origin\Origin.exe"
+
+:end
+EXIT

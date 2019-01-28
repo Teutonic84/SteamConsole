@@ -7,6 +7,8 @@ Version=5.7
 [Profile Settings]
 
 [Set Settings]
+Set1StickDeadZones=6,18
+Set1StickDiagonalSizes=45,89
 
 [Assignments]
 Set1Button1Slots=1
@@ -23,13 +25,13 @@ Set1DPadRightSlots=S
 Set1DPadDownSlots=I
 Set1DPadLeftSlots=Q
 Set1Stick1UpSlots=Mouse Move Up
-Set1Stick1UpMouseSpeed=95
+Set1Stick1UpMouseSpeed=128
 Set1Stick1RightSlots=Mouse Move Right
-Set1Stick1RightMouseSpeed=95
+Set1Stick1RightMouseSpeed=128
 Set1Stick1DownSlots=Mouse Move Down
-Set1Stick1DownMouseSpeed=95
+Set1Stick1DownMouseSpeed=128
 Set1Stick1LeftSlots=Mouse Move Left
-Set1Stick1LeftMouseSpeed=95
+Set1Stick1LeftMouseSpeed=128
 Set1Stick1UpRightSlots=Mouse Move Right
 Set1Stick1UpRightMouseSpeed=32
 Set1Stick1DownRightSlots=Mouse Move Down
@@ -39,12 +41,16 @@ Set1Stick1DownLeftMouseSpeed=32
 Set1Stick1UpLeftSlots=Mouse Move Up
 Set1Stick1UpLeftMouseSpeed=32
 Set1Stick2UpSlots=Mouse Move Up
-Set1Stick2UpMouseSpeed=80
+Set1Stick2UpMouseSpeed=69
+Set1Stick2UpMouseMode=Spring
 Set1Stick2RightSlots=Mouse Move Right
-Set1Stick2RightMouseSpeed=80
+Set1Stick2RightMouseSpeed=69
+Set1Stick2RightMouseMode=Spring
 Set1Stick2DownSlots=Mouse Move Down
-Set1Stick2DownMouseSpeed=80
+Set1Stick2DownMouseSpeed=69
+Set1Stick2DownMouseMode=Spring
 Set1Stick2LeftSlots=Mouse Move Left
-Set1Stick2LeftMouseSpeed=80
+Set1Stick2LeftMouseSpeed=69
+Set1Stick2LeftMouseMode=Spring
 Set1TriggerLeftSlots=Left Shift
 Set1TriggerRightSlots=Left Mouse Button (1)

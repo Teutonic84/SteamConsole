@@ -1,0 +1,7 @@
+ECHO off
+cls
+
+"C:\Program Files (x86)\Ubisoft\Ubisoft Game Launcher\Uplay.exe"
+
+:end
+EXIT

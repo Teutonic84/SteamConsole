@@ -31,58 +31,62 @@
 # location=/usr/bin/snes9x-gtk
 # command=%l %r
 
-[retroarch_nds]
-location=DS
-command=%l retroarch ds %r
+[Apps]
+location=Apps
+command=apps 0 %r
 
 [retroarch_gba]
 location=GBA
-command=%l retroarch gba %r
+command=retroarch gba %r
 
-[retroarch_n64]
-location=N64
-command=%l retroarch n64 %r
+[retroarch_nds]
+location=DS
+command=retroarch ds %r
 
 [retroarch_nes]
 location=NES
-command=%l retroarch nes %r
+command=retroarch nes %r
 
 [retroarch_snes]
 location=SNES
-command=%l retroarch snes %r
+command=retroarch snes %r
 
-[retroarch_psp]
-location=PSP
-command=%l retroarch psp %r
-
-[retroarch_sega]
-location=Genesis
-command=%l retroarch sega %r
-
-[retroarch_sms]
-location=SMS
-command=%l retroarch sega %r
-
-[Apps]
-location=Apps
-command=%l apps 0 %r
-
-[PC]
-location=PC_Games
-command=%l pc 0 %r
+[retroarch_n64]
+location=N64
+command=retroarch n64 %r
 
 [Gamecube]
-location=Gamecube
-command=%l dolphin gc %r
+location=GC
+command=dolphin gc %r
 
 [Wii]
 location=Wii
-command=%l dolphin wii %r
+command=dolphin wii %r
+
+[retroarch_sega]
+location=SEGA
+command=retroarch sega %r
+
+[retroarch_sms]
+location=SMS
+command=retroarch sega %r
+
+[retroarch_psp]
+location=PSP
+command=retroarch psp %r
 
 [PS1]
 location=PS1
-command=%l retroarch ps1 %r
+command=retroarch ps1 %r
 
 [PS2]
 location=PS2
-command=%l pcsx2 ps2 %r
+command=pcsx2 ps2 %r
+
+[PC]
+location=PC
+command=pc 0 %r
+
+[Launchers]
+location=Launchers
+command=launcher 0 %r

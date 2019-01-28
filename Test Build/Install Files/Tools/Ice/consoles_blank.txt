@@ -51,100 +51,107 @@
 # icon=C:\Games\Super Nintendo\icon.png
 # images directory=C:\Games\Super Nintendo\Images
 #
-#RetroArch Emulators
-[Nintendo DS]
-nickname=DS
-emulator=retroarch_nds
-extensions=nds
-prefix=.[DS] 
-images directory=DS-image
+[Apps]
+nickname=Apps
+emulator=Apps
+extensions=bat
+prefix=[00] 
+images directory=Apps-image
 
 [Gameboy Advance]
 nickname=GBA
 emulator=retroarch_gba
 extensions=gba
-prefix=.[GBA] 
+prefix=[01] 
 images directory=GBA-image
 
-[Nintendo 64]
-nickname=N64
-emulator=retroarch_n64
-extensions=n64,v64,z64
-prefix=.[N64] 
-images directory=N64-image
+[Nintendo DS]
+nickname=DS
+emulator=retroarch_nds
+extensions=nds
+prefix=[02] 
+images directory=DS-image
 
 [Nintendo Entertainment System]
 nickname=NES
 emulator=retroarch_nes
-extensions=nes,zip
-prefix=.[NES] 
+extensions=nes, zip
+prefix=[03] 
 images directory=NES-image
 
 [Super Nintendo]
 nickname=SNES
 emulator=retroarch_snes
-extensions=sfc,smc,zip
-prefix=.[SNES] 
+extensions=sfc, smc, zip
+prefix=[04] 
 images directory=SNES-image
 
-[Playstation Portable]
-nickname=PSP
-emulator=retroarch_psp
-extensions=iso
-prefix=.[PSP] 
-images directory=PSP-image
+[Nintendo 64]
+nickname=N64
+emulator=retroarch_n64
+extensions=n64, z64, v64
+prefix=[05] 
+images directory=N64-image
+
+[Nintendo Gamecube]
+nickname=Gamecube
+emulator=Gamecube
+extensions=gcz, iso, wad
+prefix=[06] 
+images directory=GC-image
+
+[Nintendo Wii]
+nickname=Wii
+emulator=Wii
+extensions=iso, gcz, wbfs
+prefix=[07] 
+images directory=Wii-image
 
 [Sega Genesis]
 nickname=Genesis
 emulator=retroarch_sega
 extensions=md
-prefix=.[SEGA] 
-images directory=Genesis-image
+prefix=[15] 
+images directory=SEGA-image
 
 [Sega Master System]
 nickname=SMS
 emulator=retroarch_sms
 extensions=sms
-prefix=.[SMS] 
+prefix=[16] 
 images directory=SMS-image
 
-[Apps]
-nickname=Apps
-emulator=Apps
-extensions=bat
-prefix=.[Apps] 
-images directory=Apps-image
-
-[PC Games]
-nickname=PC_Games
-emulator=PC
-extensions=bat
-images directory=PC_Games-image
-
-[Nintendo Gamecube]
-nickname=Gamecube
-emulator=Gamecube
-extensions=gcz,gcm,iso,wad
-prefix=-[GC] 
-images directory=Gamecube-image
-
-[Nintendo Wii]
-nickname=Wii
-emulator=Wii
-extensions=gcz,gcm,iso,wad,wbfs
-prefix=-[Wii] 
-images directory=Wii-image
+[Playstation Portable]
+nickname=PSP
+emulator=retroarch_psp
+extensions=iso
+prefix=[20] 
+images directory=PSP-image
 
 [Playstation 1]
 nickname=PS1
 emulator=PS1
-extensions=bin,img
-prefix=-[PS1] 
+extensions=bin, img
+prefix=[21] 
 images directory=PS1-image
 
 [Playstation 2]
 nickname=PS2
 emulator=PS2
-extensions=bin,iso
-prefix=-[PS2] 
+extensions=bin, iso
+prefix=[22] 
 images directory=PS2-image
+
+[PC Games]
+nickname=PC_Games
+emulator=PC
+extensions=bat
+prefix=[98]
+images directory=PC-image
+
+[Launchers]
+nickname=Launchers
+emulator=Launchers
+extensions=bat
+prefix=[99]
+images directory=Launchers-image

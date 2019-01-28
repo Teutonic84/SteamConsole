@@ -1,0 +1,40 @@
+;----------------------
+; Xpadder Profile File
+;----------------------
+
+Version=5.7
+
+[Profile Settings]
+
+[Set Settings]
+
+[Assignments]
+Set1Button1Slots=Enter
+Set1Button2Slots=Backspace
+Set1Button3Slots=Escape
+Set1Button4Slots=Windows Logo Left,Tab
+Set1Button7SetSelect=1
+Set1Button9Slots=Left Control,Alt,6
+Set1DPadUpSlots=Mouse Wheel Up
+Set1DPadDownSlots=Mouse Wheel Down
+Set1Stick1UpSlots=Arrow Up
+Set1Stick1RightSlots=Arrow Right
+Set1Stick1DownSlots=Arrow Down
+Set1Stick1LeftSlots=Arrow Left
+Set1Stick2UpSlots=Mouse Move Up
+Set1Stick2UpMouseSpeed=104
+Set1Stick2UpMouseMode=Cursor
+Set1Stick2RightSlots=Mouse Move Right
+Set1Stick2RightMouseSpeed=104
+Set1Stick2RightMouseMode=Cursor
+Set1Stick2DownSlots=Mouse Move Down
+Set1Stick2DownMouseSpeed=104
+Set1Stick2DownMouseMode=Cursor
+Set1Stick2LeftSlots=Mouse Move Left
+Set1Stick2LeftMouseSpeed=104
+Set1Stick2LeftMouseMode=Cursor
+Set1TriggerLeftSlots=Left Mouse Button (1)
+Set1TriggerRightSlots=Right Mouse Button (2)
+Set2Button7SetSelect=0
+Set2Button8Slots=Alt,F4
+Set2Button10Slots=Left Control,Alt,7

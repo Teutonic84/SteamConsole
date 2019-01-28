@@ -1,5 +1,6 @@
 @ECHO off
 cls
+CD "%~dp0%"
 CD ..\..
 SET "dirpath=%cd%"
 CD "%dirpath%\Scripts\Updater"
@@ -8,8 +9,8 @@ IF NOT EXIST "..\..\Images" (MKDIR ..\..\Images)
 IF NOT EXIST "files" (MKDIR files)
 
 ::taskkill /T /IM "ScpService.exe" 2>NUL 1>NUL
-TASKKILL /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
 TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
+START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Desktop.xpadderprofile"
 
 ::Remove Old Files
 :RM_Files
@@ -130,11 +131,11 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	SET newversionsc=%newversionsc:v=%
 	SET regver=%newversionsc:v=%
 	SET "key=HKLM\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
-	
+
 	FOR /f "tokens=3 delims= " %%g IN ('Reg query "%key%" /v DisplayVersion') DO SET "currentver=%%g"
 		IF "%currentver%"=="%newversionsc%" GOTO NOUPSC
 		cls
-	
+
 	ECHO Downloading SteamConsole %newversionsc% files...
 		wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate "https://github.com/Teutonic84/SteamConsole/releases/download/v%newversionsc%/SteamConsole_Update_Only_v%newversionsc%_x64.7z" 2>NUL 1>NUL
 		::wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/SteamConsole_%newversionsc%_x64.7z" 2>NUL 1>NUL
@@ -143,6 +144,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 		7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_Update_Only_v%newversionsc%_x64.7z
 		DEL "SteamConsole_Update_Only_v%newversionsc%_x64.7z"
 		cls
+		TASKKILL /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
 		"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
 	ECHO Replacing old files with new ones...
 		IF EXIST "..\..\Steam_Shortcuts\Arcade" RMDIR /q /s "..\..\Steam_Shortcuts\Arcade" 2>NUL 1>NUL
@@ -175,24 +177,16 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 ::|  Cleanup Section    |
 ::=======================
 :cleanup
-	CD "%~dp0%"
-	IF EXIST "..\steam.bat" (
-		DEL /q "..\steam.bat"
-	)
-	IF EXIST "..\Steam_Open.bat" (
-		DEL /q "..\Steam_Open.bat"
-		COPY /y "steam.bat" "..\Steam_Open.bat"
-	)
-	IF NOT EXIST "..\Steam_Open.bat" (
-		COPY /y "steam.bat" "..\Steam_Open.bat"
-	)
+	IF EXIST "..\steam.bat" DEL /q "..\steam.bat"
+	IF EXIST "..\Steam_Open.bat" DEL /q "..\Steam_Open.bat"
+	COPY /y "steam.bat" "..\Steam_Open.bat"
 
 :ICE_RUN
-	CD	"%dirpath%\Tools\Ice"
-	START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
+	CD "%dirpath%\Tools\Ice"
+	START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	CALL "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
 	CALL "%dirpath%\Tools\Ice\Ice.exe"
-	
+
 	DEL /F /Q "%dirpath%\Tools\Ice\config.txt"
 	COPY /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
 	DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
@@ -227,7 +221,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	::SET datef=%date:~-4%-%date:~4,2%-%day%
 	IF "%olddate%"=="%datef%" (
 		SET "retroarch=RetroArch EXE Already Up To Date."
-		GOTO cores
+		GOTO redist
 	)
 
 	::Download RetroArch Program Package:
@@ -235,7 +229,6 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	cls
 	ECHO Downloading RetroArch Nightly Build %datef%...
 		SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
-		SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 		wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
 			IF NOT EXIST "%datef%_RetroArch.7z" GOTO yesterday
 			IF %errorlevel%==0 ECHO %datef%>date.txt
@@ -268,7 +261,10 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 				SET "retroarch=RetroArch updated to %datef%..."
 		)
 		cls
-		ECHO Downloading RetroArch Redist %datef%...
+
+		:redist
+			ECHO Downloading RetroArch Redist %datef%...
+			SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 			wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
 			cls
 			IF NOT EXIST "redist.7z" (
@@ -276,11 +272,11 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 				SET "redist=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
 				GOTO cores
 			)
-		ECHO Extracting RetroArch Redist Files...
+			ECHO Extracting RetroArch Redist Files...
 			7zG x -y -o"files\RetroArch-redist" "redist.7z"
 			DEL /q "redist.7z" 2>NUL 1>NUL
 			cls
-		ECHO Replacing old files with new ones...
+			ECHO Replacing old files with new ones...
 			ROBOCOPY files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 			SET "redist=RetroArch Redist Files Updated."
 
@@ -389,7 +385,8 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 :dolphin
 	cls
 	wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate https://dolphin-emu.org/download/ 2>NUL 1>NUL
-	FOR /F "tokens=2 delims=)(" %%a IN ('findstr /I " \<(.* " index.html') DO (
+	::FOR /F "tokens=2 delims=)(" %%a IN ('findstr /I " \<(.* " index.html') DO (
+	FOR /F "tokens=2 delims=()" %%a IN ('FINDSTR "version always-ltr" index.html') DO (
 		SET "newversion2=%%a"
 		GOTO DOLPHIN_CHECK
 	)
@@ -462,9 +459,11 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	ECHO ======================================
 	ECHO.
 	ECHO.
-	START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
-	START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	pause
+	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+	TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
 	GOTO end
 
@@ -487,13 +486,15 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	ECHO ======================================
 	ECHO.
 	ECHO ======================================
-	ECHO   RetroArch already up to date... 
+	ECHO   RetroArch already up to date...
 	ECHO ======================================
 	ECHO.
 	ECHO.
-	START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
-	START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	pause
+	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+	TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
 	GOTO end
 

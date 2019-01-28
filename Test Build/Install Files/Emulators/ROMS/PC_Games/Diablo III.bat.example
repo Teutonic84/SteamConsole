@@ -1,0 +1,11 @@
+ECHO off
+
+cd "%~dp0%"
+cd ..\..\..
+set "dirpath=%cd%"
+
+cd "D:\Games\Diablo III"
+"Diablo III.exe"
+
+:end
+EXIT

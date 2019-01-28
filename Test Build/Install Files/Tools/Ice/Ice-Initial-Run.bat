@@ -16,59 +16,17 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 	IF EXIST "%steampath%\userdata\anonymous" (
 		RMDIR /q /s "%steampath%\userdata\anonymous"
 	)
-	
+	IF EXIST "%steampath%\userdata\19087720\config\shortcuts.vdf" DEL "%steampath%\userdata\19087720\config\shortcuts.vdf" >NUL
 	IF NOT EXIST "%userprofile%\AppData\Local\Scott Rice" (
 		MKDIR "%userprofile%\AppData\Local\Scott Rice"
 		MKDIR "%userprofile%\AppData\Local\Scott Rice\Ice"
 	)
-	GOTO RENAMER
 
-::=================
-::---BEGIN CALLS---
-::=================
-
-:EMULATOR_REPLACE
-	SET "dirpath=%~1"
-	SET "console=%~2"
-	SET "emulator=%dirpath%\Scripts\Launcher.bat"
-	SET "imagepath=%dirpath%\Images\Steam_Grid_Images\%console%"
-	SET "InputFile=%dirpath%\Tools\Ice\emulators.txt"
-	SET "OutputFile=%dirpath%\Tools\Ice\emulators-new.txt"
-	SET "InputFile2=%dirpath%\Tools\Ice\consoles.txt"
-	SET "OutputFile2=%dirpath%\Tools\Ice\consoles-new.txt"
-	SET "_strFind=location=%console%"
-	SET "_strInsert=location=%emulator%"
-	SET "_strFind2=images directory=%console%-image"
-	SET "_strInsert2=images directory=%imagepath%"
-
-	:REPLACE_EMU
-		>"%OutputFile%" (
-			FOR /f "usebackq delims=" %%B IN ("%InputFile%") DO (
-				IF "%%B" equ "%_strFind%" (echo %_strInsert%) ELSE (echo %%B)
-			)
-		)
-		DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
-		RENAME "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
-
-	:REPLACE_CONSOLE
-		>"%OutputFile2%" (
-			FOR /f "usebackq delims=" %%I IN ("%InputFile2%") DO (
-				IF "%%I" equ "%_strFind2%" (echo %_strInsert2%) ELSE (echo %%I)
-			)
-		)
-		DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
-		RENAME "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
-		GOTO :eof
-
-::=================
-::----END CALLS----
-::=================
-	
 ::ROM Renamer Script Call
 ::=======================
 :RENAMER
-	CALL "rom_renamer.bat" "%dirpath%" "DS"
 	CALL "rom_renamer.bat" "%dirpath%" "GBA"
+	CALL "rom_renamer.bat" "%dirpath%" "DS"
 	CALL "rom_renamer.bat" "%dirpath%" "NES"
 	CALL "rom_renamer.bat" "%dirpath%" "SNES"
 	CALL "rom_renamer.bat" "%dirpath%" "N64"
@@ -111,28 +69,72 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 ::===========================
 :EMULATORS
 	CALL :EMULATOR_REPLACE "%dirpath%" "Apps"
-	CALL :EMULATOR_REPLACE "%dirpath%" "PC_Games"
 	CALL :EMULATOR_REPLACE "%dirpath%" "GBA"
 	CALL :EMULATOR_REPLACE "%dirpath%" "DS"
 	CALL :EMULATOR_REPLACE "%dirpath%" "NES"
 	CALL :EMULATOR_REPLACE "%dirpath%" "SNES"
 	CALL :EMULATOR_REPLACE "%dirpath%" "N64"
-	CALL :EMULATOR_REPLACE "%dirpath%" "Gamecube"
+	CALL :EMULATOR_REPLACE "%dirpath%" "GC"
 	CALL :EMULATOR_REPLACE "%dirpath%" "Wii"
 	CALL :EMULATOR_REPLACE "%dirpath%" "SMS"
-	CALL :EMULATOR_REPLACE "%dirpath%" "Genesis"
+	CALL :EMULATOR_REPLACE "%dirpath%" "SEGA"
 	CALL :EMULATOR_REPLACE "%dirpath%" "PSP"
 	CALL :EMULATOR_REPLACE "%dirpath%" "PS1"
 	CALL :EMULATOR_REPLACE "%dirpath%" "PS2"
+	CALL :EMULATOR_REPLACE "%dirpath%" "PC"
+	CALL :EMULATOR_REPLACE "%dirpath%" "Launchers"
 
-::"%dirpath%\Tools\Ice\ice.exe"
+:ICE_RUN
+	"%dirpath%\Tools\Ice\ice.exe"
 
-::DEL /F /Q "%dirpath%\Tools\Ice\config.txt"
-::copy /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
-::DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
-::copy /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
-::DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
-::copy /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
+	DEL /F /Q "%dirpath%\Tools\Ice\config.txt"
+	COPY /Y "%dirpath%\Tools\Ice\config_blank.txt" "%dirpath%\Tools\Ice\config.txt"
+	DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
+	COPY /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
+	DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+	COPY /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
+	DEL /F /Q "%dirpath%\steam_path.txt"
+	GOTO end
+
+::=================
+::---BEGIN CALLS---
+::=================
+:EMULATOR_REPLACE
+	SET "dirpath=%~1"
+	SET "console=%~2"
+	SET "emulator=%dirpath%\Scripts\Launcher.bat"
+	SET "imagepath=%dirpath%\Images\Steam_Grid_Images\%console%"
+	SET "InputFile=%dirpath%\Tools\Ice\emulators.txt"
+	SET "OutputFile=%dirpath%\Tools\Ice\emulators-new.txt"
+	SET "InputFile2=%dirpath%\Tools\Ice\consoles.txt"
+	SET "OutputFile2=%dirpath%\Tools\Ice\consoles-new.txt"
+	SET "_strFind=location=%console%"
+	SET "_strInsert=location=%emulator%"
+	SET "_strFind2=images directory=%console%-image"
+	SET "_strInsert2=images directory=%imagepath%"
+
+	:REPLACE_EMU
+		>"%OutputFile%" (
+			FOR /f "usebackq delims=" %%B IN ("%InputFile%") DO (
+				IF "%%B" equ "%_strFind%" (echo %_strInsert%) ELSE (echo %%B)
+			)
+		)
+		DEL /F /Q "%dirpath%\Tools\Ice\emulators.txt"
+		RENAME "%dirpath%\Tools\Ice\emulators-new.txt" emulators.txt
+
+	:REPLACE_CONSOLE
+		>"%OutputFile2%" (
+			FOR /f "usebackq delims=" %%I IN ("%InputFile2%") DO (
+				IF "%%I" equ "%_strFind2%" (echo %_strInsert2%) ELSE (echo %%I)
+			)
+		)
+		DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
+		RENAME "%dirpath%\Tools\Ice\consoles-new.txt" consoles.txt
+		GOTO :eof
+
+::=================
+::----END CALLS----
+::=================
 
 :end
 GOTO :eof
