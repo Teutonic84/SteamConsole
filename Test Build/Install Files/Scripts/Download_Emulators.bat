@@ -1,5 +1,5 @@
-ECHO off
-cls
+::ECHO off
+::cls
 CD "%~dp0%"
 CD ..
 SET "dirpath=%cd%"
@@ -19,7 +19,7 @@ IF NOT EXIST "files" (MKDIR files)
 
 	::Download RetroArch Program Package:
 	::==================================
-	cls
+	::cls
 	ECHO Downloading RetroArch Nightly Build %datef%...
 		SET link=http://buildbot.libretro.com/nightly/windows/x86_64/%datef%_RetroArch.7z
 		wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
@@ -28,7 +28,7 @@ IF NOT EXIST "files" (MKDIR files)
 			GOTO download
 
 	:yesterday
-		cls
+		::cls
 		ECHO Couldn't Download Today's Nightly Build %datef%. Trying Yesterday's...
 		SET day=%date:~7,2%
 		SET /a day=%day%-1
@@ -41,10 +41,10 @@ IF NOT EXIST "files" (MKDIR files)
 				SET "retroarch=RetroArch - Couldn't download today or yesterday's nightly build. Try again tomorrow."
 				GOTO cores
 			)
-			cls
+			::cls
 
 	:download
-		cls
+		::cls
 		IF EXIST "%datef%_RetroArch.7z" (
 			ECHO Extracting RetroArch Nightly %datef%...
 				7zG x -y -o"files\RetroArch" "%datef%_RetroArch.7z"
@@ -53,13 +53,13 @@ IF NOT EXIST "files" (MKDIR files)
 				ROBOCOPY files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 				SET "retroarch=RetroArch updated to %datef%..."
 		)
-		cls
+		::cls
 
 		:redist
 			ECHO Downloading RetroArch Redist %datef%...
 			SET link2=http://buildbot.libretro.com/nightly/windows/x86_64/redist.7z
 			wget --tries=3 --no-check-certificate %link2% 2>NUL 1>NUL
-			cls
+			::cls
 			IF NOT EXIST "redist.7z" (
 				ECHO Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
 				SET "redist=Download of RetroArch redist files failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
@@ -68,7 +68,7 @@ IF NOT EXIST "files" (MKDIR files)
 			ECHO Extracting RetroArch Redist Files...
 			7zG x -y -o"files\RetroArch-redist" "redist.7z"
 			DEL /q "redist.7z" 2>NUL 1>NUL
-			cls
+			::cls
 			ECHO Replacing old files with new ones...
 			ROBOCOPY files\RetroArch-redist ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 			SET "redist=RetroArch Redist Files Updated."
@@ -77,7 +77,7 @@ IF NOT EXIST "files" (MKDIR files)
 ::|  Cores Section    |
 ::=====================
 :cores
-	cls
+	::cls
 	ECHO Downloading latest RetroArch cores...
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mupen64plus_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/mupen64plus_libretro.info 2>NUL 1>NUL
@@ -85,8 +85,10 @@ IF NOT EXIST "files" (MKDIR files)
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/desmume_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/genesis_plus_gx_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/genesis_plus_gx_libretro.info 2>NUL 1>NUL
-		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
-		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/mednafen_psx_libretro.info 2>NUL 1>NUL
+		::wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
+		::wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/mednafen_psx_libretro.info 2>NUL 1>NUL
+		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/pcsx_rearmed_libretro.dll.zip 2>NUL 1>NUL
+		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/pcsx_rearmed_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/nestopia_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/nestopia_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/ppsspp_libretro.dll.zip 2>NUL 1>NUL
@@ -95,13 +97,14 @@ IF NOT EXIST "files" (MKDIR files)
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/snes9x_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/vbam_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/vbam_libretro.info 2>NUL 1>NUL
-		cls
+		::cls
 	ECHO Extracting RetroArch cores...
 		IF NOT EXIST "files\RetroArch_Cores" MKDIR "files\RetroArch_Cores"
 		IF EXIST "mupen64plus_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mupen64plus_libretro.dll.zip"
 		IF EXIST "desmume_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
 		IF EXIST "genesis_plus_gx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
-		IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
+		::IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
+		IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "pcsx_rearmed_libretro.dll.zip"
 		IF EXIST "nestopia_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
 		IF EXIST "ppsspp_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
 		IF EXIST "snes9x_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
@@ -110,12 +113,13 @@ IF NOT EXIST "files" (MKDIR files)
 		DEL "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "desmume_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
-		DEL "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+		::DEL "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+		DEL "pcsx_rearmed_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "nestopia_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "ppsspp_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "snes9x_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "vbam_libretro.dll.zip" 2>NUL 1>NUL
-		cls
+		::cls
 	ECHO Updating RetroArch cores...
 		IF NOT EXIST "..\..\Emulators\RetroArch\info" MKDIR "..\..\Emulators\RetroArch\info" 2>NUL 1>NUL
 		MOVE /y "*.info" ..\..\Emulators\RetroArch\info\ 2>NUL 1>NUL
@@ -138,11 +142,11 @@ IF NOT EXIST "files" (MKDIR files)
 
 	:vercheck
 		DEL /q index.php.html 2>NUL 1>NUL
-		cls
+		::cls
 		IF %version% == %newversion% GOTO NOUP
 		ECHO Downloading PCSX2 %newversion% files...
 			wget -Q7m --tries=3 --reject css,html --mirror -p --convert-links -P files\PCSX2 "https://buildbot.orphis.net/pcsx2/index.php" 2>NUL 1>NUL
-			cls
+			::cls
 			IF NOT EXIST "files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=dl&rev=%newversion%&platform=windows-x86" (
 				ECHO Download of PCSX2 failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
 				SET "pcsx2=Download of PCSX2 failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
@@ -150,14 +154,14 @@ IF NOT EXIST "files" (MKDIR files)
 			)
 		ECHO Extracting PCSX2 %newversion% files...
 			7zG x -y -o"files\PCSX2" "files\PCSX2\buildbot.orphis.net\pcsx2\index.php@m=dl&rev=%newversion%&platform=windows-x86"
-			cls
+			::cls
 		ECHO Replacing old files with new ones...
 			ROBOCOPY "files\PCSX2\pcsx2-%newversion%-windows-x86" ..\..\Emulators\PS2\PCSX2\ /E /XO /MOVE 2>NUL 1>NUL
 			COPY /y portable.ini "..\..\Emulators\PS2\PCSX2\portable.ini" 2>NUL 1>NUL
-			"..\..\Emulators\PS2\PCSX2\4gb_patch.exe" ..\..\Emulators\PS2\pcsx2\pcsx2.exe
+			"..\..\Emulators\PS2\4gb_patch.exe" ..\..\Emulators\PS2\pcsx2\pcsx2.exe
 			IF EXIST "files\PCSX2" RMDIR /s /q "files\PCSX2" 2>NUL 1>NUL
 			@ECHO %newversion%>version_pcsx2.txt
-			cls
+			::cls
 		ECHO PCSX2 successfully updated to %newversion%...
 			SET "pcsx2=PCSX2 Updated to %newversion%..."
 			GOTO dolphin
@@ -176,7 +180,7 @@ IF NOT EXIST "files" (MKDIR files)
 ::|  Dolphin Section    |
 ::=======================
 :dolphin
-	cls
+	::cls
 	wget -N --tries=3 --no-parent --html-extension --secure-protocol=tlsv1 --no-check-certificate https://dolphin-emu.org/download/ 2>NUL 1>NUL
 	::FOR /F "tokens=2 delims=)(" %%a IN ('findstr /I " \<(.* " index.html') DO (
 	FOR /F "tokens=2 delims=()" %%a IN ('FINDSTR "version always-ltr" index.html') DO (
@@ -192,10 +196,10 @@ IF NOT EXIST "files" (MKDIR files)
 		IF %version2% == %newversion2% GOTO NOUP2
 
 		SET link=http://dl.dolphin-emu.org/builds/dolphin-master-%newversion2%-x64.7z
-		cls
+		::cls
 		ECHO Downloading Dolphin %newversion2% files...
 			wget --tries=3 --no-check-certificate %link% 2>NUL 1>NUL
-			cls
+			::cls
 			IF NOT EXIST "dolphin-master-%newversion2%-x64.7z" (
 				ECHO Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues
 				SET "pcsx2=Download of Dolphin failed. Open an issue at https://github.com/Teutonic84/SteamConsole/issues"
@@ -204,12 +208,12 @@ IF NOT EXIST "files" (MKDIR files)
 		ECHO Extracting Dolphin %newversion2% files...
 			7zG x -y -o"files\" dolphin-master-%newversion2%-x64.7z
 			DEL dolphin-master-%newversion2%-x64.7z 2>NUL 1>NUL
-			cls
+			::cls
 		ECHO Replacing old files with new ones...
 			@ECHO %newversion2%>version_dolphin.txt
 			ROBOCOPY files\Dolphin-x64 ..\..\Emulators\Gamecube\Dolphin\ /E /XO /MOVE 2>NUL 1>NUL
 			IF EXIST "Dolphin-x64" RMDIR /s /q Dolphin-x64 2>NUL 1>NUL
-			cls
+			::cls
 		ECHO Dolphin successfully updated to %newversion2%...
 			SET "dolphin=Dolphin Updated to %newversion2%..."
 			GOTO complete
@@ -231,43 +235,30 @@ IF NOT EXIST "files" (MKDIR files)
 	IF EXIST "files\" (RMDIR /q /s files)
 	IF EXIST "%datef%_RetroArch.7z" (DEL /q %datef%_RetroArch.7z)
 	IF EXIST "dolphin-master-%newversion%-x64.7z" (DEL /q dolphin-master-%newversion%-x64.7z)
-	cls
+	::cls
 	ECHO.
 	ECHO ======================================
 	ECHO   %pcsx2%
-	ECHO ======================================
-	ECHO.
-	ECHO ======================================
 	ECHO   %dolphin%
-	ECHO ======================================
-	ECHO.
-	ECHO ======================================
 	ECHO   %retroarch%
 	ECHO   %redist%
 	ECHO   %cores%
 	ECHO ======================================
-	ECHO.
 	ECHO.
 
 :nochange
 	IF EXIST "files\" (RMDIR /q /s files)
 	IF EXIST "%datef%_RetroArch.7z" (DEL /q %datef%_RetroArch.7z)
 	IF EXIST "dolphin-master-%newversion%-x64.7z" (DEL /q dolphin-master-%newversion%-x64.7z)
-	cls
+	::cls
 	ECHO.
 	ECHO ======================================
 	ECHO   %pcsx2%
-	ECHO ======================================
-	ECHO.
-	ECHO ======================================
 	ECHO   %dolphin%
-	ECHO ======================================
-	ECHO.
-	ECHO ======================================
 	ECHO   RetroArch already up to date...
 	ECHO ======================================
 	ECHO.
-	ECHO.
 
 :end
+pause
 EXIT

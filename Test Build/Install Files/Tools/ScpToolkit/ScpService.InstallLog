@@ -1,0 +1,14 @@
+﻿Installing assembly 'D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.exe'.
+Affected parameters are:
+   assemblypath = D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.exe
+   logfile = D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.InstallLog
+Installing service Ds3Service...
+Service Ds3Service has been successfully installed.
+Creating EventLog source Ds3Service in log Application...
+See the contents of the log file for the D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.exe assembly's progress.
+The file is located at D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.InstallLog.
+Committing assembly 'D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.exe
+   logfile = D:\Games\SteamConsole\Tools\ScpToolkit\ScpService.InstallLog

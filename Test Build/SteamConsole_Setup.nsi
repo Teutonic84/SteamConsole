@@ -76,7 +76,7 @@ Section "Core Files (Required)"
 	CreateShortCut "$INSTDIR\Steam Launch.lnk" "$INSTDIR\Scripts\Steam_Open.bat" "" "$INSTDIR\Images\SteamConsole.ico"
 	SetOutPath $INSTDIR
 		SetRegView 64
-		WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
+		#WriteRegStr HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe" "~ RUNASADMIN WIN7RTM"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayIcon" "$INSTDIR\Images\SteamConsole.ico"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayName" "SteamConsole (64-Bit)"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "DisplayVersion" "1.6.1"
@@ -88,12 +88,13 @@ Section "Core Files (Required)"
 		WriteRegStr HKLM "Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole" "Updater" "1.5.5"
 		SetOutPath $INSTDIR\Scripts
 		#ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
-		ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTIR\Tools\Xpadder\Xpadder.exe"
+		#ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTIR\Tools\Xpadder\Xpadder.exe"
 	MessageBox MB_OK '"Core Files Installation Complete!"'
 	SetOutPath $INSTDIR\Scripts
 	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
-	ExecDos::exec /NOUNLOAD /TOSTACK TASKKILL /im "Xpadder.exe"
-	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\Download_Emulators.bat" "" ""
+	#ExecDos::exec /NOUNLOAD /TOSTACK TASKKILL /im "Xpadder.exe"
+	#ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\Scripts\Download_Emulators.bat" "" ""
+	nsExec::ExecToLog '"$INSTDIR\Scripts\Download_Emulators.bat" "" ""'
 SectionEnd
 
 Section "Prerequisites" SEC_PREREQS
@@ -124,7 +125,7 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
-  FileWrite $0 'cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
+	FileWrite $0 'cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
@@ -164,9 +165,9 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL'
+	FileWrite $0 'TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"'
+	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'start "" "%steampath%\Steam.exe" -start steam://open/bigpicture'
 	FileWrite $0 "$\r$\n"
@@ -183,25 +184,25 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 
 SectionEnd
 
-Section "Import ROMS" SEC_ROMIMPORT
-  SectionIn 1
+#Section "Import ROMS" SEC_ROMIMPORT
+  #SectionIn 1
   # Scan user defined folders for ROM files and move them to ..\SteamConsole\Emulators\ROMS
 	# Run Ice to import ROMS into Steam
-	MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
-	SetOutPath "$INSTDIR\Tools\Ice"
+	#MessageBox MB_OK '"NOTE: Please make sure you move all your ROM files to ..\SteamConsole\Emulators\ROMS\CONSOLE before continuing. Where CONSOLE is the name of the game system the ROM is for (NES, SNES, Genesis, N64, etc.)"'
+	#SetOutPath "$INSTDIR\Tools\Ice"
   #!insertmacro ShellExecWait "" '"Ice-Initial-Run.bat"' "" "" ${SW_SHOW} $1
-	ExpandEnvStrings $0 %COMSPEC%
-  nsExec::ExecToLog '"Ice-Initial-Run.bat"'
-	nsExec::ExecToLog '"ice.exe" -s'
+	#ExpandEnvStrings $0 %COMSPEC%
+	#nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	#nsExec::ExecToLog '"ice.exe" -s'
 	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	#ExecWait '"ice.exe"'
-	Delete "config.txt"
-	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
-	Delete "emulators.txt"
-	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
-	Delete "consoles.txt"
-	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
-SectionEnd
+	#Delete "config.txt"
+	#CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
+	#Delete "emulators.txt"
+	#CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
+	#Delete "consoles.txt"
+	#CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
+#SectionEnd
 
 Section "DS3 & DS4" SEC_DS3
   SectionIn 2
@@ -251,7 +252,7 @@ SectionEnd
 	#FileWrite $0 "ECHO          **      **  **  **   **  **  **   **   **  * **  **  ****"
 	#FileWrite $0 "$\r$\n"
 	#FileWrite $0 "ECHO          ******  **  **  **   **  ** **    **   **   ***   **   **"
-	##FileWrite $0 "$\r$\n"
+	#FileWrite $0 "$\r$\n"
 	#FileWrite $0 "ECHO          ******   ****   **   **  ***     ****  **    **    *****"
 	#FileWrite $0 "$\r$\n"
 	#FileWrite $0 "ECHO."
@@ -277,22 +278,22 @@ SectionEnd
 Function .onInit
   StrCpy $1 ${SEC_PREREQS}
   StrCpy $1 ${SEC_STARTMENU}
-  StrCpy $1 ${SEC_ROMIMPORT}
+  #StrCpy $1 ${SEC_ROMIMPORT}
   StrCpy $1 ${SEC_DS3}
   #StrCpy $1 ${SEC_DS4}
 FunctionEnd
 
 LangString DESC_Section1 ${LANG_ENGLISH} "DirectX, MSVC 2013 x86, MSVC 2013 x64, Xpadder."
 LangString DESC_Section2 ${LANG_ENGLISH} "Create program shortcuts in the start menu and on the desktop."
-LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
+#LangString DESC_Section3 ${LANG_ENGLISH} "Import ROMS in the subfolders found in the Emulators folder within the root SteamConsole folder."
 LangString DESC_Section4 ${LANG_ENGLISH} "Dualshock 3 & Dualshock 4 controller support (ScpToolkit)."
 #LangString DESC_Section5 ${LANG_ENGLISH} "Dualshock 4 controller support only (DS4Tool)."
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_PREREQS} $(DESC_Section1)
   !insertmacro MUI_DESCRIPTION_TEXT ${SEC_STARTMENU} $(DESC_Section2)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
-  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section4)
+  #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_ROMIMPORT} $(DESC_Section3)
+  !insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS3} $(DESC_Section3)
   #!insertmacro MUI_DESCRIPTION_TEXT ${SEC_DS4} $(DESC_Section5)
 !insertmacro MUI_FUNCTION_DESCRIPTION_END
 
@@ -317,7 +318,8 @@ Function installwarning
 FunctionEnd
 
 Function setupfinished
-	MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
+	#MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
+	MessageBox MB_OK 'Setup finished! Add ROMS to "..\SteamConsole\Emulators\ROMS\.." and Run the ROM Import shortcut in the start menu/desktop to import the ROMS into Steam.'
 FunctionEnd
 
 #===========================
@@ -338,7 +340,7 @@ SectionEnd
 Section "Uninstall" # create a section to define what the uninstaller does.
 	MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
 yes:
-	KillProcDLL::KillProc "Xpadder.exe"
+	KillProcDLL::KillProc "antimicro.exe"
 	SetOutPath "$INSTDIR\Scripts"
 	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder in ..\SteamConsole\Emulators labeled BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
@@ -363,8 +365,8 @@ yes3:
 	SetOutPath "$INSTDIR\Tools\Ice"
 	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	#ExecWait '"ice.exe"'
-    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
-	nsExec::ExecToLog '"ice.exe" -s'
+    #nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	#nsExec::ExecToLog '"ice.exe" -s'
 	Delete "config.txt"
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"
@@ -409,8 +411,8 @@ no3:
 	SetOutPath "$INSTDIR\Tools\Ice"
 	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
 	#ExecWait '"ice.exe"'
-    nsExec::ExecToLog '"Ice-Initial-Run.bat"'
-	nsExec::ExecToLog '"ice.exe" -s'
+    #nsExec::ExecToLog '"Ice-Initial-Run.bat"'
+	#nsExec::ExecToLog '"ice.exe" -s'
 	Delete "config.txt"
 	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
 	Delete "emulators.txt"

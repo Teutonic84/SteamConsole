@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gamecontroller configversion="19" appversion="2.23">
+    <!--The SDL name for a joystick is included for informational purposes only.-->
+    <sdlname>XInput Controller</sdlname>
+    <!--The GUID for a joystick is included for informational purposes only.-->
+    <guid>78696e70757401000000000000000000</guid>
+    <names/>
+    <sets>
+        <set index="1">
+            <stick index="2">
+                <stickbutton index="1">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="2">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="3">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="4">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="5">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="6">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="7">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+                <stickbutton index="8">
+                    <mousespeedx>65</mousespeedx>
+                    <mousespeedy>65</mousespeedy>
+                </stickbutton>
+            </stick>
+            <trigger index="1">
+                <throttle>positivehalf</throttle>
+            </trigger>
+            <trigger index="2">
+                <throttle>positivehalf</throttle>
+            </trigger>
+        </set>
+    </sets>
+</gamecontroller>

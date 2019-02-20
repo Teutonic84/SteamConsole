@@ -1,7 +1,0 @@
-ECHO off
-cls
-
-"D:\Games\Ubisoft_Library\Assassin's Creed Odyssey\ACOdyssey.exe"
-
-:end
-EXIT

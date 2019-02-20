@@ -10,7 +10,7 @@ IF NOT EXIST "files" (MKDIR files)
 
 ::taskkill /T /IM "ScpService.exe" 2>NUL 1>NUL
 TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
-START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Desktop.xpadderprofile"
+::START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Desktop.xpadderprofile"
 
 ::Remove Old Files
 :RM_Files
@@ -145,7 +145,7 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 		DEL "SteamConsole_Update_Only_v%newversionsc%_x64.7z"
 		cls
 		TASKKILL /f /im "Custom Hotkeys.exe" 2>NUL 1>NUL
-		"..\..\Tools\Xpadder\Xpadder.exe" /C 2>NUL 1>NUL
+		TASKKILL /f /im "antimicro.exe" 2>NUL 1>NUL
 	ECHO Replacing old files with new ones...
 		IF EXIST "..\..\Steam_Shortcuts\Arcade" RMDIR /q /s "..\..\Steam_Shortcuts\Arcade" 2>NUL 1>NUL
 		IF EXIST "..\..\Steam_Shortcuts\Apps" MOVE /y "..\..\Steam_Shortcuts\Apps" "..\..\Emulators\ROMS\Apps"
@@ -183,7 +183,6 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 
 :ICE_RUN
 	CD "%dirpath%\Tools\Ice"
-	START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	CALL "%dirpath%\Tools\Ice\Ice-Initial-Run.bat"
 	CALL "%dirpath%\Tools\Ice\Ice.exe"
 
@@ -292,8 +291,10 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/desmume_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/genesis_plus_gx_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/genesis_plus_gx_libretro.info 2>NUL 1>NUL
-		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
-		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/mednafen_psx_libretro.info 2>NUL 1>NUL
+		::wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_psx_libretro.dll.zip 2>NUL 1>NUL
+		::wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/mednafen_psx_libretro.info 2>NUL 1>NUL
+		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/pcsx_rearmed_libretro.dll.zip 2>NUL 1>NUL
+		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/pcsx_rearmed_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/nestopia_libretro.dll.zip 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/assets/frontend/info/nestopia_libretro.info 2>NUL 1>NUL
 		wget --tries=3 http://buildbot.libretro.com/nightly/windows/x86_64/latest/ppsspp_libretro.dll.zip 2>NUL 1>NUL
@@ -308,7 +309,8 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 		IF EXIST "mupen64plus_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mupen64plus_libretro.dll.zip"
 		IF EXIST "desmume_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
 		IF EXIST "genesis_plus_gx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
-		IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
+		::IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
+		IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "pcsx_rearmed_libretro.dll.zip"
 		IF EXIST "nestopia_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
 		IF EXIST "ppsspp_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
 		IF EXIST "snes9x_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
@@ -317,7 +319,8 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 		DEL "mupen64plus_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "desmume_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "genesis_plus_gx_libretro.dll.zip" 2>NUL 1>NUL
-		DEL "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+		::DEL "mednafen_psx_libretro.dll.zip" 2>NUL 1>NUL
+		DEL "pcsx_rearmed_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "nestopia_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "ppsspp_libretro.dll.zip" 2>NUL 1>NUL
 		DEL "snes9x_libretro.dll.zip" 2>NUL 1>NUL
@@ -462,8 +465,8 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 	pause
 	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
 		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
-	TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL
-		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
+	TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
 	GOTO end
 
@@ -493,8 +496,8 @@ START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Contr
 	pause
 	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
 		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
-	TASKLIST /FI "IMAGENAME eq Xpadder.exe" 2>NUL | FIND /I /N "Xpadder.exe">NUL
-		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
+	TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
 	GOTO end
 

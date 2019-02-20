@@ -1,7 +1,0 @@
-ECHO off
-cls
-
-"D:\Games\Battle.net\Battle.net Launcher.exe"
-
-:end
-EXIT

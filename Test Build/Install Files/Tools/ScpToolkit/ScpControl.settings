@@ -97,5 +97,53 @@
       <setting name="Ds3RumbleLatency">128</setting>
       <setting name="Ds3LEDsCustom4">False</setting>
     </Host-desktop-v9ebofr>
+    <Host-gaming-rig>
+      <setting name="BusId">0</setting>
+      <setting name="BluetoothConnectSoundFile">Media\connect.wav</setting>
+      <setting name="Ds3LEDsCustom1">False</setting>
+      <setting name="ProfilesEnabled">False</setting>
+      <setting name="ForceBluetoothDriverReinstallation">True</setting>
+      <setting name="DisableRumble">False</setting>
+      <setting name="IdleTimout">600000</setting>
+      <setting name="IsPressureSensitivityModEnabled">False</setting>
+      <setting name="FlipAxisRx">False</setting>
+      <setting name="UseAsyncHidReportProcessing">False</setting>
+      <setting name="ForceDs3DriverReinstallation">True</setting>
+      <setting name="UsbDisconnectSoundFile">Media\disconnect.flac</setting>
+      <setting name="StartupSoundFile">Media\startup.ogg</setting>
+      <setting name="Ds3LEDsFlashingPeriod">1500</setting>
+      <setting name="Ds4Repair">False</setting>
+      <setting name="AlwaysUnPlugVirtualBusDevice">True</setting>
+      <setting name="IsUsbDisconnectSoundEnabled">True</setting>
+      <setting name="IsStartupSoundEnabled">True</setting>
+      <setting name="DeadZoneL">0</setting>
+      <setting name="ForceDs4DriverReinstallation">True</setting>
+      <setting name="Ds3LEDsCustom2">False</setting>
+      <setting name="BluetoothDisconnectSoundFile">Media\disconnect.flac</setting>
+      <setting name="Ds3LEDsCustom3">False</setting>
+      <setting name="UsbConnectSoundFile">Media\connect.wav</setting>
+      <setting name="Ds3LEDsFunction">1</setting>
+      <setting name="Ds4InputUpdateDelay">128</setting>
+      <setting name="FlipAxisLx">False</setting>
+      <setting name="SoundsEnabled">True</setting>
+      <setting name="Ds4LightBarBrightness">128</setting>
+      <setting name="DisableSecureSimplePairing">False</setting>
+      <setting name="SwapTriggers">False</setting>
+      <setting name="ServiceProcessPriority">Normal</setting>
+      <setting name="IsUsbConnectSoundEnabled">True</setting>
+      <setting name="ReservePadSlot">False</setting>
+      <setting name="FlipAxisRy">False</setting>
+      <setting name="IsBluetoothDisconnectSoundEnabled">True</setting>
+      <setting name="FlipAxisLy">False</setting>
+      <setting name="Ds3PadIDLEDsFlashCharging">True</setting>
+      <setting name="DisableNativeFeed">False</setting>
+      <setting name="Pcsx2RootPath">
+      </setting>
+      <setting name="DeadZoneR">0</setting>
+      <setting name="IsVBusDisabled">False</setting>
+      <setting name="IsBluetoothConnectSoundEnabled">True</setting>
+      <setting name="Ds3RumbleLatency">128</setting>
+      <setting name="Ds3LEDsCustom4">False</setting>
+    </Host-gaming-rig>
   </localSettings>
 </settings>
