@@ -1,4 +1,4 @@
-::ECHO off
+ECHO off
 ::cls
 CD "%~dp0%"
 CD ..
@@ -104,7 +104,7 @@ IF NOT EXIST "files" (MKDIR files)
 		IF EXIST "desmume_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "desmume_libretro.dll.zip"
 		IF EXIST "genesis_plus_gx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "genesis_plus_gx_libretro.dll.zip"
 		::IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "mednafen_psx_libretro.dll.zip"
-		IF EXIST "mednafen_psx_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "pcsx_rearmed_libretro.dll.zip"
+		IF EXIST "pcsx_rearmed_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "pcsx_rearmed_libretro.dll.zip"
 		IF EXIST "nestopia_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "nestopia_libretro.dll.zip"
 		IF EXIST "ppsspp_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "ppsspp_libretro.dll.zip"
 		IF EXIST "snes9x_libretro.dll.zip" 7zG x -y -o"files\RetroArch_Cores" "snes9x_libretro.dll.zip"
@@ -158,7 +158,7 @@ IF NOT EXIST "files" (MKDIR files)
 		ECHO Replacing old files with new ones...
 			ROBOCOPY "files\PCSX2\pcsx2-%newversion%-windows-x86" ..\..\Emulators\PS2\PCSX2\ /E /XO /MOVE 2>NUL 1>NUL
 			COPY /y portable.ini "..\..\Emulators\PS2\PCSX2\portable.ini" 2>NUL 1>NUL
-			"..\..\Emulators\PS2\4gb_patch.exe" ..\..\Emulators\PS2\pcsx2\pcsx2.exe
+			"%dirpath%\Emulators\PS2\4gb_patch.exe" "%dirpath%\Emulators\PS2\pcsx2\pcsx2.exe"
 			IF EXIST "files\PCSX2" RMDIR /s /q "files\PCSX2" 2>NUL 1>NUL
 			@ECHO %newversion%>version_pcsx2.txt
 			::cls

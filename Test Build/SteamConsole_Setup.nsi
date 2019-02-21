@@ -89,7 +89,7 @@ Section "Core Files (Required)"
 		SetOutPath $INSTDIR\Scripts
 		#ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTDIR\Scripts\open_xpadder.bat" "" ""
 		#ExecDos::exec /NOUNLOAD /ASYNC /TOSTACK "$INSTIR\Tools\Xpadder\Xpadder.exe"
-	MessageBox MB_OK '"Core Files Installation Complete!"'
+	#MessageBox MB_OK '"Core Files Installation Complete!"'
 	SetOutPath $INSTDIR\Scripts
 	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\close_xpadder.bat" "" ""
 	#ExecDos::exec /NOUNLOAD /TOSTACK TASKKILL /im "Xpadder.exe"
@@ -340,41 +340,28 @@ Section "Uninstall" # create a section to define what the uninstaller does.
 	MessageBox MB_YESNO "Are you sure you want to uninstall SteamConsole?" IDYES yes IDNO no
 yes:
 	KillProcDLL::KillProc "antimicro.exe"
+	KillProcDLL::KillProc "Custom Hotkeys.exe"
 	SetOutPath "$INSTDIR\Scripts"
-	ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
+	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder in ..\SteamConsole\Emulators labeled BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
 
 no:
 	Goto end
 
 yes3:
-	# CopyFiles /SILENT "$INSTDIR\Emulators\ROMS\*.*" "$DESKTOP\SteamConsole_BACKUP\ROMS"
 	CopyFiles /SILENT "$INSTDIR\Emulators\RetroArch\SAVEDATA\*.*" "$INSTDIR\Emulators\BACKUP\RetroArch\SAVEDATA"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\GC\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\Gamecube\Dolphin\User\StateSaves\*.*" "$INSTDIR\Emulators\BACKUP\Dolphin\SaveStates"
-	#CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS1\MemoryCards"
-	#CopyFiles /SILENT "$INSTDIR\Emulators\PS1\ePSXe\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS1\SaveStates"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\memcards\*.*" "$INSTDIR\Emulators\BACKUP\PS2\MemoryCards"
 	CopyFiles /SILENT "$INSTDIR\Emulators\PS2\pcsx2\sstates\*.*" "$INSTDIR\Emulators\BACKUP\PS2\SaveStates"
-	RMDir /r "$INSTDIR\Steam_Shortcuts"
+	RMDir /r "$INSTDIR\Emulators\ROMS\Apps"
+	RMDir /r "$INSTDIR\Emulators\ROMS\Launchers"
+	RMDir /r "$INSTDIR\Emulators\ROMS\PC_Games"
 	RMDir /r "$INSTDIR\Emulators\Gamecube"
-	RMDir /r "$INSTDIR\Emulators\PS1"
 	RMDir /r "$INSTDIR\Emulators\PS2"
 	RMDir /r "$INSTDIR\Emulators\RetroArch"
-	SetOutPath "$INSTDIR\Tools\Ice"
-	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
-	#ExecWait '"ice.exe"'
-    #nsExec::ExecToLog '"Ice-Initial-Run.bat"'
-	#nsExec::ExecToLog '"ice.exe" -s'
-	Delete "config.txt"
-	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
-	Delete "emulators.txt"
-	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
-	Delete "consoles.txt"
-	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
-	RMDir /r "$INSTDIR\Steam_Shortcuts"
-
 	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes4 IDNO no4
+	
 yes4:
 	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
 	Goto no4
@@ -386,17 +373,19 @@ no4:
 	Delete "$INSTDIR\Changelog.rtf"
 	Delete "$INSTDIR\License.rtf"
 	Delete "$INSTDIR\README.txt"
+	Delete "$INSTDIR\debug.log"
 	Delete "$INSTDIR\Steam Launch.lnk"
 	Delete "$DESKTOP\Steam Launch.lnk"
 	Delete "$DESKTOP\ROM Importer.lnk"
 	Delete "$DESKTOP\Update SteamConsole.lnk"
-	RMDir /r "$INSTDIR\Docs" # now delete installed files
+	RMDir /r "$INSTDIR\Config"
 	RMDir /r "$INSTDIR\Images"
 	RMDir /r "$INSTDIR\Installs"
 	RMDir /r "$INSTDIR\Scripts"
 	RMDir /r "$INSTDIR\Tools"
+	RMDir /r "$INSTDIR\Voice Control"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
-	DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
+	#DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
 	DetailPrint ""
 	DetailPrint ""
@@ -405,25 +394,13 @@ no4:
 	Goto end
 
 no3:
-	RMDir /r "$INSTDIR\Steam_Shortcuts"
 	RMDir /r "$INSTDIR\Emulators\ROMS"
-	SetOutPath "$INSTDIR\Tools\Ice"
-	#ExecDos::exec /NOUNLOAD /TOSTACK "Ice-Initial-Run.bat" "" ""
-	#ExecWait '"ice.exe"'
-    #nsExec::ExecToLog '"Ice-Initial-Run.bat"'
-	#nsExec::ExecToLog '"ice.exe" -s'
-	Delete "config.txt"
-	CopyFiles /SILENT /FILESONLY "config_blank.txt" "config.txt"
-	Delete "emulators.txt"
-	CopyFiles /SILENT /FILESONLY "emulators_blank.txt" "emulators.txt"
-	Delete "consoles.txt"
-	CopyFiles /SILENT /FILESONLY "consoles_blank.txt" "consoles.txt"
-	RMDir /r "$INSTDIR\Steam_Shortcuts"
-
 	MessageBox MB_YESNO "Would you like to remove the ScpToolkit (DS3/DS4 Tool) completely from your system?" IDYES yes5 IDNO no5
+	
 yes5:
 	ExecWait "$INSTDIR\Tools\ScpToolkit\ScpCleanWipe.exe"
 	Goto no5
+	
 no5:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
@@ -436,12 +413,12 @@ no5:
 	Delete "$DESKTOP\ROM Importer.lnk"
 	Delete "$DESKTOP\Update SteamConsole.lnk"
 	RMDir /r "$INSTDIR" # now delete installed files
-	RMDir /r "$INSTDIR\Emulators\Gamecube"
-	RMDir /r "$INSTDIR\Emulators\PS1"
-	RMDir /r "$INSTDIR\Emulators\PS2"
-	RMDir /r "$INSTDIR\Emulators\RetroArch"
+	#RMDir /r "$INSTDIR\Emulators\Gamecube"
+	#RMDir /r "$INSTDIR\Emulators\PS1"
+	#RMDir /r "$INSTDIR\Emulators\PS2"
+	#RMDir /r "$INSTDIR\Emulators\RetroArch"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
-	DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
+	#DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
 	DetailPrint ""
 	DetailPrint ""
