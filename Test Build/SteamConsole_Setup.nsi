@@ -318,8 +318,7 @@ Function installwarning
 FunctionEnd
 
 Function setupfinished
-	#MessageBox MB_OK "Setup finished! If you download any new ROMS, run the ROM Import shortcut in the start menu to import the new ROMS into Steam."
-	MessageBox MB_OK 'Setup finished! Add ROMS to "..\SteamConsole\Emulators\ROMS\.." and Run the ROM Import shortcut in the start menu/desktop to import the ROMS into Steam.'
+	MessageBox MB_OK 'Setup finished! Add ROMS to "..\SteamConsole\Emulators\ROMS\.." and Run the ROM Import shortcut in the start menu/desktop to import the ROMS into Steam. Note that everytime you run the ROM Import shortcut, it will delete all your steam custom shortcuts not added with SteamConsole. This is due to a bug in the ICE program used to import ROMS to steam.'
 FunctionEnd
 
 #===========================
