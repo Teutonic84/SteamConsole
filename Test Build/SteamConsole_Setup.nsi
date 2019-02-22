@@ -114,25 +114,25 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	CreateShortCut "$DESKTOP\ROM Importer.lnk" "$INSTDIR\Tools\Ice\Ice-Start.bat" "" "$INSTDIR\Images\ROM_Importer.ico"
 
 	FileOpen $0 "$INSTDIR\Scripts\Steam_Open.bat" w
-	FileWrite $0 "echo off"
+	FileWrite $0 "ECHO off"
 	FileWrite $0 "$\r$\n" # go to new line
 	FileWrite $0 'cd "%~dp0%"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "cd .."
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 "set dirpath=%cd%"
+	FileWrite $0 'SET "dirpath=%cd%"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"'
+	FileWrite $0 'IF EXIST "%dirpath%\steam_path.txt" DEL "%dirpath%\steam_path.txt" >NUL'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 ":steampath"
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"'
+	FileWrite $0 'FOR /f "usebackq delims=" %%i IN ("%dirpath%\steam_path.txt") DO SET "steampath=%%i"'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'del "%dirpath%\steam_path.txt"'
+	FileWrite $0 'DEL "%dirpath%\steam_path.txt" >NUL'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "cls"
@@ -163,13 +163,13 @@ Section "Start Menu & Desktop Shortcuts" SEC_STARTMENU
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"'
+	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Custom Hotkeys.exe"'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 'IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"'
 	FileWrite $0 "$\r$\n"
-	FileWrite $0 'start "" "%steampath%\Steam.exe" -start steam://open/bigpicture'
+	FileWrite $0 'START "" "%steampath%\Steam.exe" -start steam://open/bigpicture'
 	FileWrite $0 "$\r$\n"
 	FileWrite $0 "EXIT"
 	FileClose $0

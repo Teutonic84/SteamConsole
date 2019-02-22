@@ -7,8 +7,8 @@ SET "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
 SET "searchstring=%~1"
 
 TASKKILL /im "Custom Hotkeys.exe"
-COPY /y "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map - Chrome.JPG" "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map.JPG"
-START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Chrome.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
+START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 
 :app_path
 FOR /f "skip=1 tokens=*" %%a IN ('REG QUERY "%key%" /s /f "Google Chrome"') DO if not defined line SET "line=%%a" 2>NUL 1>NUL
@@ -19,7 +19,7 @@ SET instloc=%instloc:"=%
 "%instloc%\chrome.exe" "https://www.google.com/search?q=%searchstring%"
 
 TASKKILL /im "Custom Hotkeys.exe"
-COPY /y "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map - Steam.JPG" "%dirpath%\Tools\Xpadder\Controller Maps\Controller Map.JPG"
-START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Steam.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
+START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 
 EXIT

@@ -8,9 +8,7 @@ CD "%dirpath%\Scripts\Updater"
 IF NOT EXIST "..\..\Images" (MKDIR ..\..\Images)
 IF NOT EXIST "files" (MKDIR files)
 
-::taskkill /T /IM "ScpService.exe" 2>NUL 1>NUL
 TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
-::START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Desktop.xpadderprofile"
 
 ::Remove Old Files
 :RM_Files
@@ -464,7 +462,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	ECHO.
 	pause
 	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
-		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 	TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
 		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
@@ -495,7 +493,7 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	ECHO.
 	pause
 	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
-		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 	TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
 		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture

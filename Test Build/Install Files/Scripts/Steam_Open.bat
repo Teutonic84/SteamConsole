@@ -1,14 +1,14 @@
-echo off
+ECHO off
 cd "%~dp0%"
 cd ..
-set dirpath=%cd%
+SET "dirpath=%cd%"
 
-if exist "%dirpath%\steam_path.txt" del "%dirpath%\steam_path.txt"
+IF EXIST "%dirpath%\steam_path.txt" DEL "%dirpath%\steam_path.txt" >NUL
 cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 
 :steampath
-for /F "usebackq delims=" %%i in ("%dirpath%\steam_path.txt") do set "steampath=%%i"
-del "%dirpath%\steam_path.txt"
+FOR /f "usebackq delims=" %%i IN ("%dirpath%\steam_path.txt") DO SET "steampath=%%i"
+DEL "%dirpath%\steam_path.txt" >NUL
 
 cls
 ECHO.
@@ -22,9 +22,9 @@ ECHO          ******   ****   **   **  ***     ****  **    **    *****
 ECHO.
 ECHO.
 ECHO.
-echo.
+ECHO.
 TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
-	IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+	IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
 	IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
 START "" "%steampath%\Steam.exe" -start steam://open/bigpicture

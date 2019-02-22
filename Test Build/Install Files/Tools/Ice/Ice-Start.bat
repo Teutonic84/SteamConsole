@@ -5,10 +5,11 @@ CD ..\..
 SET "dirpath=%CD%"
 CD "%dirpath%\Tools\Ice"
 
+:CHECK_CONFIG_FILE
+FOR /f "tokens=2 delims==" %%a IN ('TYPE "%dirpath%\config\general_settings.ini" ^| FIND "rom_renamer"') DO SET "rom_renamer=%%a"
+
 TASKLIST /FI "IMAGENAME eq steam.exe" 2>NUL | FIND /I /N "steam.exe">NUL
 IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
-::TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
-::IF "%ERRORLEVEL%"=="0" TASKKILL /f /im "Custom Hotkeys.exe"
 
 :FILE_CLEANUP
 	IF EXIST "%dirpath%\steam_path.txt" DEL /q "%dirpath%\steam_path.txt"
@@ -23,11 +24,16 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 	cscript.exe "%dirpath%\Scripts\steam_path_check.vbs" > "%dirpath%\steam_path.txt"
 	FOR /F "usebackq delims=" %%i IN ("%dirpath%\steam_path.txt") DO SET "steampath=%%i"
 	IF EXIST "%dirpath%\steam_path.txt" DEL /q "%dirpath%\steam_path.txt"
-
 	IF EXIST "%steampath%\userdata\anonymous" (
 		RMDIR /q /s "%steampath%\userdata\anonymous"
 	)
-	IF EXIST "%steampath%\userdata\19087720\config\shortcuts.vdf" DEL "%steampath%\userdata\19087720\config\shortcuts.vdf" >NUL
+	FOR /R "%steampath%\userdata" %%a IN ("*.vdf") DO (
+		IF "%%~nxa"=="shortcuts.vdf" (
+			DEL /Q "%%a"
+			ECHO Removed %%a
+			PING localhost -n 3 >NUL
+		)
+	)
 	IF NOT EXIST "%userprofile%\AppData\Local\Scott Rice" (
 		MKDIR "%userprofile%\AppData\Local\Scott Rice"
 		MKDIR "%userprofile%\AppData\Local\Scott Rice\Ice"
@@ -36,6 +42,8 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 ::ROM Renamer Script Call
 ::=======================
 :RENAMER
+	IF "%rom_renamer%"=="disabled" GOTO CONFIG
+	
 	CALL "rom_renamer.bat" "%dirpath%" "GBA"
 	CALL "rom_renamer.bat" "%dirpath%" "DS"
 	CALL "rom_renamer.bat" "%dirpath%" "NES"
@@ -104,14 +112,13 @@ IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
 	COPY /Y "%dirpath%\Tools\Ice\emulators_blank.txt" "%dirpath%\Tools\Ice\emulators.txt"
 	DEL /F /Q "%dirpath%\Tools\Ice\consoles.txt"
 	COPY /Y "%dirpath%\Tools\Ice\consoles_blank.txt" "%dirpath%\Tools\Ice\consoles.txt"
-	DEL /F /Q "%dirpath%\steam_path.txt"
+	IF EXIST "%dirpath%\steam_path.txt" DEL /F /Q "%dirpath%\steam_path.txt" >NUL
 
 :APPS_LAUNCH
 	TASKLIST /FI "IMAGENAME eq Custom Hotkeys.exe" 2>NUL | FIND /I /N "Custom Hotkeys.exe">NUL
-		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Xpadder\Custom Hotkeys.exe"
+		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 	TASKLIST /FI "IMAGENAME eq antimicro.exe" 2>NUL | FIND /I /N "antimicro.exe">NUL
 		IF NOT "%ERRORLEVEL%"=="0" START "" "%dirpath%\Tools\antimicro\antimicro.exe"
-	::START "" "%dirpath%\Tools\Xpadder\Xpadder.exe" /M "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" ::"%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile" "%dirpath%\Tools\Xpadder\Controller-Profiles\Steam_Xbox360.xpadderprofile"
 	START "" "%steampath%\Steam.exe" -start steam://open/bigpicture
 	GOTO end
 

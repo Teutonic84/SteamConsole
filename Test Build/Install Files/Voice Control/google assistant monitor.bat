@@ -35,7 +35,7 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 IF "%type%"=="RetroArch" (
     SET "gpath=%dirpath%\Emulators\ROMS\%console%\%gamefile%"
     SET "rpath=%dirpath%\Emulators\RetroArch"
-    SET "xpath=%dirpath%\Tools\Xpadder"
+    SET "xpath=%dirpath%\Tools"
 
     IF "%console%"=="NES" SET "core=nestopia"
     IF "%console%"=="SNES" SET "core=snes9x"
