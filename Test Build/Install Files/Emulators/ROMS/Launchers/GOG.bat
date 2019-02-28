@@ -6,13 +6,12 @@ SET "dirpath=%cd%"
 SET "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
 
 :app_path
-FOR /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "Diablo III"') DO IF NOT defined line SET "line=%%a" 2>NUL 1>NUL
+FOR /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "GOG Galaxy"') DO IF NOT defined line SET "line=%%a" 2>NUL 1>NUL
 FOR /f "tokens=* delims= " %%c IN ('Reg query "%line%" /v InstallLocation') DO SET "instloc=%%c" 2>NUL 1>NUL
 SET instloc=%instloc:InstallLocation    REG_SZ    =%
 SET instloc=%instloc:"=%
 
-cd "%instloc%\x64"
-"Diablo III64.exe" -launch
+"%instloc%\GalaxyClient.exe"
 
 :end
 EXIT

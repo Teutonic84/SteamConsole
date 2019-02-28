@@ -3,23 +3,24 @@ ECHO off
 cd "%~dp0%"
 cd ..\..\..
 SET "dirpath=%cd%"
-SET "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
 
 TASKKILL /im "Custom Hotkeys.exe"
 COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Chrome.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
 START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 
 :app_path
-FOR /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "Google Chrome"') DO if not defined line set "line=%%a" 2>NUL 1>NUL
-FOR /f "tokens=* delims= " %%c IN ('Reg query "%line%" /v InstallLocation') DO set "instloc=%%c" 2>NUL 1>NUL
-SET instloc=%instloc:InstallLocation    REG_SZ    =%
-SET instloc=%instloc:"=%
+FOR %%w IN (C D E F G H I J K L) DO @IF EXIST %%w: FOR /f "delims=" %%x IN ('where /R %%w:\ "NexusClient.exe"') DO SET "instloc=%%x"
+cls
 
-"%instloc%\chrome.exe" --kiosk "http://www.vh1.com/tve/"
+START /MAX "" "%instloc%"
+
+:check
+PING localhost -n 2 2>NUL 1>NUL
+TASKLIST /FI "IMAGENAME eq NexusClient.exe" 2>NUL | FIND /I /N "NexusClient.exe">NUL
+IF "%ERRORLEVEL%"=="0" GOTO check
 
 TASKKILL /im "Custom Hotkeys.exe"
 COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Steam.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
 START "" "%dirpath%\Tools\Custom Hotkeys.exe"
 
-:end
-EXIT
+exit
