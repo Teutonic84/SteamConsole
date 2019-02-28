@@ -1,70 +1,252 @@
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
+#Include .\Includes\Class_ScrollGUI.ahk
+#Include .\Includes\Class_INI.ahk
+#Include .\Includes\Class_GroupBox.ahk
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+SetBatchLines, -1
+GBTHeight:=5
 
-;Get values from general_settings.ini to populate General tab
-IniRead, option1, general_settings.ini, General, Rename ROMs During Steam Import, %A_Space%
-IniRead, option2, general_settings.ini, General, launch_steamconsole_on_startup, %A_Space%
+;1st Tab - General Settings
+;==========================
+;Main Window GUI
+Gui, New, +hwndHGUI +Resize
+Gui, Color, 0f6970 ;Teal-18afa0, Grey-535e70, BluishTeal-0f6970
+Gui, Margin, 58, 5
+I := 0
+inifile = .\Config\general_settings.ini
+INI_Init(".\Config\general_settings.ini")
+Gui, Add, Tab, w455 h950 xs cwhite, General|Launchers/Apps|PC Games
+Gui, Add, Text, xm y33 cwhite, General Options For SteamConsole`nOnly Check one box under "Default Browser"
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  ;GB := "GB"++1
+  GB := ++
+  gbvars =
+  Gui, Font, Underline
+  Gui, Add, Text, w200 h13 cwhite, %section%
+  Gui, Font,,
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := %section%_val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If (gbvars = "")
+    {
+      gbvars = %section%_checkbox%A_index%
+    } else {
+      gbvars = %gbvars%|%section%_checkbox%A_index%
+    }
+    IF value=enabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave Checked, % Section%FoundSection%_key%A_index%
+    }
+    ELSE IF value=disabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave, % Section%FoundSection%_key%A_index%
+    }
+  }
+  GroupBox(GB, "", GBTHeight, 10, gbvars, 335, "")
+}
 
-;Create tabs labeled General, Import Options, and Paths
-Gui, Add, Tab,, General|Import Options|Paths
-IF option1=enabled
-	{
-	Gui, Add, Checkbox, vrom_renamer gSave Checked, Rename ROMs During Steam Import
-	}
-ELSE IF option1=disabled
-	{
-	Gui, Add, Checkbox, vrom_renamer gSave, Rename ROMs During Steam Import
-	}
-IF option2=enabled
-	{
-	Gui, Add, Checkbox, vlaunch_steamconsole_on_startup gSave Checked, Launch SteamConsole On Windows Startup
-	}
-ELSE IF option2=disabled
-	{
-	Gui, Add, Checkbox, vlaunch_steamconsole_on_startup gSave, Launch SteamConsole On Windows Startup
-	}
+;2nd Tab - Import Options
+;========================
+inifile = .\Config\launchers_apps.ini
+INI_Init(".\Config\launchers_apps.ini")
+Gui, Tab, Launchers/Apps
+Gui, Add, Text, xm y33 cwhite, List Of PC Apps To Import To Steam`n(Re-run the "ROM Importer" desktop shortcut to apply changes)
+I := 0
+;GB = GB10
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  GB := ++
+  gbvars =
+  Gui, Font, Underline
+  Gui, Add, Text, w200 h13 cwhite, %section%
+  Gui, Font,,
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If (gbvars = "")
+    {
+      gbvars = %section%_checkbox%A_index%
+    } else {
+      gbvars = %gbvars%|%section%_checkbox%A_index%
+    }
+    ;Msgbox, gbvars=%gbvars%
+    ;ListVars
+    ;Msgbox, value=%value% option=%option%
+    IF value=enabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave2 Checked, % Section%FoundSection%_key%A_index%
+    }
+    ELSE IF value=disabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave2, % Section%FoundSection%_key%A_index%
+    }
+  }
+  GroupBox(GB, "", GBTHeight, 10, gbvars, 335, "")
+}
 
-Gui, Tab, Import Options
-Gui, Add, Text,, Check boxes to enable import into Steam
-Gui, Add, Checkbox, vimport_apps1, Test checkbox 1
-Gui, Add, GroupBox,xp+4, Apps
-Gui, Add, Checkbox, vimport_apps2, Test checkbox 2
+;3rd Tab - Paths
+;===============
+inifile = .\Config\pc_games.ini
+INI_Init(".\Config\pc_games.ini")
+Gui, Tab, PC Games
+Gui, Add, Text, xm y33 cwhite, List Of PC Games To Import To Steam`n(Re-run the "ROM Importer" desktop shortcut to apply changes)
+I := 0
+;GB = GB10
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  GB := ++
+  gbvars =
+  Gui, Font, Underline
+  Gui, Add, Text, w200 h13 cwhite, %section%
+  Gui, Font,,
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If (gbvars = "")
+    {
+      gbvars = %section%_checkbox%A_index%
+    } else {
+      gbvars = %gbvars%|%section%_checkbox%A_index%
+    }
+    ;Msgbox, gbvars=%gbvars%
+    ;ListVars
+    ;Msgbox, value=%value% option=%option%
+    IF value=enabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave3 Checked, % Section%FoundSection%_key%A_index%
+    }
+    ELSE IF value=disabled
+    {
+      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave3, % Section%FoundSection%_key%A_index%
+    }
+  }
+  GroupBox(GB, "", GBTHeight, 10, gbvars, 335, "")
+}
 
-Gui, Tab, Paths
-Gui, Add, Checkbox, vpath1, Test Path 1
-Gui, Add, Checkbox, vpath2, Test Path 2
-Gui, Show,,
+; Create ScrollGUI1 with both horizontal and vertical scrollbars and scrolling by mouse wheel
+Global SG1 := New ScrollGUI(HGUI, 455, 500, "+Resize +LabelGui1", 2, 2)
+; Show ScrollGUI1
+SG1.Show("SteamConsole Settings Editor", "ycenter xcenter")
+Gui, Show
 return
 
 Save:
 Gui, Submit, NoHide
-;Msgbox, rom_renamer = %rom_renamer%`nlaunch_steamconsole_on_startup = %launch_steamconsole_on_startup%
-IF rom_renamer=0
-	{
-	IniWrite, disabled, general_settings.ini, General, Rename ROMs During Steam Import ;"rom_renamer" is what it searches for in the ini. "disabled" is what it changes the value of "rom_renamer" to.
-	}
-IF rom_renamer=1
-	{
-	IniWrite, enabled, general_settings.ini, General, Rename ROMs During Steam Import ;"rom_renamer" is what it searches for in the ini. "enabled" is what it changes the value of "rom_renamer" to.
-	}
-IF launch_steamconsole_on_startup=0
-	{
-	IniWrite, disabled, general_settings.ini, General, launch_steamconsole_on_startup
-	}
-IF launch_steamconsole_on_startup=1
-	{
-	IniWrite, enabled, general_settings.ini, General, launch_steamconsole_on_startup
-	}
+inifile = .\Config\general_settings.ini
+INI_Init(".\Config\general_settings.ini")
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := %section%_val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If %section%_checkbox%A_index%=1
+    {
+      IniWrite, enabled, %inifile%, %section%, %option%
+    }
+    If %section%_checkbox%A_index%=0
+    {
+      IniWrite, disabled, %inifile%, %section%, %option%
+    }
+  }
+}
 return
 
-F1::
-GuiControlGet, rom_renamer
-GuiControlGet, launch_steamconsole_on_startup
-Msgbox, By using GuiControlGet`nrom_renamer = %rom_renamer%`nlaunch_steamconsole_on_startup = %launch_steamconsole_on_startup%
+Save2:
+Gui, Submit, NoHide
+inifile = .\Config\launchers_apps.ini
+INI_Init(".\Config\launchers_apps.ini")
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := %section%_val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If %section%_checkbox%A_index%=1
+    {
+      IniWrite, enabled, %inifile%, %section%, %option%
+      FileMove, .\Emulators\ROMS\%section%\%option%.bat.example, .\Emulators\ROMS\%section%\%option%.bat, 1
+    }
+    If %section%_checkbox%A_index%=0
+    {
+      IniWrite, disabled, %inifile%, %section%, %option%
+      FileMove, .\Emulators\ROMS\%section%\%option%.bat, .\Emulators\ROMS\%section%\%option%.bat.example, 1
+    }
+  }
+}
 return
 
+Save3:
+Gui, Submit, NoHide
+inifile = .\Config\pc_games.ini
+INI_Init(".\Config\pc_games.ini")
+Loop, %inisections%
+{
+  FoundSection := A_index
+  section := Section%A_index%
+  numberOfKeys%A_index% := Section%A_index%_keys
+  loop, % numberOfKeys%A_index%
+  {
+    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+    value := %section%_val%A_index%
+    option := Section%FoundSection%_key%A_index%
+    If %section%_checkbox%A_index%=1
+    {
+      IniWrite, enabled, %inifile%, %section%, %option%
+      FileMove, .\Emulators\ROMS\%section%\%option%.bat.example, .\Emulators\ROMS\%section%\%option%.bat, 1
+    }
+    If %section%_checkbox%A_index%=0
+    {
+      IniWrite, disabled, %inifile%, %section%, %option%
+      FileMove, .\Emulators\ROMS\%section%\%option%.bat, .\Emulators\ROMS\%section%\%option%.bat.example, 1
+    }
+  }
+}
+return
+
+;=======
+;hotkeys
+;=======
 ESC::
-GuiClose:
 ExitApp
+
+Gui1Close:
+Gui1Escape:
+ExitApp
+
+Gui1Size:
+Return
+
+Gui2Size:
+Return
+
+Gui2Close:
+Gui2Escape:
+   SG2 := ""
+Return

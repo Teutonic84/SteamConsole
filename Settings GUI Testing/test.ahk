@@ -1,14 +1,34 @@
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+;#Warn  ; Enable warnings to assist with detecting common errors.
+#Include .\Includes\Class_GroupBox.ahk
+SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
+SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+SetBatchLines, -1
 
-;Gui, Tab, General Settings
-Gui, Add, Tab, x2 y-1 w480 h380 , General Settings|Import Options|Paths
-Gui, Tab, General Settings
-Gui, Add, CheckBox, x12 y29 w190 h20 , Rename ROMs During Steam Import
-Gui, Add, CheckBox, x12 y49 w210 h20 , Run SteamConsole At Windows Startup
-Gui, Tab, Import Options
-Gui, Add, GroupBox, x12 y59 w450 h200 , Apps
-Gui, Add, CheckBox, x22 y79 w110 h20 , AMC
-Gui, Add, Text, x12 y29 w250 h20 +Center, Checking a box enables it to be imported into steam
-Gui, Add, CheckBox, x22 y99 w110 h20 , Plex
-; Generated using SmartGUI Creator 4.0
-Gui, Show, x127 y87 h379 w479, 
+Loop, 6
+{
+  If (testvar = "")
+  {
+    testvar = test%A_index%
+  } else {
+    testvar = %testvar%|test%A_index%
+  }
+}
+GB = GB1
 
+GBTHeight:=10
+Gui, +LastFound
+Gui, Add, Text, vtest1, A Label
+Gui, Add, Text, x162 yMargin vtest2, Nother Label
+Gui, Add, Edit, Section vtest3 xMargin, This is a Control
+Gui, Add, Edit, vtest4 ys x162, This is a Control
+Gui, Add, CheckBox, Section vtest5 xMargin, CheckBox 1
+Gui, Add, CheckBox, vtest6 ys x160, CheckBox 2
+GroupBox(%GB%, "Testing", GBTHeight, 10, testvar)
+
+Gui, Show, , GroupBox Test
+
+return
+
+GuiClose:
+ExitApp
