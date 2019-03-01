@@ -10,13 +10,14 @@
 ; ^ = Left Control Key
 ; ! = Left Alt Key
 
-#SingleInstance Force 
-#InstallKeybdHook 
-#InstallMouseHook 
+#SingleInstance Force
+#InstallKeybdHook
+#InstallMouseHook
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Recommended for catching common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+Menu, Tray, Icon, ..\Images\SteamConsole.ico
 
 flag1=0
 X := A_ScreenWidth
@@ -25,11 +26,11 @@ Y := A_ScreenHeight
 Gui, -Caption -DPIScale +AlwaysOnTop +ToolWindow
 ;Gui, show, center w%A_screenwidth% h%A_screenheight%, Center Test
 Gui,Color,262626
-;Gui +LastFound  
-WinSet, TransColor, EEAA99 
-WinSet AlwaysOnTop 
-Gui, -Caption 
-Gui, Margin, 0, 0 
+;Gui +LastFound
+WinSet, TransColor, EEAA99
+WinSet AlwaysOnTop
+Gui, -Caption
+Gui, Margin, 0, 0
 Gui, add, picture, gdragger x0 y0 w1280 h-1 vPIC gCentre backgroundtrans, %A_ScriptDir%\Controller Maps\Controller Map.JPG
 
 ^!1::
@@ -65,9 +66,9 @@ Run,"C:\Program Files (x86)\Steam\Steam.exe" -bigpicture
 return
 
 ^!6::
-DetectHiddenWindows, Off	
+DetectHiddenWindows, Off
 Process, Exist, FreeVK.exe
-status = %ErrorLevel% 
+status = %ErrorLevel%
 if status = 0
 {
 	Run FreeVK.exe
@@ -90,10 +91,10 @@ Return
 	{
 		Gui, Hide
 		flag1=0
-		return    ; and has not been cleared by and "up" 
+		return    ; and has not been cleared by and "up"
 					; ignore the keystroke and return without updating the image
 	}
-	
+
 	Centre:
 	flag1=1
 	Gui, Show, center w%A_screenwidth% h%A_screenheight%
@@ -103,19 +104,19 @@ Return
 	offY :=  (Y/2) - (PICH /2)
 	guicontrol, move, PIC, x%offX%, y%offY%
 	WinSet, Transparent, 245, A
-	
+
 Return
 
 ;^!7 up::
-	;flag1=0  ; since we are in an "up" clear the flag 
+	;flag1=0  ; since we are in an "up" clear the flag
 	;Gui, Hide
-;Return 
+;Return
 
 ;  How to enable Drag for a GUI without a Titlebar ?
 ;   http://www.autohotkey.com/forum/viewtopic.php?p=64185#64185
 dragger:
- PostMessage, 0xA1, 2,,, A 
+ PostMessage, 0xA1, 2,,, A
 return
 
-GuiClose: 
+GuiClose:
 ExitApp
