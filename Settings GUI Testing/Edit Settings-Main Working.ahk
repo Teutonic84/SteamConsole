@@ -7,12 +7,13 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 SetBatchLines, -1
 GBTHeight:=5
+Menu, Tray, Icon, .\Images\General_Settings.ico
 
 ;1st Tab - General Settings
 ;==========================
 ;Main Window GUI
 Gui, New, +hwndHGUI +Resize
-Gui, Color, 0f6970 ;Teal-18afa0, Grey-535e70, BluishTeal-0f6970
+Gui, Color, 14141f ;Teal-18afa0, Grey-535e70, BluishTeal-0f6970, Dark Grey-0a0a10
 Gui, Margin, 58, 5
 I := 0
 inifile = .\Config\general_settings.ini
@@ -27,30 +28,53 @@ Loop, %inisections%
   ;GB := "GB"++1
   GB := ++
   gbvars =
+  gbvars2 =
   Gui, Font, Underline
   Gui, Add, Text, w200 h13 cwhite, %section%
   Gui, Font,,
-  loop, % numberOfKeys%A_index%
+  IF section=Default_Browser
   {
-    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
-    value := %section%_val%A_index%
-    option := Section%FoundSection%_key%A_index%
-    If (gbvars = "")
+    loop, % numberOfKeys%A_index%
     {
-      gbvars = %section%_checkbox%A_index%
-    } else {
-      gbvars = %gbvars%|%section%_checkbox%A_index%
+      IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+      value := %section%_val%A_index%
+      option := Section%FoundSection%_key%A_index%
+      If (gbvars2 = "")
+      {
+        gbvars2 = Browser%A_index%
+      } else {
+        gbvars2 = %gbvars2%|Browser%A_index%
+      }
+      IF value=enabled
+      {
+        Gui, Add, Radio, cwhite vBrowser%A_index% gsave Checked, %option%
+      } Else {
+        Gui, Add, Radio, cwhite vBrowser%A_index% gsave, %option%
+      }
     }
-    IF value=enabled
+    GroupBox(GB, "", GBTHeight, 10, gbvars2, 335, "")
+  } Else {
+    loop, % numberOfKeys%A_index%
     {
-      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave Checked, % Section%FoundSection%_key%A_index%
+      IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+      value := %section%_val%A_index%
+      option := Section%FoundSection%_key%A_index%
+      If (gbvars = "")
+      {
+        gbvars = %section%_checkbox%A_index%
+      } else {
+        gbvars = %gbvars%|%section%_checkbox%A_index%
+      }
+      IF value=enabled
+      {
+        Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave Checked, % Section%FoundSection%_key%A_index%
+      } ELSE IF value=disabled
+      {
+        Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave, % Section%FoundSection%_key%A_index%
+      }
     }
-    ELSE IF value=disabled
-    {
-      Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave, % Section%FoundSection%_key%A_index%
-    }
+    GroupBox(GB, "", GBTHeight, 10, gbvars, 335, "")
   }
-  GroupBox(GB, "", GBTHeight, 10, gbvars, 335, "")
 }
 
 ;2nd Tab - Import Options
@@ -157,18 +181,34 @@ Loop, %inisections%
   FoundSection := A_index
   section := Section%A_index%
   numberOfKeys%A_index% := Section%A_index%_keys
-  loop, % numberOfKeys%A_index%
+  IF section=Default_Browser
   {
-    IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
-    value := %section%_val%A_index%
-    option := Section%FoundSection%_key%A_index%
-    If %section%_checkbox%A_index%=1
+    loop, % numberOfKeys%A_index%
     {
-      IniWrite, enabled, %inifile%, %section%, %option%
+      IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+      value := %section%_val%A_index%
+      option := Section%FoundSection%_key%A_index%
+      If Browser%A_index%=1
+      {
+        IniWrite, enabled, %inifile%, %section%, %option%
+      } Else {
+        IniWrite, disabled, %inifile%, %section%, %option%
+      }
     }
-    If %section%_checkbox%A_index%=0
+  } Else {
+    loop, % numberOfKeys%A_index%
     {
-      IniWrite, disabled, %inifile%, %section%, %option%
+      IniRead, %section%_val%A_index%, %inifile%, %section%, % Section%FoundSection%_key%A_index%, %A_Space%
+      value := %section%_val%A_index%
+      option := Section%FoundSection%_key%A_index%
+      If %section%_checkbox%A_index%=1
+      {
+        IniWrite, enabled, %inifile%, %section%, %option%
+      }
+      If %section%_checkbox%A_index%=0
+      {
+        IniWrite, disabled, %inifile%, %section%, %option%
+      }
     }
   }
 }
