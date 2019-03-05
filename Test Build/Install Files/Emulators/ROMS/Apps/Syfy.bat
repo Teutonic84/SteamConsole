@@ -1,25 +1,22 @@
 ECHO off
-
 cd "%~dp0%"
-cd ..\..\..
-SET "dirpath=%cd%"
-SET "key=HKLM\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"
+SET "dirpath=%~1"
+SET "browser=%~2"
+SET "instloc=%~3"
+SET "exefile=%~4"
+SET "weblink=https://www.syfy.com"
 
-TASKKILL /im "Custom Hotkeys.exe"
-COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Chrome.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
-START "" "%dirpath%\Tools\Custom Hotkeys.exe"
+IF "%browser%"=="Mozilla Firefox" (
+  "%instloc%\%exefile%" "%weblink%"
+  PING localhost -n 2 >NUL
+  cscript /nologo "%dirpath%\Scripts\fullscreen.vbs"
+)
+IF "%browser%"=="Google Chrome" "%instloc%\%exefile%" --kiosk "%weblnk%"
 
-:app_path
-FOR /f "skip=1 tokens=*" %%a IN ('Reg query "%key%" /s /f "Google Chrome"') DO if not defined line set "line=%%a" 2>NUL 1>NUL
-FOR /f "tokens=* delims= " %%c IN ('Reg query "%line%" /v InstallLocation') DO set "instloc=%%c" 2>NUL 1>NUL
-SET instloc=%instloc:InstallLocation    REG_SZ    =%
-SET instloc=%instloc:"=%
-
-"%instloc%\chrome.exe" --kiosk "https://www.syfy.com"
-
-TASKKILL /im "Custom Hotkeys.exe"
-COPY /y "%dirpath%\Tools\Controller Maps\Controller Map - Steam.JPG" "%dirpath%\Tools\Controller Maps\Controller Map.JPG"
-START "" "%dirpath%\Tools\Custom Hotkeys.exe"
+:check
+PING localhost -n 2 2>NUL 1>NUL
+TASKLIST /FI "IMAGENAME eq %exefile%" 2>NUL | FIND /I /N "%exefile%">NUL
+IF "%ERRORLEVEL%"=="0" GOTO check
 
 :end
 EXIT
