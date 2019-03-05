@@ -6,7 +6,7 @@ SET "dirpath=%CD%"
 CD "%dirpath%\Tools\Ice"
 
 :CHECK_CONFIG_FILE
-FOR /f "tokens=2 delims==" %%a IN ('TYPE "%dirpath%\config\general_settings.ini" ^| FIND "rom_renamer"') DO SET "rom_renamer=%%a"
+FOR /f "tokens=2 delims==" %%a IN ('TYPE "%dirpath%\config\general_settings.ini" ^| FIND "Rename ROMs During Steam Import"') DO SET "rom_renamer=%%a"
 
 TASKLIST /FI "IMAGENAME eq steam.exe" 2>NUL | FIND /I /N "steam.exe">NUL
 IF "%ERRORLEVEL%"=="0" TASKKILL /f /im steam.exe
