@@ -10,7 +10,7 @@ ECHO.
 ECHO Copying Test Build folder to new location before building...
 PING localhost -n 5 >NUL
 ROBOCOPY "..\Test Build" "%bpath%\SteamConsole\Test Build" /E
-COPY /y ".\SteamConsole_uninstaller.exe" "%bpath%\SteamConsole\Test Build"
+::COPY /y ".\SteamConsole_uninstaller.exe" "%bpath%\SteamConsole\Test Build"
 ECHO Done
 ECHO.
 PING localhost -n 5 >NUL

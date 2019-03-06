@@ -341,8 +341,6 @@ Section "Uninstall" # create a section to define what the uninstaller does.
 yes:
 	KillProcDLL::KillProc "antimicro.exe"
 	KillProcDLL::KillProc "Custom Hotkeys.exe"
-	SetOutPath "$INSTDIR\Scripts"
-	#ExecDos::exec /NOUNLOAD /TOSTACK "$INSTDIR\Scripts\killprocess.bat" "" ""
 	MessageBox MB_YESNO "Would you like to keep your ROMs & Save files? If yes, your ROMs and save files will be moved to a folder in ..\SteamConsole\Emulators labeled BACKUP. If no, your ROMs and save files will be permanently deleted." IDYES yes3 IDNO no3
 
 no:
@@ -370,6 +368,7 @@ no4:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
+	Delete "$INSTDIR\SteamConsole Settings-Alpha_v0.4.exe"
 	Delete "$INSTDIR\Changelog.rtf"
 	Delete "$INSTDIR\License.rtf"
 	Delete "$INSTDIR\README.txt"
@@ -385,7 +384,6 @@ no4:
 	RMDir /r "$INSTDIR\Tools"
 	RMDir /r "$INSTDIR\Voice Control"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
-	#DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
 	DetailPrint ""
 	DetailPrint ""
@@ -413,12 +411,7 @@ no5:
 	Delete "$DESKTOP\ROM Importer.lnk"
 	Delete "$DESKTOP\Update SteamConsole.lnk"
 	RMDir /r "$INSTDIR" # now delete installed files
-	#RMDir /r "$INSTDIR\Emulators\Gamecube"
-	#RMDir /r "$INSTDIR\Emulators\PS1"
-	#RMDir /r "$INSTDIR\Emulators\PS2"
-	#RMDir /r "$INSTDIR\Emulators\RetroArch"
 	RMDir /r "$SMPROGRAMS\SteamConsole" # remove the link from the start menu
-	#DeleteRegValue HKLM "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" "$INSTDIR\Tools\Xpadder\Xpadder.exe"
 	DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\SteamConsole"
 	DetailPrint ""
 	DetailPrint ""
