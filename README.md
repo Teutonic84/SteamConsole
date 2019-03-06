@@ -7,7 +7,9 @@ Steamconsole uses Steam as a frontend, with some third party tools, to get your 
 * Place any ROMS you have in "..\SteamConsole\Emulators\ROMS\PLATFORM" where "PLATFORM" is the game system (IE: NES, SNES, GBA).
 
 * Run the "ROM Importer" to import games to steam or apply changes if you have added or removed ROMS/Games/Grid Images
-   NOTE: The ROM Importer is set by default to rename ROM files before it imports to steam. It removes any extra characters like "-" or "(USA)" in the names. You can disable this option in the Steamconsole Settings application. 
+
+   * NOTE: The ROM Importer is set by default to rename ROM files before it imports to steam. It removes any extra characters like "-" or "(USA)" in the names. You can disable this option in the Steamconsole Settings application.
+   * WARNING: The ROM Importer will delete your steam shortcuts.vdf file everytime it runs. This will delete any custom steam shortcuts you have added. This is due to the steam import tool "ICE" not being updated to use the new version of "shortcuts.vdf". ICE is no longer developed, so i'll have to wait until someone decides to either fork it or post an updated version to fix this. If you're thinking "why doesn't he just use Steam ROM Manager?". Well I would, but unfortunately there are no command line switches currently with it, so it isn't able to automate the steam importing. It requires you to open up the application, configure it, and run it through the GUI. SteamConsole is able to run ICE automatically through the command line to automate the process by using config files.
    
 * If a grid image isn't found for a ROM, make sure you have the ROM name the exact same as the jpg file located in "..\SteamConsole\Images\Steam_Grid_Images\PLATFORM".
 
