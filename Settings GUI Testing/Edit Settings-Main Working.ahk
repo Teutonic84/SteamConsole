@@ -19,7 +19,7 @@ I := 0
 inifile = .\Config\general_settings.ini
 INI_Init(".\Config\general_settings.ini")
 Gui, Add, Tab, w455 h950 xs cwhite, General|Launchers/Apps|PC Games
-Gui, Add, Text, xm y33 cwhite, General Options For SteamConsole
+Gui, Add, Text, xm y33 cwhite, General Options For SteamConsole`n`n`NOTE: Win10 users, you must run this app as admin to enable launch`n`            at windows startup
 Loop, %inisections%
 {
   FoundSection := A_index
@@ -67,9 +67,23 @@ Loop, %inisections%
       }
       IF value=enabled
       {
+        If (option = "Launch Steamconsole On Windows Startup")
+        {
+          IfNotExist, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          {
+            FileCopy, .\Steam Launch.lnk, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\
+          }
+        }
         Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave Checked, % Section%FoundSection%_key%A_index%
       } ELSE IF value=disabled
       {
+        If (option = "Launch Steamconsole On Windows Startup")
+        {
+          IfExist, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          {
+            FileDelete, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          }
+        }
         Gui, Add, Checkbox, cwhite v%section%_checkbox%A_index% gSave, % Section%FoundSection%_key%A_index%
       }
     }
@@ -203,10 +217,24 @@ Loop, %inisections%
       option := Section%FoundSection%_key%A_index%
       If %section%_checkbox%A_index%=1
       {
+        If (option = "Launch Steamconsole On Windows Startup")
+        {
+          IfNotExist, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          {
+            FileCopy, .\Steam Launch.lnk, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\
+          }
+        }
         IniWrite, enabled, %inifile%, %section%, %option%
       }
       If %section%_checkbox%A_index%=0
       {
+        If (option = "Launch Steamconsole On Windows Startup")
+        {
+          IfExist, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          {
+            FileDelete, C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Steam Launch.lnk
+          }
+        }
         IniWrite, disabled, %inifile%, %section%, %option%
       }
     }
