@@ -369,7 +369,7 @@ no4:
 	SetOutPath $INSTDIR
 	Delete "$INSTDIR\SteamConsole_uninstaller.exe" # Always delete uninstaller first
 	SetShellVarContext all
-	Delete "$INSTDIR\SteamConsole Settings-Alpha_v0.4.exe"
+	Delete "$INSTDIR\SteamConsole Settings.exe"
 	Delete "$INSTDIR\Changelog.rtf"
 	Delete "$INSTDIR\License.rtf"
 	Delete "$INSTDIR\README.txt"
