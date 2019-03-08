@@ -19,7 +19,7 @@ I := 0
 inifile = .\Config\general_settings.ini
 INI_Init(".\Config\general_settings.ini")
 Gui, Add, Tab, w455 h950 xs cwhite, General|Launchers/Apps|PC Games
-Gui, Add, Text, xm y33 cwhite, General Options For SteamConsole`n`n`NOTE: Win10 users, you must run this app as admin to enable launch`n`            at windows startup
+Gui, Add, Text, xm y33 cwhite, General Options For SteamConsole
 Loop, %inisections%
 {
   FoundSection := A_index
