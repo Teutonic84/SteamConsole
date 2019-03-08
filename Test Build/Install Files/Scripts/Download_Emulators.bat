@@ -28,11 +28,53 @@ IF NOT EXIST "files" (MKDIR files)
 			GOTO download
 
 	:yesterday
-		::cls
+		cls
 		ECHO Couldn't Download Today's Nightly Build %datef%. Trying Yesterday's...
 		SET day=%date:~7,2%
-		SET /a day=%day%-1
-		SET datef=%date:~-4%-%date:~4,2%-%day%
+		SET day1st_digit=%day:~0,-1%
+		SET day2nd_digit=%day:~-1%
+		SET month=%date:~4,2%
+		SET month1st_digit=%month:~0,1%
+		SET month2nd_digit=%month:~1,1%
+		SET year=%date:~-4%
+		SET year3rd_digit=%date:~-2,1%
+		SET year4th_digit=%date:~-1,1%
+		
+		IF NOT "%day1st_digit%"=="0" (
+			IF NOT "%day2nd_digit%"=="0" (
+				SET /a day=%day%-1
+			)
+		)
+		IF "%day1st_digit%"=="0" (
+			SETLOCAL ENABLEDELAYEDEXPANSION
+			SET /a day2nd_digit=!day2nd_digit!-1
+			SET day=%day1st_digit%!day2nd_digit!
+			IF "!day2nd_digit!"=="0" (
+				SET day2nd_digit=8
+				SET day=28
+				IF "%month%"=="01" (
+					SET month=12
+					SET /a year=%year%-1
+				)
+				IF NOT "%month%"=="01" (
+					IF "%month1st_digit%"=="0" (
+						SET /a month2nd_digit=%month2nd_digit%-1
+						SET month=%month1st_digit%!month2nd_digit!
+					) ELSE (
+						SET /a month=%date:~4,2%-1
+					)
+					IF "%month2nd_digit%"=="0" (
+						SET month=09
+					)
+				)
+			)
+		)
+		IF "%day2nd_digit%"=="0" (
+			SETLOCAL ENABLEDELAYEDEXPANSION
+			SET /a day1st_digit=!day1st_digit!-1
+			SET day=!day1st_digit!9
+		)
+		SET datef=%year%-%month%-%day%
 
 		::Download RetroArch Program Package:
 		::==================================
@@ -52,6 +94,7 @@ IF NOT EXIST "files" (MKDIR files)
 			ECHO Replacing old files with new ones...
 				ROBOCOPY files\RetroArch ..\..\Emulators\RetroArch\ /E /XO /MOVE 2>NUL 1>NUL
 				SET "retroarch=RetroArch updated to %datef%..."
+				ECHO %datef%>date.txt
 		)
 		::cls
 
@@ -260,5 +303,6 @@ IF NOT EXIST "files" (MKDIR files)
 	ECHO.
 
 :end
+ENDLOCAL
 pause
 EXIT
