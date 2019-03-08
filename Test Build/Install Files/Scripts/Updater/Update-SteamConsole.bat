@@ -543,4 +543,5 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	GOTO end
 
 :end
+ENDLOCAL
 EXIT
