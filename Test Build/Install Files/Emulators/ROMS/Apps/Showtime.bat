@@ -11,7 +11,7 @@ IF "%browser%"=="Mozilla Firefox" (
   PING localhost -n 2 >NUL
   cscript /nologo "%dirpath%\Scripts\fullscreen.vbs"
 )
-IF "%browser%"=="Google Chrome" "%instloc%\%exefile%" --kiosk "%weblnk%"
+IF "%browser%"=="Google Chrome" "%instloc%\%exefile%" --kiosk "%weblink%"
 
 :check
 PING localhost -n 2 2>NUL 1>NUL
