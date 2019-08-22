@@ -90,7 +90,6 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 	cls
 	ECHO Downloading SteamConsole Updater v%newversionup% files...
 		wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate "https://github.com/Teutonic84/SteamConsole/releases/download/%newversionsc%/Updater_v%newversionup%.7z" 2>NUL 1>NUL
-		::wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/Updater_v%newversionup%.7z" 2>NUL 1>NUL
 		cls
 	ECHO Extracting SteamConsole Updater v%newversionup% files...
 		7zG x -y -o"files\Updater_v%newversionup%" Updater_v%newversionup%.7z
@@ -136,7 +135,6 @@ TASKKILL /f /im "Steam.exe" 2>NUL 1>NUL
 
 	ECHO Downloading SteamConsole %newversionsc% files...
 		wget -N --no-parent --tries=3 --html-extension --secure-protocol=auto --no-check-certificate "https://github.com/Teutonic84/SteamConsole/releases/download/v%newversionsc%/SteamConsole_Update_Only_v%newversionsc%_x64.7z" 2>NUL 1>NUL
-		::wget --tries=3 --ftp-user=public --ftp-password="[anthakth15" --no-check-certificate --secure-protocol=auto "ftp://haackerit.duckdns.org/SteamConsole_%newversionsc%_x64.7z" 2>NUL 1>NUL
 		cls
 	ECHO Extracting SteamConsole %newversionsc% files...
 		7zG x -y -o"files\SteamConsole_%newversionsc%_x64" SteamConsole_Update_Only_v%newversionsc%_x64.7z
